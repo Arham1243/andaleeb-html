@@ -12,6 +12,10 @@
   --heading-color: #2f2f2f;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -392,9 +396,8 @@ i.bx {
 /* newsletter */
 
 /* category-card */
-.categories--padd{
+.categories--padd {
   padding: 4rem 0;
-
 }
 .category-card {
   background: #fff;
@@ -1357,20 +1360,20 @@ i.bx {
 .sidebar-btns-wrapper .themeBtn {
   font-size: 13px;
   color: #fff;
-  
+
   /* 1. Translucent Background (White with low opacity) */
-  background: rgba(255, 255, 255, 0.2); 
-  
+  background: rgba(255, 255, 255, 0.2);
+
   /* 2. The Blur Effect (The magic part) */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* For Safari support */
-  
+
   /* 3. Glass Edge / Border */
   border: 1px solid rgba(255, 255, 255, 0.3);
-  
+
   /* Optional: Soft shadow to lift it off the background */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  
+
   /* Smooth transition for hover effects */
   transition: all 0.3s ease;
 }
