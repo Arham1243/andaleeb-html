@@ -1354,7 +1354,7 @@ i.bx {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1.6rem;
 }
 
 .sidebar-btns-wrapper .themeBtn {
@@ -1362,6 +1362,7 @@ i.bx {
   color: #fff;
 
   /* 1. Translucent Background (White with low opacity) */
+  padding: 9px 20px;
   background: rgba(255, 255, 255, 0.2);
 
   /* 2. The Blur Effect (The magic part) */
