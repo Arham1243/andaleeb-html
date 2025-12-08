@@ -82,6 +82,7 @@ $(document).ready(function () {
         settings: {
           centerMode: false,
           centerPadding: "0px",
+          autoplaySpeed: 3500,
         },
       },
     ],
