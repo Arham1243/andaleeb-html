@@ -21,6 +21,11 @@
         </div>
     </div>
 
+    @include('frontend.vue.main', [
+        'appId' => 'global-search',
+        'appComponent' => 'global-search',
+        'appJs' => 'global-search',
+    ])
 
     <section class="categories categories--padd">
         <div class="container">
