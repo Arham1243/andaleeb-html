@@ -874,7 +874,7 @@ i.bx {
   z-index: 10;
   width: 40px;
   height: 40px;
-  background: #fff;
+  background: var(--color-primary);
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -886,7 +886,7 @@ i.bx {
 }
 .travel-stories-pro .slick-prev:before,
 .travel-stories-pro .slick-next:before {
-  color: #111;
+  color: #fff;
   font-size: 20px;
   opacity: 1;
 }

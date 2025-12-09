@@ -681,7 +681,6 @@
             </div>
 
             <div class="ts-main-slider">
-
                 <div class="ts-slide-item">
                     <div class="row g-4">
                         <div class="col-lg-6">
@@ -701,25 +700,25 @@
                         <div class="col-lg-6">
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
-                                    <div class="ts-side-img-box">
+                                    <a href="#" class="ts-side-img-box">
                                         <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
                                             alt="Bali Food">
-                                    </div>
+                                    </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culinary</span>
-                                        <h5 class="ts-side-title line-clamp-2">Best street food in Bali (Hidden Gems)</h5>
+                                        <a href="#" class="ts-side-title line-clamp-2">Best street food in Bali (Hidden Gems)</a>
                                         <p class="ts-side-desc line-clamp-1">From spicy Sambal to sweet Dadar Gulung.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>
                                     </div>
                                 </article>
                                 <article class="ts-side-card">
-                                    <div class="ts-side-img-box">
+                                    <a href="#" class="ts-side-img-box">
                                         <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
                                             alt="Paris">
-                                    </div>
+                                    </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">City Guide</span>
-                                        <h5 class="ts-side-title line-clamp-2">Paris on a Budget: Luxury for less</h5>
+                                        <a href="#" class="ts-side-title line-clamp-2">Paris on a Budget: Luxury for less</a>
                                         <p class="ts-side-desc line-clamp-1">Enjoy the City of Lights without breaking the
                                             bank.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>
@@ -749,26 +748,26 @@
                         <div class="col-lg-6">
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
-                                    <div class="ts-side-img-box">
+                                    <a href="#" class="ts-side-img-box">
                                         <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
                                             alt="Kyoto">
-                                    </div>
+                                    </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culture</span>
-                                        <h5 class="ts-side-title line-clamp-2">Kyoto in Bloom: A Cherry Blossom Guide</h5>
+                                        <a href="#" class="ts-side-title line-clamp-2">Kyoto in Bloom: A Cherry Blossom Guide</a>
                                         <p class="ts-side-desc line-clamp-1">The best spots to see Sakura away from the
                                             crowds.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>
                                     </div>
                                 </article>
                                 <article class="ts-side-card">
-                                    <div class="ts-side-img-box">
+                                    <a href="#" class="ts-side-img-box">
                                         <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
                                             alt="Tokyo">
-                                    </div>
+                                    </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Tech & Travel</span>
-                                        <h5 class="ts-side-title line-clamp-2">Tokyo Future: The Neon Nights</h5>
+                                        <a href="#" class="ts-side-title line-clamp-2">Tokyo Future: The Neon Nights</a>
                                         <p class="ts-side-desc line-clamp-1">Exploring the electronic district of
                                             Akihabara.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>

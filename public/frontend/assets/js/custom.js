@@ -27,7 +27,7 @@ $(document).ready(function () {
         slidesToScroll: 1,
         arrows: true,
         autoplay: false,
-        autoplaySpeed: 4000,
+        autoplaySpeed: 2000,
         fade: true,
         cssEase: "linear",
     });
