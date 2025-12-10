@@ -163,9 +163,8 @@
                                         <div class="search-box">
                                             <div class="search-box__label">Departure</div>
                                             <input readonly autocomplete="off" type="text"
-                                                class="search-box__input" name="departure" ref="departureDate"
-                                                placeholder="Departure on" id="departure-input"
-                                                style="cursor:pointer;">
+                                                class="search-box__input cursor-pointer"  name="departure" ref="departureDate"
+                                                placeholder="Departure on" id="departure-input">
                                             <div class="search-box__label" id='departure-day'>&nbsp;</div>
                                         </div>
                                     </div>
@@ -174,9 +173,9 @@
                                     <div class="search-box-wrapper" id="return-box">
                                         <div class="search-box">
                                             <div class="search-box__label">Return</div>
-                                            <input type="text" autocomplete="off" class="search-box__input"
+                                            <input type="text" autocomplete="off" class="search-box__input cursor-pointer"
                                                 placeholder="Return on" ref="returnDate" name="return"
-                                                id="return-input" style="cursor:pointer;">
+                                                id="return-input" >
                                             <div class="search-box__label" id='return-day'>&nbsp;</div>
                                         </div>
                                     </div>
@@ -185,8 +184,8 @@
                                     <div class="pax-wrapper" ref="paxRef">
                                         <div class="search-box" @click.stop="togglePax">
                                             <div class="search-box__label">Travellers</div>
-                                            <input readonly type="text" class="search-box__input"
-                                                :value="totalTravellerText" style="cursor:pointer;">
+                                            <input readonly type="text" class="search-box__input cursor-pointer"
+                                                :value="totalTravellerText" >
                                             <div class="search-box__label">
                                                 @{{ [
     pax.adults > 0 ? pax.adults + ' Adt' : '',
