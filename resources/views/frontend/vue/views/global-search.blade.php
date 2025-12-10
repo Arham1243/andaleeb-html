@@ -163,8 +163,8 @@
                                         <div class="search-box">
                                             <div class="search-box__label">Departure</div>
                                             <input readonly autocomplete="off" type="text"
-                                                class="search-box__input cursor-pointer"  name="departure" ref="departureDate"
-                                                placeholder="Departure on" id="departure-input">
+                                                class="search-box__input cursor-pointer" name="departure"
+                                                ref="departureDate" placeholder="Departure on" id="departure-input">
                                             <div class="search-box__label" id='departure-day'>&nbsp;</div>
                                         </div>
                                     </div>
@@ -173,9 +173,9 @@
                                     <div class="search-box-wrapper" id="return-box">
                                         <div class="search-box">
                                             <div class="search-box__label">Return</div>
-                                            <input type="text" autocomplete="off" class="search-box__input cursor-pointer"
-                                                placeholder="Return on" ref="returnDate" name="return"
-                                                id="return-input" >
+                                            <input type="text" autocomplete="off"
+                                                class="search-box__input cursor-pointer" placeholder="Return on"
+                                                ref="returnDate" name="return" id="return-input">
                                             <div class="search-box__label" id='return-day'>&nbsp;</div>
                                         </div>
                                     </div>
@@ -185,13 +185,9 @@
                                         <div class="search-box" @click.stop="togglePax">
                                             <div class="search-box__label">Travellers</div>
                                             <input readonly type="text" class="search-box__input cursor-pointer"
-                                                :value="totalTravellerText" >
+                                                :value="totalTravellerText">
                                             <div class="search-box__label">
-                                                @{{ [
-    pax.adults > 0 ? pax.adults + ' Adt' : '',
-    pax.children > 0 ? pax.children + ' Chd' : '',
-    pax.infants > 0 ? pax.infants + ' Inf' : ''
-].filter(Boolean).join(', ') }}
+                                                @{{ classType }}
                                             </div>
 
                                         </div>
@@ -210,13 +206,13 @@
                                                             </div>
                                                             <div class="quantity-counter">
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="decrement('adults')">-</button>
+                                                                    @click.stop="decrement('adults')"><i class='bx bx-minus'></i></button>
 
                                                                 <span
                                                                     class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.adults }}</span>
 
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="increment('adults')">+</button>
+                                                                    @click.stop="increment('adults')"><i class='bx bx-plus'></i></button>
                                                             </div>
                                                         </li>
 
@@ -230,13 +226,13 @@
                                                             </div>
                                                             <div class="quantity-counter">
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="decrement('children')">-</button>
+                                                                    @click.stop="decrement('children')"><i class='bx bx-minus'></i></button>
 
                                                                 <span
                                                                     class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.children }}</span>
 
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="increment('children')">+</button>
+                                                                    @click.stop="increment('children')"><i class='bx bx-plus'></i></button>
                                                             </div>
                                                         </li>
 
@@ -249,16 +245,24 @@
                                                             </div>
                                                             <div class="quantity-counter">
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="decrement('infants')">-</button>
+                                                                    @click.stop="decrement('infants')"><i class='bx bx-minus'></i></button>
 
                                                                 <span
                                                                     class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.infants }}</span>
 
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="increment('infants')">+</button>
+                                                                    @click.stop="increment('infants')"><i class='bx bx-plus'></i></button>
                                                             </div>
                                                         </li>
                                                     </ul>
+                                                    <div class="form-group mt-3"><label for="classType"
+                                                            class="title">Travel Class</label><select id="classType"
+                                                            v-model="classType" class="form-control">
+                                                            <option value="Economy">Economy</option>
+                                                            <option value="Premium Economy">Premium Economy</option>
+                                                            <option value="Business">Business</option>
+                                                            <option value="First">First</option>
+                                                        </select></div>
                                                 </div>
                                             </div>
                                         </div>

@@ -1869,7 +1869,7 @@ i.bx {
 }
 
 .paxs-item .info .name {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   opacity: 0.8;
 }
@@ -1878,7 +1878,7 @@ i.bx {
     margin-bottom: 0.6rem;
 }
 .paxs-item .info span {
-  font-size: 0.73rem;
+  font-size: 0.7rem;
   font-weight: 500;
   color: #6c6f70;
 }
@@ -1962,9 +1962,9 @@ i.bx {
 }
 
 .options-dropdown .title {
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  margin-bottom: 1px;
   color:#000;
 }
 
@@ -2026,6 +2026,10 @@ i.bx {
 }
 .options-dropdown-wrapper:hover {
     z-index: 100;
+}
+.options-dropdown__body .form-control {
+    box-shadow:  none !important;
+    font-size: 0.8rem;
 }
 /* dropdown */
 /* global search */

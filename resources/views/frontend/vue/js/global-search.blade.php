@@ -4,6 +4,7 @@
             const tripType = ref('one-way');
             const departureDate = ref(null);
             const returnDate = ref(null);
+            const classType = ref('Economy');
 
             const {
                 open: paxOpen,
@@ -18,7 +19,7 @@
             } = useDropdown();
 
             const pax = ref({
-                adults: 1,
+                adults: 0,
                 children: 0,
                 infants: 0
             });
@@ -33,8 +34,8 @@
             });
 
             const isFlightSearchEnabled = computed(() => {
-                const hasDeparture = departureDate.value && departureDate.value !== '';
-                const hasReturn = returnDate.value && returnDate.value !== '';
+                const hasDeparture = departureDate.value && departureDate.value.value !== '';
+                const hasReturn = returnDate.value && returnDate.value.value !== '';
                 const hasFrom = fromInputValue.value && fromInputValue.value.trim() !== '';
                 const hasTo = toInputValue.value && toInputValue.value.trim() !== '';
                 const adultOk = pax.value.adults >= 1;
@@ -229,13 +230,12 @@
             onMounted(() => {
                 loadFromAirports();
                 loadToAirports();
-
             });
-
 
 
             return {
                 tripType,
+                classType,
 
                 // Dates
                 departureDate,
