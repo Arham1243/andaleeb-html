@@ -1,4 +1,3 @@
-@include('frontend.vue.services.global-search')
 <div class="global-search">
     <div class="container">
         <div id="pills-tab" role="tablist">

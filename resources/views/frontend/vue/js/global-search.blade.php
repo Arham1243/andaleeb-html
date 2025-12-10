@@ -1,3 +1,4 @@
+@include('frontend.vue.services.global-search')
 <script>
     const GlobalSearch = createApp({
         setup() {
