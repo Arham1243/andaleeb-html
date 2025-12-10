@@ -12,6 +12,7 @@
         const {
             createApp,
             ref,
+            onBeforeUnmount,
             onMounted,
             computed,
             watch,

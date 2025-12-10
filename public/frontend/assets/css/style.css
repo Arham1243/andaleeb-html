@@ -1602,7 +1602,7 @@ i.bx {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding: 1rem 1.25rem;
+    padding: 1.5rem;
 }
 .global-search .search-pill {
     border-radius: 50px;
@@ -1612,12 +1612,12 @@ i.bx {
     border: 1px solid #ccc;
     background: none;
     outline: none;
-    padding: 7px 23px;
+    padding: 6px 24px;
 }
 .global-search-content {
     padding: 1.25rem 1.75rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 20px 1px #00000020;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px 1px #0000001a;
 }
 .global-search .search-pill.active {
     background: var(--color-primary);
@@ -1649,23 +1649,350 @@ i.bx {
     padding-bottom: 1rem;
 }
 .search-box__label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #686565;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #6c6f70;
 }
 
 .search-box__input {
     width: 100%;
     border: none;
     outline: none;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    margin: 6px 0 3px;
+    margin: 2px 0 3px;
     line-height: 1;
+    color: #000;
+}
+.search-box__input::placeholder {
+    color: #000;
 }
 .search-border{
   border-radius: 0.5rem;
-  padding: 14px 18px;
-  border: 1px solid #929292;
+  padding: 14px 20px;
+  border: 1px solid #d4d4d4;
 }
+
+/* dropdown */
+
+.options-dropdown-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgb(242, 242, 242);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 100%;
+  padding: 11px;
+  margin-top: 1rem;
+  border-radius: 6px;
+  overflow-x: hidden;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px calc(0.0625rem) calc(0.1875rem),
+    rgba(0, 0, 0, 0.05) 0px calc(1.25rem) calc(1.5625rem) calc(-0.3125rem),
+    rgba(0, 0, 0, 0.04) 0px calc(0.625rem) calc(0.625rem) calc(-0.3125rem);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  scale: 0.85;
+  transition: all 300ms;
+}
+.options-dropdown-wrapper.open {
+  opacity: 1;
+  visibility: visible;
+  scale: 1;
+}
+.options-dropdown-wrapper.scroll{
+    height: 485px;
+    overflow-y: auto;
+}
+.options-dropdown {
+  background: #fff;
+  border-radius: 6px;
+  color: #000;
+}
+.options-dropdown--norm {
+  height: auto;
+}
+
+.options-dropdown:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.options-dropdown-wrapper::-webkit-scrollbar {
+  width: 7px;
+}
+.options-dropdown-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.options-dropdown-wrapper::-webkit-scrollbar-thumb {
+  background: #8989899c;
+  border-radius: 100px;
+}
+
+.paxs-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paxs-item:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.paxs-item .info {
+  line-height: 1.25;
+}
+
+.paxs-list {
+  margin: 1.75rem 0 0;
+}
+
+.paxs-item .info .name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.room-section .title {
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+}
+.paxs-item .info span {
+  font-size: 0.73rem;
+  font-weight: 500;
+  color: #6c6f70;
+}
+/* Quantity Counter */
+.quantity-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-right: 0.5rem;
+}
+.quantity-counter__btn {
+  width: 35px;
+  aspect-ratio: 1/1;
+  background: none;
+  outline: none !important;
+  font-size: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 0.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.quantity-counter__btn--quantity {
+  appearance: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.quantity-counter__btn--quantity[type="number"] {
+  -moz-appearance: textfield;
+}
+.quantity-counter__btn--quantity[type="number"]::-webkit-inner-spin-button,
+.quantity-counter__btn--quantity[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity-counter__btn {
+    width: 35px;
+    aspect-ratio: 1 / 1;
+    background: none;
+    outline: none !important;
+    font-size: 1.25rem;
+    border: 1px solid #ccc;
+    border-radius: 0.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+/* Quantity Counter */
+.paxs-item .quantity-counter__btn {
+  border-radius: 100%;
+  width: 32px;
+  border: 2px solid var(--color-primary);
+  font-size: 1rem;
+}
+
+.paxs-item .quantity-counter__btn--quantity {
+  border-color: transparent;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.paxs-item .quantity-counter {
+  gap: 0;
+}
+
+.options-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #898989;
+}
+
+.options-dropdown__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #cccccca3;
+  line-height: 1;
+}
+
+.options-dropdown .title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color:#000;
+}
+
+.options-dropdown__header span {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+:is(.options-dropdown__header, .options-dropdown__body) {
+  padding-inline: 12px;
+}
+.options-dropdown-list__item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 15px  11px;
+  transition: all 300ms;
+}
+.options-dropdown-list__item:hover {
+  background: #00000008;
+}
+.options-dropdown-list__item .icon i {
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+.options-dropdown-list__item .info {
+  line-height: 1;
+}
+
+.options-dropdown-list__item .info .name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.options-dropdown-list__item .info span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6c6f70;
+}
+
+.options-dropdown-list__item:not(:last-child) {
+  border-bottom: 1px solid #cccccc2e;
+}
+
+.options-dropdown__body {
+  padding: 15px;
+}
+/* dropdown */
 /* global search */
+
+.cursor-pointer ,.cursor-pointer  *{
+    cursor: pointer;
+}
+/* daterangepicker */
+body  .daterangepicker .drp-calendar.single th select {
+    border: 1px solid var(--color-primary);
+    border-radius: 100px;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+body  .daterangepicker.single {
+    padding: 0.7rem;
+}
+
+body .daterangepicker.single td.active, body  .daterangepicker.single td.active:hover {
+    background-color: var(--color-primary);
+    color: #fff !important;
+}
+body  .daterangepicker {
+    background: #f2f2f2;
+    border-radius: 1rem;
+    border: 1px solid #D6D6D6;
+}
+
+body  .drp-calendar {
+    padding: 0 !important;
+}
+body  .daterangepicker .calendar-table th,body .daterangepicker .calendar-table td {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 10px !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: system-ui;
+    color: #313131 !important;
+}
+
+body .daterangepicker td.off, .daterangepicker td.off.in-range,body  .daterangepicker td.off.start-date, .daterangepicker td.off.end-date {
+    color: #6c6f7082 !important;
+}
+body  .daterangepicker .drp-calendar {
+    max-width: 100%;
+}
+
+body  .daterangepicker .drp-calendar.right .calendar-table {
+    padding-left: 0.75rem !important;
+}
+
+body  .daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span {
+    border-color: var(--color-primary);
+}
+body .daterangepicker .calendar-table th {color: #6c6f7082 !important;}
+body .daterangepicker .calendar-table th.month {
+    color: #313131 !important;
+    font-weight: 700;
+    font-size: 1rem;
+    position: relative;
+}
+
+body  .daterangepicker .drp-calendar:not(.single) .calendar-table th.month::after {content: '';width: 63%;height: 83%;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 1.5px solid var(--color-primary);border-radius: 100px;}
+
+
+body  .daterangepicker .calendar-table {
+    padding: 0.5rem 0 !important;
+}
+body  .daterangepicker td.in-range {
+    color: var(--color-primary) !important;
+    background: #cd1b4f12;
+}
+
+body .daterangepicker td.available:hover, body .daterangepicker th.available:hover {
+    background: #cd1b4f12;
+}
+/* daterangepicker */
+
+/* skeleton */
+body .skeleton {
+    height: 25px !important;
+    width: 85%;
+    padding: 0;
+    border-radius: 0.35rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
+  }
+/* skeleton */
+
+[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+}
