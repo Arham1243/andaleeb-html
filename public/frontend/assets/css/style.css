@@ -1961,13 +1961,6 @@ i.bx {
   line-height: 1;
 }
 
-.options-dropdown .title {
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 1px;
-  color:#000;
-}
-
 .options-dropdown__header span {
   font-size: 0.95rem;
   font-weight: 600;
@@ -2028,8 +2021,25 @@ i.bx {
     z-index: 100;
 }
 .options-dropdown__body .form-control {
-    box-shadow:  none !important;
+    box-shadow: none !important;
     font-size: 0.8rem;
+}
+.child-ages .title {
+    font-size: 0.8rem;
+    color: #6c6f70;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.child-age label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+}
+.child-age--half{
+    width: 47%;
+}
+.child-age {
+    margin: 0.25rem 0;
 }
 /* dropdown */
 /* global search */

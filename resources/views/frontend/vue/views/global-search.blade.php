@@ -78,8 +78,8 @@
                                                     <ul class="options-dropdown-list">
                                                         <!-- Skeletons -->
                                                         <li v-if="loadingFrom"
-                                                            class="options-dropdown-list__item no-hover"
-                                                            v-for="n in 5" :key="'dep-skel-' + n">
+                                                            class="options-dropdown-list__item no-hover" v-for="n in 5"
+                                                            :key="'dep-skel-' + n">
                                                             <div class="skeleton"></div>
                                                         </li>
                                                         <!-- No Matches -->
@@ -206,13 +206,15 @@
                                                             </div>
                                                             <div class="quantity-counter">
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="decrement('adults')"><i class='bx bx-minus'></i></button>
+                                                                    @click.stop="decrement('adults')"><i
+                                                                        class='bx bx-minus'></i></button>
 
                                                                 <span
                                                                     class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.adults }}</span>
 
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="increment('adults')"><i class='bx bx-plus'></i></button>
+                                                                    @click.stop="increment('adults')"><i
+                                                                        class='bx bx-plus'></i></button>
                                                             </div>
                                                         </li>
 
@@ -226,13 +228,15 @@
                                                             </div>
                                                             <div class="quantity-counter">
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="decrement('children')"><i class='bx bx-minus'></i></button>
+                                                                    @click.stop="decrement('children')"><i
+                                                                        class='bx bx-minus'></i></button>
 
                                                                 <span
                                                                     class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.children }}</span>
 
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="increment('children')"><i class='bx bx-plus'></i></button>
+                                                                    @click.stop="increment('children')"><i
+                                                                        class='bx bx-plus'></i></button>
                                                             </div>
                                                         </li>
 
@@ -245,24 +249,32 @@
                                                             </div>
                                                             <div class="quantity-counter">
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="decrement('infants')"><i class='bx bx-minus'></i></button>
+                                                                    @click.stop="decrement('infants')"><i
+                                                                        class='bx bx-minus'></i></button>
 
                                                                 <span
                                                                     class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.infants }}</span>
 
                                                                 <button type="button" class="quantity-counter__btn"
-                                                                    @click.stop="increment('infants')"><i class='bx bx-plus'></i></button>
+                                                                    @click.stop="increment('infants')"><i
+                                                                        class='bx bx-plus'></i></button>
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    <div class="form-group mt-3"><label for="classType"
-                                                            class="title">Travel Class</label><select id="classType"
-                                                            v-model="classType" class="form-control">
-                                                            <option value="Economy">Economy</option>
-                                                            <option value="Premium Economy">Premium Economy</option>
-                                                            <option value="Business">Business</option>
-                                                            <option value="First">First</option>
-                                                        </select></div>
+
+                                                    <div class="child-ages child-ages-search mt-3">
+                                                        <div class="title">Travel Class</div>
+                                                        <div class="child-age">
+                                                            <select v-model="classType" name=class_type
+                                                                class="form-control">
+                                                                <option value="Economy">Economy</option>
+                                                                <option value="Premium Economy">Premium Economy
+                                                                </option>
+                                                                <option value="Business">Business</option>
+                                                                <option value="First">First</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +294,9 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                            aria-labelledby="pills-profile-tab" tabindex="0">2</div>
+                            aria-labelledby="pills-profile-tab" tabindex="0">
+
+                        </div>
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                             aria-labelledby="pills-contact-tab" tabindex="0">3</div>
                     </div>
