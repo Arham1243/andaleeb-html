@@ -2024,6 +2024,13 @@ i.bx {
     box-shadow: none !important;
     font-size: 0.8rem;
 }
+.child-ages {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0 0.5rem;
+    width: 100%;
+    flex-wrap: wrap;
+}
 .child-ages .title {
     font-size: 0.8rem;
     color: #6c6f70;
@@ -2031,15 +2038,27 @@ i.bx {
     margin-bottom: 2px;
 }
 .child-age label {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
     margin-bottom: 0.15rem;
 }
-.child-age--half{
+.child-age.child-age--half{
     width: 47%;
 }
 .child-age {
     margin: 0.25rem 0;
+    width: 100%;
+}
+.search-box-wrapper.tight-width {
+    flex: 1;
+}
+.room-section:first-child {
+    padding-top: 0.7rem;
+}
+.room-section:not(:last-child) {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #d4d4d4;
 }
 /* dropdown */
 /* global search */
