@@ -39,15 +39,15 @@
                                         name="trip_type" value="round-trip">
                                     <label class="radio-btn__label" for="round-trip">Round Trip</label>
                                 </div>
-                                <div class="radio-btn">
+                                {{-- <div class="radio-btn">
                                     <input v-model="tripType" type="radio" id="multi-city" class="radio-btn__input"
                                         name="trip_type" value="multi-city">
                                     <label class="radio-btn__label" for="multi-city">Multi-City</label>
-                                </div>
+                                </div> --}}
                             </div>
-                            <div class="search-options" v-if="tripType === 'multi-city'">
+                            {{-- <div class="search-options" v-if="tripType === 'multi-city'">
                                 multi city
-                            </div>
+                            </div> --}}
                             <div class="search-options" v-else>
                                 <form class="search-options-wrapper">
                                     <!-- Hidden Inputs (No changes) -->
