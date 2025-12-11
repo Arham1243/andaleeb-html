@@ -230,7 +230,7 @@
                 selectAirport: selectTo
             } = useAirportDropdown(getAirports);
 
-            onBeforeMount(async() => {
+            onBeforeMount(async () => {
                 loadFromAirports();
                 loadToAirports();
                 destinations.value = await fetchDestinations('a');
@@ -431,21 +431,27 @@
 
             const isInsuranceSearchEnabled = computed(() => {
                 const hasStartDate = insuranceStartDate.value && insuranceStartDate.value.value !== '';
-                const hasReturnDate = insuranceReturnDate.value && insuranceReturnDate.value.value !== '';
-                const hasFrom = insuranceFromInputValue.value && insuranceFromInputValue.value.trim() !== '';
+                const hasReturnDate = insuranceReturnDate.value && insuranceReturnDate.value.value !==
+                    '';
+                const hasFrom = insuranceFromInputValue.value && insuranceFromInputValue.value
+                .trim() !== '';
                 const hasTo = insuranceToInputValue.value && insuranceToInputValue.value.trim() !== '';
-                const hasResidence = insuranceResidenceInputValue.value && insuranceResidenceInputValue.value.trim() !== '';
+                const hasResidence = insuranceResidenceInputValue.value && insuranceResidenceInputValue
+                    .value.trim() !== '';
                 const hasPersons = insurancePax.value.adults >= 1 || insurancePax.value.children >= 1;
-                
+
                 // Check all adult ages are filled
-                const allAdultAgesFilled = insuranceAdultAges.value.length === insurancePax.value.adults &&
+                const allAdultAgesFilled = insuranceAdultAges.value.length === insurancePax.value
+                    .adults &&
                     insuranceAdultAges.value.every(age => age !== '' && age >= 18);
-                
+
                 // Check all child ages are filled
-                const allChildAgesFilled = insuranceChildAges.value.length === insurancePax.value.children &&
+                const allChildAgesFilled = insuranceChildAges.value.length === insurancePax.value
+                    .children &&
                     insuranceChildAges.value.every(age => age !== '' && age >= 2);
 
-                return hasStartDate && hasReturnDate && hasFrom && hasTo && hasResidence && hasPersons &&
+                return hasStartDate && hasReturnDate && hasFrom && hasTo && hasResidence &&
+                    hasPersons &&
                     allAdultAgesFilled && allChildAgesFilled;
             });
 
@@ -474,7 +480,11 @@
             const hotelDestinationQuery = ref('');
             const hotelDestinationInputValue = ref('');
             const selectedHotelDestination = ref('');
-            const hotelDestinations = ref({ countries: [], provinces: [], locations: [] });
+            const hotelDestinations = ref({
+                countries: [],
+                provinces: [],
+                locations: []
+            });
             const hotelHotels = ref([]);
             const loadingHotelDestination = ref(false);
 
@@ -482,7 +492,8 @@
                 const totalAdults = hotelRooms.value.reduce((sum, room) => sum + room.adults, 0);
                 const totalChildren = hotelRooms.value.reduce((sum, room) => sum + room.children, 0);
                 const totalGuests = totalAdults + totalChildren;
-                const roomText = hotelRoomCount.value === 1 ? '1 Room' : `${hotelRoomCount.value} Rooms`;
+                const roomText = hotelRoomCount.value === 1 ? '1 Room' :
+                `${hotelRoomCount.value} Rooms`;
                 const guestText = totalGuests === 1 ? '1 Guest' : `${totalGuests} Guests`;
                 return `${roomText}, ${guestText}`;
             });
@@ -501,7 +512,11 @@
                     hotelHotels.value = data.hotels?.hotels || [];
                 } catch (err) {
                     console.error("Hotel API Error:", err);
-                    hotelDestinations.value = { countries: [], provinces: [], locations: [] };
+                    hotelDestinations.value = {
+                        countries: [],
+                        provinces: [],
+                        locations: []
+                    };
                     hotelHotels.value = [];
                 } finally {
                     loadingHotelDestination.value = false;
@@ -557,24 +572,28 @@
                         hotelRooms.value[roomIndex].childAges.splice(newCount);
                     }
                 });
-            }, { deep: true });
+            }, {
+                deep: true
+            });
 
             const isHotelSearchEnabled = computed(() => {
                 const hasCheckIn = hotelCheckInDate.value && hotelCheckInDate.value.value !== '';
                 const hasCheckOut = hotelCheckOutDate.value && hotelCheckOutDate.value.value !== '';
-                const hasDestination = hotelDestinationInputValue.value && hotelDestinationInputValue.value.trim() !== '';
+                const hasDestination = hotelDestinationInputValue.value && hotelDestinationInputValue
+                    .value.trim() !== '';
                 const hasRooms = hotelRooms.value.length > 0;
-                
+
                 // Check all rooms have at least 1 adult
                 const allRoomsValid = hotelRooms.value.every(room => room.adults >= 1);
-                
+
                 // Check all child ages are filled
-                const allChildAgesFilled = hotelRooms.value.every(room => 
-                    room.childAges.length === room.children && 
+                const allChildAgesFilled = hotelRooms.value.every(room =>
+                    room.childAges.length === room.children &&
                     room.childAges.every(age => age !== '')
                 );
 
-                return hasCheckIn && hasCheckOut && hasDestination && hasRooms && allRoomsValid && allChildAgesFilled;
+                return hasCheckIn && hasCheckOut && hasDestination && hasRooms && allRoomsValid &&
+                    allChildAgesFilled;
             });
 
             return {
@@ -584,7 +603,7 @@
                 // Dates
                 departureDate,
                 returnDate,
-                
+
                 // Holidays
                 activitySearchQuery,
 
@@ -702,11 +721,11 @@
     GlobalSearch.mount('#global-search');
 </script>
 @push('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/daterangepicker.css') }}" />
 @endpush
 @push('js')
-    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{ asset('frontend/assets/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/assets/js/daterangepicker.min.js') }}"></script>
     <script>
         function initSingleDatePicker(wrapperId, inputId, dayDisplayId) {
             const format = "MMM D, YYYY";

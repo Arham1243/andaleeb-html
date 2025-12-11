@@ -7,7 +7,6 @@
     @else
         <script src="{{ asset('frontend/assets/js/vue@3-local.js') }}"></script>
     @endif
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         const {
             createApp,

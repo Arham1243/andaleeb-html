@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}" />
     <style>
         body {
             font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -37,7 +37,7 @@
         }
 
         .btn-home {
-            color: #0d6efd;
+            color: #cd1b4f;
             padding: 0.75rem 1.5rem;
             border-radius: 0.375rem;
             font-size: 1rem;
@@ -45,7 +45,7 @@
         }
 
         .btn-home:hover {
-            color: #0b5ed7;
+            color: #cd1b4f;
         }
     </style>
 </head>
