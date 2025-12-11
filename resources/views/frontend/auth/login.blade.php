@@ -61,7 +61,7 @@
                                     class="auth-link">Sign Up</a></p>
 
                             <a href="{{ route('frontend.auth.my-booking') }}" class="auth-link">
-                                My Booking
+                                Find Your Booking
                             </a>
                         </div>
                     </div>

@@ -7,8 +7,8 @@
 
                     <div class="auth-card">
                         <div class="auth-header">
-                            <h2 class="heading">My Booking</h2>
-                            <p>view /print/cancel your booking without signing in on your email</p>
+                            <h2 class="heading">Find Your Booking</h2>
+                            <p>Access, print, or cancel your booking instantly using the email from your reservation. No sign-in needed.</p>
                         </div>
 
                         <form action="#">
