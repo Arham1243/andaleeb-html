@@ -7,7 +7,7 @@
 
                     <div class="auth-card">
                         <div class="auth-header">
-                            <h2>Reset Password</h2>
+                            <h2 class="heading">Reset Password</h2>
                             <p>Please enter your new password below</p>
                         </div>
 

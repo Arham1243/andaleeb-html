@@ -7,10 +7,9 @@
 
                     <div class="auth-card">
                         <div class="auth-header">
-                            <h2>Welcome Back</h2>
+                            <h2 class="heading">Welcome Back</h2>
                             <p>Login to access your bookings and profile</p>
                         </div>
-
                         <form action="#">
                             <!-- Email Field -->
                             <div class="form-group">
@@ -37,6 +36,10 @@
                                     Password?</a>
                             </div>
 
+                            <div class="form-group">
+                                <div class="g-recaptcha" data-sitekey="{{ env('RE_CAPTCHA_SITE_KEY') }}"> </div>
+                            </div>
+
                             <!-- Submit -->
                             <button type="submit" class="btn-auth">Login</button>
                         </form>
@@ -54,8 +57,12 @@
 
                         <!-- Footer -->
                         <div class="auth-footer">
-                            Don't have an account? <a href="{{ route('frontend.auth.signup') }}" class="auth-link">Sign
-                                Up</a>
+                            <p class="mb-2">Don't have an account? <a href="{{ route('frontend.auth.signup') }}"
+                                    class="auth-link">Sign Up</a></p>
+
+                            <a href="{{ route('frontend.auth.my-booking') }}" class="auth-link">
+                                My Booking
+                            </a>
                         </div>
                     </div>
 
@@ -64,7 +71,9 @@
         </div>
     </section>
 @endsection
+
 @push('js')
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Select all toggle icons
@@ -89,6 +98,17 @@
                         this.classList.add('bx-show');
                     }
                 });
+            });
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const recaptcha = grecaptcha.getResponse();
+
+                if (!recaptcha) {
+                    e.preventDefault();
+                    showMessage("Please complete the reCAPTCHA before submitting.", "error");
+                    return false;
+                }
             });
         });
     </script>

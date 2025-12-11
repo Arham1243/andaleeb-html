@@ -7,7 +7,7 @@
 
                     <div class="auth-card">
                         <div class="auth-header">
-                            <h2>Create Account</h2>
+                            <h2 class="heading">Create Account</h2>
                             <p>Start your journey with Andaleeb Travel</p>
                         </div>
 

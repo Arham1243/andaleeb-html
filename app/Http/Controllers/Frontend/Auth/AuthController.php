@@ -15,5 +15,8 @@ class AuthController extends Controller
     {
         return view('frontend.auth.signup');
     }
-
+    public function myBooking()
+    {
+        return view('frontend.auth.my-booking');
+    }
 }
