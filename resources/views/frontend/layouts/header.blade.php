@@ -42,7 +42,7 @@
                     <a href="{{ route('frontend.auth.login') }}" class="mh-icon-link">
                         <i class="bx bx-user"></i>
                     </a>
-                    <a href="" class="mh-icon-link mh-cart">
+                    <a href="{{ route('frontend.cart.index') }}" class="mh-icon-link mh-cart">
                         <i class='bx bx-shopping-bag'></i>
                         <span class="mh-badge">0</span>
                     </a>

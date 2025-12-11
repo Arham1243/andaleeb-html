@@ -24,7 +24,7 @@
                             </div>
 
                             <!-- Submit -->
-                            <button type="submit" class="btn-auth">Send Reset Link</button>
+                            <button type="submit" class="btn-primary-custom">Send Reset Link</button>
                         </form>
 
                         <!-- Footer -->

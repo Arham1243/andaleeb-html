@@ -47,7 +47,7 @@
                             </div>
 
                             <!-- Submit -->
-                            <button type="submit" class="btn-auth">Sign Up</button>
+                            <button type="submit" class="btn-primary-custom">Sign Up</button>
                         </form>
 
                         <!-- Divider -->

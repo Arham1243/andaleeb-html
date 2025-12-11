@@ -25,7 +25,7 @@
                                 <div class="g-recaptcha" data-sitekey="{{ env('RE_CAPTCHA_SITE_KEY') }}"> </div>
                             </div>
 
-                            <button type="submit" class="btn-auth">Submit</button>
+                            <button type="submit" class="btn-primary-custom">Submit</button>
                         </form>
                     </div>
 

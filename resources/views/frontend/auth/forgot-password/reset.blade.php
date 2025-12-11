@@ -33,7 +33,7 @@
                             </div>
 
                             <!-- Submit -->
-                            <button type="submit" class="btn-auth">Reset Password</button>
+                            <button type="submit" class="btn-primary-custom">Reset Password</button>
                         </form>
                     </div>
 
