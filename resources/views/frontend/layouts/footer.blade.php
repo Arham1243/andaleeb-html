@@ -27,7 +27,7 @@
             <div class="col-lg-2 col-md-6 mb-4">
                 <h6 class="heading">Explore Options</h6>
                 <ul class="footer-list">
-                    <li><a href="">Dubai Tours</a></li>
+                    <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tours</a></li>
                     <li><a href="">Holidays</a></li>
                     <li><a href="">Hotels</a></li>
                     <li><a href="">Insurance</a></li>

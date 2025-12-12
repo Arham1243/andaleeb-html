@@ -81,7 +81,7 @@ i.bx {
 }
 
 .padd-y {
-    padding: 5rem 0;
+    padding: 3.5rem 0;
 }
 
 .mar-y {
@@ -141,7 +141,7 @@ i.bx {
     font-weight: 800;
 }
 .section-content p {
-    font-size: 0.85rem;
+    font-size: 0.89rem;
     line-height: 1.5;
     margin: 0.75rem 0;
 }
@@ -483,11 +483,11 @@ i.bx {
     gap: 10px;
 }
 
-.slick-arrow-btn {
+.slick-arrow {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #fff;
+    background: #fff !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -500,6 +500,27 @@ i.bx {
         0 0 #0000,
         0 4px 6px -1px rgb(0 0 0/0.1),
         0 2px 4px -2px rgb(0 0 0/0.1);
+}
+button.slick-arrow::before {
+    color: #000;
+    font-size: 1.5rem;
+}
+button.slick-next.slick-arrow{
+    margin-top: 0;
+}
+button.slick-prev.slick-arrow{
+    margin-top: 0;
+}
+button.slick-next.slick-arrow::before {
+    content: "\ea50";
+    font-family: boxicons;
+}
+button.slick-prev.slick-arrow::before {
+    content: "\ea4d";
+    font-family: boxicons;
+}
+.slick-prev.slick-arrow,.slick-next.slick-arrow {
+    font-size: 0;
 }
 
 .slick-disabled {
@@ -2893,7 +2914,7 @@ body .skeleton {
     list-style-type: disc ;
 }
 .text-document :is(li, a, p) {
-    font-size: 0.85em;
+    font-size: 0.87em;
     font-weight: 500;
 }
 .text-document ul li a {
@@ -3107,3 +3128,102 @@ h6){
 }
 /* explore */
 
+/* Base Card Style */
+.cat-card {
+    --card-radius: 12px;
+    display: block;
+    position: relative;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    text-decoration: none;
+    /* Aspect Ratio 3:4 mimics the vertical 'Airfare' card */
+    aspect-ratio: 3 / 3.4;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transform: translateZ(0); /* Hardware accel */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* The Background Image */
+.cat-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+    z-index: 1;
+}
+
+/* Dark Gradient Overlay (Similar to reference) */
+.cat-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Gradient from transparent top to dark bottom */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 0.75;
+}
+
+/* Content Wrapper */
+.cat-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.25rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* Typography */
+.cat-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.cat-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.cat-count {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* The Circle Arrow Button (Like reference) */
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Zoom Image */
+.cat-card:hover .cat-bg {
+    transform: scale(1.1);
+}
+
+/* Button turns Primary Color */
+.cat-card:hover .btn-icon {
+    background-color: var(--color-primary);
+    transform: rotate(-45deg); /* Cool subtle rotation effect */
+}

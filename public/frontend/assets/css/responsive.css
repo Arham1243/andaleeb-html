@@ -131,4 +131,24 @@
     .explore-tab-btn {
         padding: 0.6rem 0.75rem;
     }
+    .cat-title {
+    font-size: 0.9rem;
+    }
+    .cat-content {
+    padding: 1rem;
+    }
+    .cat-count {
+    font-size: 0.75rem;
+    }
+    .btn-icon {
+        width: 29px;
+        height: 29px;
+        font-size: 0.95rem;
+    }
+    .expandable-title {
+        font-size: 21px;
+    }
+    .expand-btn {
+        font-size: 0.8rem;
+    }
 }

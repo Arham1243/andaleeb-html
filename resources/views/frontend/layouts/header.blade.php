@@ -13,10 +13,12 @@
             <!-- Navigation -->
             <nav class="mh-nav">
                 <ul class="mh-nav-list">
-                    <li><a href="">Dubai Tours</a></li>
+                    <li><a href="#">About Us </a></li>
+                    <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tours</a></li>
                     <li><a href="">Holidays</a></li>
                     <li><a href="">Hotels</a></li>
                     <li><a href="">Insurance</a></li>
+                    <li><a href="#">Contact Us </a></li>
                 </ul>
             </nav>
 
@@ -65,7 +67,7 @@
     </a>
     <ul class="sideBar__nav">
         <li><a href="#">About Us </a></li>
-        <li><a href="#">Dubai Tour Packages</a></li>
+        <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tour Packages</a></li>
         <li><a href="#">Holiday Packages</a></li>
         <li><a href="#">Hotels</a></li>
         <li><a href="#">Travel Insurance</a></li>

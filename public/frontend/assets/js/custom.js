@@ -65,7 +65,7 @@ $(document).ready(function () {
     });
     /* activity slider  */
 
-    /* activity slider  */
+    /* category-slider  */
     $(".category-slider").slick({
         dots: false,
         infinite: false,
@@ -95,7 +95,40 @@ $(document).ready(function () {
             },
         ],
     });
-    /* activity slider  */
+    /* category-slider  */
+
+    /* category-slider  */
+    $(".category-slider2").slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                    arrows: false,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    arrows: false,
+                },
+            },
+        ],
+    });
+    /* category-slider  */
 
     /* banner slider */
     $(".banner-slider").slick({
@@ -105,7 +138,7 @@ $(document).ready(function () {
         centerPadding: "60px",
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: true,
+        arrows: false,
         autoplay: true,
         autoplaySpeed: 2500,
         responsive: [
@@ -119,8 +152,7 @@ $(document).ready(function () {
             },
         ],
     });
-
-    /* travel slider */
+    /* banner slider */
 });
 
 /* sideBar */

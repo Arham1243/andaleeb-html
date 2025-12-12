@@ -21,7 +21,42 @@
         </div>
     </div>
 
+    
+    <div class="expandable-wrapper mar-y" data-collapsed-height="50" data-more-text="Read More"
+        data-less-text="Read Less">
+        <div class="container">
+            <div class="expandable-card">
+                <h3 class="expandable-title">Best Tours and Activities in Dubai</h3>
 
+                <div class="expandable-content">
+                    <div class="expandable-content-inner text-document">
+                        <p>Dubai is a dream that transformed into a magnificent reality in no time. Not long ago, when it
+                            was
+                            nothing but a small Bedouin village, it was an impossible thought to portray Dubai as a place
+                            where
+                            the world comes to shop and have fun.</p>
+
+                        <p>A city once known solely for its oil reserves is now a global tourism benchmark. City sightseeing
+                            today is one of the most popular activities.</p>
+
+                        <h4>Why visit?</h4>
+                        <ul>
+                            <li><a href="#">Burj Khalifa</a> views</li>
+                            <li>Desert Safaris and BBQ dinners</li>
+                            <li>Luxury Shopping experiences</li>
+                        </ul>
+
+                        <p>From the architecture to the cultural heritage, every corner tells a story waiting to be
+                            explored.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="expand-btn">Read More</button>
+            </div>
+        </div>
+    </div>
+    
     <section class="activities mar-y">
         <div class="container">
             <div class="section-header">
@@ -156,40 +191,157 @@
         </div>
     </section>
 
-    <div class="expandable-wrapper mar-y" data-collapsed-height="50" data-more-text="Read More"
-        data-less-text="Read Less">
+    
+    <section class="section-categories bg-light padd-y">
         <div class="container">
-            <div class="expandable-card">
-                <h3 class="expandable-title">Best Tours and Activities in Dubai</h3>
+            <!-- Header -->
+            <div class="section-content mb-4 pb-4">
+                <h3 class="heading mb-0">Explore by Category</h3>
+                <p class="text-muted my-1">Discover the best experiences in the UAE</p>
+            </div>
 
-                <div class="expandable-content">
-                    <div class="expandable-content-inner text-document">
-                        <p>Dubai is a dream that transformed into a magnificent reality in no time. Not long ago, when it
-                            was
-                            nothing but a small Bedouin village, it was an impossible thought to portray Dubai as a place
-                            where
-                            the world comes to shop and have fun.</p>
+            <!-- Categories Grid -->
+            <div class="row g-3 g-xl-4 category-slider2 justify-content-center">
 
-                        <p>A city once known solely for its oil reserves is now a global tourism benchmark. City sightseeing
-                            today is one of the most popular activities.</p>
-
-                        <h4>Why visit?</h4>
-                        <ul>
-                            <li><a href="#">Burj Khalifa</a> views</li>
-                            <li>Desert Safaris and BBQ dinners</li>
-                            <li>Luxury Shopping experiences</li>
-                        </ul>
-
-                        <p>From the architecture to the cultural heritage, every corner tells a story waiting to be
-                            explored.
-                        </p>
-                    </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20434/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Abu-Dhabi-City-Tour-49/1760092545059_3_2.jpg?_a=BAVAZGE70');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">Garden & Parks</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
-                <button class="expand-btn">Read More</button>
+                <!-- Card 2: Adventure (Jebel Jais/Mountains) -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1604537466573-5e94508fd243?q=80&w=600&auto=format&fit=crop');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">Jebel Jais Zip Line</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 3: Waterparks (Atlantis/Palm) -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=600&auto=format&fit=crop');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">Atlantis Waterpark</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 4: Ski Dubai (Snow/Indoor Ski) -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600&auto=format&fit=crop');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">Ski Dubai</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 5: Desert Safari (Dunes) -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20434/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Desert-Safari-with-Quad-Biking-145/1725285432348_S.jpg?_a=BAVAZGE70');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">Desert Safari</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 6: Ain Dubai (Ferris Wheel) -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20434/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Hot-Air-Balloon-Dubai-19390/1759919351565_S.jpg?_a=BAVAZGE70');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">Ain Dubai</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 7: Dubai Aquarium -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?q=80&w=600&auto=format&fit=crop');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">Dubai Aquarium</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 8: New Year Eve (Fireworks) -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" class="cat-card">
+                        <div class="cat-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1550136513-548af4445338?q=80&w=600&auto=format&fit=crop');">
+                        </div>
+                        <div class="cat-overlay"></div>
+                        <div class="cat-content">
+                            <h5 class="cat-title">New Year Eve</h5>
+                            <div class="cat-action">
+                                <span class="cat-count">5 Activities</span>
+                                <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
             </div>
         </div>
-    </div>
+    </section>
 
     <section class="categories mar-y">
         <div class="container">
