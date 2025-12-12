@@ -2904,12 +2904,12 @@ body .skeleton {
 .text-document ul li a:hover {
     color: #000;
 }
-.text-document h1,
+.text-document :is(h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6){
     font-weight: 700;
     margin: 17px 0 14px;
 }

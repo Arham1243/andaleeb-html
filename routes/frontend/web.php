@@ -20,5 +20,5 @@ Route::name('frontend.')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
-    Route::get('/dubai-activities', [TourController::class, 'index'])->name('tour.index');
+    Route::get('/uae-services', [TourController::class, 'index'])->name('tour.index');
 });

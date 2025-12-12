@@ -21,6 +21,7 @@
         </div>
     </div>
 
+
     <section class="activities mar-y">
         <div class="container">
             <div class="section-header">
@@ -40,6 +41,7 @@
                             <img class="imgFluid"
                                 src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
+                            <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -59,6 +61,7 @@
                             <img class="imgFluid"
                                 src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
+                            <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -152,6 +155,41 @@
             </div>
         </div>
     </section>
+
+    <div class="expandable-wrapper mar-y" data-collapsed-height="50" data-more-text="Read More"
+        data-less-text="Read Less">
+        <div class="container">
+            <div class="expandable-card">
+                <h3 class="expandable-title">Best Tours and Activities in Dubai</h3>
+
+                <div class="expandable-content">
+                    <div class="expandable-content-inner text-document">
+                        <p>Dubai is a dream that transformed into a magnificent reality in no time. Not long ago, when it
+                            was
+                            nothing but a small Bedouin village, it was an impossible thought to portray Dubai as a place
+                            where
+                            the world comes to shop and have fun.</p>
+
+                        <p>A city once known solely for its oil reserves is now a global tourism benchmark. City sightseeing
+                            today is one of the most popular activities.</p>
+
+                        <h4>Why visit?</h4>
+                        <ul>
+                            <li><a href="#">Burj Khalifa</a> views</li>
+                            <li>Desert Safaris and BBQ dinners</li>
+                            <li>Luxury Shopping experiences</li>
+                        </ul>
+
+                        <p>From the architecture to the cultural heritage, every corner tells a story waiting to be
+                            explored.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="expand-btn">Read More</button>
+            </div>
+        </div>
+    </div>
 
     <section class="categories mar-y">
         <div class="container">
@@ -258,7 +296,7 @@
         </div>
     </section>
 
-    <section class="faq-section mt-4">
+    <section class="faq-section mar-y">
         <div class="container">
             <div class="section-content mb-2">
                 <h3 class="heading mb-0">Frequently Asked Question</h3>
@@ -281,7 +319,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="faq-item active">
+                <div class="faq-item">
                     <div class="faq-header">
                         <span class="faq-question">2. Which are the best theme parks to explore in Dubai?</span>
                         <i class='bx bx-chevron-down faq-icon'></i>
@@ -304,38 +342,11 @@
         </div>
     </section>
 
-    <div class="expandable-wrapper mar-y" data-collapsed-height="90" data-more-text="Read More"
-        data-less-text="Read Less">
+    <section class="mar-y">
         <div class="container">
-            <div class="expandable-card">
-                <h3 class="expandable-title">Best Tours and Activities in Dubai</h3>
-
-                <div class="expandable-content">
-                    <div class="expandable-content-inner text-document">
-                        <p>Dubai is a dream that transformed into a magnificent reality in no time. Not long ago, when it
-                            was
-                            nothing but a small Bedouin village, it was an impossible thought to portray Dubai as a place
-                            where
-                            the world comes to shop and have fun.</p>
-
-                        <p>A city once known solely for its oil reserves is now a global tourism benchmark. City sightseeing
-                            today is one of the most popular activities.</p>
-
-                        <h4>Why visit?</h4>
-                        <ul>
-                            <li><a href="#">Burj Khalifa</a> views</li>
-                            <li>Desert Safaris and BBQ dinners</li>
-                            <li>Luxury Shopping experiences</li>
-                        </ul>
-
-                        <p>From the architecture to the cultural heritage, every corner tells a story waiting to be
-                            explored.
-                        </p>
-                    </div>
-                </div>
-
-                <button class="expand-btn">Read More</button>
+            <div class="section-content mb-2">
+                <h3 class="heading mb-0">Explore more with us</h3>
             </div>
         </div>
-    </div>
+    </section>
 @endsection
