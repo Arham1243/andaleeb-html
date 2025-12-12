@@ -2893,7 +2893,7 @@ body .skeleton {
     list-style-type: disc ;
 }
 .text-document :is(li, a, p) {
-    font-size: 0.87em;
+    font-size: 0.85em;
     font-weight: 500;
 }
 .text-document ul li a {
@@ -2944,14 +2944,17 @@ h6 {
     border-radius: 16px;
     padding: 1.5rem;
     border: 1px solid #f0f0f0;
+    width: 100%;
+    margin-inline: auto;
 }
 
 .expandable-title {
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 700;
     color: #222;
     margin-bottom: 15px;
     line-height: 1.2;
+    margin-top: 0;
 }
 
 .expandable-content {

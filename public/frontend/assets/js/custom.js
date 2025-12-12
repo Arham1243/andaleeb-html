@@ -237,7 +237,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // 4. Handle Window Resize
         window.addEventListener("resize", function () {
             if (isExpanded) {
                 contentDiv.style.maxHeight = innerContent.scrollHeight + "px";
