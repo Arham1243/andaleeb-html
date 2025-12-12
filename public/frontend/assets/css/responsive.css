@@ -112,6 +112,8 @@
     }
     .faq-content {
         padding-left: 0;
+    }
+    .text-document {
         font-size: 15px;
     }
     .faq-content ul li {

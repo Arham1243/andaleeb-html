@@ -172,7 +172,8 @@
                                 alt="Dubai" class="imgFluid">
                         </div>
                         <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Abu Dhabi City Tour With Ferrari World</div>
+                            <div class="title line-clamp-2 mb-1" style="height:43px;">Abu Dhabi City Tour With Ferrari
+                                World</div>
                             <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
                         </div>
                     </a>
@@ -184,7 +185,8 @@
                                 alt="Dubai" class="imgFluid">
                         </div>
                         <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets</div>
+                            <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
+                            </div>
                             <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
                         </div>
                     </a>
@@ -208,7 +210,8 @@
                                 alt="Dubai" class="imgFluid">
                         </div>
                         <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Buggy Driving Experience</div>
+                            <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Buggy Driving Experience
+                            </div>
                             <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
                         </div>
                     </a>
@@ -220,7 +223,8 @@
                                 alt="Dubai" class="imgFluid">
                         </div>
                         <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets</div>
+                            <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
+                            </div>
                             <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
                         </div>
                     </a>
@@ -244,7 +248,8 @@
                                 alt="Dubai" class="imgFluid">
                         </div>
                         <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Breakfast in the sky with Balloon flights</div>
+                            <div class="title line-clamp-2 mb-1" style="height:43px;">Breakfast in the sky with Balloon
+                                flights</div>
                             <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
                         </div>
                     </a>
@@ -253,7 +258,7 @@
         </div>
     </section>
 
-    <section class="faq-section mar-y">
+    <section class="faq-section mt-4">
         <div class="container">
             <div class="section-content mb-2">
                 <h3 class="heading mb-0">Frequently Asked Question</h3>
@@ -266,7 +271,7 @@
                         <i class='bx bx-chevron-down faq-icon'></i>
                     </div>
                     <div class="faq-body">
-                        <div class="faq-content">
+                        <div class="faq-content text-document">
                             <p>Dubai is famous for the Burj Khalifa, Dubai Mall, and the Palm Jumeirah.</p>
                             <ul>
                                 <li><a href="#">Burj Khalifa Tickets</a></li>
@@ -282,7 +287,7 @@
                         <i class='bx bx-chevron-down faq-icon'></i>
                     </div>
                     <div class="faq-body">
-                        <div class="faq-content">
+                        <div class="faq-content text-document">
                             <p>Dubai has world-class theme parks such as:</p>
                             <ul>
                                 <li><a href="#">Ski Dubai Tickets</a></li>
@@ -298,4 +303,39 @@
             </div>
         </div>
     </section>
+
+    <div class="expandable-wrapper mar-y" data-collapsed-height="90" data-more-text="Read More"
+        data-less-text="Read Less">
+        <div class="container">
+            <div class="expandable-card">
+                <h3 class="expandable-title">Best Tours and Activities in Dubai</h3>
+
+                <div class="expandable-content">
+                    <div class="expandable-content-inner text-document">
+                        <p>Dubai is a dream that transformed into a magnificent reality in no time. Not long ago, when it
+                            was
+                            nothing but a small Bedouin village, it was an impossible thought to portray Dubai as a place
+                            where
+                            the world comes to shop and have fun.</p>
+
+                        <p>A city once known solely for its oil reserves is now a global tourism benchmark. City sightseeing
+                            today is one of the most popular activities.</p>
+
+                        <h4>Why visit?</h4>
+                        <ul>
+                            <li><a href="#">Burj Khalifa</a> views</li>
+                            <li>Desert Safaris and BBQ dinners</li>
+                            <li>Luxury Shopping experiences</li>
+                        </ul>
+
+                        <p>From the architecture to the cultural heritage, every corner tells a story waiting to be
+                            explored.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="expand-btn">Read More</button>
+            </div>
+        </div>
+    </div>
 @endsection

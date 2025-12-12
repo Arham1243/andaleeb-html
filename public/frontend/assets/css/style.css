@@ -2839,7 +2839,7 @@ body .skeleton {
 }
 
 .faq-question {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: #333;
 }
@@ -2861,38 +2861,6 @@ body .skeleton {
     padding-bottom: 20px;
     padding-left: 10px;
 }
-
-.faq-content p {
-    font-size: 0.88em;
-    font-weight: 500;
-    color: #555;
-    margin-bottom: 12px;
-    line-height: 1.6;
-}
-
-.faq-content ul {
-    list-style-type: disc !important;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
-.faq-content ul li {
-    font-size: 0.88em;
-    font-weight: 500;
-    color: #555;
-    margin-bottom: 9px;
-    line-height: 1.5;
-    list-style-type: disc;
-}
-
-.faq-content ul li a {
-    color: #555;
-    text-decoration: underline !important;
-    transition: color 0.2s;
-    font-size: 0.88em;
-}
-.faq-content ul li a:hover {
-    color: #000;
-}
 .faq-item .faq-icon {
     font-size: 1.75rem;
 }
@@ -2903,3 +2871,114 @@ body .skeleton {
     color: #000;
 }
 /* FAQ Section */
+
+/* text document */
+.text-document {
+    font-size: 16px;
+}
+.text-document p {
+    color: #555;
+    margin-bottom: 13px;
+    line-height: 1.6;
+}
+
+.text-document ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.text-document ul li {
+    color: #555;
+    margin-bottom: 9px;
+    line-height: 1.5;
+    list-style-type: disc ;
+}
+.text-document :is(li, a, p) {
+    font-size: 0.87em;
+    font-weight: 500;
+}
+.text-document ul li a {
+    color: #555;
+    text-decoration: underline !important;
+    transition: color 0.2s;
+}
+.text-document ul li a:hover {
+    color: #000;
+}
+.text-document h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    margin: 17px 0 14px;
+}
+.text-document h1 {
+    font-size: 2.25em;
+}
+.text-document h2 {
+    font-size: 1.875em;
+}
+.text-document h3 {
+    font-size: 1.5em;
+}
+.text-document h4 {
+    font-size: 1.25em;
+}
+.text-document h5 {
+    font-size: 1.125em;
+}
+.text-document h6 {
+    font-size: 1em;
+}
+
+/* text document */
+
+/* --- Expandable Card --- */
+.expandable-wrapper {
+    width: 100%;
+}
+
+.expandable-card {
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #f0f0f0;
+}
+
+.expandable-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.expandable-content {
+    overflow: hidden;
+    position: relative;
+}
+
+.expand-btn {
+    background: none;
+    outline: none;
+    border: none;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #222;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.expand-btn:hover {
+    color: #555;
+    text-decoration: underline !important;
+}
+
+.expand-btn:focus {
+    outline: none;
+}
+/* --- Expandable Card --- */

@@ -64,7 +64,7 @@ $(document).ready(function () {
         ],
     });
     /* activity slider  */
-    
+
     /* activity slider  */
     $(".category-slider").slick({
         dots: false,
@@ -171,35 +171,79 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
 /* Faqs Toggler */
-document.addEventListener("DOMContentLoaded", function() {
-    const faqItems = document.querySelectorAll('.faq-item');
+document.addEventListener("DOMContentLoaded", function () {
+    const faqItems = document.querySelectorAll(".faq-item");
 
-    faqItems.forEach(item => {
-        const header = item.querySelector('.faq-header');
-        const body = item.querySelector('.faq-body');
+    faqItems?.forEach((item) => {
+        const header = item.querySelector(".faq-header");
+        const body = item.querySelector(".faq-body");
 
-        if (item.classList.contains('active')) {
+        if (item.classList.contains("active")) {
             body.style.maxHeight = body.scrollHeight + "px";
         }
 
-        header.addEventListener('click', () => {
-            const isOpen = item.classList.contains('active');
-
-            faqItems.forEach(otherItem => {
-                otherItem.classList.remove('active');
-                otherItem.querySelector('.faq-body').style.maxHeight = null;
-            });
+        header.addEventListener("click", () => {
+            const isOpen = item.classList.contains("active");
 
             if (!isOpen) {
-                item.classList.add('active');
+                item.classList.add("active");
                 body.style.maxHeight = body.scrollHeight + "px";
             } else {
-                item.classList.remove('active');
+                item.classList.remove("active");
                 body.style.maxHeight = null;
             }
         });
     });
 });
 /* Faqs Toggler */
+
+
+/* Expandable Card */
+document.addEventListener("DOMContentLoaded", function () {
+    const wrappers = document.querySelectorAll(".expandable-wrapper");
+
+    wrappers?.forEach((wrapper) => {
+        const contentDiv = wrapper.querySelector(".expandable-content");
+        const innerContent = wrapper.querySelector(".expandable-content-inner");
+        const btn = wrapper.querySelector(".expand-btn");
+
+        const collapsedHeight =
+            parseInt(wrapper.getAttribute("data-collapsed-height")) || 100; 
+        const moreText = wrapper.getAttribute("data-more-text") || "Read More";
+        const lessText = wrapper.getAttribute("data-less-text") || "Read Less";
+
+        let isExpanded = false;
+
+        contentDiv.style.maxHeight = collapsedHeight + "px";
+        btn.textContent = moreText;
+
+        if (innerContent.scrollHeight <= collapsedHeight) {
+            btn.style.display = "none";
+            contentDiv.style.maxHeight = "none"; 
+        }
+
+        btn.addEventListener("click", function () {
+            if (!isExpanded) {
+                // EXPAND
+                contentDiv.style.maxHeight = innerContent.scrollHeight + "px";
+                btn.textContent = lessText;
+                isExpanded = true;
+            } else {
+                // COLLAPSE
+                contentDiv.style.maxHeight = collapsedHeight + "px";
+                btn.textContent = moreText;
+                isExpanded = false;
+            }
+        });
+
+        // 4. Handle Window Resize
+        window.addEventListener("resize", function () {
+            if (isExpanded) {
+                contentDiv.style.maxHeight = innerContent.scrollHeight + "px";
+            }
+        });
+    });
+});
+
+/* Expandable Card */
