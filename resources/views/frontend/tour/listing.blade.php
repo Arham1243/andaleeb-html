@@ -342,11 +342,215 @@
         </div>
     </section>
 
-    <section class="mar-y">
+
+    @php
+        $tabs = [
+            [
+                'id' => 'cruises-from-dubai',
+                'label' => 'Cruises from Dubai',
+                'links' => [
+                    '4N Gulf Discovery Cruise to Dubai - Doha - Bahrain - Abu Dhabi',
+                    '4N MSC Euribia Arabian Voyage - Dubai - Doha - Bahrain - Abu Dhabi',
+                    'ON Gulf Horizons Escape Dubai - Doha - Bahrain - Abu Dhabi',
+                    '4N Middle East Getaway Dubai - Bahrain - Abu Dhabi',
+                ],
+            ],
+            [
+                'id' => 'dubai-tour-packages',
+                'label' => 'Dubai Tour Packages',
+                'links' => [
+                    'Dubai Budget Explorer with Dubai Mall Attractions',
+                    'Dubai Jain Signature Experience',
+                    'Dubai New Year Celebration with Gala Dinner',
+                    'Dubai Sky High Thrills Holiday',
+                    'Dubai Stopover Delight',
+                    'Magical Dubai Christmas Family Holiday',
+                    'Royal Dubai Signature Experience',
+                    'Super Saver Dubai Holiday',
+                ],
+            ],
+            [
+                'id' => 'abu-dhabi-holidays',
+                'label' => 'Abu Dhabi Holidays',
+                'links' => [
+                    'Abu Dhabi Cultural Discovery Tour',
+                    'Ferrari World Adventure with Yas Island Stay',
+                    'Luxury Abu Dhabi City Escape',
+                    'Abu Dhabi Grand Prix Experience',
+                ],
+            ],
+            [
+                'id' => 'middle-east-cruises',
+                'label' => 'Middle East Cruises',
+                'links' => [
+                    'Arabian Peninsula Cruise Experience',
+                    'Red Sea and Arabian Coast Voyage',
+                    'Persian Gulf Highlights Cruise',
+                    'Luxury Middle East Cruise Escape',
+                ],
+            ],
+            [
+                'id' => 'honeymoon-specials',
+                'label' => 'Honeymoon Specials',
+                'links' => [
+                    'Romantic Dubai Honeymoon Escape',
+                    'Luxury Desert and City Honeymoon Experience',
+                    'Dubai Marina Romance Getaway',
+                    'Beachside Dubai Honeymoon Retreat',
+                ],
+            ],
+            [
+                'id' => 'family-holidays',
+                'label' => 'Family Holidays',
+                'links' => [
+                    'Dubai Family Fun with Theme Parks',
+                    'Abu Dhabi Family Adventure Package',
+                    'Middle East Family Cruise Escape',
+                    'Kids Special Dubai Holiday',
+                ],
+            ],
+            [
+                'id' => 'luxury-escapes',
+                'label' => 'Luxury Escapes',
+                'links' => [
+                    'Ultra Luxury Dubai Experience',
+                    'Private Yacht Staycation Dubai',
+                    'Seven Star Dubai Signature Holiday',
+                    'Elite Middle East Luxury Cruise',
+                ],
+            ],
+            [
+                'id' => 'festive-specials',
+                'label' => 'Festive Specials',
+                'links' => [
+                    'Dubai Christmas and New Year Extravaganza',
+                    'Eid Special Dubai Celebration Package',
+                    'New Year Fireworks Dubai Holiday',
+                    'Festive Family Dubai Escape',
+                ],
+            ],
+            [
+                'id' => 'short-breaks',
+                'label' => 'Short Breaks',
+                'links' => [
+                    'Dubai Weekend Escape',
+                    'Abu Dhabi Quick Getaway',
+                    'Luxury 3N Dubai City Break',
+                    'Dubai Stopover Short Holiday',
+                ],
+            ],
+            [
+                'id' => 'adventure-trips',
+                'label' => 'Adventure Trips',
+                'links' => [
+                    'Dubai Desert Safari Adventure',
+                    'Sky Diving and Luxury Stay Dubai',
+                    'Middle East Adventure Cruise',
+                    'Thrill Seeker Dubai Holiday',
+                ],
+            ],
+        ];
+
+    @endphp
+
+    <section class="mar-y section-explore">
         <div class="container">
-            <div class="section-content mb-2">
+
+            <div class="section-content mb-4">
                 <h3 class="heading mb-0">Explore more with us</h3>
+            </div>
+
+            <!-- Tabs Navigation Wrapper -->
+            <div class="position-relative explore-wrapper mb-4">
+                <!-- Left Arrow -->
+                <button class="explore-arrow-btn explore-arrow-left" aria-label="Scroll Left">
+                    <i class="bx bx-chevron-left"></i>
+                </button>
+
+                <!-- Tabs List -->
+                <ul class="d-flex overflow-auto flex-nowrap scroll-smooth no-scrollbar explore-scroller" role="tablist">
+                    @foreach ($tabs as $index => $tab)
+                        <li role="presentation" class="flex-shrink-0">
+                            <button class="explore-tab-btn {{ $index === 0 ? 'active' : '' }}"
+                                id="{{ $tab['id'] }}-tab" data-bs-toggle="tab"
+                                data-bs-target="#{{ $tab['id'] }}-pane" type="button" role="tab"
+                                aria-controls="{{ $tab['id'] }}-pane"
+                                aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
+                                {{ $tab['label'] }}
+                            </button>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <!-- Right Arrow -->
+                <button class="explore-arrow-btn explore-arrow-right" aria-label="Scroll Right">
+                    <i class="bx bx-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Tabs Content -->
+            <div class="tab-content">
+                @foreach ($tabs as $index => $tab)
+                    <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}" id="{{ $tab['id'] }}-pane"
+                        role="tabpanel" aria-labelledby="{{ $tab['id'] }}-tab" tabindex="0">
+
+                        <!-- Grid Layout for Links -->
+                        <div class="explore-link-grid">
+                            @foreach ($tab['links'] as $link)
+                                <a href="#" class="explore-link-item">
+                                    <span>{{ $link }}</span>
+                                    <i class="bx bx-right-arrow-alt"></i> <!-- Long Arrow Icon -->
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
 @endsection
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.explore-wrapper')?.forEach(wrapper => {
+                const scroller = wrapper.querySelector('.explore-scroller');
+                const arrowLeft = wrapper.querySelector('.explore-arrow-left');
+                const arrowRight = wrapper.querySelector('.explore-arrow-right');
+
+                if (!scroller) return;
+
+                const updateArrows = () => {
+                    // Tolerance of 1px for high-DPI screens
+                    const maxScrollLeft = scroller.scrollWidth - scroller.clientWidth;
+
+                    // Show left arrow if scrolled more than 0
+                    arrowLeft.style.display = scroller.scrollLeft > 5 ? 'flex' : 'none';
+
+                    // Show right arrow if not at the end
+                    arrowRight.style.display = scroller.scrollLeft >= maxScrollLeft - 5 ? 'none' :
+                        'flex';
+                };
+
+                arrowLeft.addEventListener('click', () => {
+                    scroller.scrollBy({
+                        left: -200,
+                        behavior: 'smooth'
+                    });
+                });
+
+                arrowRight.addEventListener('click', () => {
+                    scroller.scrollBy({
+                        left: 200,
+                        behavior: 'smooth'
+                    });
+                });
+
+                scroller.addEventListener('scroll', updateArrows);
+                window.addEventListener('resize', updateArrows);
+
+                // Initial check
+                updateArrows();
+            });
+        });
+    </script>
+@endpush

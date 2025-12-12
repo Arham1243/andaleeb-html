@@ -504,7 +504,7 @@ i.bx {
 
 .slick-disabled {
     opacity: 0.5;
-    cursor: not-allowed;
+    cursor: not-allowed !important;
 }
 .slick-slide {
     margin: 0 12px;
@@ -2831,7 +2831,7 @@ body .skeleton {
 .faq-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 1.5rem 0;
     cursor: pointer;
     background-color: #fff;
@@ -2985,3 +2985,125 @@ h6){
     outline: none;
 }
 /* --- Expandable Card --- */
+
+/* explore */
+/* --- Layout & Reset --- */
+.section-explore {
+    position: relative;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --bg-light: #cd1b4f12;
+    --border-color: #e5e7eb;
+}
+
+/* --- Scrollbar Hiding --- */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;    /* Firefox */
+}
+.scroll-smooth {
+    scroll-behavior: smooth;
+}
+
+.explore-scroller {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 1.5rem; 
+    border-bottom: 1px solid var(--border-color); 
+    padding-bottom: 1px; 
+}
+
+.explore-tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent; 
+    padding: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.explore-tab-btn:hover {
+    color: var(--color-primary);
+}
+
+.explore-tab-btn.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary); 
+}
+
+.explore-arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    cursor: pointer;
+    font-size: 1.25rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    display: none; 
+}
+
+.explore-arrow-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.explore-arrow-left { left: -10px; }
+.explore-arrow-right { right: -10px; }
+
+/* --- Tab Content: Link Grid --- */
+.explore-link-grid {
+    gap: 1rem;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.explore-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.65rem 0.8rem;
+    border-radius: 6px;
+    background-color: transparent;
+    transition: background 0.2s, transform 0.2s;
+    border: 1px solid #eae9e9;
+    gap: 0.5rem;
+}
+
+.explore-link-item i {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    transition: transform 0.2s, color 0.2s;
+}
+
+.explore-link-item:hover {
+    border-color: var(--bg-light);
+    background-color: var(--bg-light);
+    color: var(--color-primary);
+}
+
+.explore-link-item:hover i {
+    transform: translateX(5px);
+    color: var(--color-primary);
+}
+/* explore */
+
