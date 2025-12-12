@@ -32,7 +32,7 @@
             <div class="section-content mb-4">
                 <h3 class="heading">Best Cities to Visit</h3>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-3">
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
@@ -41,6 +41,18 @@
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-1">United Arab Emirates</div>
+                        </div>
+                    </a>
+                </div>
+                 <div class="col">
+                    <a href="#" class="category-card">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Singapore</div>
                             <div class="desc line-clamp-1">United Arab Emirates</div>
                         </div>
                     </a>
@@ -210,9 +222,9 @@
                 <div class="section-content">
                     <h3 class="heading mb-0">Best Activities in Dubai</h3>
                 </div>
-                <div class="slider-arrows">
-                    <div class="arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
-                    <div class="arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
+                <div class="custom-slider-arrows">
+                    <div class="slick-arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
+                    <div class="slick-arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
                 </div>
             </div>
 

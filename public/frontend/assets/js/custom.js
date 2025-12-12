@@ -64,6 +64,38 @@ $(document).ready(function () {
         ],
     });
     /* activity slider  */
+    
+    /* activity slider  */
+    $(".category-slider").slick({
+        dots: false,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        prevArrow: $(".category-prev-slide"),
+        nextArrow: $(".category-next-slide"),
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
+    });
+    /* activity slider  */
 
     /* banner slider */
     $(".banner-slider").slick({
@@ -138,3 +170,36 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     });
 });
+
+
+/* Faqs Toggler */
+document.addEventListener("DOMContentLoaded", function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const header = item.querySelector('.faq-header');
+        const body = item.querySelector('.faq-body');
+
+        if (item.classList.contains('active')) {
+            body.style.maxHeight = body.scrollHeight + "px";
+        }
+
+        header.addEventListener('click', () => {
+            const isOpen = item.classList.contains('active');
+
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.faq-body').style.maxHeight = null;
+            });
+
+            if (!isOpen) {
+                item.classList.add('active');
+                body.style.maxHeight = body.scrollHeight + "px";
+            } else {
+                item.classList.remove('active');
+                body.style.maxHeight = null;
+            }
+        });
+    });
+});
+/* Faqs Toggler */

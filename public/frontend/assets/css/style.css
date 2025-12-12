@@ -433,7 +433,7 @@ i.bx {
 }
 .category-card__img {
     width: 100%;
-    height: 200px;
+    height: 190px;
     border-radius: 0.75rem;
     overflow: hidden;
     margin-bottom: 0.7rem;
@@ -462,7 +462,7 @@ i.bx {
     align-items: center;
     justify-content: flex-end;
 }
-.category-card__content .bottom-bar .arrow-btn {
+.category-card__content .bottom-bar .slick-arrow-btn {
     color: #000;
     background: #f7f7f7;
     border-radius: 100px;
@@ -471,19 +471,19 @@ i.bx {
 }
 /* category-card */
 /* activities */
-.activities .section-header {
+.section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.activities .slider-arrows {
+.custom-slider-arrows {
     display: flex;
     gap: 10px;
 }
 
-.activities .arrow-btn {
+.slick-arrow-btn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -506,7 +506,7 @@ i.bx {
     opacity: 0.5;
     cursor: not-allowed;
 }
-.activity-slider .slick-slide {
+.slick-slide {
     margin: 0 12px;
 }
 .activity-card {
@@ -2808,3 +2808,98 @@ body .skeleton {
     }
 }
 /* Cart & checkout */
+
+/* FAQ Section */
+.faq-section {
+    color: #333;
+}
+
+.faq-main-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.faq-item {
+    overflow: hidden;
+}
+
+.faq-item:not(:first-child) {
+    border-top: 1px solid #cdcccc;
+}
+
+.faq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.faq-question {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    color: #333;
+    transition: transform 0.3s ease;
+}
+
+.faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+/* Inner Content Styling */
+.faq-content {
+    padding-bottom: 20px;
+    padding-left: 10px;
+}
+
+.faq-content p {
+    font-size: 0.88em;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.faq-content ul {
+    list-style-type: disc !important;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.faq-content ul li {
+    font-size: 0.88em;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 9px;
+    line-height: 1.5;
+    list-style-type: disc;
+}
+
+.faq-content ul li a {
+    color: #555;
+    text-decoration: underline !important;
+    transition: color 0.2s;
+    font-size: 0.88em;
+}
+.faq-content ul li a:hover {
+    color: #000;
+}
+.faq-item .faq-icon {
+    font-size: 1.75rem;
+}
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+.faq-item.active .faq-question {
+    color: #000;
+}
+/* FAQ Section */
