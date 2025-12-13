@@ -29,7 +29,7 @@
 
                         <!-- Footer -->
                         <div class="auth-footer">
-                            <a href="{{ route('frontend.auth.login') }}" class="auth-link"> <i class='bx bx-arrow-back'></i>
+                            <a href="{{ route('frontend.auth.login') }}" class="custom-link"> <i class='bx bx-arrow-back'></i>
                                 Back to Login</a>
                         </div>
                     </div>

@@ -32,7 +32,7 @@
                                     <input type="checkbox">
                                     Remember me
                                 </label>
-                                <a href="{{ route('frontend.auth.password.forgot') }}" class="auth-link">Forgot
+                                <a href="{{ route('frontend.auth.password.forgot') }}" class="custom-link">Forgot
                                     Password?</a>
                             </div>
 
@@ -58,9 +58,9 @@
                         <!-- Footer -->
                         <div class="auth-footer">
                             <p class="mb-2">Don't have an account? <a href="{{ route('frontend.auth.signup') }}"
-                                    class="auth-link">Sign Up</a></p>
+                                    class="custom-link">Sign Up</a></p>
 
-                            <a href="{{ route('frontend.auth.my-booking') }}" class="auth-link">
+                            <a href="{{ route('frontend.auth.my-booking') }}" class="custom-link">
                                 Find Your Booking
                             </a>
                         </div>

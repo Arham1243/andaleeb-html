@@ -2420,14 +2420,14 @@ body .skeleton {
     height: 16px;
 }
 
-.auth-link {
+.custom-link {
     color: var(--color-primary);
     text-decoration: none;
     font-weight: 600;
     transition: opacity 0.2s;
 }
 
-.auth-link:hover {
+.custom-link:hover {
     opacity: 0.8;
     text-decoration: underline;
 }

@@ -10,4 +10,12 @@ class IndexController extends Controller
     {
         return view('frontend.home');
     }
+    public function privacy_policy()
+    {
+        return view('frontend.privacy-policy');
+    }
+    public function terms_and_conditions()
+    {
+        return view('frontend.terms-conditions');
+    }
 }

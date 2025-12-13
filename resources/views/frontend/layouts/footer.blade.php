@@ -65,9 +65,9 @@
                         <span>&copy; {{ date('Y') }} Andaleeb Travel Agency. All Rights Reserved.
                         </span>
                         <div class="copyright-links">
-                            <a href="#">Privacy Policy</a>
+                            <a href="{{ route('frontend.privacy-policy') }}">Privacy Policy</a>
                             <span style="color: #ddd">|</span>
-                            <a href="#">Terms & conditions</a>
+                            <a href="{{ route('frontend.terms-and-conditions') }}">Terms & conditions</a>
                         </div>
                     </div>
                 </div>

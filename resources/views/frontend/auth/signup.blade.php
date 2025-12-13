@@ -64,7 +64,7 @@
                         <!-- Footer -->
                         <div class="auth-footer">
                             Already have an account? <a href="{{ route('frontend.auth.login') }}"
-                                class="auth-link">Login</a>
+                                class="custom-link">Login</a>
                         </div>
                     </div>
 
