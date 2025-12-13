@@ -1,6 +1,6 @@
 <script>
     const countriesDataPromise = fetch(
-        "{{ url('/') }}" + "/frontend/mocks/yalago_countries.json"
+        "{{ url('/') }}" + "public/frontend/mocks/yalago_countries.json"
     ).then((r) => r.json());
 
     const formatCountries = (countries) => ({
