@@ -1,8 +1,8 @@
 <script>
     const hotelsDataPromise = Promise.all([
-        fetch("{{ url('/') }}" + "public/frontend/mocks/yalago_countries.json").then(r => r.json()),
-        fetch("{{ url('/') }}" + "public/frontend/mocks/yalago_provinces.json").then(r => r.json()),
-        fetch("{{ url('/') }}" + "public/frontend/mocks/yalago_locations.json").then(r => r.json())
+        fetch("{{ url('/') }}" + "/public/frontend/mocks/yalago_countries.json").then(r => r.json()),
+        fetch("{{ url('/') }}" + "/public/frontend/mocks/yalago_provinces.json").then(r => r.json()),
+        fetch("{{ url('/') }}" + "/public/frontend/mocks/yalago_locations.json").then(r => r.json())
     ]).then(([countries, provinces, locations]) => ({
         countries,
         provinces,
