@@ -2,7 +2,7 @@
 @section('content')
     <!-- Page Header -->
     <section class="page-header py-5 d-flex align-items-center"
-        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1596524430615-b46476ddff6e?q=80&w=1200&auto=format&fit=crop'); background-size: cover; background-position: center; height: 350px;">
+        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('frontend/assets/images/contact-banner.jpeg') }}'); background-size: cover; background-position: center; height: 350px;">
         <div class="container text-center text-white">
             <h1 class="fw-bold display-4">Get in Touch</h1>
             <p class="lead mb-0 opacity-75">We are here to help plan your next journey</p>
@@ -61,8 +61,8 @@
                         <div class="map-container mt-4 rounded-4 overflow-hidden shadow-sm border">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7222.4261103518265!2d55.40064926256448!3d25.16228291056195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sOffice%23%2018%2C%20Russia%20Cluster%2C%20Building%20V-05%2C%20International%20City%2C%20Dubai%2C%20U.A.E!5e0!3m2!1sen!2s!4v1765587362201!5m2!1sen!2s"
-                                width="100%" height="280" style="border:0;" allowfullscreen="" loading="lazy">
-                            </iframe>
+                                width="100%" height="280"style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
@@ -130,3 +130,22 @@
         </div>
     </section>
 @endsection
+@push('js')
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const recaptcha = grecaptcha.getResponse();
+
+                if (!recaptcha) {
+                    e.preventDefault();
+                    showMessage("Please complete the reCAPTCHA before submitting.", "error");
+                    return false;
+                }
+            });
+
+        });
+    </script>
+@endpush

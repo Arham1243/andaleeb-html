@@ -1180,7 +1180,7 @@ button.slick-prev.slick-arrow::before {
 .mh-nav-list {
     display: flex;
     list-style: none;
-    gap: 32px;
+    gap: 23px;
     margin: 0;
     padding: 0;
 }
@@ -1188,7 +1188,7 @@ button.slick-prev.slick-arrow::before {
 .mh-nav-list a {
     text-decoration: none;
     color: var(--mh-text);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 500;
     letter-spacing: -0.2px;
     transition: color 0.2s ease;
@@ -1223,7 +1223,7 @@ button.slick-prev.slick-arrow::before {
     align-items: center;
     gap: 6px;
     color: var(--mh-text-light);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     transition: color 0.2s;
 }
@@ -1243,9 +1243,9 @@ button.slick-prev.slick-arrow::before {
     gap: 8px;
     background-color: var(--mh-primary);
     color: #fff;
-    padding: 10px 22px;
+    padding: 10px 19px;
     border-radius: 99px; /* Modern Pill Shape */
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     transition: all 0.2s ease;
     box-shadow: 0 4px 10px rgba(205, 27, 79, 0.2);
