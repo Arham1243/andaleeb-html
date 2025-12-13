@@ -28,7 +28,7 @@
                 <h6 class="heading">Explore Options</h6>
                 <ul class="footer-list">
                     <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tours</a></li>
-                    <li><a href="">Holidays</a></li>
+                    <li><a href="{{ route('frontend.tour.holiday-packages') }}">Holidays</a></li>
                     <li><a href="">Hotels</a></li>
                     <li><a href="">Insurance</a></li>
                 </ul>

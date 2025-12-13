@@ -15,7 +15,7 @@
                 <ul class="mh-nav-list">
                     <li><a href="{{ route('frontend.about-us') }}">About Us </a></li>
                     <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tours</a></li>
-                    <li><a href="">Holidays</a></li>
+                    <li><a href="{{ route('frontend.tour.holiday-packages') }}">Holidays</a></li>
                     <li><a href="">Hotels</a></li>
                     <li><a href="">Insurance</a></li>
                     <li><a href="{{ route('frontend.contact-us') }}">Contact Us </a></li>
@@ -68,7 +68,7 @@
     <ul class="sideBar__nav">
         <li><a href="{{ route('frontend.about-us') }}">About Us </a></li>
         <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tour Packages</a></li>
-        <li><a href="#">Holiday Packages</a></li>
+        <li><a href="{{ route('frontend.tour.holiday-packages') }}">Holiday Packages</a></li>
         <li><a href="#">Hotels</a></li>
         <li><a href="#">Travel Insurance</a></li>
         <li><a href="{{ route('frontend.contact-us') }}">Contact Us</a></li>

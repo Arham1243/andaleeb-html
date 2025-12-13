@@ -45,7 +45,7 @@
                         </div>
                     </a>
                 </div>
-                 <div class="col">
+                <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
                             <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
@@ -232,9 +232,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
+                            <a href="#">
+                                <img class="imgFluid"
+                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                                    alt="Burj Khalifa">
+                            </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -251,9 +253,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
+                            <a href="#">
+                                <img class="imgFluid"
+                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
+                                    alt="Burj Khalifa">
+                            </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -270,9 +274,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
+                             <a href="#">
                             <img class="imgFluid"
                                 src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
+                                </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -289,9 +295,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
+                             <a href="#">
                             <img class="imgFluid"
                                 src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
+                                </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -308,9 +316,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
+                             <a href="#">
                             <img class="imgFluid"
                                 src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
+                                </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -327,9 +337,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
+                             <a href="#">
                             <img class="imgFluid"
                                 src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
+                                </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -718,7 +730,8 @@
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culinary</span>
-                                        <a href="#" class="ts-side-title line-clamp-2">Best street food in Bali (Hidden Gems)</a>
+                                        <a href="#" class="ts-side-title line-clamp-2">Best street food in Bali
+                                            (Hidden Gems)</a>
                                         <p class="ts-side-desc line-clamp-1">From spicy Sambal to sweet Dadar Gulung.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>
                                     </div>
@@ -730,7 +743,8 @@
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">City Guide</span>
-                                        <a href="#" class="ts-side-title line-clamp-2">Paris on a Budget: Luxury for less</a>
+                                        <a href="#" class="ts-side-title line-clamp-2">Paris on a Budget: Luxury for
+                                            less</a>
                                         <p class="ts-side-desc line-clamp-1">Enjoy the City of Lights without breaking the
                                             bank.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>
@@ -766,7 +780,8 @@
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culture</span>
-                                        <a href="#" class="ts-side-title line-clamp-2">Kyoto in Bloom: A Cherry Blossom Guide</a>
+                                        <a href="#" class="ts-side-title line-clamp-2">Kyoto in Bloom: A Cherry
+                                            Blossom Guide</a>
                                         <p class="ts-side-desc line-clamp-1">The best spots to see Sakura away from the
                                             crowds.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>
@@ -779,7 +794,8 @@
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Tech & Travel</span>
-                                        <a href="#" class="ts-side-title line-clamp-2">Tokyo Future: The Neon Nights</a>
+                                        <a href="#" class="ts-side-title line-clamp-2">Tokyo Future: The Neon
+                                            Nights</a>
                                         <p class="ts-side-desc line-clamp-1">Exploring the electronic district of
                                             Akihabara.</p>
                                         <a href="#" class="ts-read-more">Read Story</a>

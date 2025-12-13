@@ -1,0 +1,227 @@
+@extends('frontend.layouts.main')
+@section('content')
+    <section class="page-header py-5 d-flex align-items-center"
+        style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/2.jpg') }}'); background-size: cover; background-position: center; height:288px;">
+        <div class="container">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-6">
+                    <form class="holidays-search-form holidays-search-form--normal" method="GET">
+                        <input type="text" name="destination" class="holidays-search-form__input"
+                            placeholder="Search Activities">
+                        <div class="search-button">
+                            <button type="submit" class="themeBtn themeBtn--primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info & Features Section -->
+    <section class="section-info py-5 bg-light">
+        <div class="container">
+
+            <!-- Intro Content -->
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-10 text-center">
+                    <span class="text-uppercase fw-bold ls-2 small" style="color: var(--color-primary);">Andaleeb Travel
+                        Agency</span>
+                    <h2 class="fw-bold mb-2 mt-2">UAE Travel Packages</h2>
+                    <p class="lead">
+                        Travel packages are pre-arranged trips that bundle flights, accommodations, transportation, and
+                        activities into a single seamless deal. Designed for convenience and value, our packages let you
+                        experience the best of the UAE without the stress of planning.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="row g-4">
+
+                <!-- Feature 1: Convenience -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="icon-wrapper mb-3">
+                            <i class='bx bx-check-shield'></i>
+                        </div>
+                        <h5 class="fw-bold">Convenience</h5>
+                        <p class="text-muted small mb-0">
+                            Eliminate the hassle of booking separately. We provide a complete itinerary with pre-arranged
+                            bookings for flights, hotels, and activities, saving you time and effort.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Cost Savings -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="icon-wrapper mb-3">
+                            <i class='bx bx-wallet-alt'></i>
+                        </div>
+                        <h5 class="fw-bold">Cost Savings</h5>
+                        <p class="text-muted small mb-0">
+                            Benefit from our bulk buying power. We negotiate special rates with airlines and hotels to offer
+                            you discounted prices compared to booking individually.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Itinerary Planning -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="icon-wrapper mb-3">
+                            <i class='bx bx-map-pin'></i>
+                        </div>
+                        <h5 class="fw-bold">Itinerary Planning</h5>
+                        <p class="text-muted small mb-0">
+                            First time visiting? Enjoy a well-planned itinerary featuring popular attractions and
+                            experiences, ensuring a hassle-free and memorable travel experience.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 4: Expert Guidance -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="icon-wrapper mb-3">
+                            <i class='bx bx-user-voice'></i>
+                        </div>
+                        <h5 class="fw-bold">Expert Guidance</h5>
+                        <p class="text-muted small mb-0">
+                            Gain insights from our travel consultants and guides. We handle logistics and offer local
+                            recommendations to enhance your journey.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 5: Added Value -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="icon-wrapper mb-3">
+                            <i class='bx bx-gift'></i>
+                        </div>
+                        <h5 class="fw-bold">Added Value</h5>
+                        <p class="text-muted small mb-0">
+                            Enjoy exclusive perks like complimentary breakfasts, guided city tours, airport transfers, and
+                            access to special events not available to the public.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 6: Group Travel -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="icon-wrapper mb-3">
+                            <i class='bx bx-group'></i>
+                        </div>
+                        <h5 class="fw-bold">Group Travel</h5>
+                        <p class="text-muted small mb-0">
+                            Perfect for families and friends. Share experiences, enjoy group discounts, and take advantage
+                            of organized excursions designed for groups.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Disclaimer / Footer Note -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="alert custom-alert d-flex align-items-start" role="alert">
+                        <i class='bx bx-info-circle fs-4 me-3 flex-shrink-0' style="color: var(--color-primary);"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Important Note</h6>
+                            <p class="mb-0 small text-muted">
+                                When considering a package, please review details regarding destinations, inclusions,
+                                exclusions, and cancellation policies. Andaleeb Travel Agency is committed to transparency
+                                and customer satisfaction.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="activities mar-y">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold mb-2">Discover Our Holiday Packages</h2>
+                <p class="lead">
+                    Handpicked tours and travel experiences to make your UAE holidays unforgettable
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection

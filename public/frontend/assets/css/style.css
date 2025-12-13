@@ -430,6 +430,7 @@ i.bx {
     isolation: isolate;
     transition: all 300ms;
     width: 100%;
+    margin: 0.35rem 0;
 }
 .category-card__img {
     width: 100%;
@@ -437,6 +438,12 @@ i.bx {
     border-radius: 0.75rem;
     overflow: hidden;
     margin-bottom: 0.7rem;
+}
+.category-card--lg .category-card__img {
+    height: 220px;
+}
+.category-card--lg .category-card__content .title {
+    font-size: 1.1rem;
 }
 .category-card__img > img {
     width: 100%;
@@ -456,6 +463,9 @@ i.bx {
     font-size: 0.75rem;
     font-weight: 500;
     margin-top: 2px;
+}
+.category-card--lg .category-card__content .desc {
+    font-size: 0.85rem;
 }
 .category-card__content .bottom-bar {
     display: flex;
@@ -3344,16 +3354,56 @@ h6){
 /* about us */
 
 /* Contact us */
-
-/* --- Contact Info Styles --- */
-
-
-/* Map Container */
 .map-container iframe {
-    filter: grayscale(20%); /* Optional: Makes map look calmer/more pro */
+    filter: grayscale(20%);
     transition: filter 0.3s;
 }
 .map-container:hover iframe {
     filter: grayscale(0%);
 }
 /* Contact us */
+
+
+/* Feature Card Styling */
+.feature-card {
+    border: 1px solid rgba(0,0,0,0.05); /* Very subtle border */
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+    border-color: transparent;
+}
+
+/* Icon Styling */
+.icon-wrapper {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(205, 27, 79, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .icon-wrapper {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+/* Custom Alert Box */
+.custom-alert {
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid var(--color-primary);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+.lead{
+    font-size: 1em;
+    font-weight: 400;
+}

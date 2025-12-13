@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('content')
     <section class="page-header py-5 d-flex align-items-center"
-        style="background: url('{{ asset('https://andaleebtours.com/assets/uploads/cms/ubaiours172649170639.jpg') }}'); background-size: cover; background-position: center; height:288px;">
+        style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/1.jpg') }}'); background-size: cover; background-position: center; height:288px;">
         <div class="container">
             <div class="row justify-content-center mt-5 pt-5">
                 <div class="col-md-6">
