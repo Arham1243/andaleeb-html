@@ -110,7 +110,7 @@
                                         <textarea class="custom-input" rows="5" placeholder="Tell us about your travel plans..." required></textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mt-0">
                                     <div class="form-group">
                                         <div class="g-recaptcha" data-sitekey="{{ env('RE_CAPTCHA_SITE_KEY') }}"> </div>
                                     </div>
