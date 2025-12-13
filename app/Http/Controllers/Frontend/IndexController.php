@@ -26,4 +26,8 @@ class IndexController extends Controller
     {
         return view('frontend.about-us');
     }
+    public function contact_us()
+    {
+        return view('frontend.contact-us');
+    }
 }

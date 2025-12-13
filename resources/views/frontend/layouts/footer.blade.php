@@ -20,7 +20,7 @@
                 <h6 class="heading">Quick Links</h6>
                 <ul class="footer-list">
                     <li><a href="{{ route('frontend.about-us') }}">About us</a></li>
-                    <li><a href="">Contact us</a></li>
+                    <li><a href="{{ route('frontend.contact-us') }}">Contact us</a></li>
                     <li><a href="{{ route('frontend.company-profile') }}">Company Profile</a></li>
                 </ul>
             </div>

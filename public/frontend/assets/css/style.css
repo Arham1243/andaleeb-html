@@ -3295,7 +3295,7 @@ h6){
 }
 
 /* Vision Cards */
-.vision-card .icon-box {
+.icon-box {
     width: 50px;
     height: 50px;
     background-color: rgba(205, 27, 79, 0.1);
@@ -3332,9 +3332,23 @@ h6){
     color: var(--color-primary);
 }
 
-/* Value Items Hover */
 .value-item:hover i {
     color: var(--color-primary) !important;
     transition: color 0.3s ease;
 }
 /* about us */
+
+/* Contact us */
+
+/* --- Contact Info Styles --- */
+
+
+/* Map Container */
+.map-container iframe {
+    filter: grayscale(20%); /* Optional: Makes map look calmer/more pro */
+    transition: filter 0.3s;
+}
+.map-container:hover iframe {
+    filter: grayscale(0%);
+}
+/* Contact us */
