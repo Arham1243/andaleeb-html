@@ -3407,3 +3407,141 @@ h6){
     font-size: 1em;
     font-weight: 400;
 }
+
+/* Travel Insurance */
+
+/* Container for the list */
+.plans-list-wrapper {
+    display: flex;
+    --border-color: #e5e7eb;
+    flex-direction: column;
+    gap: 20px; 
+    max-width: 800px; 
+    margin: auto;
+}
+
+/* The Clickable Label */
+.plan-card-item {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    margin: 0;
+}
+
+/* Hide the actual ugly radio button */
+.plan-radio-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* The Visual Card */
+.plan-card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.25s ease;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 576px) {
+    .plan-card-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .plan-cost {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .plan-check-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+}
+
+/* Typography */
+.plan-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+    font-size: 1.05rem;
+}
+
+.plan-link {
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.plan-link:hover {
+    text-decoration: underline;
+}
+
+.price-tag {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.price-tag small {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.tax-note {
+    display: block;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: right;
+}
+
+/* The Radio Circle Indicator */
+.plan-check-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent; /* Icon hidden by default */
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+/* --- STATE: HOVER --- */
+.plan-card-item:hover .plan-card-inner {
+    border-color: #b0b0b0;
+    background-color: #fcfcfc;
+}
+
+/* --- STATE: CHECKED (Selected) --- */
+.plan-radio-input:checked + .plan-card-inner {
+    border-color: var(--color-primary);
+    background-color: rgba(205, 27, 79, 0.03);
+    box-shadow: 0 4px 12px rgba(205, 27, 79, 0.15);
+}
+
+.plan-radio-input:checked + .plan-card-inner .plan-check-icon {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff; /* Show checkmark */
+}
+
+.plan-radio-input:checked + .plan-card-inner .price-tag {
+    color: var(--color-primary);
+}
+/* Travel Insurance */

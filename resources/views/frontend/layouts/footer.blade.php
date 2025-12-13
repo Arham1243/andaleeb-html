@@ -27,10 +27,10 @@
             <div class="col-lg-2 col-md-6 mb-4">
                 <h6 class="heading">Explore Options</h6>
                 <ul class="footer-list">
-                    <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tours</a></li>
-                    <li><a href="{{ route('frontend.tour.holiday-packages') }}">Holidays</a></li>
+                    <li><a href="{{ route('frontend.uae-services') }}">Dubai Tours</a></li>
+                    <li><a href="{{ route('frontend.holiday-packages') }}">Holidays</a></li>
                     <li><a href="">Hotels</a></li>
-                    <li><a href="">Insurance</a></li>
+                    <li><a href="{{ route('frontend.travel-insurance.index') }}">Insurance</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
