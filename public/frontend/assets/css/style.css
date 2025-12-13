@@ -528,7 +528,7 @@ button.slick-prev.slick-arrow::before {
     cursor: not-allowed !important;
 }
 .slick-slide {
-    margin: 0 12px;
+    margin: 0 10px;
 }
 .activity-card {
     background: transparent;
@@ -2103,7 +2103,6 @@ button.slick-prev.slick-arrow::before {
     justify-content: space-between;
     margin-bottom: 1rem;
 }
-
 .holidays-search-form .search-button .themeBtn {
     height: 56px;
     padding-inline: 3rem;
@@ -2117,7 +2116,14 @@ button.slick-prev.slick-arrow::before {
     font-size: 0.9rem;
     font-weight: 600;
     padding-inline: 1rem;
-    height: 56px;
+}
+.holidays-search-form.holidays-search-form--normal {
+    padding: 0.5rem;
+}
+
+.holidays-search-form.holidays-search-form--normal .themeBtn {
+    height: 45px;
+    padding-inline: 2rem;
 }
 
 /* dropdown */
@@ -3089,7 +3095,6 @@ h6){
 /* --- Tab Content: Link Grid --- */
 .explore-link-grid {
     gap: 1rem;
-    padding-top: 0.5rem;
     display: flex;
     flex-wrap: wrap;
 }
@@ -3169,7 +3174,7 @@ h6){
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 1.25rem;
+    padding: 1.1rem;
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -3179,7 +3184,7 @@ h6){
 .cat-title {
     color: #fff;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 0.25rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }

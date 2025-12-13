@@ -1,197 +1,24 @@
 @extends('frontend.layouts.main')
 @section('content')
-    <div class="banner-slider">
-        <div class="banner">
-            <div class="banner__img">
-                <img src="https://andaleebtours.com/assets/uploads/banner/tabby_banner176314308936.webp" alt="Image"
-                    class="imgFluid">
-            </div>
-        </div>
-        <div class="banner">
-            <div class="banner__img">
-                <img src="https://andaleebtours.com/assets/uploads/banner/baku_now176314245084.webp" alt="Image"
-                    class="imgFluid">
-            </div>
-        </div>
-        <div class="banner">
-            <div class="banner__img">
-                <img src="https://andaleebtours.com/assets/uploads/banner/dubai_city_tour176314429547.webp" alt="Image"
-                    class="imgFluid">
-            </div>
-        </div>
-    </div>
-
-    
-    <div class="expandable-wrapper mar-y" data-collapsed-height="50" data-more-text="Read More"
-        data-less-text="Read Less">
+    <section class="page-header py-5 d-flex align-items-center"
+        style="background: url('{{ asset('https://andaleebtours.com/assets/uploads/cms/ubaiours172649170639.jpg') }}'); background-size: cover; background-position: center; height:288px;">
         <div class="container">
-            <div class="expandable-card">
-                <h3 class="expandable-title">Best Tours and Activities in Dubai</h3>
-
-                <div class="expandable-content">
-                    <div class="expandable-content-inner text-document">
-                        <p>Dubai is a dream that transformed into a magnificent reality in no time. Not long ago, when it
-                            was
-                            nothing but a small Bedouin village, it was an impossible thought to portray Dubai as a place
-                            where
-                            the world comes to shop and have fun.</p>
-
-                        <p>A city once known solely for its oil reserves is now a global tourism benchmark. City sightseeing
-                            today is one of the most popular activities.</p>
-
-                        <h4>Why visit?</h4>
-                        <ul>
-                            <li><a href="#">Burj Khalifa</a> views</li>
-                            <li>Desert Safaris and BBQ dinners</li>
-                            <li>Luxury Shopping experiences</li>
-                        </ul>
-
-                        <p>From the architecture to the cultural heritage, every corner tells a story waiting to be
-                            explored.
-                        </p>
-                    </div>
+            <div class="row justify-content-center mt-5 pt-5">
+                <div class="col-md-6">
+                    <form class="holidays-search-form holidays-search-form--normal" method="GET">
+                        <input type="text" name="destination" class="holidays-search-form__input"
+                            placeholder="Search Activities">
+                        <div class="search-button">
+                            <button type="submit" class="themeBtn themeBtn--primary">Search</button>
+                        </div>
+                    </form>
                 </div>
-
-                <button class="expand-btn">Read More</button>
-            </div>
-        </div>
-    </div>
-    
-    <section class="activities mar-y">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-content">
-                    <h3 class="heading mb-0">Best Activities in Dubai</h3>
-                </div>
-                <div class="custom-slider-arrows">
-                    <div class="slick-arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
-                    <div class="slick-arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
-                </div>
-            </div>
-
-            <div class="row activity-slider">
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                            <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price">AED 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                            <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price">AED 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price">AED 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price">AED 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price">AED 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price">AED 199</div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    
+
+
     <section class="section-categories bg-light padd-y">
         <div class="container">
             <!-- Header -->
@@ -203,7 +30,7 @@
             <!-- Categories Grid -->
             <div class="row g-3 g-xl-4 category-slider2 justify-content-center">
 
-                
+
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <a href="#" class="cat-card">
                         <div class="cat-bg"
@@ -343,6 +170,176 @@
         </div>
     </section>
 
+
+    <div class="expandable-wrapper mar-y" data-collapsed-height="50" data-more-text="Read More"
+        data-less-text="Read Less">
+        <div class="container">
+            <div class="expandable-card">
+                <h3 class="expandable-title">Best Tours and Activities in Dubai</h3>
+
+                <div class="expandable-content">
+                    <div class="expandable-content-inner text-document">
+                        <p>Dubai is a dream that transformed into a magnificent reality in no time. Not long ago, when it
+                            was
+                            nothing but a small Bedouin village, it was an impossible thought to portray Dubai as a place
+                            where
+                            the world comes to shop and have fun.</p>
+
+                        <p>A city once known solely for its oil reserves is now a global tourism benchmark. City sightseeing
+                            today is one of the most popular activities.</p>
+
+                        <h4>Why visit?</h4>
+                        <ul>
+                            <li><a href="#">Burj Khalifa</a> views</li>
+                            <li>Desert Safaris and BBQ dinners</li>
+                            <li>Luxury Shopping experiences</li>
+                        </ul>
+
+                        <p>From the architecture to the cultural heritage, every corner tells a story waiting to be
+                            explored.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="expand-btn">Read More</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="activities mar-y">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-content">
+                    <h3 class="heading mb-0">Best Activities in Dubai</h3>
+                </div>
+                <div class="custom-slider-arrows">
+                    <div class="slick-arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
+                    <div class="slick-arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
+                </div>
+            </div>
+
+            <div class="row activity-slider">
+                <div class="col-md-4">
+                    <div class="activity-card">
+                        <div class="act-img-box">
+                            <img class="imgFluid"
+                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                                alt="Burj Khalifa">
+                            <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
+                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                        </div>
+                        <div class="act-details">
+                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+                            <div class="act-rating">
+                                <i class='bx bxs-star star-icon'></i>
+                                <span class="rating-num">4.9</span>
+                                <span class="review-count">(374 Reviews)</span>
+                            </div>
+                            <div class="act-price">AED 199</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="activity-card">
+                        <div class="act-img-box">
+                            <img class="imgFluid"
+                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
+                                alt="Burj Khalifa">
+                            <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
+                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                        </div>
+                        <div class="act-details">
+                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+                            <div class="act-rating">
+                                <i class='bx bxs-star star-icon'></i>
+                                <span class="rating-num">4.9</span>
+                                <span class="review-count">(374 Reviews)</span>
+                            </div>
+                            <div class="act-price">AED 199</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="activity-card">
+                        <div class="act-img-box">
+                            <img class="imgFluid"
+                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
+                                alt="Burj Khalifa">
+                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                        </div>
+                        <div class="act-details">
+                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+                            <div class="act-rating">
+                                <i class='bx bxs-star star-icon'></i>
+                                <span class="rating-num">4.9</span>
+                                <span class="review-count">(374 Reviews)</span>
+                            </div>
+                            <div class="act-price">AED 199</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="activity-card">
+                        <div class="act-img-box">
+                            <img class="imgFluid"
+                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
+                                alt="Burj Khalifa">
+                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                        </div>
+                        <div class="act-details">
+                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+                            <div class="act-rating">
+                                <i class='bx bxs-star star-icon'></i>
+                                <span class="rating-num">4.9</span>
+                                <span class="review-count">(374 Reviews)</span>
+                            </div>
+                            <div class="act-price">AED 199</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="activity-card">
+                        <div class="act-img-box">
+                            <img class="imgFluid"
+                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
+                                alt="Burj Khalifa">
+                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                        </div>
+                        <div class="act-details">
+                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+                            <div class="act-rating">
+                                <i class='bx bxs-star star-icon'></i>
+                                <span class="rating-num">4.9</span>
+                                <span class="review-count">(374 Reviews)</span>
+                            </div>
+                            <div class="act-price">AED 199</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="activity-card">
+                        <div class="act-img-box">
+                            <img class="imgFluid"
+                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                                alt="Burj Khalifa">
+                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                        </div>
+                        <div class="act-details">
+                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+                            <div class="act-rating">
+                                <i class='bx bxs-star star-icon'></i>
+                                <span class="rating-num">4.9</span>
+                                <span class="review-count">(374 Reviews)</span>
+                            </div>
+                            <div class="act-price">AED 199</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <section class="categories mar-y">
         <div class="container">
             <div class="section-header mb-4 pb-2">
@@ -354,7 +351,7 @@
                     <div class="slick-arrow-btn category-next-slide"><i class='bx bx-chevron-right'></i></div>
                 </div>
             </div>
-            <div class="row category-slider g-3">
+            <div class="row category-slider g-0">
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
