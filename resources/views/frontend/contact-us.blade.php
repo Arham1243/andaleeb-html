@@ -61,7 +61,7 @@
                         <div class="map-container mt-4 rounded-4 overflow-hidden shadow-sm border">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7222.4261103518265!2d55.40064926256448!3d25.16228291056195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sOffice%23%2018%2C%20Russia%20Cluster%2C%20Building%20V-05%2C%20International%20City%2C%20Dubai%2C%20U.A.E!5e0!3m2!1sen!2s!4v1765587362201!5m2!1sen!2s"
-                                width="100%" height="280"style="border:0;" allowfullscreen="" loading="lazy"
+                                width="100%" height="420"style="border:0;" allowfullscreen="" loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
