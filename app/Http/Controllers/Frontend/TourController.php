@@ -10,9 +10,4 @@ class TourController extends Controller
     {
         return view('frontend.tour.uae-services');
     }
-
-    public function holiday_packages()
-    {
-        return view('frontend.tour.holiday-packages');
-    }
 }

@@ -2,16 +2,85 @@
 @section('content')
     <section class="page-header py-5 d-flex align-items-center"
         style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/2.jpg') }}'); background-size: cover; background-position: center; height:288px;">
+    </section>
+
+
+    <section class="activities mar-y">
         <div class="container">
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-6">
-                    <form class="holidays-search-form holidays-search-form--normal" method="GET">
-                        <input type="text" name="destination" class="holidays-search-form__input"
-                            placeholder="Search Activities">
-                        <div class="search-button">
-                            <button type="submit" class="themeBtn themeBtn--primary">Search</button>
+            <div class="text-center mb-4">
+                <h2 class="fw-bold mb-2">Discover Our Packages</h2>
+                <p class="lead">
+                    Handpicked tours and travel experiences to make your UAE holidays unforgettable
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
                         </div>
-                    </form>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="category-card category-card--lg">
+                        <div class="category-card__img">
+                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="title line-clamp-1">Things to do in Dubai</div>
+                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
+                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
+                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
+                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
+                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
+                                souvenirs!</div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -141,87 +210,6 @@
                 </div>
             </div>
 
-        </div>
-    </section>
-
-    <section class="activities mar-y">
-        <div class="container">
-            <div class="text-center mb-4">
-                <h2 class="fw-bold mb-2">Discover Our Holiday Packages</h2>
-                <p class="lead">
-                    Handpicked tours and travel experiences to make your UAE holidays unforgettable
-                </p>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
         </div>
     </section>
 @endsection

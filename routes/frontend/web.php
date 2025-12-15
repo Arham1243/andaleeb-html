@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\TourController;
 use App\Http\Controllers\Frontend\TravelInsuranceController;
 use App\Http\Controllers\Frontend\HotelController;
 use App\Http\Controllers\Frontend\FlightController;
+use App\Http\Controllers\Frontend\PackageController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -24,7 +25,6 @@ Route::name('frontend.')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
     Route::get('/uae-services', [TourController::class, 'uae_services'])->name('uae-services');
-    Route::get('/holiday-packages', [TourController::class, 'holiday_packages'])->name('holiday-packages');
     Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
     Route::get('/terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
     Route::get('/company-profile', [IndexController::class, 'company_profile'])->name('company-profile');
@@ -34,6 +34,12 @@ Route::name('frontend.')->group(function () {
     Route::prefix('travel-insurance')->name('travel-insurance.')->group(function () {
         Route::get('/', [TravelInsuranceController::class, 'index'])->name('index');
         Route::get('/details', [TravelInsuranceController::class, 'details'])->name('details');
+    });
+
+    
+    Route::prefix('packages')->name('packages.')->group(function () {
+        Route::get('/', [PackageController::class, 'index'])->name('index');
+        Route::get('/category', [PackageController::class, 'category'])->name('category');
     });
 
     Route::prefix('hotels')->name('hotels.')->group(function () {
