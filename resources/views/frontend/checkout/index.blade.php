@@ -99,51 +99,88 @@
 
                     </div>
 
-                    <!-- Right Column: Summary (Sticky) -->
                     <div class="col-lg-4">
-                        <div class="modern-card sticky-sidebar">
-                            <div class="card-title">
-                                <i class='bx bx-cart'></i> Your Order
+
+                        <div class="dsc-card p-3">
+                            <div class="d-flex align-items-center">
+
+                                <a href="#" class="dsc-img-container">
+                                    <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20437/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Desert-Safari-with-Dune-Bashing-5962/1737620054021_S.jpg?_a=BAVAZGE70"
+                                        alt="Desert Safari" class="dsc-thumb">
+                                </a>
+
+                                <div class="flex-grow-1 ms-3">
+                                    <a href="" class="dsc-title">Desert Safari</a>
+
+                                    <div class="dsc-meta-text">
+                                        <i class='bx bx-calendar dsc-icon'></i>
+                                        <span>16 Dec 2025</span>
+                                    </div>
+
+                                    <div class="dsc-meta-text mt-1">
+                                        <i class='bx bx-map dsc-icon'></i>
+                                        <span class="dsc-location-link">
+                                            United Arab Emirates
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- Mini Items List -->
+                            <div class="dsc-divider"></div>
+
+                            <div class="dsc-details">
+                                <div class="dsc-meta-text mb-2">
+                                    <i class='bx bx-time-five dsc-icon'></i>
+                                    <span>08:00 : 21:00</span>
+                                </div>
+                                <div class="dsc-meta-text">
+                                    <i class='bx bx-group dsc-icon'></i>
+                                    <span>2 Adults 1 Child 1 Infant</span>
+                                </div>
+                            </div>
+
+                            <div class="dsc-price">
+                                AED 645
+                            </div>
+
+                        </div>
+
+                        <div class="modern-card">
+                            <div class="card-title">Payment Details
+                            </div>
+
                             <div class="order-item-mini">
                                 <div>
-                                    <h6>Dubai Butterfly Garden</h6>
-                                    <span class="text-muted small">12 Dec 2025 | 3 Pax</span>
+                                    <h6>Activities <i class='bx bx-x'></i> 1</h6>
                                 </div>
                                 <span class='fw-bold'>AED 168.00</span>
                             </div>
-                            <div class="order-item-mini">
-                                <div>
-                                    <h6>Burj Khalifa Top</h6>
-                                    <span class="text-muted small">14 Dec 2025 | 2 Pax</span>
-                                </div>
-                                <span class='fw-bold'>AED 300.00</span>
-                            </div>
 
-                            <!-- Totals -->
                             <div class="mt-3">
                                 <div class="summary-row">
-                                    <span>Subtotal</span>
-                                    <span>AED 468.00</span>
-                                </div>
-                                <div class="summary-row">
-                                    <span>Taxes</span>
+                                    <span>All Taxes</span>
                                     <span>AED 0.00</span>
                                 </div>
                                 <div class="summary-row total">
-                                    <span>Total Amount</span>
+                                    <span>Total Payable</span>
                                     <span style="color: var(--color-primary)">AED 468.00</span>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn-primary-custom mt-4">
-                                 Pay Now  <i class='bx bx-lock-alt'></i>
-                            </button>
+                            <div class="mt-2">
+                                <span class="text-muted small">
+                                    Your card will be charged in AED
+                                </span>
+
+                                <button type="submit" class="btn-primary-custom mt-2">
+                                    Pay Now <i class='bx bx-lock-alt'></i>
+                                </button>
+                            </div>
 
                             <div class="text-center mt-3">
-                                <small class="text-muted secure-checkout"><i class='bx bx-check-shield' ></i>Secure
+                                <small
+                                    class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
+                                        class='bx bx-check-shield'></i>Secure
                                     Checkout</small>
                             </div>
                         </div>
