@@ -546,6 +546,7 @@ button.slick-prev.slick-arrow::before {
     background: transparent;
     cursor: pointer;
     border: none;
+    margin-bottom: 1rem;
 }
 
 .act-img-box {

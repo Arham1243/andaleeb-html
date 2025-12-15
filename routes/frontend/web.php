@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\Auth\PasswordResetController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\TourController;
+use App\Http\Controllers\Frontend\TourCategoryController;
 use App\Http\Controllers\Frontend\TravelInsuranceController;
 use App\Http\Controllers\Frontend\HotelController;
 use App\Http\Controllers\Frontend\FlightController;
@@ -36,6 +37,12 @@ Route::name('frontend.')->group(function () {
         Route::get('/details', [TravelInsuranceController::class, 'details'])->name('details');
     });
 
+    Route::prefix('tour')->name('tour.')->group(function () {
+        Route::get('/details', [TourController::class, 'details'])->name('details');
+    });
+    Route::prefix('tour-category')->name('tour-category.')->group(function () {
+        Route::get('/', [TourCategoryController::class, 'index'])->name('index');
+    });
     
     Route::prefix('packages')->name('packages.')->group(function () {
         Route::get('/', [PackageController::class, 'index'])->name('index');

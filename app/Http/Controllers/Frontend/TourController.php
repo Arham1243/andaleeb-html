@@ -10,4 +10,9 @@ class TourController extends Controller
     {
         return view('frontend.tour.uae-services');
     }
+
+    public function details()
+    {
+        return view('frontend.tour.details');
+    }
 }
