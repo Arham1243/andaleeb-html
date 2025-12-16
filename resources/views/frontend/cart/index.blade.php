@@ -87,34 +87,36 @@
 
                 <!-- Right Side: Order Summary -->
                 <div class="col-lg-4">
-                    <div class="modern-card">
-                        <div class="card-title">
-                            <i class='bx bx-receipt'></i> Order Summary
-                        </div>
+                    <div class="sticky-sidebar">
+                        <div class="modern-card">
+                            <div class="card-title">
+                                <i class='bx bx-receipt'></i> Order Summary
+                            </div>
 
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>AED 468.00</span>
-                        </div>
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span>AED 468.00</span>
+                            </div>
 
-                        <!-- Coupon Code -->
-                        <div class="coupon-wrapper">
-                            <input type="text" class="coupon-input" placeholder="Enter discount code">
-                            <button class="btn-apply-overlay">Apply</button>
-                        </div>
+                            <!-- Coupon Code -->
+                            <div class="coupon-wrapper">
+                                <input type="text" class="coupon-input" placeholder="Enter discount code">
+                                <button class="btn-apply-overlay">Apply</button>
+                            </div>
 
-                        <div class="summary-row">
-                            <span>Tax (0%)</span>
-                            <span>AED 0.00</span>
-                        </div>
+                            <div class="summary-row">
+                                <span>Tax (0%)</span>
+                                <span>AED 0.00</span>
+                            </div>
 
-                        <div class="summary-row total">
-                            <span>Total Payable</span>
-                            <span style="color: var(--color-primary)">AED 468.00</span>
-                        </div>
+                            <div class="summary-row total">
+                                <span>Total Payable</span>
+                                <span style="color: var(--color-primary)">AED 468.00</span>
+                            </div>
 
-                        <a href="{{ route('frontend.checkout.index') }}" class="btn-primary-custom mt-3">Proceed to
-                            Checkout</a>
+                            <a href="{{ route('frontend.checkout.index') }}" class="btn-primary-custom mt-3">Proceed to
+                                Checkout</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -42,7 +42,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -63,7 +63,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -84,7 +84,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -105,7 +105,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -126,7 +126,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -147,7 +147,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -168,7 +168,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -189,7 +189,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>

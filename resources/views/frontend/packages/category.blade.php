@@ -43,7 +43,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div style="font-size: 1.25rem;" class="act-title line-clamp-1">Romentic Maldives</div>
@@ -68,7 +68,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div style="font-size: 1.25rem;" class="act-title line-clamp-1">Romentic Maldives</div>
@@ -93,7 +93,7 @@
                                     src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+                            
                         </div>
                         <div class="act-details">
                             <div style="font-size: 1.25rem;" class="act-title line-clamp-1">Romentic Maldives</div>

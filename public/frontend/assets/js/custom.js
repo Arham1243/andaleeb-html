@@ -79,6 +79,39 @@ $(document).ready(function () {
     });
     /* activity slider  */
 
+    /* activity slider  */
+    $(".reviews-slider").slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
+    });
+    /* activity slider  */
+
     /* hotels slider  */
     $(".hotels-slider").slick({
         dots: false,

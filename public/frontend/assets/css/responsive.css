@@ -182,4 +182,10 @@
     .flighs-banner {
         min-height: 100vh;
     }
+    .tour-header-title {
+        font-size: 23px;
+    }
+    .review-form-card {
+    background: #f8f9fa;
+    padding: 20px;}
 }
