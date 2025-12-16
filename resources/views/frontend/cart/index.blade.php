@@ -29,9 +29,12 @@
                             </div>
 
                             <div class="qty-control">
-                                <button class="qty-btn" type="button"><i class='bx bx-minus'></i></button>
-                                <input type="text" class="qty-input" value="3" readonly>
-                                <button class="qty-btn" type="button"><i class='bx bx-plus'></i></button>
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
+                                <input type="number" class="counter-input qty-input" value="1" readonly=""
+                                    min="0">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
                             </div>
 
                             <div class="cart-price-area">
@@ -63,9 +66,12 @@
                             </div>
 
                             <div class="qty-control">
-                                <button class="qty-btn" type="button"><i class='bx bx-minus'></i></button>
-                                <input type="text" class="qty-input" value="3" readonly>
-                                <button class="qty-btn" type="button"><i class='bx bx-plus'></i></button>
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
+                                <input type="number" class="counter-input qty-input" value="1" readonly=""
+                                    min="0">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
                             </div>
                             <div class="cart-price-area">
                                 <span class="item-calculation">2 x AED 150.00</span>

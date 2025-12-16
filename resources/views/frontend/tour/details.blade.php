@@ -349,7 +349,105 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="py-4 sticky-sidebar">
+                    <div class="py-4">
+                        <div class="booking-widget">
+                            <!-- 1. Price Header -->
+                            <div class="booking-header">
+                                <span class="booking-label">From:</span>
+                                <div class="booking-price">AED 159.00</div>
+                            </div>
+
+                            <!-- 2. Date & Time Selection -->
+                            <div class="booking-form">
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Select Date</label>
+                                    <div class="input-icon-wrap">
+                                        <i class='bx bx-calendar'></i>
+                                        <input type="text" name="start_date" class="form-control custom-select-input"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Select Time</label>
+                                    <div class="input-icon-wrap">
+                                        <i class='bx bx-time-five'></i>
+                                        <select class="form-select custom-select-input">
+                                            <option selected>Choose time...</option>
+                                            <option value="10:00">10:00 AM</option>
+                                            <option value="12:00">12:00 PM</option>
+                                            <option value="14:00">02:00 PM</option>
+                                            <option value="16:00">04:00 PM</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr class="divider">
+
+                                <!-- 3. Passengers (PAX) -->
+                                <div class="pax-section mb-4">
+                                    <label class="form-label mb-3">Select Pax</label>
+
+                                    <!-- Adult Row -->
+                                    <div class="pax-row">
+                                        <div class="pax-info">
+                                            <span class="pax-type">Adult</span>
+                                            <span class="pax-age">Ages 12 to 99</span>
+                                        </div>
+                                        <div class="pax-action">
+                                            <span class="pax-price">AED 52.50</span>
+                                            <div class="qty-control">
+                                                <button
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
+                                                <input type="number" class="counter-input qty-input" value="1"
+                                                    readonly="" min="0">
+                                                <button
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Child Row -->
+                                    <div class="pax-row">
+                                        <div class="pax-info">
+                                            <span class="pax-type">Child</span>
+                                            <span class="pax-age">Ages 3 to 11</span>
+                                        </div>
+                                        <div class="pax-action">
+                                            <span class="pax-price">AED 21.00</span>
+                                            <div class="qty-control">
+                                                <button
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
+                                                <input type="number" class="counter-input qty-input" value="1"
+                                                    readonly="" min="0">
+                                                <button
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 4. Actions -->
+                                <div class="booking-actions">
+                                    <button class="btn btn-add-cart mb-2">
+                                        Add to Cart
+                                    </button>
+                                    <button class="btn btn-whatsapp">
+                                        <i class='bx bxl-whatsapp'></i> Book via WhatsApp
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <span class="small text-muted"><i class='bx  bx-shield-quarter'></i> Secure
+                                        Booking</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card border-0 choose-andaleeb-card">
                             <div class="card-body p-4">
                                 <!-- Section Header -->
@@ -798,5 +896,26 @@
         </div>
     </section>
 @endsection
+@push('css')
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/daterangepicker.css') }}" />
+@endpush
 @push('js')
+    
+<script src="{{ asset('frontend/assets/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/assets/js/daterangepicker.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            const format = "MMM D, YYYY";
+
+            $("input[name='start_date']").daterangepicker({
+                singleDatePicker: true,
+                autoApply: true,
+                showDropdowns: true,
+                minDate: moment(),
+                locale: {
+                    format: format
+                }
+            });
+        });
+    </script>
 @endpush
