@@ -181,26 +181,52 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
                     tabindex="0">
-                    <div class="hotel-detail-box text-document">
-                        <h3 class="heading">Hotel Information</h3>
-                        <p>Cheval Maison, The Palm Dubai is an all-apartment boutique property providing the ideal base from
-                            which to explore all that Dubai has to offer. Located on the iconic Palm Jumeirah, 131
-                            contemporary apartments provide the freedom, flexibility and space to create your own personal
-                            sanctuary, but still with easy access to the vibrant sights and sounds of this unique
-                            city.<br><br>The combination of 1-, 2- and 3-bedroom apartments, plus a stunning 3-bedroom
-                            penthouse, provide all the facilities needed for an indulgent sunshine getaway, or a longer-
-                            term stay. Each apartment is stylishly designed, with the attention to detail and quality you
-                            would expect from Cheval. Fully equipped kitchens can be found in all, and most feature their
-                            own terrace or balcony, providing the perfect place to unwind with a long, cool drink and watch
-                            the sun set over the iconic Dubai Skyline. A 24-hour gym and rooftop pool provide an alternative
-                            for guests looking for something more active in their downtime.<br><br>The apartments are part
-                            of the Golden Mile residential complex, situated on the western trunk of Palm Jumeirah and
-                            ideally located to explore the city. Underground parking is available to guests. The Palm
-                            Monorail, just one minutes walk from the apartments, connects the key landmarks of the Palm
-                            Jumeirah and is easily accessible from Nakheel Mall. It also provides easy access to the metro
-                            system for those looking to connect with the rest of the city. For those looking to stay closer
-                            to home, the Nakheel Mall, with 300 retail outlets, is just next door, and top visitor
-                            attractions such as AquaVenture Waterpark and Pointe Palm are all close by.</p>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="hotel-detail-box text-document">
+                                <h3 class="heading mt-0">Hotel Information</h3>
+                                <p>Cheval Maison, The Palm Dubai is an all-apartment boutique property providing the ideal
+                                    base from
+                                    which to explore all that Dubai has to offer. Located on the iconic Palm Jumeirah, 131
+                                    contemporary apartments provide the freedom, flexibility and space to create your own
+                                    personal
+                                    sanctuary, but still with easy access to the vibrant sights and sounds of this unique
+                                    city.<br><br>The combination of 1-, 2- and 3-bedroom apartments, plus a stunning
+                                    3-bedroom
+                                    penthouse, provide all the facilities needed for an indulgent sunshine getaway, or a
+                                    longer-
+                                    term stay. Each apartment is stylishly designed, with the attention to detail and
+                                    quality you
+                                    would expect from Cheval. Fully equipped kitchens can be found in all, and most feature
+                                    their
+                                    own terrace or balcony, providing the perfect place to unwind with a long, cool drink
+                                    and watch
+                                    the sun set over the iconic Dubai Skyline. A 24-hour gym and rooftop pool provide an
+                                    alternative
+                                    for guests looking for something more active in their downtime.<br><br>The apartments
+                                    are part
+                                    of the Golden Mile residential complex, situated on the western trunk of Palm Jumeirah
+                                    and
+                                    ideally located to explore the city. Underground parking is available to guests. The
+                                    Palm
+                                    Monorail, just one minutes walk from the apartments, connects the key landmarks of the
+                                    Palm
+                                    Jumeirah and is easily accessible from Nakheel Mall. It also provides easy access to the
+                                    metro
+                                    system for those looking to connect with the rest of the city. For those looking to stay
+                                    closer
+                                    to home, the Nakheel Mall, with 300 retail outlets, is just next door, and top visitor
+                                    attractions such as AquaVenture Waterpark and Pointe Palm are all close by.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="hotel-map">
+                                <iframe
+                                    src="https://maps.google.com/maps?q='+The Walk, Jumeirah Beach Residence, P.O. Box 2431, Dubai, United Arab Emirates+'&amp;output=embed"
+                                    width="100%" height="490" frameborder="0" style="border:0;"
+                                    allowfullscreen=""></iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
@@ -296,14 +322,13 @@
                         <div class="details-wrapper">
                             <div class="details">
                                 <div class="total">Total</div>
-                                <div><span class="dirham">D</span><span
-                                        class="total-price">145</span></div>
+                                <div><span class="dirham">D</span><span class="total-price">145</span></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="details-btn-wrapper">
-                            <button type="button" class="btn-primary-custom ">Continue</button>
+                            <a href="" type="button" class="btn-primary-custom">Continue</a>
                         </div>
                     </div>
                 </div>
