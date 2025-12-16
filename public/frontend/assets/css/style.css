@@ -5276,7 +5276,6 @@ body.fancybox-active.compensate-for-scrollbar {
 .hotels-lg-img-wrapper .slick-slide {
     margin: 0;
 }
-/* Hotels Details */
 
 .editorial-section {
     --num-color: #4b5563;
@@ -5347,3 +5346,6 @@ body.fancybox-active.compensate-for-scrollbar {
         -webkit-text-stroke: 1px var(--num-color);
     }
 }
+
+
+/* Hotels Details */
