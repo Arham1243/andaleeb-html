@@ -419,3 +419,13 @@ popupWrapper?.addEventListener("click", function (e) {
     }
 });
 /* Global popup */
+
+/* Custom Accordian */
+document.querySelectorAll("[custom-accordion]")?.forEach((accordion) => {
+    accordion
+        .querySelector("[custom-accordion-header]")
+        ?.addEventListener("click", () => {
+            accordion.classList.toggle("open");
+        });
+});
+/* Custom Accordian */

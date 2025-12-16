@@ -9,7 +9,7 @@
                             <ul class="breadcrumb-list">
 
                                 <li class="breadcrumb-item">
-                                    <a href="#" class="breadcrumb-link">Home</a>
+                                    <a href="{{ route('frontend.index') }}" class="breadcrumb-link">Home</a>
                                     <i class='bx bx-chevron-right breadcrumb-separator'></i>
                                 </li>
 
