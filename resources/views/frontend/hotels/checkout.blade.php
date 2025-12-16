@@ -33,102 +33,328 @@
         <div class="container">
             <form action="#">
                 <div class="row">
-                    <!-- Left Column: Forms -->
                     <div class="col-lg-8">
+                        <div id="extras" class="{{ $is_extras ? 'd-block' : 'd-none' }}">
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bx-receipt'></i> Return Transfer | Deluxe Bungalow | Bed and Breakfast
+                                </div>
 
-                        <div class="modern-card">
-                            <div class="card-title">
-                                <i class='bx bx-user'></i> Guest information
-                            </div>
+                                <div class="transfers-list">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="transfers-item">
+                                                <input class="transfers-item__radio" id="transfer-1" type="radio"
+                                                    name="extras-item"
+                                                    value="Return Speedboat Transfer (Shared, from Velana International Airport, MLE)"
+                                                    data-price="472.56" data-option-id="94" data-extra-type-id="2"
+                                                    data-extra-id="71" required data-required='true'>
+                                                <label class="transfers-item__box" for="transfer-1">
+                                                    <p style="font-weight: 500;"class="content text-danger text-center mb-1">Selection Required
+                                                    </p>
+                                                    <div class="transfer-header">
+                                                        <i class='bx bxs-check-circle'></i>
+                                                        <div class="title">Selected</div>
+                                                    </div>
+                                                    <div class="transfer-body">
+                                                        <div class="content">Return Speedboat Transfer (Shared, from
+                                                            Velana International Airport, MLE)</div>
+                                                        <div class="bottom-price">
+                                                            <div class="price-details">
+                                                                <span>Per person return</span>
+                                                                <div class="price"><span class="dirham">D</span> 472.56
+                                                                </div>
+                                                                <span>Total <span class="dirham">D</span> 472.56</span>
+                                                            </div>
+                                                            <div class="selected-btn" selected-text="Selected"
+                                                                select-text="Select"></div>
+                                                        </div>
+                                                    </div>
+                                                </label>
 
-                            <div class="row g-3">
-                                <div class="col-md-12">
-                                    <div class="custom-info-alert my-2">
-                                        <div class="icon"><i class="bx bx-info-circle"></i></div>
-                                        <div class="content">All names of those travelling must exactly match their
-                                            passport as
-                                            charges may apply to change a name. If you have autofill enabled on your
-                                            browser or
-                                            device, please check all names and details are correct.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="transfers-item">
+                                                <input class="transfers-item__radio" id="transfer-2" type="radio"
+                                                    name="extras-item"
+                                                    value="Return Speedboat Transfer (Shared, from Velana International Airport, MLE)"
+                                                    data-price="472.56" data-option-id="94" data-extra-type-id="2"
+                                                    data-extra-id="71" required data-required='true'>
+                                                <label class="transfers-item__box" for="transfer-2">
+                                                    <p style="font-weight: 500;"
+                                                        class="content text-danger text-center mb-1">Selection Required
+                                                    </p>
+                                                    <div class="transfer-header">
+                                                        <i class='bx bxs-check-circle'></i>
+                                                        <div class="title">Selected</div>
+                                                    </div>
+                                                    <div class="transfer-body">
+                                                        <div class="content">Return Speedboat Transfer (Shared, from
+                                                            Velana International Airport, MLE)</div>
+                                                        <div class="bottom-price">
+                                                            <div class="price-details">
+                                                                <span>Per person return</span>
+                                                                <div class="price"><span class="dirham">D</span> 472.56
+                                                                </div>
+                                                                <span>Total <span class="dirham">D</span> 472.56</span>
+                                                            </div>
+                                                            <div class="selected-btn" selected-text="Selected"
+                                                                select-text="Select"></div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="form-label">Title</label>
-                                    <select class="custom-select">
-                                        <option>Mr.</option>
-                                        <option>Mrs.</option>
-                                        <option>Ms.</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="form-label">First Name *</label>
-                                    <input type="text" class="custom-input" required>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="form-label">Last Name *</label>
-                                    <input type="text" class="custom-input" required>
+                            </div>
+
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bxs-plane-alt'></i> Flight Details
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label">Email Address *</label>
-                                    <input type="email" class="custom-input" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Phone Number *</label>
-                                    <input type="tel" class="custom-input"required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Address *</label>
-                                    <input type="text" class="custom-input">
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <div class="custom-info-alert my-2">
+                                            <div class="icon"><i class="bx bx-info-circle"></i></div>
+                                            <div class="content">To proceed with your booking, we also need your flight
+                                                details to arrange transfers for you.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="card-title mb-0">Outbound Flight</div>
+                                    </div>
+                                    <div class="col-md-4 mt-2">
+                                        <label class="form-label">Flight number *</label>
+                                        <input type="text" class="custom-input" required>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label">Arrival time *</label>
+                                        <div class="flight-fields">
+                                            <select class="custom-select" id="flight_outbound_hr"
+                                                name="out_flight_arrival_time_h">
+                                                <option value="">hh</option>
+                                                <option value="00">00</option>
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                                <option value="03">03</option>
+                                                <option value="04">04</option>
+                                                <option value="05">05</option>
+                                                <option value="06">06</option>
+                                                <option value="07">07</option>
+                                                <option value="08">08</option>
+                                                <option value="09">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label">&nbsp;</label>
+                                        <select class="custom-select" id="flight_outbound_min"
+                                            name="out_flight_arrival_time_m">
+                                            <option value="">mm</option>
+                                            <option value="00">00</option>
+                                            <option value="05">05</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                            <option value="30">30</option>
+                                            <option value="35">35</option>
+                                            <option value="40">40</option>
+                                            <option value="45">45</option>
+                                            <option value="50">50</option>
+                                            <option value="55">55</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="card-title mb-0">Inbound Flight</div>
+                                    </div>
+                                    <div class="col-md-4 mt-2">
+                                        <label class="form-label">Flight number *</label>
+                                        <input type="text" class="custom-input" required>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label">Departure time *</label>
+                                        <div class="flight-fields">
+                                            <select class="custom-select" id="flight_outbound_hr"
+                                                name="in_flight_arrival_time_h">
+                                                <option value="">hh</option>
+                                                <option value="00">00</option>
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                                <option value="03">03</option>
+                                                <option value="04">04</option>
+                                                <option value="05">05</option>
+                                                <option value="06">06</option>
+                                                <option value="07">07</option>
+                                                <option value="08">08</option>
+                                                <option value="09">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label">&nbsp;</label>
+                                        <select class="custom-select" id="flight_outbound_min"
+                                            name="in_flight_arrival_time_m">
+                                            <option value="">mm</option>
+                                            <option value="00">00</option>
+                                            <option value="05">05</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                            <option value="30">30</option>
+                                            <option value="35">35</option>
+                                            <option value="40">40</option>
+                                            <option value="45">45</option>
+                                            <option value="50">50</option>
+                                            <option value="55">55</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modern-card">
-                            <div class="card-title">
-                                <i class='bx bx-user'></i> #1 Guest Details
+                        <div id="guest-info" class="{{ $is_extras ? 'd-none' : 'd-block' }}">
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bx-user'></i> Guest information
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <div class="custom-info-alert my-2">
+                                            <div class="icon"><i class="bx bx-info-circle"></i></div>
+                                            <div class="content">All names of those travelling must exactly match their
+                                                passport as
+                                                charges may apply to change a name. If you have autofill enabled on your
+                                                browser or
+                                                device, please check all names and details are correct.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Title</label>
+                                        <select class="custom-select">
+                                            <option>Mr.</option>
+                                            <option>Mrs.</option>
+                                            <option>Ms.</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="custom-input" required>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="custom-input" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="custom-input" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Phone Number *</label>
+                                        <input type="tel" class="custom-input"required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Address *</label>
+                                        <input type="text" class="custom-input">
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="row g-3">
-                                <div class="col-md-2">
-                                    <label class="form-label">Title</label>
-                                    <select class="custom-select">
-                                        <option>Mr.</option>
-                                        <option>Mrs.</option>
-                                        <option>Ms.</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="form-label">First Name *</label>
-                                    <input type="text" class="custom-input" required>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="form-label">Last Name *</label>
-                                    <input type="text" class="custom-input" required>
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bx-user'></i> #1 Guest Details
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label">Age *</label>
-                                    <input type="number" class="custom-input" required>
+                                <div class="row g-3">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Title</label>
+                                        <select class="custom-select">
+                                            <option>Mr.</option>
+                                            <option>Mrs.</option>
+                                            <option>Ms.</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="custom-input" required>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="custom-input" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Age *</label>
+                                        <input type="number" class="custom-input" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bx-info-circle'></i> Important information
+                                </div>
+
+                                <p class="text-muted fw-bold pt-3 mb-1">Hotel Information</p>
+                                <p>For health and safety reasons, children under 8 years are not allowed in any over water
+                                    or
+                                    over ocean categories.WOW INCLUSIVE- YOUR 24-HOUR PREMIUM ALL INCLUSIVE BENEFITS -
+                                    Breakfast
+                                </p>
+                                <a data-info-popup-open="Privacy Policy" href="javascript:void(0)"
+                                    class="custom-link">Show
+                                    more</a>
+                            </div>
+
+                            <div class="modern-card">
+                                <button type="submit" class="btn-primary-custom mt-2">
+                                    Pay Now <i class='bx bx-lock-alt'></i>
+                                </button>
+
+                                <div class="text-center mt-3">
+                                    <small
+                                        class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
+                                            class='bx bx-check-shield'></i>Secure
+                                        Checkout</small>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Payment Method -->
-                        <div class="modern-card">
-                            <div class="card-title">
-                                <i class='bx bx-info-circle'></i> Important information
-                            </div>
-
-                            <p class="text-muted fw-bold pt-3 mb-1">Hotel Information</p>
-                            <p>For health and safety reasons, children under 8 years are not allowed in any over water or
-                                over ocean categories.WOW INCLUSIVE- YOUR 24-HOUR PREMIUM ALL INCLUSIVE BENEFITS - Breakfast
-                            </p>
-                            <a data-info-popup-open="Privacy Policy" href="javascript:void(0)" class="custom-link">Show
-                                more</a>
-                        </div>
-
                     </div>
 
                     <div class="col-lg-4">
@@ -177,8 +403,42 @@
                         </div>
 
                         <div class="modern-card">
-                            <div class="card-title">Payment Details
+                            <div class="card-title">Transfers / Extras
                             </div>
+
+                            <div class="order-item-mini">
+                                <div>
+                                    <h6>Return Speedboat Transfer (Shared, from Velana International Airport, MLE) <i
+                                            class='bx bx-x'></i> AED 472.56</h6>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <div class="summary-row total">
+                                    <span>Total</span>
+                                    <span style="color: var(--color-primary)"><span class="dirham">D</span>
+                                        1540.74</span>
+                                </div>
+                            </div>
+
+                            {{-- <div class="mt-2">
+                                <span class="text-muted small">
+                                    Your card will be charged in AED
+                                </span>
+
+                                <button type="submit" class="btn-primary-custom mt-2">
+                                    Pay Now <i class="bx bx-lock-alt"></i>
+                                </button>
+                            </div> --}}
+
+                            {{-- <div class="text-center mt-3">
+                                <small
+                                    class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
+                                        class="bx bx-check-shield"></i>Secure
+                                    Checkout</small>
+                            </div> --}}
+                        </div>
+                        <div class="modern-card">
 
                             <div class="order-item-mini">
                                 <div>
@@ -189,17 +449,17 @@
 
                             <div class="mt-3">
                                 <div class="summary-row">
-                                    <span>All Taxes</span>
-                                    <span><span class="dirham">D</span> 0.00</span>
+                                    <span>Extras total</span>
+                                    <span><span class="dirham">D</span> 472.56</span>
                                 </div>
                                 <div class="summary-row total">
-                                    <span>Total Payable</span>
+                                    <span>Total price</span>
                                     <span style="color: var(--color-primary)"><span class="dirham">D</span>
-                                        468.00</span>
+                                        1540.74</span>
                                 </div>
                             </div>
 
-                            <div class="mt-2">
+                            {{-- <div class="mt-2">
                                 <span class="text-muted small">
                                     Your card will be charged in AED
                                 </span>
@@ -207,20 +467,48 @@
                                 <button type="submit" class="btn-primary-custom mt-2">
                                     Pay Now <i class="bx bx-lock-alt"></i>
                                 </button>
-                            </div>
+                            </div> --}}
 
-                            <div class="text-center mt-3">
+                            {{-- <div class="text-center mt-3">
                                 <small
                                     class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
                                         class="bx bx-check-shield"></i>Secure
                                     Checkout</small>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </section>
+
+    <div class="continue-bar">
+        <div class="container">
+            <div class="continue-bar-padding">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-12 col-md-6">
+                        <div class="details-wrapper">
+                            <div class="details">
+                                <div class="total">Total</div>
+                                <div><span class="dirham">D</span><span class="total-price"
+                                        id="total-room-price">0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="details-btn-wrapper">
+                            <a id="continueBtn"
+                                href="{{ route('frontend.hotels.checkout') . '?' . http_build_query(request()->query()) }}"
+                                class="btn-primary-custom">
+                                Continue
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="custom-popup-wrapper" data-info-popup-wrapper="Privacy Policy">
         <div class="custom-popup" data-info-popup>

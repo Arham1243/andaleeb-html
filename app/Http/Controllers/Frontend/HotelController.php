@@ -25,4 +25,11 @@ class HotelController extends Controller
     {
         return view('frontend.hotels.checkout');
     }
+
+    public function extras()
+    {
+        $is_extras = true;
+        $data = compact('is_extras');
+        return view('frontend.hotels.checkout')->with($data);
+    }
 }
