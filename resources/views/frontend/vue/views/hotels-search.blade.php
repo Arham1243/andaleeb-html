@@ -1,12 +1,12 @@
 <div class="search-options" v-cloak>
-    <form class="search-options-wrapper" method="GET">
+    <form class="search-options-wrapper" method="GET" action="{{ route('frontend.hotels.search') }}">
         <!-- GOING TO -->
         <div class="departure-wrapper" ref="hotelDestinationWrapperRef">
             <div class="search-box" @click.stop="onHotelDestinationBoxClick">
                 <div class="search-box__label">Going To</div>
-                <input type="text" autocomplete="off" class="search-box__input"
-                    v-model="hotelDestinationInputValue" @input="hotelDestinationQuery = hotelDestinationInputValue"
-                    placeholder="City, Hotel, or Region" ref="hotelDestinationInputRef" name="destination">
+                <input type="text" autocomplete="off" class="search-box__input" v-model="hotelDestinationInputValue"
+                    @input="hotelDestinationQuery = hotelDestinationInputValue" placeholder="City, Hotel, or Region"
+                    ref="hotelDestinationInputRef" name="destination">
                 <div class="search-box__label">
                     @{{ selectedHotelDestination || '' }}
                 </div>
@@ -16,7 +16,8 @@
             <div class="options-dropdown-wrapper options-dropdown-wrapper--from"
                 :class="{
                     open: hotelDestinationDropdownOpen,
-                    scroll: (hotelDestinations?.countries?.length || 0) + (hotelDestinations?.provinces?.length || 0) + (hotelDestinations?.locations?.length || 0) + (hotelHotels?.length || 0) > 9
+                    scroll: (hotelDestinations?.countries?.length || 0) + (hotelDestinations?.provinces?.length || 0) +
+                        (hotelDestinations?.locations?.length || 0) + (hotelHotels?.length || 0) > 9
                 }">
                 <!-- Loading State -->
                 <div class="options-dropdown" v-if="loadingHotelDestination">
@@ -70,7 +71,7 @@
                                     <span class="sub-text"
                                         v-if="item.yalago_locations_ptitle || item.yalago_locations_ctitle">
                                         @{{ item.yalago_locations_ptitle + (item.yalago_locations_ctitle ? ', ' +
-                                        item.yalago_locations_ctitle : '') }}
+    item.yalago_locations_ctitle : '') }}
                                     </span>
                                     <span class="sub-text" v-else>
                                         @{{ item.yalago_provinces_ctitle }}
@@ -88,16 +89,15 @@
                     </div>
                     <div class="options-dropdown__body p-0">
                         <ul class="options-dropdown-list">
-                            <li class="options-dropdown-list__item" v-for="item in hotelHotels" :key="'hotel-' + item.id"
-                                @click="selectHotelDestination(item.yalago_hotel_title)">
+                            <li class="options-dropdown-list__item" v-for="item in hotelHotels"
+                                :key="'hotel-' + item.id" @click="selectHotelDestination(item.yalago_hotel_title)">
                                 <div class="icon">
                                     <i class='bx bx-building'></i>
                                 </div>
                                 <div class="info">
                                     <div class="name">@{{ item.yalago_hotel_title }}</div>
-                                    <span class="sub-text">@{{ item.yalago_hotel_location_title }}, @{{
-                                        item.yalago_hotel_province_title }}, @{{ item.yalago_hotel_country_title
-                                        }}</span>
+                                    <span class="sub-text">@{{ item.yalago_hotel_location_title }}, @{{ item.yalago_hotel_province_title }},
+                                        @{{ item.yalago_hotel_country_title }}</span>
                                 </div>
                             </li>
                         </ul>
@@ -138,12 +138,11 @@
         <div class="pax-wrapper departure-wrapper" ref="hotelRoomsRef">
             <div class="search-box" @click.stop="toggleHotelRooms">
                 <div class="search-box__label">Rooms & Guests</div>
-                <input readonly type="text" class="search-box__input cursor-pointer"
-                    :value="totalHotelGuestsText">
+                <input readonly type="text" class="search-box__input cursor-pointer" :value="totalHotelGuestsText">
             </div>
 
             <!-- Rooms Dropdown -->
-            <div class="options-dropdown-wrapper options-dropdown-wrapper--pax" 
+            <div class="options-dropdown-wrapper options-dropdown-wrapper--pax"
                 :class="{ open: hotelRoomsOpen, scroll: hotelRoomCount > 1 }">
                 <div class="options-dropdown options-dropdown--norm">
                     <div class="options-dropdown__body">
@@ -152,8 +151,8 @@
                             <div class="child-age">
                                 <label>Number of Rooms</label>
                                 <select v-model="hotelRoomCount" name="room_count" class="form-control">
-                                    <option v-for="n in 5" :key="n" :value="n">@{{ n }} Room<template
-                                            v-if="n > 1">s</template></option>
+                                    <option v-for="n in 5" :key="n" :value="n">
+                                        @{{ n }} Room<template v-if="n > 1">s</template></option>
                                 </select>
                             </div>
                         </div>
@@ -162,12 +161,14 @@
                         <div class="child-ages mt-3" v-if="hotelRooms.length > 0">
                             <div class="room-section w-100" v-for="(room, roomIndex) in hotelRooms"
                                 :key="'room-' + roomIndex">
-                                <div class="title mb-2" style="font-size: 0.85rem; font-weight: 600;">Room @{{
-                                    roomIndex + 1 }}</div>
+                                <div class="title mb-2" style="font-size: 0.85rem; font-weight: 600;">Room
+                                    @{{ roomIndex + 1 }}</div>
 
                                 <!-- Hidden inputs for adults and children count -->
-                                <input type="hidden" :name="'room_' + (roomIndex + 1) + '_adults'" :value="room.adults">
-                                <input type="hidden" :name="'room_' + (roomIndex + 1) + '_children'" :value="room.children">
+                                <input type="hidden" :name="'room_' + (roomIndex + 1) + '_adults'"
+                                    :value="room.adults">
+                                <input type="hidden" :name="'room_' + (roomIndex + 1) + '_children'"
+                                    :value="room.children">
 
                                 <ul class="paxs-list mt-0">
                                     <!-- Adults -->

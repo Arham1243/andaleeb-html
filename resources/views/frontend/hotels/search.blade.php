@@ -265,8 +265,8 @@
                                     <div class="event-images-slider">
                                         <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
                                             class="event-card__img">
-                                            <img src="https://images.dnatatravel.com/ei/1/1/1/7/6/0/0.jpg"
-                                                class="imgFluid" alt="Image" />
+                                            <img data-src="https://images.dnatatravel.com/ei/1/1/1/7/6/0/0.jpg"
+                                                class="imgFluid lazyload" alt="Image" />
                                         </a>
                                     </div>
                                 </div>
@@ -331,8 +331,8 @@
                                     <div class="event-images-slider">
                                         <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
                                             class="event-card__img">
-                                            <img src="https://images.dnatatravel.com/ei/1/1/1/7/6/0/0.jpg"
-                                                class="imgFluid" alt="Image" />
+                                            <img data-src="https://images.dnatatravel.com/ei/1/1/1/7/6/0/0.jpg"
+                                                class="imgFluid lazyload" alt="Image" />
                                         </a>
                                     </div>
                                 </div>
