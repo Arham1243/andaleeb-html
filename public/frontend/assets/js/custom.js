@@ -429,3 +429,112 @@ document.querySelectorAll("[custom-accordion]")?.forEach((accordion) => {
         });
 });
 /* Custom Accordian */
+
+/* hotel details slider */
+$(document).ready(function () {
+    $(".hotels-lg-img-wrapper").each(function () {
+        const $wrapper = $(this);
+        const $slider = $wrapper.find(".hotels-lg-img-list");
+        const $navSlider = $(".hotels-sm-img-list-slider");
+        const totalSlides = $slider.find(".hotels-lg-img-item").length;
+
+        $wrapper
+            .find(".event-slider-actions__progress")
+            .text(`1/${totalSlides}`);
+
+        $slider.slick({
+            arrows: true,
+            infinite: false,
+            fade: true,
+            asNavFor: ".hotels-sm-img-list-slider",
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            prevArrow: $wrapper.find(".event-slider-prev"),
+            nextArrow: $wrapper.find(".event-slider-next"),
+        });
+
+        $navSlider.slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            asNavFor: ".hotels-lg-img-list",
+            arrows: false,
+            infinite: false,
+            focusOnSelect: true,
+        });
+
+        $slider.on("afterChange", function (event, slick, currentSlide) {
+            updateProgress(currentSlide);
+        });
+
+        $navSlider.on("afterChange", function (event, slick, currentSlide) {
+            updateProgress(currentSlide);
+        });
+
+        function updateProgress(currentSlide) {
+            const currentSlideNumber = currentSlide + 1;
+            $wrapper
+                .find(".event-slider-actions__progress")
+                .text(`${currentSlideNumber}/${totalSlides}`);
+        }
+
+        // Fullscreen toggle
+        $(".full-screen").click(function () {
+            if (!document.fullscreenElement) {
+                // Enter fullscreen
+                $wrapper[0]
+                    .requestFullscreen()
+                    .then(() => {
+                        $(this).html(
+                            "<i class='bx bx-exit-fullscreen'></i> Close",
+                        );
+                        $wrapper.addClass("full-screen-enabled");
+                    })
+                    .catch((err) => {
+                        console.log(
+                            `Error attempting to enable full-screen mode: ${err.message}`,
+                        );
+                    });
+            } else {
+                // Exit fullscreen
+                document
+                    .exitFullscreen()
+                    .then(() => {
+                        $(this).html(
+                            "<i class='bx bx-fullscreen'></i> Full screen",
+                        );
+                        $wrapper.removeClass("full-screen-enabled");
+                    })
+                    .catch((err) => {
+                        console.log(
+                            `Error attempting to exit full-screen mode: ${err.message}`,
+                        );
+                    });
+            }
+        });
+
+        // Listen for fullscreen change events to handle icon and text updates
+        document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement) {
+                $(".full-screen").html(
+                    "<i class='bx bx-fullscreen'></i> Full screen",
+                );
+            }
+        });
+
+        document.addEventListener("fullscreenchange", () => {
+            const $wrapper = $(".hotels-lg-img-wrapper.full-screen-enabled");
+
+            if (!document.fullscreenElement) {
+                // Remove class when exiting fullscreen via ESC
+                $wrapper.removeClass("full-screen-enabled");
+
+                // Update button icon/text
+                $(".full-screen").html(
+                    "<i class='bx bx-fullscreen'></i> Full screen",
+                );
+            }
+        });
+    });
+});
+/* hotel details slider */

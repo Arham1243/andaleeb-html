@@ -186,6 +186,53 @@
         font-size: 23px;
     }
     .review-form-card {
-    background: #f8f9fa;
-    padding: 20px;}
+        background: #f8f9fa;
+        padding: 20px;
+    }
+    .details-tabs {
+        justify-content: space-between;
+    }
+    .details-tabs .nav-link {
+        font-size: 13px;
+        padding: 11px;
+    }
+    .notice-wrapper {
+        gap: 2rem;
+    }
+    .hotels-lg-img-item {
+        height: 250px;
+    }
+    .full-screen-enabled .hotels-lg-img-item {
+        padding: 0;
+    }
+    .hotels-sm-img-list-slider .slick-slide {
+        margin-inline: 1px;
+    }
+    .hotels-sm-img-item {
+        height: 60px;
+        border-radius: 0.25rem;
+    }
+    .hotels-sm-img-list {
+        margin: 2px 0;
+    }
+    .hotels-lg-img-item {
+        width: 100%;
+        border-radius: 0.5rem;
+    }
+    .hotels-lg-img-wrapper .action-btns .full-screen {
+        display: none;
+    }
+    .continue-bar .details-btn-wrapper {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    .continue-bar-padding {
+        padding-inline: 0;
+    }
+    .continue-bar .total {
+        font-size: 0.7rem;
+    }
+    .continue-bar .details span {
+        font-size: 20px !important;
+    }
 }
