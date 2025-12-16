@@ -31,8 +31,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="London" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="London" class="card-img lazyload">
 
                         <div class="card-badge"><i class="bx bxs-hot"></i>Trending</div>
 
@@ -64,8 +64,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="New York" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="New York" class="card-img lazyload">
 
 
                         <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
@@ -98,8 +98,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Paris" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Paris" class="card-img lazyload">
 
                         <div class="card-badge"><i class="bx bxs-hot"></i> Trending</div>
 
@@ -131,8 +131,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Istanbul" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Istanbul" class="card-img lazyload">
 
                         <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
 
@@ -163,8 +163,8 @@
                 </div>
                   <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="New York" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="New York" class="card-img lazyload">
 
 
                         <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
@@ -279,8 +279,8 @@
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <article class="ts-hero-card">
-                                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Swiss Alps" class="ts-hero-img">
+                                <img data-src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Swiss Alps" class="ts-hero-img lazyload">
                                 <div class="ts-hero-overlay">
                                     <div class="ts-tags">
                                         <span class="ts-tag">Adventure</span>
@@ -295,8 +295,8 @@
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
-                                            alt="Bali Food">
+                                        <img data-src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
+                                            alt="Bali Food" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culinary</span>
@@ -308,8 +308,8 @@
                                 </article>
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
-                                            alt="Paris">
+                                        <img data-src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
+                                            alt="Paris" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">City Guide</span>
@@ -329,8 +329,8 @@
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <article class="ts-hero-card">
-                                <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Cinque Terre" class="ts-hero-img">
+                                <img data-src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Cinque Terre" class="ts-hero-img lazyload">
                                 <div class="ts-hero-overlay">
                                     <div class="ts-tags">
                                         <span class="ts-tag">Coastal</span>
@@ -345,8 +345,8 @@
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
-                                            alt="Kyoto">
+                                        <img data-src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
+                                            alt="Kyoto" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culture</span>
@@ -359,8 +359,8 @@
                                 </article>
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
-                                            alt="Tokyo">
+                                        <img data-src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
+                                            alt="Tokyo" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Tech & Travel</span>

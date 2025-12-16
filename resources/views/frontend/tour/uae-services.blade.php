@@ -222,8 +222,8 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                            <img class="imgFluid lazyload"
+                                data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
                             <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
                             
@@ -242,8 +242,8 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
+                            <img class="imgFluid lazyload"
+                                data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
                             <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
                             
@@ -262,8 +262,8 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
+                            <img class="imgFluid lazyload"
+                                data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
                             
                         </div>
@@ -281,8 +281,8 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
+                            <img class="imgFluid lazyload"
+                                data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
                             
                         </div>
@@ -300,8 +300,8 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
+                            <img class="imgFluid lazyload"
+                                data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
                             
                         </div>
@@ -319,8 +319,8 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                            <img class="imgFluid lazyload"
+                                data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                 alt="Burj Khalifa">
                             
                         </div>
@@ -355,8 +355,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Abu Dhabi City Tour With Ferrari
@@ -368,8 +368,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
@@ -381,8 +381,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Safari with Quad Biking</div>
@@ -393,8 +393,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Buggy Driving Experience
@@ -406,8 +406,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
@@ -419,8 +419,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Hot Air Balloon Dubai</div>
@@ -431,8 +431,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Breakfast in the sky with Balloon

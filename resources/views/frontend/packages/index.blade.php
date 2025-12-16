@@ -17,8 +17,8 @@
                 <div class="col-md-3">
                     <a href="#" class="category-card category-card--lg">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Dubai</div>
@@ -34,8 +34,8 @@
                 <div class="col-md-3">
                     <a href="#" class="category-card category-card--lg">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Dubai</div>
@@ -51,8 +51,8 @@
                 <div class="col-md-3">
                     <a href="#" class="category-card category-card--lg">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Dubai</div>
@@ -68,8 +68,8 @@
                 <div class="col-md-3">
                     <a href="#" class="category-card category-card--lg">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Dubai</div>

@@ -17,7 +17,7 @@
                     </li>
 
                     <li class="breadcrumb-item active">
-                        Listing
+                        Search
                     </li>
                 </ul>
             </nav>

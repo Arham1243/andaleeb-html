@@ -43,36 +43,36 @@
                             <!-- Large Left Image -->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                 class="gallery-item item-main" data-fancybox="gallery" data-caption="Burj Khalifa View">
-                                <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Main View">
+                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
+                                    alt="Main View" class="lazyload">
                             </a>
 
                             <!-- Small Top Middle -->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                 class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="Sunset Horizon">
-                                <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Sunset">
+                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
+                                    alt="Sunset" class="lazyload">
                             </a>
 
                             <!-- Small Top Right -->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                 class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="City Skyline">
-                                <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Skyline">
+                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
+                                    alt="Skyline" class="lazyload">
                             </a>
 
                             <!-- Small Bottom Middle -->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                 class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="Interior View">
-                                <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Interior">
+                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
+                                    alt="Interior" class="lazyload">
                             </a>
 
                             <!-- Small Bottom Right (View Gallery Trigger)-->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                 class="gallery-item item-last" data-fancybox="gallery" data-caption="Observation Deck">
-                                <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Observation Deck">
+                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
+                                    alt="Observation Deck" class="lazyload">
 
                                 <!-- Overlay content -->
                                 <div class="gallery-overlay">

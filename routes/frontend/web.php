@@ -53,6 +53,7 @@ Route::name('frontend.')->group(function () {
     Route::prefix('hotels')->name('hotels.')->group(function () {
         Route::get('/', [HotelController::class, 'index'])->name('index');
         Route::get('/search', [HotelController::class, 'search'])->name('search');
+        Route::get('/details', [HotelController::class, 'details'])->name('details');
     });
 
     Route::prefix('flights')->name('flights.')->group(function () {

@@ -102,8 +102,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Dubai</div>
@@ -114,8 +114,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Singapore</div>
@@ -126,8 +126,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Abu Dhabi</div>
@@ -138,8 +138,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Ras al Khaimah</div>
@@ -150,8 +150,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Singapore</div>
@@ -162,8 +162,8 @@
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid">
+                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                                alt="Dubai" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">Things to do in Dubai</div>
@@ -299,8 +299,8 @@
                     <div class="activity-card">
                         <div class="act-img-box">
                             <a href="#">
-                                <img class="imgFluid"
-                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                                <img class="imgFluid lazyload"
+                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
                             
@@ -320,8 +320,8 @@
                     <div class="activity-card">
                         <div class="act-img-box">
                             <a href="#">
-                                <img class="imgFluid"
-                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
+                                <img class="imgFluid lazyload"
+                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
                             
@@ -341,8 +341,8 @@
                     <div class="activity-card">
                         <div class="act-img-box">
                             <a href="#">
-                                <img class="imgFluid"
-                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
+                                <img class="imgFluid lazyload"
+                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
                             
@@ -362,8 +362,8 @@
                     <div class="activity-card">
                         <div class="act-img-box">
                             <a href="#">
-                                <img class="imgFluid"
-                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
+                                <img class="imgFluid lazyload"
+                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
                             
@@ -383,8 +383,8 @@
                     <div class="activity-card">
                         <div class="act-img-box">
                             <a href="#">
-                                <img class="imgFluid"
-                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
+                                <img class="imgFluid lazyload"
+                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
                             
@@ -404,8 +404,8 @@
                     <div class="activity-card">
                         <div class="act-img-box">
                             <a href="#">
-                                <img class="imgFluid"
-                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                                <img class="imgFluid lazyload"
+                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
                             
@@ -436,8 +436,8 @@
             <div class="row g-3">
                 <div class="col-lg-6 col-md-12">
                     <a href="#" class="promo-card h-500">
-                        <img src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763450754WhatsApp%20Image%202025-11-18%20at%2012.25.10_da9451c2.jpg"
-                            alt="Turkey">
+                        <img data-src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763450754WhatsApp%20Image%202025-11-18%20at%2012.25.10_da9451c2.jpg"
+                            alt="Turkey" class="lazyload">
 
                         <span class="duration-badge">5 Nights / 6 Days</span>
 
@@ -456,8 +456,8 @@
                     <div class="row g-3 h-100">
                         <div class="col-md-6">
                             <a href="#" class="promo-card h-240">
-                                <img src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763463484egypt%20pic.jpg"
-                                    alt="Egypt">
+                                <img data-src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763463484egypt%20pic.jpg"
+                                    alt="Egypt" class="lazyload">
                                 <span class="duration-badge">3 Nights / 4 Days</span>
                                 <div class="card-overlay">
                                     <div class="promo-info">
@@ -473,8 +473,8 @@
 
                         <div class="col-md-6">
                             <a href="#" class="promo-card h-240">
-                                <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=800&auto=format&fit=crop"
-                                    alt="Singapore">
+                                <img data-src="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=800&auto=format&fit=crop"
+                                    alt="Singapore" class="lazyload">
                                 <span class="duration-badge">4 Nights / 5 Days</span>
                                 <div class="card-overlay">
                                     <div class="promo-info">
@@ -490,8 +490,8 @@
 
                         <div class="col-12">
                             <a href="#" class="promo-card h-240">
-                                <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Thailand">
+                                <img data-src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Thailand" class="lazyload">
                                 <span class="duration-badge">4 Nights / 5 Days</span>
                                 <div class="card-overlay">
                                     <div class="d-flex justify-content-between align-items-end w-100">
@@ -527,8 +527,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="London" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="London" class="card-img lazyload">
 
                         <div class="card-badge"><i class="bx bxs-hot"></i>Trending</div>
 
@@ -560,8 +560,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="New York" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="New York" class="card-img lazyload">
 
 
                         <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
@@ -594,8 +594,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Paris" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Paris" class="card-img lazyload">
 
                         <div class="card-badge"><i class="bx bxs-hot"></i> Trending</div>
 
@@ -627,8 +627,8 @@
 
                 <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
-                        <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Istanbul" class="card-img">
+                        <img data-src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Istanbul" class="card-img lazyload">
 
                         <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
 
@@ -677,8 +677,8 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="hotel-card">
                         <div class="hotel-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
-                                alt="Atlantis The Royal" class="img-fluid">
+                            <img data-src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                                alt="Atlantis The Royal" class="img-fluid lazyload">
                             <span class="badge primary-bg offer-badge">Featured</span>
 
                         </div>
@@ -703,8 +703,8 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="hotel-card">
                         <div class="hotel-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
-                                alt="Burj Al Arab" class="img-fluid">
+                            <img data-src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                                alt="Burj Al Arab" class="img-fluid lazyload">
                             <span class="badge primary-bg offer-badge">Featured</span>
 
                         </div>
@@ -729,8 +729,8 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="hotel-card">
                         <div class="hotel-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
-                                alt="Rixos Premium" class="img-fluid">
+                            <img data-src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                                alt="Rixos Premium" class="img-fluid lazyload">
                             <span class="badge primary-bg offer-badge">Featured</span>
 
                         </div>
@@ -773,8 +773,8 @@
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <article class="ts-hero-card">
-                                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Swiss Alps" class="ts-hero-img">
+                                <img data-src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Swiss Alps" class="ts-hero-img lazyload">
                                 <div class="ts-hero-overlay">
                                     <div class="ts-tags">
                                         <span class="ts-tag">Adventure</span>
@@ -789,8 +789,8 @@
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
-                                            alt="Bali Food">
+                                        <img data-src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
+                                            alt="Bali Food" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culinary</span>
@@ -802,8 +802,8 @@
                                 </article>
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
-                                            alt="Paris">
+                                        <img data-src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
+                                            alt="Paris" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">City Guide</span>
@@ -823,8 +823,8 @@
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <article class="ts-hero-card">
-                                <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Cinque Terre" class="ts-hero-img">
+                                <img data-src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Cinque Terre" class="ts-hero-img lazyload">
                                 <div class="ts-hero-overlay">
                                     <div class="ts-tags">
                                         <span class="ts-tag">Coastal</span>
@@ -839,8 +839,8 @@
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
-                                            alt="Kyoto">
+                                        <img data-src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
+                                            alt="Kyoto" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culture</span>
@@ -853,8 +853,8 @@
                                 </article>
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
-                                            alt="Tokyo">
+                                        <img data-src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
+                                            alt="Tokyo" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Tech & Travel</span>

@@ -33,8 +33,8 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="hotel-card">
                         <div class="hotel-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
-                                alt="Atlantis The Royal" class="img-fluid">
+                            <img data-src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                                alt="Atlantis The Royal" class="img-fluid lazyload">
                             <span class="badge primary-bg offer-badge">Featured</span>
 
                         </div>
@@ -60,8 +60,8 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="hotel-card">
                         <div class="hotel-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
-                                alt="Burj Al Arab" class="img-fluid">
+                            <img data-src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                                alt="Burj Al Arab" class="img-fluid lazyload">
                             <span class="badge primary-bg offer-badge">Featured</span>
 
                         </div>
@@ -87,8 +87,8 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="hotel-card">
                         <div class="hotel-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
-                                alt="Rixos Premium" class="img-fluid">
+                            <img data-src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                                alt="Rixos Premium" class="img-fluid lazyload">
                             <span class="badge primary-bg offer-badge">Featured</span>
 
                         </div>
@@ -112,8 +112,8 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="hotel-card">
                         <div class="hotel-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
-                                alt="Atlantis The Royal" class="img-fluid">
+                            <img data-src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                                alt="Atlantis The Royal" class="img-fluid lazyload">
                             <span class="badge primary-bg offer-badge">Featured</span>
 
                         </div>
@@ -221,8 +221,8 @@
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <article class="ts-hero-card">
-                                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Swiss Alps" class="ts-hero-img">
+                                <img data-src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Swiss Alps" class="ts-hero-img lazyload">
                                 <div class="ts-hero-overlay">
                                     <div class="ts-tags">
                                         <span class="ts-tag">Adventure</span>
@@ -237,8 +237,8 @@
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
-                                            alt="Bali Food">
+                                        <img data-src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
+                                            alt="Bali Food" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culinary</span>
@@ -250,8 +250,8 @@
                                 </article>
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
-                                            alt="Paris">
+                                        <img data-src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
+                                            alt="Paris" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">City Guide</span>
@@ -271,8 +271,8 @@
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <article class="ts-hero-card">
-                                <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Cinque Terre" class="ts-hero-img">
+                                <img data-src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Cinque Terre" class="ts-hero-img lazyload">
                                 <div class="ts-hero-overlay">
                                     <div class="ts-tags">
                                         <span class="ts-tag">Coastal</span>
@@ -287,8 +287,8 @@
                             <div class="ts-list-stack">
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
-                                            alt="Kyoto">
+                                        <img data-src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
+                                            alt="Kyoto" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Culture</span>
@@ -301,8 +301,8 @@
                                 </article>
                                 <article class="ts-side-card">
                                     <a href="#" class="ts-side-img-box">
-                                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
-                                            alt="Tokyo">
+                                        <img data-src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
+                                            alt="Tokyo" class="lazyload">
                                     </a>
                                     <div class="ts-side-content">
                                         <span class="ts-category">Tech & Travel</span>
