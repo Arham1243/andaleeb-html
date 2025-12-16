@@ -87,6 +87,9 @@ i.bx {
 .primary-bg {
     background: var(--color-primary);
 }
+.color-primary{
+    color: var(--color-primary);
+}
 
 /* ThemeBtn */
 .themeBtn {

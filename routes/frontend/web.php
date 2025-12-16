@@ -47,6 +47,7 @@ Route::name('frontend.')->group(function () {
     Route::prefix('packages')->name('packages.')->group(function () {
         Route::get('/', [PackageController::class, 'index'])->name('index');
         Route::get('/category', [PackageController::class, 'category'])->name('category');
+        Route::get('/details', [PackageController::class, 'details'])->name('details');
     });
 
     Route::prefix('hotels')->name('hotels.')->group(function () {

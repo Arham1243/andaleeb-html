@@ -14,4 +14,8 @@ class PackageController extends Controller
     {
         return view('frontend.packages.category');
     }
+    public function details()
+    {
+        return view('frontend.packages.details');
+    }
 }
