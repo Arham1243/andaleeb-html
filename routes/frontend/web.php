@@ -58,6 +58,11 @@ Route::name('frontend.')->group(function () {
         Route::get('/checkout', [HotelController::class, 'checkout'])->name('checkout');
     });
 
+    Route::prefix('payment')->name('payment.')->group(function () {
+        Route::get('/success', [IndexController::class, 'paymentSuccess'])->name('success');
+        Route::get('/failed', [IndexController::class, 'paymentFailed'])->name('failed');
+    });
+
     Route::prefix('flights')->name('flights.')->group(function () {
         Route::get('/', [FlightController::class, 'index'])->name('index');
     });

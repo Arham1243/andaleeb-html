@@ -30,4 +30,12 @@ class IndexController extends Controller
     {
         return view('frontend.contact-us');
     }
+    public function paymentSuccess()
+    {
+        return view('frontend.payment.success');
+    }
+    public function paymentFailed()
+    {
+        return view('frontend.payment.failed');
+    }
 }

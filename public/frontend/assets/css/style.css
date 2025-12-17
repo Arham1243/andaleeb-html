@@ -5665,3 +5665,82 @@ body.fancybox-active.compensate-for-scrollbar {
     font-size: 4rem;
     color: #b50035;
 }
+
+/* Payment Status Pages */
+.status-card {
+    --color-primary-dark: #a81540;
+    --color-success: #198754;
+    --color-error: #dc3545;
+    --bg-light: #f8f9fa;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Icon Styling */
+.status-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+}
+
+.status-icon-wrapper.success {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: var(--color-success);
+}
+
+.status-icon-wrapper.error {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--color-error);
+}
+
+.status-icon-wrapper i {
+    font-size: 3rem;
+}
+
+/* Receipt Box for Success Page */
+.transaction-details {
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.detail-row.total {
+    border-top: 1px dashed #dee2e6;
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
+.btn-primary-theme {
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary-theme:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    color: white;
+}
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--color-error);
+}
+/* Payment Status Pages */
