@@ -391,7 +391,7 @@
                         </div>
                     </div>
 
-                    {{-- <div class="empty-results " aria-labelledby="no-results-title">
+                    <div class="empty-results " aria-labelledby="no-results-title">
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-8 col-lg-6 text-center">
 
@@ -422,7 +422,7 @@
 
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
