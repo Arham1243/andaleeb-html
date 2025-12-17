@@ -250,8 +250,8 @@
                                     <!-- Tags -->
                                     <div class="room-card__tags">
                                         <span class="room-card__tag"><i class='bx bx-home'></i> Room Only</span>
-                                        <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                        <span class="room-card__tag room-card__tag--red"><i
+                                                class='bx bx-x-circle'></i> Non-Refundable</span>
                                     </div>
 
                                     <!-- Policy Info -->
@@ -297,7 +297,7 @@
                                     <div class="room-card__tags">
                                         <span class="room-card__tag"><i class='bx bx-home'></i> Room Only</span>
                                         <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                                class='bx bx-check-shield'></i> Non-Refundable</span>
                                     </div>
 
                                     <div class="room-card__policy">
@@ -341,7 +341,7 @@
                                     <div class="room-card__tags">
                                         <span class="room-card__tag"><i class='bx bx-home'></i> Room Only</span>
                                         <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                                class='bx bx-check-shield'></i> Non-Refundable</span>
                                     </div>
 
                                     <div class="room-card__policy">
@@ -385,7 +385,7 @@
                                     <div class="room-card__tags">
                                         <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
                                         <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                                class='bx bx-check-shield'></i> Non-Refundable</span>
                                     </div>
 
                                     <div class="room-card__policy">
@@ -429,7 +429,7 @@
                                     <div class="room-card__tags">
                                         <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
                                         <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                                class='bx bx-check-shield'></i> Non-Refundable</span>
                                     </div>
 
                                     <div class="room-card__policy">
@@ -473,7 +473,7 @@
                                     <div class="room-card__tags">
                                         <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
                                         <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                                class='bx bx-check-shield'></i> Non-Refundable</span>
                                     </div>
 
                                     <div class="room-card__policy">
@@ -517,7 +517,7 @@
                                     <div class="room-card__tags">
                                         <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
                                         <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                                class='bx bx-check-shield'></i> Non-Refundable</span>
                                     </div>
 
                                     <div class="room-card__policy">
@@ -562,7 +562,7 @@
                                         <span class="room-card__tag room-card__tag--gold"><i class='bx bx-coffee'></i> Bed
                                             And Breakfast</span>
                                         <span class="room-card__tag room-card__tag--green"><i
-                                                class='bx bx-check-shield'></i> Refundable</span>
+                                                class='bx bx-check-shield'></i> Non-Refundable</span>
                                     </div>
 
                                     <div class="room-card__policy">

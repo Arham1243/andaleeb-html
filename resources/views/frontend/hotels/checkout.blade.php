@@ -167,7 +167,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 mt-2">
-                                        <label class="form-label">&nbsp;</label>
+                                        <label class="form-label d-none d-md-block">&nbsp;</label>
                                         <select class="custom-select" id="flight_outbound_min"
                                             name="out_flight_arrival_time_m">
                                             <option value="">mm</option>
@@ -226,7 +226,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 mt-2">
-                                        <label class="form-label">&nbsp;</label>
+                                        <label class="form-label d-none d-md-block">&nbsp;</label>
                                         <select class="custom-select" id="flight_outbound_min"
                                             name="in_flight_arrival_time_m">
                                             <option value="">mm</option>
@@ -404,6 +404,7 @@
                             </div>
                         </div>
 
+                        @if ($is_extras)
                         <div class="modern-card">
                             <div class="card-title">Transfers / Extras
                             </div>
@@ -426,6 +427,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="modern-card">
 
                             <div class="order-item-mini">
@@ -436,10 +438,12 @@
                             </div>
 
                             <div class="mt-3">
+                                @if ($is_extras)
                                 <div class="summary-row">
                                     <span>Extras total</span>
                                     <span><span class="dirham">D</span> <span id="summary-extras-total">0.00</span></span>
                                 </div>
+                                @endif
                                 <div class="summary-row total">
                                     <span>Total Price</span>
                                     <span style="color: var(--color-primary)"><span class="dirham">D</span>

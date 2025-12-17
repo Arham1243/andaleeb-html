@@ -235,4 +235,11 @@
     .continue-bar .details span {
         font-size: 20px !important;
     }
+    .continue-bar {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+    }
 }

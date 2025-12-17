@@ -5449,6 +5449,11 @@ body.fancybox-active.compensate-for-scrollbar {
     background-color: #fef9c3;
 }
 
+.room-card__tag--red {
+    color: #dc2626;
+    background-color: #f5e7e7;
+}
+
 .room-card__policy {
     display: flex;
     flex-direction: column;
