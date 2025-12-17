@@ -390,6 +390,39 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- <div class="empty-results " aria-labelledby="no-results-title">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-8 col-lg-6 text-center">
+
+                                <!-- Visual Cue -->
+                                <div class="mb-3">
+                                    <i class='bx bx-search-alt empty-icon' aria-hidden="true"></i>
+                                </div>
+
+                                <!-- Content -->
+                                <h2 id="no-results-title" class="h4 fw-bold mb-2">
+                                    No hotels found
+                                </h2>
+
+                                <p class="text-muted mb-4">
+                                    We couldn't find any properties matching your criteria.
+                                    Try adjusting your filters or searching for different dates.
+                                </p>
+
+                                <!-- Actions -->
+                                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
+                                    <a href="{{ route('frontend.hotels.index') }}" type="button" class="themeBtn themeBtn--primary">
+                                        Search alternative dates
+                                    </a>
+                                    <a href="{{ route('frontend.hotels.search') }}" type="button" class="themeBtn">
+                                        Reset filters
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
