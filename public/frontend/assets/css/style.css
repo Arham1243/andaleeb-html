@@ -2420,6 +2420,7 @@ body .skeleton {
     accent-color: var(--color-primary);
     width: 16px;
     height: 16px;
+    cursor: pointer;
 }
 
 .custom-link {
@@ -5744,3 +5745,7 @@ body.fancybox-active.compensate-for-scrollbar {
     color: var(--color-error);
 }
 /* Payment Status Pages */
+.validation-error{
+    font-size: 0.85rem;
+    font-weight: 500;
+}

@@ -41,7 +41,7 @@
 
                 <!-- User/Cart -->
                 <div class="mh-icons-group">
-                    <a href="{{ route('frontend.auth.login') }}" class="mh-icon-link">
+                    <a href="{{ route('auth.login') }}" class="mh-icon-link">
                         <i class="bx bx-user"></i>
                     </a>
                     <a href="{{ route('frontend.cart.index') }}" class="mh-icon-link mh-cart">

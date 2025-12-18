@@ -11,11 +11,15 @@
                             <p>Enter your email and we'll send you a reset link</p>
                         </div>
 
-                        <form action="#">
+                        <form action="{{ route('password.email') }}" method="POST">
+                            @csrf
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" class="custom-input" required>
+                                <input type="email" name='email' class="custom-input" required value="{{ old('email') }}">
+                                @error('email')
+                                    <span class="text-danger validation-error">{{ $message }}</span>
+                                @enderror
                             </div>
 
 
@@ -29,7 +33,7 @@
 
                         <!-- Footer -->
                         <div class="auth-footer">
-                            <a href="{{ route('frontend.auth.login') }}" class="custom-link"> <i class='bx bx-arrow-back'></i>
+                            <a href="{{ route('auth.login') }}" class="custom-link"> <i class='bx bx-arrow-back'></i>
                                 Back to Login</a>
                         </div>
                     </div>

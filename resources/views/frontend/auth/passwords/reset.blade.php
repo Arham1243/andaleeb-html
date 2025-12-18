@@ -11,25 +11,33 @@
                             <p>Please enter your new password below</p>
                         </div>
 
-                        <form action="#">
+                        <form action="{{ route('password.update') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
+                            <input type="hidden" name="email" value="{{ $_GET['email'] }}">
                             <!-- New Password Field -->
                             <div class="form-group">
                                 <label class="form-label">New Password</label>
                                 <div class="password-wrapper">
-                                    <input type="password" class="custom-input password-field" 
-                                        required>
+                                    <input type="password" name="password" class="custom-input password-field" required>
                                     <i class='bx bx-show password-toggle'></i>
                                 </div>
+                                @error('password')
+                                    <span class="text-danger validation-error">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Confirm Password Field -->
                             <div class="form-group">
                                 <label class="form-label">Confirm Password</label>
                                 <div class="password-wrapper">
-                                    <input type="password" class="custom-input password-field" 
+                                    <input type="password" name="password_confirmation" class="custom-input password-field"
                                         required>
                                     <i class='bx bx-show password-toggle'></i>
                                 </div>
+                                @error('password_confirmation')
+                                    <span class="text-danger validation-error">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Submit -->

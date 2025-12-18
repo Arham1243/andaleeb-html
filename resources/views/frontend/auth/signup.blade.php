@@ -11,19 +11,26 @@
                             <p>Start your journey with Andaleeb Travel</p>
                         </div>
 
-                        <form action="#">
+                        <form action="{{ route('auth.signup.perform', request()->query()) }}" method="POST">
+                            @csrf
                             <!-- Name Fields Row -->
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">First Name</label>
-                                        <input type="text" class="custom-input" required>
+                                        <input type="text" value="{{ old('first_name') }}" name="first_name" class="custom-input" required>
+                                        @error('first_name')
+                                            <span class="text-danger validation-error">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Last Name</label>
-                                        <input type="text" class="custom-input" required>
+                                        <input type="text" value="{{ old('last_name') }}" name="last_name" class="custom-input" required>
+                                        @error('last_name')
+                                            <span class="text-danger validation-error">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -31,16 +38,22 @@
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" class="custom-input" required>
+                                <input type="email" value="{{ old('email') }}" name="email" class="custom-input" required>
+                                @error('email')
+                                    <span class="text-danger validation-error">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Password Field with Toggle -->
                             <div class="form-group">
                                 <label class="form-label">Password</label>
                                 <div class="password-wrapper">
-                                    <input type="password" class="custom-input password-field" required>
+                                    <input type="password" name="password" class="custom-input password-field" required>
                                     <i class='bx bx-show password-toggle'></i>
                                 </div>
+                                @error('password')
+                                    <span class="text-danger validation-error">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <div class="g-recaptcha" data-sitekey="{{ env('RE_CAPTCHA_SITE_KEY') }}"> </div>
@@ -63,8 +76,7 @@
 
                         <!-- Footer -->
                         <div class="auth-footer">
-                            Already have an account? <a href="{{ route('frontend.auth.login') }}"
-                                class="custom-link">Login</a>
+                            Already have an account? <a href="{{ route('auth.login') }}" class="custom-link">Login</a>
                         </div>
                     </div>
 

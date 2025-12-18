@@ -10,29 +10,36 @@
                             <h2 class="heading">Welcome Back</h2>
                             <p>Login to access your bookings and profile</p>
                         </div>
-                        <form action="#">
+                        <form action="{{ route('auth.login.perform', request()->query()) }}" method="POST">
+                            @csrf
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" class="custom-input" required>
+                                <input type="email" name="email" class="custom-input" required value="{{ old('email') }}">
+                                @error('email')
+                                    <span class="text-danger validation-error">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Password Field with Toggle -->
                             <div class="form-group">
                                 <label class="form-label">Password</label>
                                 <div class="password-wrapper">
-                                    <input type="password" class="custom-input password-field" required>
+                                    <input type="password" name="password" class="custom-input password-field" required>
                                     <i class='bx bx-show password-toggle'></i>
                                 </div>
+                                @error('password')
+                                    <span class="text-danger validation-error">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Remember & Forgot -->
                             <div class="auth-actions">
                                 <label class="custom-checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="remember">
                                     Remember me
                                 </label>
-                                <a href="{{ route('frontend.auth.password.forgot') }}" class="custom-link">Forgot
+                                <a href="{{ route('password.request') }}" class="custom-link">Forgot
                                     Password?</a>
                             </div>
 
@@ -57,15 +64,14 @@
 
                         <!-- Footer -->
                         <div class="auth-footer">
-                            <p class="mb-2">Don't have an account? <a href="{{ route('frontend.auth.signup') }}"
+                            <p class="mb-2">Don't have an account? <a href="{{ route('auth.signup') }}"
                                     class="custom-link">Sign Up</a></p>
 
-                            <a href="{{ route('frontend.auth.my-booking') }}" class="custom-link">
+                            <a href="{{ route('auth.my-booking') }}" class="custom-link">
                                 Find Your Booking
                             </a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

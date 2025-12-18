@@ -141,10 +141,10 @@
 			color: #000000;
 			font-family: sans-serif;"
                             class="paragraph">
-                            {!! replaceTemplateVariables($settings->get('password_reset_greeting'), [
-                                'name' => $data['full_name'] ?? 'User',
-                            ]) !!},<br>
-                            {{ $settings->get('password_reset_body') }}
+                            Hi {{ $data['full_name'] }},<br>
+                            Looks like you've forgotten your password. No problem – we'll help!To reset
+                            your password, just click below.
+
                         </td>
                     </tr>
                     <tr>
@@ -158,7 +158,7 @@
                                 <tr>
                                     <td align="center" valign="middle"
                                         style="padding: 12px 24px; margin: 0; text-decoration: none; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;"
-                                        bgcolor="#1c4d99"><a target="_blank"
+                                        bgcolor="#3969d5"><a target="_blank"
                                             style="text-decoration: none;
 					color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
                                             href="{{ $data['verify_link'] }}">
@@ -188,13 +188,10 @@
 			color: #000000;
 			font-family: sans-serif;"
                             class="paragraph">
-                            {!! replaceTemplateVariables($settings->get('password_reset_footer'), [
-                                'year' => now()->year,
-                            ]) !!}
+                            © {{ env('APP_NAME') }} {{ date('Y') }}. All rights reserved.
                         </td>
                     </tr>
                 </table>
-
             </td>
         </tr>
     </table>

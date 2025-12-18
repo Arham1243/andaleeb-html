@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -18,5 +22,77 @@ class AuthController extends Controller
     public function myBooking()
     {
         return view('frontend.auth.my-booking');
+    }
+
+    public function performSignup(Request $request)
+    {
+        $redirectTo = $request->input('redirect_url');
+
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = User::create([
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
+        Auth::login($user);
+        if ($redirectTo) {
+            return redirect()->to($redirectTo)->with('notify_success', 'Account Created Successfully');
+        }
+
+        return redirect()->route('frontend.index')->with('notify_success', 'Account Created Successfully');
+    }
+
+    public function performLogin(Request $request)
+    {
+        $redirectTo = $request->input('redirect_url');
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        $remember = $request->boolean('remember');
+
+        if (Auth::attempt(
+            ['email' => $request->email, 'password' => $request->password],
+            $remember
+        )) {
+            $user = Auth::user();
+
+            if ($user->status === 'inactive') {
+                Auth::logout();
+
+                return redirect()->route('auth.login')
+                    ->withErrors(['email' => 'Your account is suspended. Please contact the admin.'])
+                    ->with('notify_error', 'Your account is suspended. Please contact the admin.');
+            }
+
+            if ($redirectTo) {
+                return redirect()->to($redirectTo)
+                    ->with('notify_success', 'Login Successfully');
+            }
+
+            return redirect()->intended(route('frontend.index'))
+                ->with('notify_success', 'Login Successfully');
+        }
+
+        return back()
+            ->withErrors(['email' => 'Invalid credentials'])
+            ->withInput()
+            ->with('notify_error', 'Invalid credentials');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('frontend.index')->with('notify_success', 'Logged Out!');
     }
 }
