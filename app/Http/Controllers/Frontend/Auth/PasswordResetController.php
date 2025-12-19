@@ -23,6 +23,15 @@ class PasswordResetController extends Controller
             'email' => 'required|email|exists:users,email',
         ]);
 
+        // Check if user exists and is Google-authenticated
+        $existingUser = User::where('email', $request->email)->first();
+
+        if ($existingUser && $existingUser->auth_provider === 'google') {
+            return back()
+                ->withInput()
+                ->with('notify_error', 'This email is registered via Google. Please continue with Google.');
+        }
+
         $response = Password::sendResetLink($request->only('email'));
 
         if ($response == Password::RESET_LINK_SENT) {
