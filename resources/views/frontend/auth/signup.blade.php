@@ -52,7 +52,7 @@
                                 <label class="form-label">Password</label>
                                 <div class="password-wrapper">
                                     <input type="password" name="password" class="custom-input password-field" required>
-                                    <i class='bx bx-show password-toggle'></i>
+                                    <i class='bx bxs-show password-toggle'></i>
                                 </div>
                                 @error('password')
                                     <span class="text-danger validation-error">{{ $message }}</span>
@@ -104,14 +104,14 @@
                         // Switch to text
                         input.type = 'text';
                         // Change icon to hide eye
-                        this.classList.remove('bx-show');
-                        this.classList.add('bx-hide');
+                        this.classList.remove('bxs-show');
+                        this.classList.add('bxs-hide');
                     } else {
                         // Switch back to password
                         input.type = 'password';
                         // Change icon back to show eye
-                        this.classList.remove('bx-hide');
-                        this.classList.add('bx-show');
+                        this.classList.remove('bxs-hide');
+                        this.classList.add('bxs-show');
                     }
                 });
             });

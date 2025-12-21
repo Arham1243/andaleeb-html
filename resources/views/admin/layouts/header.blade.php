@@ -1,30 +1,31 @@
 @php
-    $menuItems = require resource_path('views/user/layouts/menu-config.php');
+    $menuItems = require resource_path('views/admin/layouts/menu-config.php');
 @endphp
 
-
-<div class="dashboard-header-wrapper">
-    <div class="row g-0">
-        <div class="col-md-9">
-            <div class="dashboard-header">
-                <div class="row justify-content-between">
-                    <div class="col-md-4">
-                        <div class="global-heading-wrapper">
-                            <div id="sidebarToggle" class="sidebar-toggle"><i class='bx bx-menu'></i></div>
-                            <h2>Dashboard</h2>
+<div class="col-12">
+    <div class="dashboard-header-wrapper">
+        <div class="row g-0">
+            <div class="col-md-9">
+                <div class="dashboard-header">
+                    <div class="row g-0 justify-content-between">
+                        <div class="col-md-4">
+                            <div class="global-heading-wrapper">
+                                <div id="sidebarToggle" class="sidebar-toggle"><i class='bx bx-menu'></i></div>
+                                <h2>Dashboard</h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="header-actions-wrapper d-flex align-items-center justify-content-end gap-3">
-                            <!-- Global Search Bar -->
-                            <div class="global-search-wrapper">
-                                <div class="search-input-container">
-                                    <input type="text" id="globalSearch" class="global-search-input"
-                                        placeholder="Search..." autocomplete="off">
-                                    <i class='bx bx-search search-icon'></i>
-                                </div>
-                                <div class="search-dropdown" id="searchDropdown">
-                                    <div class="search-results" id="searchResults">
+                        <div class="col-md-8">
+                            <div class="header-actions-wrapper d-flex align-items-center justify-content-end gap-3">
+                                <!-- Global Search Bar -->
+                                <div class="global-search-wrapper">
+                                    <div class="search-input-container">
+                                        <input type="text" id="globalSearch" class="global-search-input"
+                                            placeholder="Search..." autocomplete="off">
+                                        <i class='bx bx-search search-icon'></i>
+                                    </div>
+                                    <div class="search-dropdown" id="searchDropdown">
+                                        <div class="search-results" id="searchResults">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -32,41 +33,28 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="dashboard-header  d-flex justify-content-end p-0">
-                <div class="user-profile dropdown">
-                    <div class="name">
-                        <div class="name1">{{ Auth::user()->email }}</div>
-                        <div class="role">{{ Auth::user()->name }}</div>
-                    </div>
-                    <div class="user-image-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
-                        role="button">
-                        @if (Auth::user()->avatar)
-                            <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->full_name }}" class="imgFluid">
-                        @else
+            <div class="col-md-3">
+                <div class="dashboard-header  d-flex justify-content-end p-0">
+                    <div class="user-profile dropdown">
+                        <div class="name">
+                            <div class="name1">{{ Auth::guard('admin')->user() ? Auth::guard('admin')->user()->email : 'Admin' }}</div>
+                            <div class="role">{{ Auth::guard('admin')->user() ? Auth::guard('admin')->user()->name : 'Admin' }}</div>
+                        </div>
+                        <div class="user-image-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                            role="button">
                             <i class='bx bxs-user-circle'></i>
-                        @endif
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        @if (auth()->user()->auth_provider !== 'google')
-                            <li>
-                                <a href="{{ route('user.profile.changePassword') }}" class="dropdown-item">
-                                    Change Password
-                                </a>
-                            </li>
-                        @endif
+                        </div>
 
-                        <li>
-                            <form action="{{ route('user.logout') }}" method="POST">
-                                @csrf
-                                <button onclick="return confirm('Are you sure you want to logout?')" type="submit"
-                                    class="dropdown-item">
-                                    Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <form action="{{ route('admin.logout') }}" method="POST">
+                                    @csrf
+                                    <button onclick="return confirm('Are you sure you want to logout?')" type="submit"
+                                        class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
