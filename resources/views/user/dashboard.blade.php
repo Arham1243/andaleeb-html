@@ -12,7 +12,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+            <div class="row">
                     @if(auth()->user()->auth_provider !== 'google')
                         <div class="col-md-6">
                             <a href="{{ route('user.profile.changePassword') }}" class="revenue-card mt-0">

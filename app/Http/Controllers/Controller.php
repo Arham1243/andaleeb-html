@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Config;
-use App\Models\Popup;
-use App\Models\Setting;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
-abstract class Controller {}
+abstract class Controller
+{
+    public function __construct()
+    {
+        $config = Config::all()->pluck('config_value', 'config_key')->toArray();
+
+        View::share('config', $config);
+    }
+}

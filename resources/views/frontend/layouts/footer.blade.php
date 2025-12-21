@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-12 mb-4">
                 <a href="{{ route('frontend.index') }}" class="footer-logo">
-                    <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
+                    <img src="{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}"
                         alt="Rayna Logo" class="main-logo" />
                 </a>
 
@@ -37,21 +37,21 @@
                 <h6 class="heading">Get Help 24/7</h6>
                 <ul class="footer-list">
                     <li>
-                        <a href="mailto:info@andaleebtours.com">
+                        <a href="mailto:{{ $config['COMPANYEMAIL'] ?? 'info@andaleebtours.com' }}">
                             <i class="bx bxs-envelope"></i>
-                            <span>info@andaleebtours.com</span>
+                            <span>{{ $config['COMPANYEMAIL'] ?? 'info@andaleebtours.com' }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="tel:+97145766068">
+                        <a href="tel:{{ $config['COMPANYPHONE'] ?? '+97145766068' }}">
                             <i class="bx bxs-phone"></i>
-                            <span>+971 45766068</span>
+                            <span>{{ $config['COMPANYPHONE'] ?? '+971 45766068' }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="tel:+971525748986">
+                        <a href="tel:{{ $config['WHATSAPP'] ?? '+971525748986' }}">
                             <i class="bx bxl-whatsapp"></i>
-                            <span>+971 525748986</span>
+                            <span>{{ $config['WHATSAPP'] ?? '+971 525748986' }}</span>
                         </a>
                     </li>
                 </ul>
@@ -74,11 +74,11 @@
 
                 <div class="col-md-5">
                     <div class="footer-social-icons">
-                        <a href="https://www.facebook.com/AndaleebTravelAgency" target="_blank" class="social-link"><i
+                        <a href="{{ $config['FACEBOOK'] ?? 'https://www.facebook.com/AndaleebTravelAgency' }}" target="_blank" class="social-link"><i
                                 class="bx bxl-facebook"></i></a>
-                        <a href="https://twitter.com/AndaleebTravels" class="social-link"><i
+                        <a href="{{ $config['TWITTER'] ?? 'https://twitter.com/AndaleebTravels' }}" class="social-link"><i
                                 class="bx bxl-twitter"></i></a>
-                        <a href="https://www.instagram.com/andaleeb_tours/" class="social-link"><i
+                        <a href="{{ $config['INSTAGRAM'] ?? 'https://www.instagram.com/andaleeb_tours/' }}" class="social-link"><i
                                 class="bx bxl-instagram"></i></a>
                     </div>
                 </div>

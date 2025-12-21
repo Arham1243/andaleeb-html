@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\BulkActionController;
+use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\DBConsoleController;
 use App\Http\Controllers\Admin\EnvEditorController;
 use App\Http\Controllers\Admin\LogController;
@@ -39,4 +40,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('users', UserController::class);
     Route::get('users/change-status/{user}', [UserController::class, 'changeStatus'])->name('users.change-status');
+
+    Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
+    Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');
+    Route::get('contact-social', [ConfigController::class, 'contactSocial'])->name('settings.details');
+    Route::post('contact-social', [ConfigController::class, 'saveSocialInfo'])->name('settings.details');
 });

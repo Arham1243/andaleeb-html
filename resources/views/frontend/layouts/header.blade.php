@@ -6,7 +6,7 @@
 
             <!-- Logo -->
             <a href="{{ route('frontend.index') }}" class="mh-logo">
-                <img src="{{ asset('frontend/assets/images/logo.webp') }}" alt="Andaleeb Travel Agency" />
+                <img src="{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}" alt="Andaleeb Travel Agency" />
             </a>
 
             <!-- Navigation -->
@@ -26,11 +26,11 @@
 
                 <!-- Contact -->
                 <div class="mh-contact-group">
-                    <a href="tel:+971525748986" class="mh-link">
+                    <a href="tel:{{ $config['WHATSAPP'] ?? '+971525748986' }}" class="mh-link">
                         <i class="bx bxl-whatsapp"></i>
                         <span>WhatsApp</span>
                     </a>
-                    <a href="tel:+97145766068" class="mh-btn-primary">
+                    <a href="tel:{{ $config['COMPANYPHONE'] ?? '+97145766068' }}" class="mh-btn-primary">
                         <i class="bx bx-phone"></i>
                         <span>Helpline</span>
                     </a>
@@ -61,7 +61,7 @@
 <div class="sideBar" id="sideBar">
     <a href="javascript:void(0)" class="sideBar__close" onclick="closeSideBar()">×</a>
     <a href="{{ route('frontend.index') }}" class="sideBar__logo">
-        <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp" alt="Logo"
+        <img src="{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}" alt="Logo"
             class="imgFluid">
     </a>
     <ul class="sideBar__nav">
@@ -73,8 +73,8 @@
         <li><a href="{{ route('frontend.contact-us') }}">Contact Us</a></li>
     </ul>
     <div class="sidebar-btns-wrapper">
-        <a href="tel:+971 45766068" class="themeBtn"><i class="bx bx-phone"></i>Helpline</a>
-        <a href="tel:+971 525748986" class="themeBtn"><i class="bx bxl-whatsapp"></i>WhatsApp</a>
+        <a href="tel:{{ $config['COMPANYPHONE'] ?? '+971 45766068' }}" class="themeBtn"><i class="bx bx-phone"></i>Helpline</a>
+        <a href="tel:{{ $config['WHATSAPP'] ?? '+971 525748986' }}" class="themeBtn"><i class="bx bxl-whatsapp"></i>WhatsApp</a>
     </div>
 </div>
 
