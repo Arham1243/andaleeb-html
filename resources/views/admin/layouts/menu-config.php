@@ -12,6 +12,11 @@ return [
         'route' => route('admin.users.index'),
     ],
     [
+        'title' => 'Newsletter',
+        'icon' => 'bx bxs-envelope',
+        'route' => route('admin.newsletters.index'),
+    ],
+    [
         'title' => 'Site Settings',
         'icon' => 'bx bxs-cog',
         'submenu' => [

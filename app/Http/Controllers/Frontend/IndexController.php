@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Newsletter;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
@@ -37,5 +39,23 @@ class IndexController extends Controller
     public function paymentFailed()
     {
         return view('frontend.payment.failed');
+    }
+
+    public function subscribeNewsletter(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|email|unique:newsletters,email',
+            ]);
+
+            Newsletter::create([
+                'email' => $request->email,
+            ]);
+
+            return back()->with('notify_success', 'Newsletter subscribed successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = collect($e->errors())->flatten()->join(', ');
+            return back()->with('notify_error', $errors);
+        }
     }
 }

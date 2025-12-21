@@ -2,14 +2,14 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.users.index') }}
-            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'users']) }}">
+            {{ Breadcrumbs::render('admin.newsletters.index') }}
+            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'newsletters']) }}">
                 @csrf
                 <div class="table-container universal-table">
                     <div class="custom-sec">
                         <div class="custom-sec__header">
                             <div class="section-content">
-                                <h3 class="heading">Manage Users</h3>
+                                <h3 class="heading">Newsletter</h3>
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -37,31 +37,28 @@
                                                     id="select-all">
                                             </div>
                                         </th>
-                                        <th>Full Name</th>
                                         <th>Email</th>
-                                        <th>Signup Method</th>
                                         <th>Status</th>
-                                        <th>Registration Date</th>
+                                        <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($newsletters as $newsletter)
                                         <tr>
                                             <td>
                                                 <div class="selection item-select-container"><input type="checkbox"
-                                                        class="bulk-item" name="bulk_select[]" value="{{ $user->id }}">
+                                                        class="bulk-item" name="bulk_select[]"
+                                                        value="{{ $newsletter->id }}">
                                                 </div>
                                             </td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td><span class="capitalize">{{ $user->auth_provider }}</span></td>
+                                            <td>{{ $newsletter->email }}</td>
                                             <td>
                                                 <span
-                                                    class="badge rounded-pill bg-{{ $user->status === 'active' ? 'success' : 'danger' }}">
-                                                    {{ $user->status === 'active' ? 'Active' : 'Inactive' }}</span>
+                                                    class="badge rounded-pill bg-{{ $newsletter->status === 'active' ? 'success' : 'danger' }}">
+                                                    {{ $newsletter->status === 'active' ? 'Active' : 'Inactive' }}</span>
                                             </td>
-                                            <td>{{ formatDateTime($user->created_at) }}</td>
+                                            <td>{{ formatDateTime($newsletter->created_at) }}</td>
                                             <td>
                                                 <div class="dropstart">
                                                     <button type="button" class="recent-act__icon dropdown-toggle"
@@ -71,14 +68,16 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('admin.users.change-status', $user->id) }}">
+                                                                href="{{ route('admin.newsletters.change-status', $newsletter->id) }}">
                                                                 <i
-                                                                    class="bx {{ $user->status === 'active' ? 'bx-check' : 'bx-x' }}"></i>
-                                                                {{ $user->status === 'active' ? 'Make Inactive' : 'Make Active' }}
+                                                                    class="bx {{ $newsletter->status === 'active' ? 'bx-check' : 'bx-x' }}"></i>
+                                                                {{ $newsletter->status === 'active' ? 'Make Inactive' : 'Make Active' }}
                                                             </a>
                                                         </li>
+
                                                         <li>
-                                                            <form action="{{ route('admin.users.destroy', $user->id) }}"
+                                                            <form
+                                                                action="{{ route('admin.newsletters.destroy', $newsletter->id) }}"
                                                                 method="POST"
                                                                 onsubmit="return confirm('Are you sure you want to delete?')">
                                                                 @csrf

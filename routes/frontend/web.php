@@ -16,6 +16,7 @@ Route::name('frontend.')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/subscribe-newsletter', [IndexController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 
     Route::get('/uae-services', [TourController::class, 'uae_services'])->name('uae-services');
     Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');

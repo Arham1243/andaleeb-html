@@ -57,7 +57,7 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane global-search-content  show active" id="pills-home" role="tabpanel"
                                 aria-labelledby="pills-home-tab" tabindex="0">
-                                 @include('frontend.vue.main', [
+                                @include('frontend.vue.main', [
                                     'appId' => 'flight-search',
                                     'appComponent' => 'flight-search',
                                     'appJs' => 'flight-search',
@@ -73,7 +73,7 @@
                             </div>
                             <div class="tab-pane global-search-content " id="pills-profile" role="tabpanel"
                                 aria-labelledby="pills-profile-tab" tabindex="0">
-                                    @include('frontend.vue.main', [
+                                @include('frontend.vue.main', [
                                     'appId' => 'hotels-search',
                                     'appComponent' => 'hotels-search',
                                     'appJs' => 'hotels-search',
@@ -303,7 +303,7 @@
                                     data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            
+
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -324,7 +324,7 @@
                                     data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            
+
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -345,7 +345,7 @@
                                     data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            
+
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -366,7 +366,7 @@
                                     data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            
+
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -387,7 +387,7 @@
                                     data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            
+
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -408,7 +408,7 @@
                                     data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
                                     alt="Burj Khalifa">
                             </a>
-                            
+
                         </div>
                         <div class="act-details">
                             <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
@@ -690,8 +690,10 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 2,500</small>
-                                    <div class="hotel-price-tag"><span class="dirham">D</span> 1,999 <small class="text-muted fw-normal">/ night</small>
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span>
+                                        2,500</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 1,999 <small
+                                            class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -716,8 +718,10 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 4,500</small>
-                                    <div class="hotel-price-tag"><span class="dirham">D</span> 3,800 <small class="text-muted fw-normal">/ night</small>
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span>
+                                        4,500</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 3,800 <small
+                                            class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -742,8 +746,10 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 1,200</small>
-                                    <div class="hotel-price-tag"><span class="dirham">D</span> 850 <small class="text-muted fw-normal">/ night</small>
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span>
+                                        1,200</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 850 <small
+                                            class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -887,12 +893,12 @@
                                 <p>Subscribe now and receive the latest travel news.</p>
                         </div>
                     </div>
-
                     <div class="col-lg-6">
-                        <form class="horizon-form">
+                        <form class="horizon-form" action="{{ route('frontend.newsletter.subscribe') }}" method="POST">
+                            @csrf
                             <div class="input-wrapper">
                                 <input autocomplete="off" type="email" class="horizon-input"
-                                    placeholder="Enter your email address..." />
+                                    placeholder="Enter your email address..." name="email" required />
                                 <button type="submit" class="horizon-btn">
                                     Subscribe <i class="bx bx-paper-plane"></i>
                                 </button>

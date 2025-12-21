@@ -24,13 +24,6 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-6">
-                        <a href="{{ route('admin.users.index') }}" class="revenue-card mt-0">
-                            <div class="revenue-card__icon">
-                                <i class='bx bx-lg bxs-calendar-check'></i>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

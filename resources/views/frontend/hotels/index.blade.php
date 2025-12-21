@@ -46,8 +46,10 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 2,500</small>
-                                    <div class="hotel-price-tag"><span class="dirham">D</span> 1,999 <small class="text-muted fw-normal">/
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span>
+                                        2,500</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 1,999 <small
+                                            class="text-muted fw-normal">/
                                             night</small>
                                     </div>
                                 </div>
@@ -73,8 +75,10 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 4,500</small>
-                                    <div class="hotel-price-tag"><span class="dirham">D</span> 3,800 <small class="text-muted fw-normal">/
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span>
+                                        4,500</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 3,800 <small
+                                            class="text-muted fw-normal">/
                                             night</small>
                                     </div>
                                 </div>
@@ -100,8 +104,10 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 1,200</small>
-                                    <div class="hotel-price-tag"><span class="dirham">D</span> 850 <small class="text-muted fw-normal">/ night</small>
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span>
+                                        1,200</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 850 <small
+                                            class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -125,8 +131,10 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 2,500</small>
-                                    <div class="hotel-price-tag"><span class="dirham">D</span> 1,999 <small class="text-muted fw-normal">/
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span>
+                                        2,500</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 1,999 <small
+                                            class="text-muted fw-normal">/
                                             night</small>
                                     </div>
                                 </div>
@@ -322,7 +330,7 @@
 
         </div>
     </section>
-    
+
     <section class="section-values py-5">
         <div class="container">
             <div class="text-center mb-5">
@@ -378,10 +386,11 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <form class="horizon-form">
+                        <form class="horizon-form" action="{{ route('frontend.newsletter.subscribe') }}" method="POST">
+                            @csrf
                             <div class="input-wrapper">
                                 <input autocomplete="off" type="email" class="horizon-input"
-                                    placeholder="Enter your email address..." />
+                                    placeholder="Enter your email address..." name="email" required />
                                 <button type="submit" class="horizon-btn">
                                     Subscribe <i class="bx bx-paper-plane"></i>
                                 </button>

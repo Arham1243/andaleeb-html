@@ -161,7 +161,7 @@
                         </div>
                     </a>
                 </div>
-                  <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3">
                     <a href="#" class="flight-card">
                         <img data-src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="New York" class="card-img lazyload">
@@ -380,7 +380,7 @@
 
         </div>
     </section>
-    
+
     <section class="section-values py-5">
         <div class="container">
             <div class="text-center mb-5">
@@ -421,7 +421,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="newsletter mar-y">
         <div class="container">
             <div class="glass-panel">
@@ -436,10 +436,11 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <form class="horizon-form">
+                        <form class="horizon-form" action="{{ route('frontend.newsletter.subscribe') }}" method="POST">
+                            @csrf
                             <div class="input-wrapper">
                                 <input autocomplete="off" type="email" class="horizon-input"
-                                    placeholder="Enter your email address..." />
+                                    placeholder="Enter your email address..." name="email" required />
                                 <button type="submit" class="horizon-btn">
                                     Subscribe <i class="bx bx-paper-plane"></i>
                                 </button>

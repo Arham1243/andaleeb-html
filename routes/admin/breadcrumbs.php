@@ -11,3 +11,8 @@ Breadcrumbs::for('admin.users.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Manage Users', route('admin.users.index'));
 });
+
+Breadcrumbs::for('admin.newsletters.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Newsletter', route('admin.newsletters.index'));
+});

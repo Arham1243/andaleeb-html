@@ -12,6 +12,7 @@ class UserController extends Controller
         $users = User::get();
         return view('admin.users-management.list', compact('users'));
     }
+    
     public function changeStatus(User $user)
     {
         $user->update([

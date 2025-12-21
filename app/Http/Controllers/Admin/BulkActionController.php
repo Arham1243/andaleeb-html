@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Newsletter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,6 +24,11 @@ class BulkActionController extends Controller
                 $modelClass = User::class;
                 $column = 'id';
                 $redirectRoute = 'admin.users.index';
+                break;
+            case 'newsletters':
+                $modelClass = Newsletter::class;
+                $column = 'id';
+                $redirectRoute = 'admin.newsletters.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');
