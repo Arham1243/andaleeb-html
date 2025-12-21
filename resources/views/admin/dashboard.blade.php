@@ -19,8 +19,8 @@
                                 <i class='bx bx-lg bxs-calendar-check'></i>
                             </div>
                             <div class="revenue-card__content">
-                                <div class="title">Manage Users</div>
-                                <div class="num">100</div>
+                                <div class="title">Active Users</div>
+                                <div class="num">{{ $users->count() }}</div>
                             </div>
                         </a>
                     </div>

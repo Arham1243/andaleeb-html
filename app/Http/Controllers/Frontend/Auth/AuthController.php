@@ -52,7 +52,6 @@ class AuthController extends Controller
             'auth_provider' => 'local',
             'password' => Hash::make($validatedData['password']),
         ]);
-
         Auth::login($user);
         if ($redirectTo) {
             return redirect()->to($redirectTo)->with('notify_success', 'Account Created Successfully');
