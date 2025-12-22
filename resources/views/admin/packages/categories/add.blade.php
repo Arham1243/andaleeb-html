@@ -24,9 +24,10 @@
                                     </div>
 
                                     <div class="form-fields">
-                                        <label class="title">Slug <span class="text-muted">(Leave empty to auto-generate)</span></label>
+                                        <label class="title">Slug </label>
                                         <input type="text" name="slug" id="category-slug" class="field" value="{{ old('slug') }}"
-                                            placeholder="category-slug">
+                                            >
+                                            <small class="text-muted">Leave empty to auto-generate</small>
                                         @error('slug')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
