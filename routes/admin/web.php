@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PackageCategoryController;
+use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PackageInquiryController;
 use App\Http\Controllers\Admin\DBConsoleController;
 use App\Http\Controllers\Admin\EnvEditorController;
@@ -56,6 +57,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('package-categories', PackageCategoryController::class);
     Route::get('package-categories/change-status/{packageCategory}', [PackageCategoryController::class, 'changeStatus'])->name('package-categories.change-status');
+
+    Route::resource('packages', PackageController::class);
+    Route::get('packages/change-status/{package}', [PackageController::class, 'changeStatus'])->name('packages.change-status');
 
     Route::resource('package-inquiries', PackageInquiryController::class)->only(['index', 'show', 'destroy']);
 

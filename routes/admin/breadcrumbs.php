@@ -61,3 +61,18 @@ Breadcrumbs::for('admin.package-inquiries.show', function (BreadcrumbTrail $trai
     $trail->parent('admin.package-inquiries.index');
     $trail->push('Inquiry Details', route('admin.package-inquiries.show', $packageInquiry));
 });
+
+Breadcrumbs::for('admin.packages.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Packages', route('admin.packages.index'));
+});
+
+Breadcrumbs::for('admin.packages.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.packages.index');
+    $trail->push('Add New Package', route('admin.packages.create'));
+});
+
+Breadcrumbs::for('admin.packages.edit', function (BreadcrumbTrail $trail, $package) {
+    $trail->parent('admin.packages.index');
+    $trail->push('Edit Package', route('admin.packages.edit', $package));
+});

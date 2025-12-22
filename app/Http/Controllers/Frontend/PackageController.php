@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Package;
 use App\Models\PackageCategory;
+use App\Models\PackageInquiry;
+use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
@@ -30,9 +32,37 @@ class PackageController extends Controller
         return view('frontend.packages.category', compact('category', 'packages', 'banner'));
     }
     
-    public function details()
+    public function details($slug)
     {
         $banner = Banner::where('page', 'packages-details')->where('status', 'active')->first();
-        return view('frontend.packages.details', compact('banner'));
+        $package = Package::where('slug', $slug)->where('status', 'active')->firstOrFail();
+        return view('frontend.packages.details', compact('banner', 'package'));
+    }
+
+    public function submitInquiry(Request $request)
+    {
+        $request->validate([
+            'package_id' => 'required|exists:packages,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'tour_date' => 'nullable|date',
+            'pax' => 'nullable|integer|min:1',
+            'pickup_location' => 'nullable|string|max:255',
+            'message' => 'nullable|string',
+        ]);
+
+        PackageInquiry::create([
+            'package_id' => $request->package_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'tour_date' => $request->tour_date,
+            'pax' => $request->pax,
+            'pickup_location' => $request->pickup_location,
+            'message' => $request->message,
+        ]);
+
+        return redirect()->back()->with('notify_success', 'Your inquiry has been submitted successfully! We will contact you soon.');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Contact;
+use App\Models\Package;
 use App\Models\PackageCategory;
 use App\Models\PackageInquiry;
 use App\Models\User;
@@ -43,6 +44,11 @@ class BulkActionController extends Controller
                 $modelClass = PackageCategory::class;
                 $column = 'id';
                 $redirectRoute = 'admin.package-categories.index';
+                break;
+            case 'packages':
+                $modelClass = Package::class;
+                $column = 'id';
+                $redirectRoute = 'admin.packages.index';
                 break;
             case 'package-inquiries':
                 $modelClass = PackageInquiry::class;

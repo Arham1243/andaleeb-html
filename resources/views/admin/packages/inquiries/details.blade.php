@@ -8,10 +8,11 @@
                     <div class="section-content">
                         <h3 class="heading">{{ $title }}</h3>
                     </div>
+                    <a href="{{ route('admin.package-inquiries.index') }}" class="themeBtn">Go Back</a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="form-wrapper">
                         <div class="form-box">
                             <div class="form-box__header">
@@ -54,10 +55,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="seo-wrapper">
                         <div class="form-box">
                             <div class="form-box__header">
                                 <div class="title">Package Details</div>
@@ -83,10 +80,6 @@
                                     <input type="text" class="field" value="{{ formatDateTime($packageInquiry->created_at) }}" readonly>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-box text-end">
-                            <a href="{{ route('admin.package-inquiries.index') }}" class="themeBtn">Go Back</a>
                         </div>
                     </div>
                 </div>

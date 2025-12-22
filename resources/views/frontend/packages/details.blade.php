@@ -1,172 +1,73 @@
 @extends('frontend.layouts.main')
 @section('content')
-@if(isset($banner) && $banner)
-<section class="page-header py-5 d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset($banner->image) }}');">
-    <div class="container text-center text-white">
-        <h1 class="fw-bold display-4">{{ $banner->heading ?? 'Package Details' }}</h1>
-        @if($banner->paragraph)
-            <p class="lead mb-0">{{ $banner->paragraph }}</p>
-        @endif
-    </div>
-</section>
-@else
-<section class="page-header py-5 d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('frontend/assets/images/banners/5.jpg') }}');">
-    <div class="container text-center text-white">
-        <h1 class="fw-bold display-4">Package Details</h1>
-    </div>
-</section>
-@endif
+    @if (isset($banner) && $banner)
+        <section class="page-header py-5 d-flex align-items-center"
+            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset($banner->image) }}');">
+            <div class="container text-center text-white">
+                <h1 class="fw-bold display-4">{{ $package->name ?? 'Package Details' }}</h1>
+            </div>
+        </section>
+    @else
+        <section class="page-header py-5 d-flex align-items-center"
+            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('frontend/assets/images/banners/5.jpg') }}');">
+            <div class="container text-center text-white">
+                <h1 class="fw-bold display-4">Package Details</h1>
+            </div>
+        </section>
+    @endif
 
     <div class="tour-details py-2">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="py-4">
-                            <h1 class="tour-header-title">Burj Khalifa At The Top Tickets</h1>
-                            <small class="fw-bold color-primary d-block mt-2" >
-                                Supplied by: Andaleeb Travel Agency
+                        <h1 class="tour-header-title">{{ $package->name ?? 'Package Details' }}</h1>
+                        <small class="fw-bold color-primary d-block mt-2">
+                            Supplied by: Andaleeb Travel Agency
 
-                            </small>
+                        </small>
                         <div class="faq-wrapper">
                             <div class="faq-item active">
                                 <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Overview</span>
+                                    <span class="faq-question">Overview</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
                                 </div>
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
-
-                                        <p>
-                                            Our Marina Dhow Cruise combines magical sightseeing, delectable dining, and
-                                            striking
-                                            traditional entertainment shows in an elegant setting. Lasting for about 90
-                                            minutes,
-                                            this
-                                            Marina Dhow Cruise Dubai experience allows you to absorb the modern city’s
-                                            unrivaled
-                                            architecture, opulent yachts, and breathtaking waterfront sights at their best.
-                                        </p>
-
-                                        <p><strong>WHAT TO EXPECT?</strong></p>
-
-                                        <p>Out-of-the-Box Sightseeing Experience</p>
-
-                                        <p>This traditional Dubai Marina Dhow Cruise will sail you down the uber-classy
-                                            Dubai
-                                            Marina,
-                                            modeled to resemble a Venetian-style canal. Leaving the Dubai Marina Yacht Club,
-                                            our
-                                            traditional wooden dhow offers fascinatingly unique views of modern Dubai. So
-                                            what
-                                            better
-                                            way to take in the glorious views of the lavish architecture of residences,
-                                            resorts,
-                                            and
-                                            shopping facilities that abound in the region?</p>
-
-                                        <p>Enjoy a Welcome Drink and Buffet Dinner</p>
-
-                                        <p>The first that awaits you on your Dhow Cruise Dinner in Dubai Marina experience
-                                            is a
-                                            complimentary welcome drink. After that, you will settle in the dhow’s lower
-                                            air-conditioned
-                                            deck or head up to the partly open upper deck. This unique Marina Dubai Cruise
-                                            offers
-                                            breathtaking views of the surroundings while you dine on delectable
-                                            international
-                                            cuisines
-                                            (including a four-star menu) in a sophisticated setting that exudes traditional
-                                            charm.
-                                        </p>
-
-                                        <p>Take in Extraordinary Entertainment</p>
-
-                                        <p>This Dhow Cruise Dubai Marina price also includes mind-blowing entertainment
-                                            performances
-                                            (such as the Tanura show) aboard our dhow, bounded by dazzling illumination and
-                                            their
-                                            multi-hued manifestation on Dubai Marina’s water. Precisely, with unlimited
-                                            refreshments,
-                                            great food, stunning views, and revitalizing entertainment activities, it is
-                                            easy to
-                                            see
-                                            why
-                                            our Marina Dhow Cruise with Dinner is a highly sought-after trip.
-                                        </p>
+                                        {!! $package->content['overview'] !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-item active">
                                 <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Highlights</span>
+                                    <span class="faq-question">Details</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
                                 </div>
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
-                                        <ul>
-                                            <li>
-                                                Admire Dubai’s uber-contemporary cityscape from a subdued yet magical
-                                                ambiance
-                                                on this Dhow Cruise Dubai Marina.
-                                            </li>
-                                            <li>
-                                                Take in the attractions and structures across Dubai Marina from the dhow’s
-                                                air-conditioned lower deck or partly open upper deck.
-                                            </li>
-                                            <li>
-                                                Feel the layers of Dubai’s fascinating culture and past as you sail down one
-                                                of
-                                                Dubai’s most stylish neighborhoods in our traditional dhow that was once
-                                                used
-                                                for fishing and pearl farming during the pre-oil era.
-                                            </li>
-                                        </ul>
-
-                                        <p>While you choose to enamour yourself with the mesmerising skyline of Dubai at
-                                            night,
-                                            don’t forget to experience the region’s serene landscape with <a
-                                                href="#">Musandam Dibba tour</a>. Also try our Dubai Water canal
-                                            cruise,
-                                            sign up for the brand-new Ain Dubai tours, and of course the world famous <a
-                                                href="#">Dubai Desert Safari</a>.
-                                        </p>
+                                        {!! $package->content['package_details'] !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-item active">
                                 <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Inclusions</span>
+                                    <span class="faq-question">Inclusions</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
                                 </div>
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
-                                        <ul>
-                                            <li>90 minutes Cruising in Dubai Marina, Yacht Club, Marina Towers. </li>
-                                            <li>International 4-Star buffet with Veg & Non-Veg dishes.</li>
-                                            <li>Welcome drinks, Water, Tea & Coffee</li>
-                                            <li>Tanura show and soft background music</li>
-                                            <li>Transfers (If Selected)</li>
-                                        </ul>
-
-                                        <p><strong>Note: Please check Option wise inclusions for every product before
-                                                booking
-                                            </strong></p>
-                                        </p>
+                                        {!! $package->content['inclusion'] !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-item active">
                                 <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Exclusions</span>
+                                    <span class="faq-question">Exclusions</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
                                 </div>
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
-                                        <ul>
-                                            <li>All personal expenses spend for shopping, drinks and dining etc on-site
-                                                during
-                                                the tour. </li>
-                                        </ul>
+                                        {!! $package->content['exclusion'] !!}
                                     </div>
                                 </div>
                             </div>
@@ -175,106 +76,90 @@
                 </div>
                 <div class="col-md-4">
                     <div class="py-4">
+                        @if(session('notify_success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('notify_success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <div class="booking-widget">
-                            <form>
-                            
-                            <!-- 1. Price Header -->
-                            <div class="booking-header">
-                                <span class="booking-label">From:</span>
-                                <div class="booking-price"><span class="dirham">D</span> 159.00</div>
-                            </div>
+                            <form action="{{ route('frontend.packages.inquiry.submit') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="package_id" value="{{ $package->id }}">
 
-                            <!-- 2. Date & Time Selection -->
-                            <div class="booking-form">
-                                <!-- Full Name -->
-<div class="form-group mb-3">
-    <label class="form-label">Full Name</label>
-    <input
-        type="text"
-        class="form-control custom-input"
-        
-        required
-    >
-</div>
-
-<!-- Contact Number -->
-<div class="form-group mb-3">
-    <label class="form-label">Contact Number</label>
-    <input
-        type="tel"
-        class="form-control custom-input"
-        
-        required
-    >
-</div>
-
-<!-- Email Address -->
-<div class="form-group mb-3">
-    <label class="form-label">Email Address</label>
-    <input
-        type="email"
-        class="form-control custom-input"
-        
-        required
-    >
-</div>
-
-<!-- Tour Date -->
-<div class="form-group mb-3">
-    <label class="form-label">Tour Date</label>
-    <input
-        type="text"
-        class="form-control custom-input"
-        
-        
-        required
-    >
-</div>
-
-<!-- Passengers -->
-<div class="form-group mb-3">
-    <label class="form-label">Pax</label>
-    <input
-        type="number"
-        class="form-control custom-input"
-        
-        
-        required
-    >
-</div>
-
-<!-- Pickup Location -->
-<div class="form-group mb-3">
-    <label class="form-label">Pickup Location</label>
-    <input
-        type="text"
-        class="form-control custom-input"
-        
-        required
-    >
-</div>
-
-<!-- Message -->
-<div class="form-group mb-3">
-    <label class="form-label">Message</label>
-    <textarea
-        class="form-control custom-input"
-        rows="4"
-        
-    ></textarea>
-</div>
-
-<div class="form-group">
-                                <div class="g-recaptcha" data-sitekey="{{ env('RE_CAPTCHA_SITE_KEY') }}"> </div>
-                            </div>
-
-                                <!-- 4. Actions -->
-                                <div class="booking-actions">
-                                    <button class="btn btn-add-cart mb-2">
-                                        Submit Inquiry
-                                    </button>
+                                <!-- 1. Price Header -->
+                                <div class="booking-header">
+                                    <span class="booking-label">From:</span>
+                                    <div class="booking-price"><span class="dirham">D</span> {{ $package->price ?? 'N/A' }}</div>
                                 </div>
-                            </div>
+
+                                <!-- 2. Date & Time Selection -->
+                                <div class="booking-form">
+                                    <!-- Full Name -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="name" class="form-control custom-input" value="{{ old('name') }}" required>
+                                    </div>
+
+                                    <!-- Contact Number -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Contact Number <span class="text-danger">*</span></label>
+                                        <input type="tel" name="phone" class="form-control custom-input" value="{{ old('phone') }}" required>
+                                    </div>
+
+                                    <!-- Email Address -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                                        <input type="email" name="email" class="form-control custom-input" value="{{ old('email') }}" required>
+                                    </div>
+
+                                    <!-- Tour Date -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Tour Date</label>
+                                        <input type="date" name="tour_date" class="form-control custom-input" value="{{ old('tour_date') }}">
+                                    </div>
+
+                                    <!-- Passengers -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Pax</label>
+                                        <input type="number" name="pax" class="form-control custom-input" value="{{ old('pax') }}" min="1">
+                                    </div>
+
+                                    <!-- Pickup Location -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Pickup Location</label>
+                                        <input type="text" name="pickup_location" class="form-control custom-input" value="{{ old('pickup_location') }}">
+                                    </div>
+
+                                    <!-- Message -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Message</label>
+                                        <textarea name="message" class="form-control custom-input" rows="4">{{ old('message') }}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="g-recaptcha" data-sitekey="{{ env('RE_CAPTCHA_SITE_KEY') }}"> </div>
+                                    </div>
+
+                                    <!-- 4. Actions -->
+                                    <div class="booking-actions">
+                                        <button type="submit" class="btn btn-add-cart mb-2">
+                                            Submit Inquiry
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
 

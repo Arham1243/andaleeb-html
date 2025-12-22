@@ -31,6 +31,11 @@ return [
         'icon' => 'bx bxs-package',
         'submenu' => [
             [
+                'title' => 'All Packages',
+                'icon' => 'bx bxs-package',
+                'route' => route('admin.packages.index'),
+            ],
+            [
                 'title' => 'Categories',
                 'icon' => 'bx bxs-category',
                 'route' => route('admin.package-categories.index'),

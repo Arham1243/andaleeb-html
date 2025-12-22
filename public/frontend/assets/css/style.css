@@ -5744,6 +5744,11 @@ body.fancybox-active.compensate-for-scrollbar {
     background-color: rgba(220, 53, 69, 0.1);
     color: var(--color-error);
 }
+.notify-success{
+    background-color: rgba(25, 135, 84, 0.1);
+    color: var(--color-success);
+}
+
 /* Payment Status Pages */
 .validation-error{
     font-size: 0.85rem;
