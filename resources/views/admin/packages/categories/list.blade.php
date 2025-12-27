@@ -58,7 +58,11 @@
                                                     <span class="text-muted">No Image</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $category->name }}</td>
+                                            <td>
+                                                <a class="blue-link" href="{{ route('admin.package-categories.edit', $category->id) }}">
+                                                    {{ $category->name ?? 'N/A' }}
+                                                </a>
+                                            </td>
                                             <td>
                                                 @if($category->is_featured)
                                                     <span class="badge rounded-pill bg-success">Yes</span>

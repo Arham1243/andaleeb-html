@@ -59,7 +59,11 @@
                                                     <span class="text-muted">No Image</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $package->name }}</td>
+                                            <td>
+                                                <a class="blue-link" href="{{ route('admin.packages.edit', $package->id) }}">
+                                                    {{ $package->name ?? 'N/A' }}
+                                                </a>
+                                            </td>
                                             <td>{{ $package->category->name ?? 'N/A' }}</td>
                                             <td>{{ $package->price ? 'AED ' . number_format($package->price, 2) : 'N/A' }}</td>
                                             <td>

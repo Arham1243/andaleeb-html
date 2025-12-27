@@ -2739,3 +2739,7 @@ table th {
 ol.breadcrumb {
     margin: 1rem 0;
 }
+.blue-link {
+    color: #0a58ca;
+    cursor: pointer;
+}

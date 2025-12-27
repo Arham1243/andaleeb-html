@@ -57,7 +57,11 @@
                                                     <span class="text-muted">No Image</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $category->name }}</td>
+                                            <td>
+                                                <a class="blue-link" href="{{ route('admin.tour-categories.edit', $category->id) }}">
+                                                    {{ $category->name ?? 'N/A' }}
+                                                </a>
+                                            </td>
                                             <td>
                                                 <span class="badge rounded-pill bg-{{ $category->status === 'active' ? 'success' : 'danger' }}">
                                                     {{ ucfirst($category->status) }}

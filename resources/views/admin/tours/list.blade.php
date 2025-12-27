@@ -61,7 +61,11 @@
                                                 </div>
                                             </td>
                                             <td>{{ $tour->type ?? 'N/A' }}</td>
-                                            <td>{{ $tour->name ?? 'N/A' }}</td>
+                                            <td>
+                                                <a class="blue-link" href="{{ route('admin.tours.edit', $tour->id) }}">
+                                                    {{ $tour->name ?? 'N/A' }}
+                                                </a>
+                                            </td>
                                             <td>{{ formatPrice($tour->discount_price) }}</td>
                                             <td>{{ formatPrice($tour->price) }}</td>
                                             <td>{{ formatPrice($tour->child_price) }}</td>
