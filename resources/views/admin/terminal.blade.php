@@ -375,8 +375,8 @@
                     args.forEach((arg, index) => {
                         options[`arg${index}`] = arg;
                     });
-
-                    const response = await fetch('/admin/terminal/run', {
+                    const baseURL = '{{ url('/') }}';
+                    const response = await fetch(`${baseURL}/admin/terminal/run`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
