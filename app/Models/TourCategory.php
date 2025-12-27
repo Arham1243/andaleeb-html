@@ -10,6 +10,6 @@ class TourCategory extends Model
 
     public function tours()
     {
-        return $this->belongsToMany(Tour::class);
+        return $this->belongsToMany(Tour::class, 'category_tour', 'tour_category_id', 'tour_id');
     }
 }

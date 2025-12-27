@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tour;
+use App\Models\TourCategory;
 use Illuminate\Http\Request;
 use App\Services\TourSyncService;
 use App\Traits\GenerateSlugTrait;
@@ -22,7 +23,8 @@ class TourController extends Controller
     public function create()
     {
         $title = 'Add New Tour';
-        return view('admin.tours.add', compact('title'));
+        $categories = TourCategory::where('status', 'active')->get();
+        return view('admin.tours.add', compact('title', 'categories'));
     }
 
     public function store(Request $request)
@@ -72,7 +74,8 @@ class TourController extends Controller
         $data['is_recommended'] = $request->has('is_recommended') ? 1 : 0;
         $data['slug'] = $slug;
 
-        Tour::create($data);
+        $tour = Tour::create($data);
+        $tour->categories()->sync($request->categories);
 
         return redirect()->route('admin.tours.index')
             ->with('notify_success', 'Tour created successfully!');
@@ -89,9 +92,9 @@ class TourController extends Controller
     public function edit(Tour $tour)
     {
         $title = 'Edit Tour - ' . $tour->name;
-        return view('admin.tours.edit', compact('tour', 'title'));
+        $categories = TourCategory::where('status', 'active')->get();
+        return view('admin.tours.edit', compact('tour', 'title', 'categories'));
     }
-
 
     public function update(Request $request, Tour $tour)
     {
@@ -141,6 +144,7 @@ class TourController extends Controller
         $data['slug'] = $slug;
 
         $tour->update($data);
+        $tour->categories()->sync($request->categories);
 
         return redirect()->route('admin.tours.index')
             ->with('notify_success', 'Tour updated successfully!');

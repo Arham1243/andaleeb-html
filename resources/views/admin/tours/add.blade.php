@@ -14,8 +14,25 @@
                                 </div>
                                 <div class="form-box__body">
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-fields">
+                                                <label class="title">Select Categories</label>
+                                                <select name="categories[]" class="field select2-select"
+                                                    data-error="Categories" required multiple placeholder="Select">
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}"
+                                                            {{ old('categories') == $category->id ? 'selected' : '' }}>
+                                                            {{ $category->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('categories')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title">Distributer</label>
                                                 <input type="text" name="distributer_name" class="field"
@@ -26,7 +43,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title">Tour Type</label>
                                                 <input type="text" name="type" class="field"
@@ -63,7 +80,8 @@
                                         <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">List Price</label>
-                                                <input data-required data-error="List Price" type="number" step="0.01" name="discount_price" class="field"
+                                                <input data-required data-error="List Price" type="number" step="0.01"
+                                                    name="discount_price" class="field"
                                                     value="{{ old('discount_price') }}">
                                                 @error('discount_price')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -74,8 +92,8 @@
                                         <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">Sell Price</label>
-                                                <input data-required data-error="Sell Price" type="number" step="0.01" name="price" class="field"
-                                                    value="{{ old('price') }}">
+                                                <input data-required data-error="Sell Price" type="number" step="0.01"
+                                                    name="price" class="field" value="{{ old('price') }}">
                                                 @error('price')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -85,8 +103,8 @@
                                         <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">Duration</label>
-                                                <input data-required data-error="Duration" type="text" name="duration" class="field"
-                                                    value="{{ old('duration') }}">
+                                                <input data-required data-error="Duration" type="text" name="duration"
+                                                    class="field" value="{{ old('duration') }}">
                                                 @error('duration')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -96,8 +114,8 @@
                                         <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">Minimum Pax</label>
-                                                <input data-required data-error="Minimum Pax" type="number" name="min_qty" class="field"
-                                                    value="{{ old('min_qty', 1) }}">
+                                                <input data-required data-error="Minimum Pax" type="number" name="min_qty"
+                                                    class="field" value="{{ old('min_qty', 1) }}">
                                                 @error('min_qty')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -107,8 +125,8 @@
                                         <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">Maximum Pax</label>
-                                                <input data-required data-error="Maximum Pax" type="number" name="max_qty" class="field"
-                                                    value="{{ old('max_qty', 99) }}">
+                                                <input data-required data-error="Maximum Pax" type="number"
+                                                    name="max_qty" class="field" value="{{ old('max_qty', 99) }}">
                                                 @error('max_qty')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -138,7 +156,8 @@
                                         <div class="col-12 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">Additional Information</label>
-                                                <textarea data-required data-error="Additional Information" name="additional_information" class="field" rows="4">{{ old('additional_information') }}</textarea>
+                                                <textarea data-required data-error="Additional Information" name="additional_information" class="field"
+                                                    rows="4">{{ old('additional_information') }}</textarea>
                                                 @error('additional_information')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -148,7 +167,8 @@
                                         <div class="col-12 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">Cancellation Policies</label>
-                                                <textarea data-required data-error="Cancellation Policies" name="cancellation_policies" class="field" rows="4">{{ old('cancellation_policies') }}</textarea>
+                                                <textarea data-required data-error="Cancellation Policies" name="cancellation_policies" class="field"
+                                                    rows="4">{{ old('cancellation_policies') }}</textarea>
                                                 @error('cancellation_policies')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
