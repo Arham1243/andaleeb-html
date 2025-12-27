@@ -6,7 +6,7 @@ use Illuminate\Support\HtmlString;
 if (! function_exists('sanitizedLink')) {
     function sanitizedLink($url)
     {
-        return '//'.preg_replace('/^(https?:\/\/)?(www\.)?/', '', $url);
+        return '//' . preg_replace('/^(https?:\/\/)?(www\.)?/', '', $url);
     }
 }
 
@@ -24,7 +24,7 @@ if (! function_exists('formatPrice')) {
             ? number_format($price, 2, '.', ',')
             : number_format($price, 0, '.', ',');
 
-        return new HtmlString(currencySymbol()->toHtml().$val);
+        return new HtmlString(currencySymbol()->toHtml() . $val);
     }
 }
 if (! function_exists('formatDateTime')) {
@@ -47,5 +47,30 @@ if (! function_exists('formatKey')) {
     function formatKey($value)
     {
         return ucwords(str_replace('_', ' ', $value));
+    }
+}
+if (! function_exists('sanitizeBulletText')) {
+    function sanitizeBulletText(string $text)
+    {
+        // Decode any HTML entities
+        $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
+
+        // Normalize bullet symbols to a single delimiter
+        $text = preg_replace('/[•●▪◦]/u', '||', $text);
+
+        // Normalize line breaks
+        $text = preg_replace("/\r\n|\r|\n/", '||', $text);
+
+        // Split into items
+        $items = array_filter(array_map('trim', explode('||', $text)));
+
+        // Build HTML list
+        $html = '<ul class="tour-terms">';
+        foreach ($items as $item) {
+            $html .= '<li>' . e($item) . '</li>';
+        }
+        $html .= '</ul>';
+
+        return $html;
     }
 }

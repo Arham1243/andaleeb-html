@@ -5,7 +5,7 @@
     @case('style1')
         <div class="activity-card">
             <div class="act-img-box">
-                <a href="#">
+                <a href="{{ route('frontend.tour.details', $tour->slug) }}">
                     <img class="imgFluid lazyload" data-src="{{ $img }}" alt="{{ $img }}">
                 </a>
                 @if ($tour->is_recommended)

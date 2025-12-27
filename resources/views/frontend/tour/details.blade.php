@@ -13,87 +13,80 @@
                                     <i class='bx bx-chevron-right breadcrumb-separator'></i>
                                 </li>
 
-
                                 <li class="breadcrumb-item">
-                                    <a href="#" class="breadcrumb-link">Activities</a>
+                                    <a href="{{ route('frontend.uae-services') }}" class="breadcrumb-link">Tour
+                                        Packages</a>
                                     <i class='bx bx-chevron-right breadcrumb-separator'></i>
                                 </li>
 
-
-                                <li class="breadcrumb-item">
-                                    <a href="#" class="breadcrumb-link">Dubai City</a>
-                                    <i class='bx bx-chevron-right breadcrumb-separator'></i>
-                                </li>
-
-
-                                <li class="breadcrumb-item">
-                                    <a href="#" class="breadcrumb-link">Dhow Cruise</a>
-                                    <i class='bx bx-chevron-right breadcrumb-separator'></i>
-                                </li>
-
-
+                                @if ($tour->categories->count() > 0)
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('frontend.tour-category.details', $tour->categories[0]->slug) }}"
+                                            class="breadcrumb-link">
+                                            {{ $tour->categories[0]->name }}
+                                        </a>
+                                        <i class='bx bx-chevron-right breadcrumb-separator'></i>
+                                    </li>
+                                @endif
                                 <li class="breadcrumb-item active">
-                                    Dhow Cruise Dinner - Marina
+                                    {{ $tour->name }}
                                 </li>
                             </ul>
                         </nav>
 
+                        @php
+                            $bannerImages = collect($tour->content['product_images'] ?? [])
+                                ->where('image_type', 'BANNER')
+                                ->values();
+                        @endphp
+
                         <div class="gallery-grid">
+                            {{-- Main image --}}
+                            @if ($bannerImages->count())
+                                <a href="{{ $bannerImages[0]['image_url'] }}" class="gallery-item item-main"
+                                    data-fancybox="gallery">
+                                    <img data-src="{{ $bannerImages[0]['image_url'] }}" alt="Main Image" class="lazyload">
+                                </a>
+                            @endif
 
-                            <!-- Large Left Image -->
-                            <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item item-main" data-fancybox="gallery" data-caption="Burj Khalifa View">
-                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Main View" class="lazyload">
-                            </a>
+                            {{-- Next 3 small images --}}
+                            @foreach ($bannerImages->slice(1, 3) as $image)
+                                <a href="{{ $image['image_url'] }}" class="gallery-item d-none d-lg-block"
+                                    data-fancybox="gallery">
+                                    <img data-src="{{ $image['image_url'] }}" alt="Gallery Image" class="lazyload">
+                                </a>
+                            @endforeach
 
-                            <!-- Small Top Middle -->
-                            <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="Sunset Horizon">
-                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Sunset" class="lazyload">
-                            </a>
+                            {{-- Last visible tile with overlay --}}
+                            @if ($bannerImages->count() > 4)
+                                <a href="{{ $bannerImages[4]['image_url'] }}" class="gallery-item item-last"
+                                    data-fancybox="gallery">
+                                    <img data-src="{{ $bannerImages[4]['image_url'] }}" alt="More Images" class="lazyload">
 
-                            <!-- Small Top Right -->
-                            <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="City Skyline">
-                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Skyline" class="lazyload">
-                            </a>
+                                    <div class="gallery-overlay">
+                                        <span class="more-text fw-bold mb-2">
+                                            + {{ $bannerImages->count() - 5 }} Images
+                                        </span>
+                                        <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold">
+                                            <i class="bx bx-images me-1"></i> View Gallery
+                                        </button>
+                                    </div>
+                                </a>
+                            @endif
 
-                            <!-- Small Bottom Middle -->
-                            <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="Interior View">
-                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Interior" class="lazyload">
-                            </a>
-
-                            <!-- Small Bottom Right (View Gallery Trigger)-->
-                            <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item item-last" data-fancybox="gallery" data-caption="Observation Deck">
-                                <img data-src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                    alt="Observation Deck" class="lazyload">
-
-                                <!-- Overlay content -->
-                                <div class="gallery-overlay">
-                                    <span class="more-text fw-bold mb-2">+ 4 Images</span>
-                                    <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold">
-                                        <i class='bx bx-images me-1'></i> View Gallery
-                                    </button>
-                                </div>
-                            </a>
-
-                            <!-- Hidden items for gallery loop -->
-                            <a href="https://images.unsplash.com/photo-1512453979798-5ea90b7705bb" data-fancybox="gallery"
-                                class="d-none"></a>
+                            {{-- Hidden remaining images for Fancybox --}}
+                            @foreach ($bannerImages->slice(5) as $image)
+                                <a href="{{ $image['image_url'] }}" data-fancybox="gallery" class="d-none"></a>
+                            @endforeach
                         </div>
+
                     </div>
 
                 </div>
                 <div class="col-md-8">
                     <div class="py-4">
                         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-                            <h1 class="tour-header-title">Burj Khalifa At The Top Tickets</h1>
+                            <h1 class="tour-header-title">{{ $tour->name }}</h1>
 
                             <div class="tour-header-rating">
                                 <i class='bx bxs-star text-warning'></i>
@@ -107,18 +100,16 @@
                                 <!-- Column 1 -->
                                 <div class="col-lg-6 col-md-12">
 
-                                    <!-- Item: Operating Hours -->
                                     <div class="feature-item">
                                         <div class="icon-box theme-green">
                                             <i class='bx bx-time-five'></i>
                                         </div>
                                         <div class="text-content">
-                                            <h5 class="feat-title">Operating Hours</h5>
-                                            <p class="feat-desc">Approx 9.00 pm to 10:30 pm</p>
+                                            <h5 class="feat-title">Duration</h5>
+                                            <p class="feat-desc">{{ $tour->duration }}</p>
                                         </div>
                                     </div>
 
-                                    <!-- Item: Mobile Voucher -->
                                     <div class="feature-item">
                                         <div class="icon-box theme-blue">
                                             <i class='bx bx-mobile'></i>
@@ -128,23 +119,11 @@
                                             <p class="feat-desc">Use your phone or print your voucher</p>
                                         </div>
                                     </div>
-
-                                    <!-- Item: Language -->
-                                    <div class="feature-item">
-                                        <div class="icon-box theme-purple">
-                                            <i class='bx bx-globe'></i>
-                                        </div>
-                                        <div class="text-content">
-                                            <h5 class="feat-title">English</h5>
-                                        </div>
-                                    </div>
-
                                 </div>
 
                                 <!-- Column 2 -->
                                 <div class="col-lg-6 col-md-12">
 
-                                    <!-- Item: Instant Confirmation -->
                                     <div class="feature-item">
                                         <div class="icon-box theme-red">
                                             <i class='bx bx-bolt-circle'></i>
@@ -155,197 +134,153 @@
                                         </div>
                                     </div>
 
-                                    <!-- Item: Free Cancellation -->
                                     <div class="feature-item">
                                         <div class="icon-box theme-green">
-                                            <i class='bx bx-time'></i>
+                                            <i class='bx bx-refresh'></i>
                                         </div>
                                         <div class="text-content">
-                                            <h5 class="feat-title">Free Cancellation 24 hours Prior</h5>
+                                            <h5 class="feat-title">Free Cancellation</h5>
+                                            <p class="feat-desc">Cancel up to 24 hours in advance for a full refund.</p>
                                         </div>
                                     </div>
-
-                                    <!-- Item: Google Map -->
-                                    <div class="feature-item">
-                                        <div class="icon-box theme-orange">
-                                            <i class='bx bx-map'></i>
-                                        </div>
-                                        <div class="text-content">
-                                            <h5 class="feat-title">Google Map</h5>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                         <div class="faq-wrapper">
                             <div class="faq-item">
                                 <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Overview</span>
+                                    <span class="faq-question"> Overview</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
                                 </div>
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
-
                                         <p>
-                                            Our Marina Dhow Cruise combines magical sightseeing, delectable dining, and
-                                            striking
-                                            traditional entertainment shows in an elegant setting. Lasting for about 90
-                                            minutes,
-                                            this
-                                            Marina Dhow Cruise Dubai experience allows you to absorb the modern city’s
-                                            unrivaled
-                                            architecture, opulent yachts, and breathtaking waterfront sights at their best.
+                                            {{ $tour->long_description }}
                                         </p>
-
-                                        <p><strong>WHAT TO EXPECT?</strong></p>
-
-                                        <p>Out-of-the-Box Sightseeing Experience</p>
-
-                                        <p>This traditional Dubai Marina Dhow Cruise will sail you down the uber-classy
-                                            Dubai
-                                            Marina,
-                                            modeled to resemble a Venetian-style canal. Leaving the Dubai Marina Yacht Club,
-                                            our
-                                            traditional wooden dhow offers fascinatingly unique views of modern Dubai. So
-                                            what
-                                            better
-                                            way to take in the glorious views of the lavish architecture of residences,
-                                            resorts,
-                                            and
-                                            shopping facilities that abound in the region?</p>
-
-                                        <p>Enjoy a Welcome Drink and Buffet Dinner</p>
-
-                                        <p>The first that awaits you on your Dhow Cruise Dinner in Dubai Marina experience
-                                            is a
-                                            complimentary welcome drink. After that, you will settle in the dhow’s lower
-                                            air-conditioned
-                                            deck or head up to the partly open upper deck. This unique Marina Dubai Cruise
-                                            offers
-                                            breathtaking views of the surroundings while you dine on delectable
-                                            international
-                                            cuisines
-                                            (including a four-star menu) in a sophisticated setting that exudes traditional
-                                            charm.
-                                        </p>
-
-                                        <p>Take in Extraordinary Entertainment</p>
-
-                                        <p>This Dhow Cruise Dubai Marina price also includes mind-blowing entertainment
-                                            performances
-                                            (such as the Tanura show) aboard our dhow, bounded by dazzling illumination and
-                                            their
-                                            multi-hued manifestation on Dubai Marina’s water. Precisely, with unlimited
-                                            refreshments,
-                                            great food, stunning views, and revitalizing entertainment activities, it is
-                                            easy to
-                                            see
-                                            why
-                                            our Marina Dhow Cruise with Dinner is a highly sought-after trip.
-                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (count($tour->content['product_highlights'] ?? []) > 0)
+                                <div class="faq-item">
+                                    <div class="faq-header">
+                                        <span class="faq-question"> Highlights</span>
+                                        <i class='bx bx-chevron-down faq-icon'></i>
+                                    </div>
+                                    <div class="faq-body">
+                                        <div class="faq-content text-document">
+                                            <ul>
+                                                @foreach ($tour->content['product_highlights'] as $highlight)
+                                                    <li>
+                                                        {{ $highlight['highlight_description'] }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if (count($tour->includes) > 0)
+                                <div class="faq-item">
+                                    <div class="faq-header">
+                                        <span class="faq-question"> Inclusions</span>
+                                        <i class='bx bx-chevron-down faq-icon'></i>
+                                    </div>
+                                    <div class="faq-body">
+                                        <div class="faq-content text-document">
+                                            <ul>
+                                                @foreach ($tour->includes as $include)
+                                                    <li>{{ $include['include_description'] ?? '' }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if (count($tour->excludes) > 0)
+                                <div class="faq-item">
+                                    <div class="faq-header">
+                                        <span class="faq-question"> Exclusions</span>
+                                        <i class='bx bx-chevron-down faq-icon'></i>
+                                    </div>
+                                    <div class="faq-body">
+                                        <div class="faq-content text-document">
+                                            <ul>
+                                                @foreach ($tour->excludes as $exclude)
+                                                    <li>{{ $exclude['exclude_description'] ?? '' }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="faq-item">
+                                <div class="faq-header">
+                                    <span class="faq-question"> Cancellation policy</span>
+                                    <i class='bx bx-chevron-down faq-icon'></i>
+                                </div>
+                                <div class="faq-body">
+                                    <div class="faq-content text-document">
+                                        {!! sanitizeBulletText($tour->cancellation_policies) !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-item">
                                 <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Highlights</span>
+                                    <span class="faq-question"> Additional Information</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
                                 </div>
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
-                                        <ul>
-                                            <li>
-                                                Admire Dubai’s uber-contemporary cityscape from a subdued yet magical
-                                                ambiance
-                                                on this Dhow Cruise Dubai Marina.
-                                            </li>
-                                            <li>
-                                                Take in the attractions and structures across Dubai Marina from the dhow’s
-                                                air-conditioned lower deck or partly open upper deck.
-                                            </li>
-                                            <li>
-                                                Feel the layers of Dubai’s fascinating culture and past as you sail down one
-                                                of
-                                                Dubai’s most stylish neighborhoods in our traditional dhow that was once
-                                                used
-                                                for fishing and pearl farming during the pre-oil era.
-                                            </li>
-                                        </ul>
-
-                                        <p>While you choose to enamour yourself with the mesmerising skyline of Dubai at
-                                            night,
-                                            don’t forget to experience the region’s serene landscape with <a
-                                                href="#">Musandam Dibba tour</a>. Also try our Dubai Water canal
-                                            cruise,
-                                            sign up for the brand-new Ain Dubai tours, and of course the world famous <a
-                                                href="#">Dubai Desert Safari</a>.
-                                        </p>
+                                        {!! sanitizeBulletText($tour->additional_information) !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-item">
                                 <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Inclusions</span>
+                                    <span class="faq-question"> Important Information</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
                                 </div>
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
-                                        <ul>
-                                            <li>90 minutes Cruising in Dubai Marina, Yacht Club, Marina Towers. </li>
-                                            <li>International 4-Star buffet with Veg & Non-Veg dishes.</li>
-                                            <li>Welcome drinks, Water, Tea & Coffee</li>
-                                            <li>Tanura show and soft background music</li>
-                                            <li>Transfers (If Selected)</li>
-                                        </ul>
-
-                                        <p><strong>Note: Please check Option wise inclusions for every product before
-                                                booking
-                                            </strong></p>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <div class="faq-header">
-                                    <span class="faq-question">Dhow Cruise Dinner - Marina Exclusions</span>
-                                    <i class='bx bx-chevron-down faq-icon'></i>
-                                </div>
-                                <div class="faq-body">
-                                    <div class="faq-content text-document">
-                                        <ul>
-                                            <li>All personal expenses spend for shopping, drinks and dining etc on-site
-                                                during
-                                                the tour. </li>
-                                        </ul>
+                                        <p>{{ $tour->content['product_entry_notes'] }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="py-4">
-                            <div class="container">
+                        @php
+                            $location = $tour->locations[0] ?? null;
+
+                            $address = $location['location_address'] ?? null;
+                            $fullAddress = $address ? $address['name'] ?? '' : '';
+                        @endphp
+
+                        @if ($location && $address)
+                            <div class="py-4">
                                 <h3 class="tour-details-title mb-4">Location</h3>
 
                                 <div class="d-flex align-items-start mb-4">
                                     <div class="location-icon-box me-3">
                                         <i class='bx bx-map'></i>
                                     </div>
+
                                     <div>
-                                        <h6 class="location-title mb-1">Burj Khalifa - Sheikh Mohammed bin Rashid Boulevard
-                                            -
-                                            Dubai - United Arab Emirates</h6>
-                                        <p class="location-subtitle mb-0">1 Sheikh Mohammed bin Rashid Blvd - Downtown
-                                            Dubai -
-                                            Dubai - United Arab Emirates</p>
+                                        <h6 class="location-title mb-1">
+                                            {{ $location['location_name'] ?? 'Tour Location' }}
+                                        </h6>
+
+                                        <p class="location-subtitle mb-0">
+                                            {{ $fullAddress }}
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div class="map-wrapper">
-                                    <iframe src="https://www.google.com/maps?q=United Arab Emirates&output=embed"
-                                        alt="Google Map Location" class="img-fluid w-100"></iframe>
+                                    <iframe src="https://www.google.com/maps?q={{ $fullAddress }}&output=embed"
+                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                                        class="img-fluid w-100" style="border:0;"></iframe>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -354,7 +289,9 @@
                             <!-- 1. Price Header -->
                             <div class="booking-header">
                                 <span class="booking-label">From:</span>
-                                <div class="booking-price"><span class="dirham">D</span> 159.00</div>
+                                <div class="booking-price">
+                                    {{ formatPrice($tour->price) }}
+                                </div>
                             </div>
 
                             <!-- 2. Date & Time Selection -->
@@ -392,10 +329,10 @@
                                     <div class="pax-row">
                                         <div class="pax-info">
                                             <span class="pax-type">Adult</span>
-                                            <span class="pax-age">Ages 12 to 99</span>
+                                            <span class="pax-age">Ages 18 to 99</span>
                                         </div>
                                         <div class="pax-action">
-                                            <span class="pax-price"><span class="dirham">D</span> 52.50</span>
+                                            <span class="pax-price"> {{ formatPrice($tour->price) }}</span>
                                             <div class="qty-control">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -413,10 +350,10 @@
                                     <div class="pax-row">
                                         <div class="pax-info">
                                             <span class="pax-type">Child</span>
-                                            <span class="pax-age">Ages 3 to 11</span>
+                                            <span class="pax-age">Ages 3 to 17</span>
                                         </div>
                                         <div class="pax-action">
-                                            <span class="pax-price"><span class="dirham">D</span> 21.00</span>
+                                            <span class="pax-price">{{ formatPrice($tour->price) }}</span>
                                             <div class="qty-control">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -436,9 +373,11 @@
                                     <button class="btn btn-add-cart mb-2">
                                         Add to Cart
                                     </button>
-                                    <button class="btn btn-whatsapp">
+                                    <a target="_blank"
+                                        href="https://api.whatsapp.com/send?phone={{ $config['WHATSAPP'] }}&text=I%20have%20an%20inquiry%20about%20{{ $tour->name }}"
+                                        class="btn btn-whatsapp">
                                         <i class='bx bxl-whatsapp'></i> Book via WhatsApp
-                                    </button>
+                                    </a>
                                 </div>
 
                                 <div class="text-center mt-3">
@@ -731,170 +670,80 @@
     </div>
 
     @php
-        $tabs = [
-            [
-                'id' => 'cruises-from-dubai',
-                'label' => 'Cruises from Dubai',
-                'links' => [
-                    '4N Gulf Discovery Cruise to Dubai - Doha - Bahrain - Abu Dhabi',
-                    '4N MSC Euribia Arabian Voyage - Dubai - Doha - Bahrain - Abu Dhabi',
-                    'ON Gulf Horizons Escape Dubai - Doha - Bahrain - Abu Dhabi',
-                    '4N Middle East Getaway Dubai - Bahrain - Abu Dhabi',
-                ],
-            ],
-            [
-                'id' => 'dubai-tour-packages',
-                'label' => 'Dubai Tour Packages',
-                'links' => [
-                    'Dubai Budget Explorer with Dubai Mall Attractions',
-                    'Dubai Jain Signature Experience',
-                    'Dubai New Year Celebration with Gala Dinner',
-                    'Dubai Sky High Thrills Holiday',
-                    'Dubai Stopover Delight',
-                    'Magical Dubai Christmas Family Holiday',
-                    'Royal Dubai Signature Experience',
-                    'Super Saver Dubai Holiday',
-                ],
-            ],
-            [
-                'id' => 'abu-dhabi-holidays',
-                'label' => 'Abu Dhabi Holidays',
-                'links' => [
-                    'Abu Dhabi Cultural Discovery Tour',
-                    'Ferrari World Adventure with Yas Island Stay',
-                    'Luxury Abu Dhabi City Escape',
-                    'Abu Dhabi Grand Prix Experience',
-                ],
-            ],
-            [
-                'id' => 'middle-east-cruises',
-                'label' => 'Middle East Cruises',
-                'links' => [
-                    'Arabian Peninsula Cruise Experience',
-                    'Red Sea and Arabian Coast Voyage',
-                    'Persian Gulf Highlights Cruise',
-                    'Luxury Middle East Cruise Escape',
-                ],
-            ],
-            [
-                'id' => 'honeymoon-specials',
-                'label' => 'Honeymoon Specials',
-                'links' => [
-                    'Romantic Dubai Honeymoon Escape',
-                    'Luxury Desert and City Honeymoon Experience',
-                    'Dubai Marina Romance Getaway',
-                    'Beachside Dubai Honeymoon Retreat',
-                ],
-            ],
-            [
-                'id' => 'family-holidays',
-                'label' => 'Family Holidays',
-                'links' => [
-                    'Dubai Family Fun with Theme Parks',
-                    'Abu Dhabi Family Adventure Package',
-                    'Middle East Family Cruise Escape',
-                    'Kids Special Dubai Holiday',
-                ],
-            ],
-            [
-                'id' => 'luxury-escapes',
-                'label' => 'Luxury Escapes',
-                'links' => [
-                    'Ultra Luxury Dubai Experience',
-                    'Private Yacht Staycation Dubai',
-                    'Seven Star Dubai Signature Holiday',
-                    'Elite Middle East Luxury Cruise',
-                ],
-            ],
-            [
-                'id' => 'festive-specials',
-                'label' => 'Festive Specials',
-                'links' => [
-                    'Dubai Christmas and New Year Extravaganza',
-                    'Eid Special Dubai Celebration Package',
-                    'New Year Fireworks Dubai Holiday',
-                    'Festive Family Dubai Escape',
-                ],
-            ],
-            [
-                'id' => 'short-breaks',
-                'label' => 'Short Breaks',
-                'links' => [
-                    'Dubai Weekend Escape',
-                    'Abu Dhabi Quick Getaway',
-                    'Luxury 3N Dubai City Break',
-                    'Dubai Stopover Short Holiday',
-                ],
-            ],
-            [
-                'id' => 'adventure-trips',
-                'label' => 'Adventure Trips',
-                'links' => [
-                    'Dubai Desert Safari Adventure',
-                    'Sky Diving and Luxury Stay Dubai',
-                    'Middle East Adventure Cruise',
-                    'Thrill Seeker Dubai Holiday',
-                ],
-            ],
-        ];
-
+        $tabs = [];
+        foreach ($tourCategories as $category) {
+            $tabs[] = [
+                'id' => 'category-' . $category->id,
+                'label' => $category->name,
+                'links' => $category->tours
+                    ->map(function ($tour) {
+                        return [
+                            'label' => $tour->name,
+                            'url' => route('frontend.tour.details', $tour->slug),
+                        ];
+                    })
+                    ->toArray(),
+            ];
+        }
     @endphp
+    @if ($tourCategories->isNotEmpty())
+        <section class="mar-y section-explore">
+            <div class="container">
 
-    <section class="mar-y section-explore">
-        <div class="container">
+                <div class="section-content mb-4">
+                    <h3 class="heading mb-0">Explore more with us</h3>
+                </div>
 
-            <div class="section-content mb-4">
-                <h3 class="heading mb-0">Explore more with us</h3>
-            </div>
+                <!-- Tabs Navigation Wrapper -->
+                <div class="position-relative explore-wrapper mb-4">
+                    <!-- Left Arrow -->
+                    <button class="explore-arrow-btn explore-arrow-left" aria-label="Scroll Left">
+                        <i class="bx bx-chevron-left"></i>
+                    </button>
 
-            <!-- Tabs Navigation Wrapper -->
-            <div class="position-relative explore-wrapper mb-4">
-                <!-- Left Arrow -->
-                <button class="explore-arrow-btn explore-arrow-left" aria-label="Scroll Left">
-                    <i class="bx bx-chevron-left"></i>
-                </button>
+                    <!-- Tabs List -->
+                    <ul class="d-flex overflow-auto flex-nowrap scroll-smooth no-scrollbar explore-scroller"
+                        role="tablist">
+                        @foreach ($tabs as $index => $tab)
+                            <li role="presentation" class="flex-shrink-0">
+                                <button class="explore-tab-btn {{ $index === 0 ? 'active' : '' }}"
+                                    id="{{ $tab['id'] }}-tab" data-bs-toggle="tab"
+                                    data-bs-target="#{{ $tab['id'] }}-pane" type="button" role="tab"
+                                    aria-controls="{{ $tab['id'] }}-pane"
+                                    aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
+                                    {{ $tab['label'] }}
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
 
-                <!-- Tabs List -->
-                <ul class="d-flex overflow-auto flex-nowrap scroll-smooth no-scrollbar explore-scroller" role="tablist">
+                    <!-- Right Arrow -->
+                    <button class="explore-arrow-btn explore-arrow-right" aria-label="Scroll Right">
+                        <i class="bx bx-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Tabs Content -->
+                <div class="tab-content">
                     @foreach ($tabs as $index => $tab)
-                        <li role="presentation" class="flex-shrink-0">
-                            <button class="explore-tab-btn {{ $index === 0 ? 'active' : '' }}"
-                                id="{{ $tab['id'] }}-tab" data-bs-toggle="tab"
-                                data-bs-target="#{{ $tab['id'] }}-pane" type="button" role="tab"
-                                aria-controls="{{ $tab['id'] }}-pane"
-                                aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
-                                {{ $tab['label'] }}
-                            </button>
-                        </li>
-                    @endforeach
-                </ul>
+                        <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}" id="{{ $tab['id'] }}-pane"
+                            role="tabpanel" aria-labelledby="{{ $tab['id'] }}-tab" tabindex="0">
 
-                <!-- Right Arrow -->
-                <button class="explore-arrow-btn explore-arrow-right" aria-label="Scroll Right">
-                    <i class="bx bx-chevron-right"></i>
-                </button>
-            </div>
-
-            <!-- Tabs Content -->
-            <div class="tab-content">
-                @foreach ($tabs as $index => $tab)
-                    <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}" id="{{ $tab['id'] }}-pane"
-                        role="tabpanel" aria-labelledby="{{ $tab['id'] }}-tab" tabindex="0">
-
-                        <!-- Grid Layout for Links -->
-                        <div class="explore-link-grid">
-                            @foreach ($tab['links'] as $link)
-                                <a href="#" class="explore-link-item">
-                                    <span>{{ $link }}</span>
-                                    <i class="bx bx-right-arrow-alt"></i> <!-- Long Arrow Icon -->
-                                </a>
-                            @endforeach
+                            <!-- Grid Layout for Links -->
+                            <div class="explore-link-grid">
+                                @foreach ($tab['links'] as $link)
+                                    <a href="{{ $link['url'] }}" class="explore-link-item">
+                                        <span>{{ $link['label'] }}</span>
+                                        <i class="bx bx-right-arrow-alt"></i>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/daterangepicker.css') }}" />
@@ -923,4 +772,50 @@
             });
         });
     </script>
+
+    @if ($tourCategories->isNotEmpty())
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.explore-wrapper')?.forEach(wrapper => {
+                    const scroller = wrapper.querySelector('.explore-scroller');
+                    const arrowLeft = wrapper.querySelector('.explore-arrow-left');
+                    const arrowRight = wrapper.querySelector('.explore-arrow-right');
+
+                    if (!scroller) return;
+
+                    const updateArrows = () => {
+                        // Tolerance of 1px for high-DPI screens
+                        const maxScrollLeft = scroller.scrollWidth - scroller.clientWidth;
+
+                        // Show left arrow if scrolled more than 0
+                        arrowLeft.style.display = scroller.scrollLeft > 5 ? 'flex' : 'none';
+
+                        // Show right arrow if not at the end
+                        arrowRight.style.display = scroller.scrollLeft >= maxScrollLeft - 5 ? 'none' :
+                            'flex';
+                    };
+
+                    arrowLeft.addEventListener('click', () => {
+                        scroller.scrollBy({
+                            left: -200,
+                            behavior: 'smooth'
+                        });
+                    });
+
+                    arrowRight.addEventListener('click', () => {
+                        scroller.scrollBy({
+                            left: 200,
+                            behavior: 'smooth'
+                        });
+                    });
+
+                    scroller.addEventListener('scroll', updateArrows);
+                    window.addEventListener('resize', updateArrows);
+
+                    // Initial check
+                    updateArrows();
+                });
+            });
+        </script>
+    @endif
 @endpush

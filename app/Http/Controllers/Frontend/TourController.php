@@ -26,9 +26,22 @@ class TourController extends Controller
         return view('frontend.tour.uae-services', compact('banner', 'categories', 'tours', 'packageCategories', 'total_tours'));
     }
 
-    public function details()
+    public function details($slug)
     {
-        return view('frontend.tour.details');
+        $tour = Tour::where('slug', $slug)->firstOrFail();
+
+        $tourCategories = TourCategory::with([
+            'tours' => function ($query) use ($tour) {
+                $query->where('tours.status', 'active')
+                    ->where('tours.id', '!=', $tour->id);
+            }
+        ])
+            ->where('status', 'active')
+            ->latest()
+            ->get()
+            ->filter(fn($category) => $category->tours->isNotEmpty());
+
+        return view('frontend.tour.details', compact('tour', 'tourCategories'));
     }
 
     public function loadTourBlocks(Request $request)
