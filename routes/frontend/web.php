@@ -62,6 +62,8 @@ Route::name('frontend.')->group(function () {
         Route::get('/', [FlightController::class, 'index'])->name('index');
     });
 
+    Route::post('/load/tour/blocks', [TourController::class, 'loadTourBlocks'])->name('load.tour.blocks');
+
 
     Route::get('/auth/redirect/{social}', [SocialiteController::class, 'redirectToProvider'])->name('socialite.redirect');
     Route::get('/auth/callback/{social}', [SocialiteController::class, 'handleProviderCallback'])->name('socialite.callback');

@@ -13,7 +13,8 @@ class TourCategoryController extends Controller
         $search = request('search') ?? '';
         $category = TourCategory::where('slug', $slug)->first();
         $banner = Banner::where('page', 'tour-category')->where('status', 'active')->first();
-        $tours = $category->tours()->where('status', 'active')->where('name', 'like', '%' . $search . '%')->get();
-        return view('frontend.tour-category.details', compact('banner', 'category', 'tours'));
+        $tours = $category->tours()->where('status', 'active')->where('name', 'like', '%' . $search . '%')->get()->take(16);
+        $total_tours = $category->tours()->where('status', 'active')->where('name', 'like', '%' . $search . '%')->latest()->get()->count();
+        return view('frontend.tour-category.details', compact('banner', 'category', 'tours', 'total_tours'));
     }
 }

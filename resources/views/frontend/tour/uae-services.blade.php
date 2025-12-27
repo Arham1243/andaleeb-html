@@ -91,21 +91,29 @@
         </div>
     </div>
 
-    <section class="activities mar-y" id="tours">
+    <section class="activities mar-y">
         <div class="container">
             @if ($tours->count() > 0)
                 <div class="section-header">
                     <div class="section-content">
                         <h3 class="heading mb-0">Best Activities in Dubai</h3>
                     </div>
+                    @if (request('search'))
+                        <a href="{{ route('frontend.uae-services') }}#tours" type="button" class="themeBtn">
+                            <i class="bx bx-refresh"></i> Reset Search
+                        </a>
+                    @endif
                 </div>
-                <div class="row">
+                <div class="row" id="firstTourBlockContainer">
                     @foreach ($tours as $tour)
                         <div class="col-md-3">
                             <x-frontend.tour-card :tour="$tour" style="style1" />
                         </div>
                     @endforeach
                 </div>
+                @if ($total_tours > 16)
+                    <button id="loadMoreFirstBlock" class="themeBtn mx-auto mt-4">Load More</button>
+                @endif
             @else
                 <div class="empty-results" aria-labelledby="no-results-title">
                     <div class="row justify-content-center">
@@ -144,165 +152,6 @@
             @endif
         </div>
     </section>
-
-    {{-- <section class="categories mar-y">
-        <div class="container">
-            <div class="section-header mb-4 pb-2">
-                <div class="section-content">
-                    <h3 class="heading mb-0">Things to do in Dubai</h3>
-                </div>
-                <div class="custom-slider-arrows">
-                    <div class="slick-arrow-btn category-prev-slide"><i class='bx bx-chevron-left'></i></div>
-                    <div class="slick-arrow-btn category-next-slide"><i class='bx bx-chevron-right'></i></div>
-                </div>
-            </div>
-            <div class="row category-slider g-0">
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Abu Dhabi City Tour With Ferrari
-                                World</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span
-                                        class="dirham">D</span> 393</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
-                            </div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span
-                                        class="dirham">D</span> 393</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Safari with Quad Biking</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span
-                                        class="dirham">D</span> 393</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Buggy Driving Experience
-                            </div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span
-                                        class="dirham">D</span> 393</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
-                            </div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span
-                                        class="dirham">D</span> 393</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Hot Air Balloon Dubai</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span
-                                        class="dirham">D</span> 393</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-2 mb-1" style="height:43px;">Breakfast in the sky with Balloon
-                                flights</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span
-                                        class="dirham">D</span> 393</span></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq-section mar-y">
-        <div class="container">
-            <div class="section-content mb-2">
-                <h3 class="heading mb-0">Frequently Asked Question</h3>
-            </div>
-
-            <div class="faq-wrapper">
-                <div class="faq-item active">
-                    <div class="faq-header">
-                        <span class="faq-question">1. What are the top attractions to visit in Dubai?</span>
-                        <i class='bx bx-chevron-down faq-icon'></i>
-                    </div>
-                    <div class="faq-body">
-                        <div class="faq-content text-document">
-                            <p>Dubai is famous for the Burj Khalifa, Dubai Mall, and the Palm Jumeirah.</p>
-                            <ul>
-                                <li><a href="#">Burj Khalifa Tickets</a></li>
-                                <li><a href="#">The Dubai Fountain</a></li>
-                                <li><a href="#">Desert Safari</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-header">
-                        <span class="faq-question">2. Which are the best theme parks to explore in Dubai?</span>
-                        <i class='bx bx-chevron-down faq-icon'></i>
-                    </div>
-                    <div class="faq-body">
-                        <div class="faq-content text-document">
-                            <p>Dubai has world-class theme parks such as:</p>
-                            <ul>
-                                <li><a href="#">Ski Dubai Tickets</a></li>
-                                <li><a href="#">IMG Worlds of Adventure</a></li>
-                                <li><a href="#">Dubai Aquarium and Underwater Zoo</a></li>
-                                <li><a href="#">Motiongate Dubai</a></li>
-                                <li><a href="#">Legoland Dubai</a></li>
-                                <li><a href="#">AYA Universe Dubai</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
 
     @php
         $tabs = [];
@@ -425,4 +274,78 @@
             });
         </script>
     @endif
+
+    <script>
+        function initLoadMore({
+            button,
+            container,
+            blockConfig,
+            limit = 8,
+            colClass = 'col-md-3',
+            cardStyle = 'style3',
+            searchQuery = ''
+        }) {
+            const btn = typeof button === 'string' ? document.querySelector(button) : button;
+            const containerEl = typeof container === 'string' ? document.querySelector(container) : container;
+
+            // Track current offset
+            let offset = limit;
+
+            btn?.addEventListener('click', function() {
+                const originalContent = btn.innerHTML;
+
+                // Disable button and show spinner
+                btn.disabled = true;
+                btn.innerHTML = `<i class='bx bx-loader-alt bx-spin'></i> Loading...`;
+
+                fetch('{{ route('frontend.load.tour.blocks') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            limit: limit,
+                            offset: offset,
+                            block: blockConfig,
+                            col_class: colClass,
+                            card_style: cardStyle,
+                            search_query: searchQuery,
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.remainingCount === 0) {
+                            btn.remove(); // No more tours
+                        }
+
+                        // Append new tours
+                        containerEl.insertAdjacentHTML('beforeend', data.html);
+
+                        // Update offset
+                        offset += limit;
+
+                        // Restore button
+                        btn.disabled = false;
+                        btn.innerHTML = originalContent;
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        btn.disabled = false;
+                        btn.innerHTML = originalContent;
+                        showMessage('Something went wrong. Try again.');
+                    });
+            });
+        }
+
+        initLoadMore({
+            button: '#loadMoreFirstBlock',
+            container: '#firstTourBlockContainer',
+            blockConfig: @json($tours->pluck('id')),
+            limit: 16,
+            colClass: 'col-md-3',
+            cardStyle: 'style1',
+            searchQuery: '{{ request('search') ?? '' }}'
+        });
+    </script>
 @endpush
