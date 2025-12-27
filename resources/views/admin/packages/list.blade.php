@@ -23,7 +23,8 @@
                                             <option value="inactive">Make Inactive</option>
                                             <option value="delete">Delete</option>
                                         </select>
-                                        <button type="submit" onclick="confirmBulkAction(event)" class="themeBtn">Apply</button>
+                                        <button type="submit" onclick="confirmBulkAction(event)"
+                                            class="themeBtn">Apply</button>
                                     </div>
                                 </form>
                             </div>
@@ -33,12 +34,14 @@
                                 <thead>
                                     <tr>
                                         <th class="no-sort">
-                                            <div class="selection select-all-container"><input type="checkbox" id="select-all"></div>
+                                            <div class="selection select-all-container"><input type="checkbox"
+                                                    id="select-all"></div>
                                         </th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Category</th>
                                         <th>Price</th>
+                                        <th>Is Featured</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
@@ -48,49 +51,69 @@
                                     @foreach ($packages as $package)
                                         <tr>
                                             <td>
-                                                <div class="selection item-select-container"><input type="checkbox" class="bulk-item" name="bulk_select[]" value="{{ $package->id }}"></div>
+                                                <div class="selection item-select-container"><input type="checkbox"
+                                                        class="bulk-item" name="bulk_select[]" value="{{ $package->id }}">
+                                                </div>
                                             </td>
                                             <td>
                                                 @if ($package->image)
                                                     <a href="{{ asset($package->image) }}" data-fancybox="image">
-                                                        <img src="{{ asset($package->image) }}" alt="Package" style="width: 80px; height: 50px; object-fit: contain;">
+                                                        <img src="{{ asset($package->image) }}" alt="Package"
+                                                            style="width: 80px; height: 50px; object-fit: contain;">
                                                     </a>
                                                 @else
                                                     <span class="text-muted">No Image</span>
                                                 @endif
                                             </td>
                                             <td>
-                                                <a class="blue-link" href="{{ route('admin.packages.edit', $package->id) }}">
+                                                <a class="blue-link"
+                                                    href="{{ route('admin.packages.edit', $package->id) }}">
                                                     {{ $package->name ?? 'N/A' }}
                                                 </a>
                                             </td>
                                             <td>{{ $package->category->name ?? 'N/A' }}</td>
-                                            <td>{{ $package->price ? 'AED ' . number_format($package->price, 2) : 'N/A' }}</td>
+                                            <td>{{ formatPrice($package->price) }}
+                                            </td>
                                             <td>
-                                                <span class="badge rounded-pill bg-{{ $package->status === 'active' ? 'success' : 'danger' }}">
+                                                <span
+                                                    class="badge rounded-pill bg-{{ $package->is_featured ? 'success' : 'danger' }}">
+                                                    {{ $package->is_featured ? 'Yes' : 'No' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="badge rounded-pill bg-{{ $package->status === 'active' ? 'success' : 'danger' }}">
                                                     {{ ucfirst($package->status) }}
                                                 </span>
                                             </td>
                                             <td>{{ formatDateTime($package->created_at) }}</td>
                                             <td>
                                                 <div class="dropstart">
-                                                    <button type="button" class="recent-act__icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <button type="button" class="recent-act__icon dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class='bx bx-dots-vertical-rounded'></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a class="dropdown-item" href="{{ route('admin.packages.edit', $package->id) }}">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.packages.edit', $package->id) }}">
                                                                 <i class="bx bx-edit"></i> Edit
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a class="dropdown-item" href="{{ route('admin.packages.change-status', $package->id) }}">
-                                                                <i class="bx {{ $package->status === 'active' ? 'bx-x' : 'bx-check' }}"></i>
-                                                                Make {{ $package->status === 'active' ? 'Inactive' : 'Active' }}
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.packages.change-status', $package->id) }}">
+                                                                <i
+                                                                    class="bx {{ $package->status === 'active' ? 'bx-x' : 'bx-check' }}"></i>
+                                                                Make
+                                                                {{ $package->status === 'active' ? 'Inactive' : 'Active' }}
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <form action="{{ route('admin.packages.destroy', $package->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete?')">
+                                                            <form
+                                                                action="{{ route('admin.packages.destroy', $package->id) }}"
+                                                                method="POST"
+                                                                onsubmit="return confirm('Are you sure you want to delete?')">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="dropdown-item">

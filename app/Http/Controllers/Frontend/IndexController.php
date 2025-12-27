@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Banner;
 use App\Models\Tour;
+use App\Models\Package;
 use App\Models\Inquiry;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class IndexController extends Controller
     {
         $banner = Banner::where('page', 'home')->where('status', 'active')->first();
         $featuredTours = Tour::where('status', 'active')->where('is_featured', 1)->latest()->get();
-        return view('frontend.home', compact('banner', 'featuredTours'));
+        $featuredPackages = Package::where('status', 'active')->where('is_featured', 1)->latest()->get();
+        return view('frontend.home', compact('banner', 'featuredTours', 'featuredPackages'));
     }
     public function privacy_policy()
     {

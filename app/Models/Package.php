@@ -15,13 +15,14 @@ class Package extends Model
         'status',
         'image',
         'content',
-        'co_content',
+        'days',
+        'nights',
+        'is_featured',
     ];
 
     protected $casts = [
         'content' => 'array',
         'price' => 'decimal:2',
-        'co_content' => 'json',
     ];
 
     public function category()

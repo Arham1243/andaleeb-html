@@ -287,115 +287,120 @@
     </section>
 
 
-@if ($featuredTours->count() > 0)
-    <section class="activities mar-y">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-content">
-                    <h3 class="heading mb-0">Best Activities in Dubai</h3>
-                </div>
-                <div class="custom-slider-arrows">
-                    <div class="slick-arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
-                    <div class="slick-arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
-                </div>
-            </div>
-
-            <div class="row activity-slider">
-                @foreach ($featuredTours as $tour)
-                    <div class="col-md-3">
-                        <x-frontend.tour-card :tour="$tour" style="style1" />
+    @if ($featuredTours->count() > 0)
+        <section class="activities mar-y">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-content">
+                        <h3 class="heading mb-0">Best Activities in Dubai</h3>
                     </div>
-                @endforeach
+                    <div class="custom-slider-arrows">
+                        <div class="slick-arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
+                        <div class="slick-arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
+                    </div>
+                </div>
+
+                <div class="row activity-slider">
+                    @foreach ($featuredTours as $tour)
+                        <div class="col-md-3">
+                            <x-frontend.tour-card :tour="$tour" style="style1" />
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
-@endif
+        </section>
+    @endif
 
-    <section class="holiday-section mar-y">
-        <div class="container">
-            <div class="section-content mb-4">
-                <h3 class="heading">Trending Holiday Packages</h3>
-            </div>
+    @if ($featuredPackages->count() > 0)
+        <section class="holiday-section mar-y">
+            <div class="container">
+                <div class="section-content mb-4">
+                    <h3 class="heading">Trending Holiday Packages</h3>
+                </div>
 
-            <div class="row g-3">
-                <div class="col-lg-6 col-md-12">
-                    <a href="#" class="promo-card h-500">
-                        <img data-src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763450754WhatsApp%20Image%202025-11-18%20at%2012.25.10_da9451c2.jpg"
-                            alt="Turkey" class="lazyload">
+                @php
+                    $bigPackageCard = $featuredPackages[0];
+                    $smallPackageCards = $featuredPackages->skip(1)->take(2);
+                    $horizontalPackageCard = $featuredPackages->skip(3)->take(1)->first();
+                @endphp
+                <div class="row g-3">
+                    <div class="col-lg-6 col-md-12">
+                        <a href="{{ route('frontend.packages.details', $bigPackageCard->slug) }}" class="promo-card h-500">
+                            <img data-src="{{ asset($bigPackageCard->image) }}" alt="{{ $bigPackageCard->name }}"
+                                class="lazyload">
 
-                        <span class="duration-badge">5 Nights / 6 Days</span>
+                            <span class="duration-badge">{{ $bigPackageCard->nights }}
+                                {{ Str::plural('Night', $bigPackageCard->nights) }} / {{ $bigPackageCard->days }}
+                                {{ Str::plural('Day', $bigPackageCard->days) }}</span>
 
-                        <div class="card-overlay">
-                            <div class="promo-info">
-                                <div class="title">Turkish Delight</div>
-                                <p>Starts <span class="dirham">D</span> 1,299</p>
-                                <div class="btn-explore">
-                                    Explore now <i class='bx bx-right-arrow-alt'></i>
+                            <div class="card-overlay">
+                                <div class="promo-info">
+                                    <div class="title">{{ $bigPackageCard->name }}</div>
+                                    <p>Starts {{ formatPrice($bigPackageCard->price) }}</p>
+                                    <div class="btn-explore">
+                                        Explore now <i class='bx bx-right-arrow-alt'></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="row g-3 h-100">
-                        <div class="col-md-6">
-                            <a href="#" class="promo-card h-240">
-                                <img data-src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763463484egypt%20pic.jpg"
-                                    alt="Egypt" class="lazyload">
-                                <span class="duration-badge">3 Nights / 4 Days</span>
-                                <div class="card-overlay">
-                                    <div class="promo-info">
-                                        <div class="title">Egypt</div>
-                                        <p class="fs-6">Starts <span class="dirham">D</span> 999</p>
-                                        <div class="btn-explore">
-                                            Explore now <i class='bx bx-right-arrow-alt'></i>
-                                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="row g-3 h-100">
+                            @if ($smallPackageCards->count() > 0)
+                                @foreach ($smallPackageCards as $smallPackageCard)
+                                    <div class="col-md-6">
+                                        <a href="{{ route('frontend.packages.details', $smallPackageCard->slug) }}" class="promo-card h-240">
+                                            <img data-src="{{ asset($smallPackageCard->image) }}"
+                                                alt="{{ $smallPackageCard->name }}" class="lazyload">
+                                            <span class="duration-badge">{{ $smallPackageCard->nights }}
+                                                {{ Str::plural('Night', $smallPackageCard->nights) }} / 
+                                                {{ $smallPackageCard->days }}
+                                                {{ Str::plural('Day', $smallPackageCard->days) }}</span>
+                                            <div class="card-overlay">
+                                                <div class="promo-info">
+                                                    <div class="title">{{ $smallPackageCard->name }}</div>
+                                                    <p class="fs-6">Starts {{ formatPrice($smallPackageCard->price) }}
+                                                    </p>
+                                                    <div class="btn-explore">
+                                                        Explore now <i class='bx bx-right-arrow-alt'></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                @endforeach
+                            @endif
 
-                        <div class="col-md-6">
-                            <a href="#" class="promo-card h-240">
-                                <img data-src="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=800&auto=format&fit=crop"
-                                    alt="Singapore" class="lazyload">
-                                <span class="duration-badge">4 Nights / 5 Days</span>
-                                <div class="card-overlay">
-                                    <div class="promo-info">
-                                        <div class="title">Singapore</div>
-                                        <p class="fs-6">Starts <span class="dirham">D</span> 2,499</p>
-                                        <div class="btn-explore">
-                                            Explore now <i class='bx bx-right-arrow-alt'></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                            @if ($horizontalPackageCard)
+                                <div class="col-12">
+                                    <a href="{{ route('frontend.packages.details', $horizontalPackageCard->slug) }}" class="promo-card h-240">
+                                        <img data-src="{{ asset($horizontalPackageCard->image) }}"
+                                            alt="{{ $horizontalPackageCard->name }}" class="lazyload">
+                                        <span class="duration-badge">{{ horizontalPackageCard->nights }}
+                                            {{ Str::plural('Night', $horizontalPackageCard->nights) }} /
+                                            {{ $horizontalPackageCard->days }}
+                                            {{ Str::plural('Day', $horizontalPackageCard->days) }}</span>
+                                        <div class="card-overlay">
+                                            <div class="d-flex justify-content-between align-items-end w-100">
+                                                <div class="promo-info">
+                                                    <div class="title"> {{ $horizontalPackageCard->name }}</div>
 
-                        <div class="col-12">
-                            <a href="#" class="promo-card h-240">
-                                <img data-src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Thailand" class="lazyload">
-                                <span class="duration-badge">4 Nights / 5 Days</span>
-                                <div class="card-overlay">
-                                    <div class="d-flex justify-content-between align-items-end w-100">
-                                        <div class="promo-info">
-                                            <div class="title">Thailand</div>
-
-                                            <p>Starts <span class="dirham">D</span> 1,499</p>
-                                            <div class="btn-explore">
-                                                Explore now <i class='bx bx-right-arrow-alt'></i>
+                                                    <p>Starts {{ formatPrice($horizontalPackageCard->price) }}</p>
+                                                    <div class="btn-explore">
+                                                        Explore now <i class='bx bx-right-arrow-alt'></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                            </a>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <section class="section-flight-offers mar-y">
         <div class="container">

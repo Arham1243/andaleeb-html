@@ -41,9 +41,12 @@ class PackageController extends Controller
             'exclusion' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'status' => 'required|in:active,inactive',
+            'is_featured' => 'nullable|boolean',
+            'nights' => 'nullable|integer',
+            'days' => 'nullable|integer',
         ]);
 
-        $slug = $request->filled('slug') 
+        $slug = $request->filled('slug')
             ? $this->generateUniqueSlug($request->slug, Package::class)
             : $this->generateUniqueSlug($request->name, Package::class);
 
@@ -69,6 +72,9 @@ class PackageController extends Controller
             'image' => $imagePath,
             'content' => $content,
             'status' => $request->status,
+            'is_featured' => $request->is_featured,
+            'nights' => $request->nights,
+            'days' => $request->days,
         ]);
 
         return redirect()->route('admin.packages.index')->with('notify_success', 'Package created successfully!');
@@ -97,6 +103,9 @@ class PackageController extends Controller
             'exclusion' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'status' => 'required|in:active,inactive',
+            'is_featured' => 'nullable|boolean',
+            'nights' => 'nullable|integer',
+            'days' => 'nullable|integer',
         ]);
 
         $slug = $request->filled('slug')
@@ -125,6 +134,9 @@ class PackageController extends Controller
             'image' => $imagePath,
             'content' => $content,
             'status' => $request->status,
+            'is_featured' => $request->is_featured,
+            'nights' => $request->nights,
+            'days' => $request->days,
         ]);
 
         return redirect()->route('admin.packages.index')->with('notify_success', 'Package updated successfully!');

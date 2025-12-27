@@ -31,12 +31,21 @@ class PackageController extends Controller
             ->get();
         return view('frontend.packages.category', compact('category', 'packages', 'banner'));
     }
-    
+
     public function details($slug)
     {
         $banner = Banner::where('page', 'packages-details')->where('status', 'active')->first();
         $package = Package::where('slug', $slug)->where('status', 'active')->firstOrFail();
-        return view('frontend.packages.details', compact('banner', 'package'));
+        $packageCategories = PackageCategory::with(['packages' => function ($query) use ($package) {
+            $query->where('status', 'active')->where('id', '!=', $package->id);
+        }])
+            ->where('status', 'active')
+            ->latest()
+            ->get()
+            ->filter(function ($category) {
+                return $category->packages->isNotEmpty();
+            });
+        return view('frontend.packages.details', compact('banner', 'package', 'packageCategories'));
     }
 
     public function submitInquiry(Request $request)
