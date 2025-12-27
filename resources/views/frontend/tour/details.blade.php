@@ -354,7 +354,7 @@
                                             <span class="pax-age">Ages 3 to 17</span>
                                         </div>
                                         <div class="pax-action">
-                                            <span class="pax-price">{{ formatPrice($tour->price) }}</span>
+                                            <span class="pax-price">{{ formatPrice($tour->child_price > 0 ? $tour->child_price : $tour->price) }}</span>
                                             <div class="qty-control">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
