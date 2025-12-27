@@ -406,6 +406,10 @@
                                     <span class="small text-muted"><i class='bx  bx-shield-quarter'></i> Secure
                                         Booking</span>
                                 </div>
+
+                                <div class="mt-3" id="tabbyPromo"></div>
+
+
                             </div>
                         </div>
 
@@ -719,12 +723,23 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 @push('js')
+    <script src="https://checkout.tabby.ai/tabby-promo.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
         integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('frontend/assets/js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/assets/js/daterangepicker.min.js') }}"></script>
     <script>
+        new TabbyPromo({
+            selector: '#tabbyPromo',
+            currency: 'AED',
+            price: {{ $tour->price }},
+            installmentsCount: 4,
+            lang: 'en',
+            source: 'product',
+            publicKey: 'pk_test_84fd53a1-0ca1-435c-9655-4d4cbeab6cda',
+            merchantCode: 'ATA'
+        });
         $(document).ready(function() {
             const format = "MMM D, YYYY";
 
