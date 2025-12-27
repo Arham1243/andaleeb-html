@@ -102,6 +102,29 @@
                                             </div>
                                         </div>
 
+                                         </div>
+
+                                        <div class="col-md-6 mt-4">
+                                            <div class="form-fields">
+                                                <label class="title required">Child Price</label>
+                                                <input data-error="Child Price" type="number" step="0.01"
+                                                    name="child_price" class="field" value="{{ old('child_price', $tour->child_price) }}">
+                                                @error('child_price')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-4">
+                                            <div class="form-fields">
+                                                <label class="title required">Infant Price</label>
+                                                <input data-error="Infant Price" type="number" step="0.01"
+                                                    name="infant_price" class="field" value="{{ old('infant_price', $tour->infant_price) }}">
+                                                @error('infant_price')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-6 mt-4">
                                             <div class="form-fields">
                                                 <label class="title required">Duration</label>
