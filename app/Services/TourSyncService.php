@@ -45,6 +45,7 @@ class TourSyncService
 
             $season = $item['product_type_seasons'][0]['product_type_season_details'][0] ?? null;
             $childSeason = $item['product_type_seasons'][0]['product_type_season_details'][1] ?? null;
+            $infantSeason = $item['product_type_seasons'][0]['product_type_season_details'][2] ?? null;
 
             Tour::updateOrCreate(
                 [
@@ -61,6 +62,7 @@ class TourSyncService
                     'price' => data_get($season, 'product_type_pricing.product_type_sales_price'),
                     'discount_price' => data_get($season, 'product_type_pricing.product_type_list_price'),
                     'child_price' => data_get($childSeason, 'product_type_pricing.product_type_sales_price'),
+                    'infant_price' => data_get($infantSeason, 'product_type_pricing.product_type_sales_price'),
 
                     'min_qty' => $item['product_booking_quantity_min'] ?? 1,
                     'max_qty' => $item['product_booking_quantity_max'] ?? 99,
