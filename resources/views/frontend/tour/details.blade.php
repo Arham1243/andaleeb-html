@@ -62,15 +62,16 @@
                                 <a href="{{ $bannerImages[4]['image_url'] }}" class="gallery-item item-last"
                                     data-fancybox="gallery">
                                     <img data-src="{{ $bannerImages[4]['image_url'] }}" alt="More Images" class="lazyload">
-
-                                    <div class="gallery-overlay">
-                                        <span class="more-text fw-bold mb-2">
-                                            + {{ $bannerImages->count() - 5 }} Images
-                                        </span>
-                                        <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold">
-                                            <i class="bx bx-images me-1"></i> View Gallery
-                                        </button>
-                                    </div>
+                                    @if ($bannerImages->count() - 5 > 0)
+                                        <div class="gallery-overlay">
+                                            <span class="more-text fw-bold mb-2">
+                                                + {{ $bannerImages->count() - 5 }} Images
+                                            </span>
+                                            <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold">
+                                                <i class="bx bx-images me-1"></i> View Gallery
+                                            </button>
+                                        </div>
+                                    @endif
                                 </a>
                             @endif
 
