@@ -2618,10 +2618,16 @@ body .skeleton {
     font-size: 16px;
 }
 
-.qty-btn:hover {
+.qty-btn:hover:not(:disabled) {
     background-color: var(--color-primary);
     color: #fff;
     transform: scale(1.05);
+}
+
+.qty-btn:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+    pointer-events: none;
 }
 
 .qty-input {

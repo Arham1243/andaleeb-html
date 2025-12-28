@@ -352,43 +352,47 @@
                                 @endif
 
                                 <hr class="divider">
-                                @if ($isTourAvailableAndHasSlots)
-                                    <div class="pax-section mb-4">
-                                        <label class="form-label mb-3">Select Pax</label>
+                                @if(isset($tour->product_type_seasons[0]['product_type_season_details']))
+                                    @if ($isTourAvailableAndHasSlots)
+                                        <div class="pax-section mb-4">
+                                            <label class="form-label mb-3">Select Pax</label>
 
-                                        @foreach ($tour->product_type_seasons[0]['product_type_season_details'] as $type)
-                                            <div class="pax-row">
-                                                <div class="pax-info">
-                                                    <span class="pax-type">{{ $type['product_type_label'] }}</span>
-                                                    <span class="pax-age">Ages {{ $type['product_type_age_from'] }} to
-                                                        {{ $type['product_type_age_to'] }}</span>
-                                                </div>
-                                                <div class="pax-action">
-                                                    @php
-                                                        $priceField = strtolower($type['product_type']);
-                                                        $price =
-                                                            $tour->{$priceField . '_price'} ??
-                                                            $type['product_type_pricing']['product_type_sales_price'];
-                                                    @endphp
-                                                    <span class="pax-price">{{ formatPrice($price) }}</span>
-                                                    <div class="qty-control">
-                                                        <button
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                            class="qty-btn" type="button"><i
-                                                                class="bx bx-minus"></i></button>
-                                                        <input type="number" class="counter-input qty-input"
-                                                            value="1" readonly min="{{ $tour->min_qty }}"
-                                                            max="{{ $tour->max_qty }}"
-                                                            name="{{ strtolower($type['product_type_label']) }}_qty">
-                                                        <button
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                            class="qty-btn" type="button"><i
-                                                                class="bx bx-plus"></i></button>
+                                            @foreach ($tour->product_type_seasons[0]['product_type_season_details'] as $type)
+                                                <div class="pax-row">
+                                                    <div class="pax-info">
+                                                        <span class="pax-type">{{ $type['product_type_label'] }}</span>
+                                                        <span class="pax-age">Ages {{ $type['product_type_age_from'] }} to
+                                                            {{ $type['product_type_age_to'] }}</span>
+                                                    </div>
+                                                    <div class="pax-action">
+                                                        @php
+                                                            $priceField = strtolower($type['product_type']);
+                                                            $price =
+                                                                $tour->{$priceField . '_price'} ??
+                                                                $type['product_type_pricing']['product_type_sales_price'];
+                                                        @endphp
+                                                        <span class="pax-price">{{ formatPrice($price) }}</span>
+                                                        <div class="qty-control">
+                                                            <button
+                                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                                class="qty-btn" type="button"><i
+                                                                    class="bx bx-minus"></i></button>
+                                                            <input type="number" class="counter-input qty-input"
+                                                                value="1" readonly min="{{ $tour->min_qty }}"
+                                                                max="{{ $tour->max_qty }}"
+                                                                name="{{ strtolower($type['product_type_label']) }}_qty">
+                                                            <button
+                                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                                class="qty-btn" type="button"><i
+                                                                    class="bx bx-plus"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @else
+                                <div class="text-danger validation-error text-center mb-4"> Pricing for this tour is not available at the moment. Please check back later. </div>
                                 @endif
 
 
@@ -405,6 +409,10 @@
                                     @elseif ($tourInCart)
                                         <a href="{{ route('frontend.cart.index') }}" class="btn btn-add-cart mb-2">
                                             Already in Cart
+                                        </a>
+                                         @elseif (!isset($tour->product_type_seasons[0]['product_type_season_details']))
+                                         <a href="{{ route('frontend.uae-services') }}" class="btn btn-add-cart mb-2">
+                                            Explore more
                                         </a>
                                     @else
                                         <button type="submit" class="btn btn-add-cart mb-2"
@@ -787,6 +795,60 @@
                 const currentUrl = new URL(window.location.href);
                 currentUrl.searchParams.set('date', selectedDate);
                 window.location.href = currentUrl.toString();
+            });
+
+            // Handle quantity controls min/max limits
+            $('.qty-control').each(function() {
+                const qtyControl = $(this);
+                const qtyInput = qtyControl.find('.qty-input');
+                const decreaseBtn = qtyControl.find('.qty-btn').eq(0);
+                const increaseBtn = qtyControl.find('.qty-btn').eq(1);
+                const minQty = parseInt(qtyInput.attr('min')) || 1;
+                const maxQty = parseInt(qtyInput.attr('max')) || Infinity;
+
+                function updateButtonStates() {
+                    const currentQty = parseInt(qtyInput.val());
+                    
+                    if (currentQty <= minQty) {
+                        decreaseBtn.prop('disabled', true);
+                        decreaseBtn.css({
+                            'cursor': 'not-allowed',
+                            'opacity': '0.5'
+                        });
+                    } else {
+                        decreaseBtn.prop('disabled', false);
+                        decreaseBtn.css({
+                            'cursor': 'pointer',
+                            'opacity': '1'
+                        });
+                    }
+                    
+                    if (currentQty >= maxQty) {
+                        increaseBtn.prop('disabled', true);
+                        increaseBtn.css({
+                            'cursor': 'not-allowed',
+                            'opacity': '0.5'
+                        });
+                    } else {
+                        increaseBtn.prop('disabled', false);
+                        increaseBtn.css({
+                            'cursor': 'pointer',
+                            'opacity': '1'
+                        });
+                    }
+                }
+
+                decreaseBtn.on('click', function() {
+                    if ($(this).prop('disabled')) return false;
+                    setTimeout(updateButtonStates, 10);
+                });
+
+                increaseBtn.on('click', function() {
+                    if ($(this).prop('disabled')) return false;
+                    setTimeout(updateButtonStates, 10);
+                });
+
+                updateButtonStates();
             });
         });
     </script>

@@ -87,6 +87,47 @@ class CartController extends Controller
             ->with('notify_success', 'Tour added to cart');
     }
 
+    public function updateQuantity(Request $request, $slug)
+    {
+        $request->validate([
+            'pax_type' => 'required|string',
+            'qty' => 'required|integer|min:1',
+        ]);
+
+        $tour = Tour::where('slug', $slug)->first();
+
+        if (!$tour) {
+            return response()->json(['success' => false, 'message' => 'Tour not found.'], 404);
+        }
+
+        $cart = session()->get('cart', []);
+
+        if (!isset($cart[$tour->id]['pax'][$request->pax_type])) {
+            return response()->json(['success' => false, 'message' => 'Item not in cart.'], 404);
+        }
+
+        $cart[$tour->id]['pax'][$request->pax_type]['qty'] = $request->qty;
+        $cart[$tour->id]['pax'][$request->pax_type]['subtotal'] = 
+            $request->qty * $cart[$tour->id]['pax'][$request->pax_type]['price'];
+
+        $cart[$tour->id]['total_pax'] = collect($cart[$tour->id]['pax'])->sum('qty');
+        $cart[$tour->id]['total_price'] = collect($cart[$tour->id]['pax'])->sum('subtotal');
+
+        session()->put('cart', $cart);
+
+        $subtotal = collect($cart)->sum('total_price');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Quantity updated successfully.',
+            'data' => [
+                'qty' => $request->qty,
+                'item_subtotal' => $cart[$tour->id]['pax'][$request->pax_type]['subtotal'],
+                'cart_subtotal' => $subtotal,
+            ]
+        ]);
+    }
+
     public function remove(Request $request, $slug)
     {
         $request->validate([

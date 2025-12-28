@@ -33,6 +33,7 @@ Route::name('frontend.')->group(function () {
     Route::prefix('cart')->name('cart.')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('index');
         Route::post('/add/{slug}', [CartController::class, 'add'])->name('add');
+        Route::patch('/update/{slug}', [CartController::class, 'updateQuantity'])->name('update');
         Route::delete('/remove/{slug}', [CartController::class, 'remove'])->name('remove');
     });
 

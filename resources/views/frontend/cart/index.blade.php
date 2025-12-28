@@ -17,8 +17,9 @@
                                     $item = $cart[$tour->id];
                                 @endphp
 
-                                @foreach ($item['pax'] as $pax)
-                                    <div class="cart-item">
+                                @foreach ($item['pax'] as $paxType => $pax)
+                                    <div class="cart-item" data-tour-slug="{{ $tour->slug }}"
+                                        data-pax-type="{{ $paxType }}">
                                         <a href="{{ route('frontend.tour.details', $tour->slug) }}" class="cart-thumb">
                                             <img src="{{ $tour->image }}" alt="{{ $tour->name }}" class="imgFluid">
                                         </a>
@@ -39,28 +40,28 @@
                                             </div>
                                             <div class="cart-meta">
                                                 <i class='bx bx-group'></i>
-                                                Guests: {{ $pax['qty'] }} {{ $pax['label'] }}
+                                                Guests: <span class="guest-qty">{{ $pax['qty'] }}</span>
+                                                {{ Str::plural($pax['label'], $pax['qty']) }}
                                             </div>
                                         </div>
 
                                         <div class="qty-control">
-                                            <button class="qty-btn" type="button"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                            <button class="qty-btn qty-decrease" type="button">
                                                 <i class="bx bx-minus"></i>
                                             </button>
 
                                             <input type="number" class="counter-input qty-input"
-                                                value="{{ $pax['qty'] }}" readonly>
+                                                value="{{ $pax['qty'] }}"min="{{ $tour->min_qty }}"
+                                                max="{{ $tour->max_qty }}" readonly>
 
-                                            <button class="qty-btn" type="button"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                            <button class="qty-btn qty-increase" type="button">
                                                 <i class="bx bx-plus"></i>
                                             </button>
                                         </div>
 
                                         <div class="cart-price-area">
                                             <div class="item-calculation">
-                                                {{ $pax['qty'] }} <i class='bx bx-x'></i>
+                                                <span class="calc-qty">{{ $pax['qty'] }}</span> <i class='bx bx-x'></i>
                                                 {{ formatPrice($pax['price']) }}
                                             </div>
 
@@ -72,7 +73,7 @@
                                         <form method="POST" action="{{ route('frontend.cart.remove', $tour->slug) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="hidden" name="pax_type" value="{{ strtolower($pax['label']) }}">
+                                            <input type="hidden" name="pax_type" value="{{ $paxType }}">
                                             <button type="submit" class="btn-remove"
                                                 onclick="return confirm('Are you sure you want to remove?')">
                                                 <i class='bx bx-trash'></i>
@@ -98,7 +99,7 @@
 
                                 <div class="summary-row">
                                     <span>Subtotal</span>
-                                    <span>{{ formatPrice($subtotal) }}</span>
+                                    <span id="cart-subtotal">{{ formatPrice($subtotal) }}</span>
                                 </div>
 
                                 <!-- Coupon Code -->
@@ -114,7 +115,8 @@
 
                                 <div class="summary-row total">
                                     <span>Total Payable</span>
-                                    <span style="color: var(--color-primary)">{{ formatPrice($subtotal) }}</span>
+                                    <span id="cart-total"
+                                        style="color: var(--color-primary)">{{ formatPrice($subtotal) }}</span>
                                 </div>
 
                                 <a href="{{ route('frontend.checkout.index') }}" class="btn-primary-custom mt-3">Proceed to
@@ -150,3 +152,109 @@
         </section>
     @endif
 @endsection
+
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItems = document.querySelectorAll('.cart-item');
+
+            function formatPrice(amount) {
+                const formatted = parseFloat(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return '<span class="dirham">D</span>' + formatted;
+            }
+
+            cartItems.forEach(item => {
+                const tourSlug = item.dataset.tourSlug;
+                const paxType = item.dataset.paxType;
+                const qtyInput = item.querySelector('.qty-input');
+                const decreaseBtn = item.querySelector('.qty-decrease');
+                const increaseBtn = item.querySelector('.qty-increase');
+                const itemTotal = item.querySelector('.item-total');
+                const calcQty = item.querySelector('.calc-qty');
+                const guestQty = item.querySelector('.guest-qty');
+                const minQty = parseInt(qtyInput.getAttribute('min')) || 1;
+                const maxQty = parseInt(qtyInput.getAttribute('max')) || Infinity;
+
+                function updateButtonStates() {
+                    const currentQty = parseInt(qtyInput.value);
+
+                    if (currentQty <= minQty) {
+                        decreaseBtn.disabled = true;
+                        decreaseBtn.style.cursor = 'not-allowed';
+                        decreaseBtn.style.opacity = '0.5';
+                    } else {
+                        decreaseBtn.disabled = false;
+                        decreaseBtn.style.cursor = 'pointer';
+                        decreaseBtn.style.opacity = '1';
+                    }
+
+                    if (currentQty >= maxQty) {
+                        increaseBtn.disabled = true;
+                        increaseBtn.style.cursor = 'not-allowed';
+                        increaseBtn.style.opacity = '0.5';
+                    } else {
+                        increaseBtn.disabled = false;
+                        increaseBtn.style.cursor = 'pointer';
+                        increaseBtn.style.opacity = '1';
+                    }
+                }
+
+                function updateCart(newQty) {
+                    if (newQty < minQty || newQty > maxQty) return;
+
+                    fetch(`{{ url('/cart/update') }}/${tourSlug}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                pax_type: paxType,
+                                qty: newQty
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                calcQty.textContent = data.data.qty;
+                                guestQty.textContent = data.data.qty;
+                                itemTotal.innerHTML = formatPrice(data.data.item_subtotal);
+                                document.getElementById('cart-subtotal').innerHTML = formatPrice(data
+                                    .data.cart_subtotal);
+                                document.getElementById('cart-total').innerHTML = formatPrice(data
+                                    .data.cart_subtotal);
+                                updateButtonStates();
+                            } else {
+                                showMessage(data.message || 'Failed to update quantity');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            showMessage('An error occurred while updating the cart');
+                        });
+                }
+
+                decreaseBtn.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    qtyInput.stepDown();
+                    const newQty = parseInt(qtyInput.value);
+                    if (newQty >= minQty) {
+                        updateCart(newQty);
+                    }
+                });
+
+                increaseBtn.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    qtyInput.stepUp();
+                    const newQty = parseInt(qtyInput.value);
+                    if (newQty <= maxQty) {
+                        updateCart(newQty);
+                    }
+                });
+
+                updateButtonStates();
+            });
+        });
+    </script>
+@endpush

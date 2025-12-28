@@ -139,18 +139,19 @@ class TourController extends Controller
         $requestedDate = $date ? Carbon::parse($date) : null;
         $isAvailable = false;
         $availableRanges = [];
+        if (isset($tour->product_type_seasons)) {
+            foreach ($tour->product_type_seasons as $season) {
+                $start = Carbon::parse($season['product_type_season_start_date']);
+                $end = Carbon::parse($season['product_type_season_end_date']);
 
-        foreach ($tour->product_type_seasons as $season) {
-            $start = Carbon::parse($season['product_type_season_start_date']);
-            $end = Carbon::parse($season['product_type_season_end_date']);
+                $availableRanges[] = [
+                    'start' => $start->format('M d, Y'),
+                    'end' => $end->format('M d, Y'),
+                ];
 
-            $availableRanges[] = [
-                'start' => $start->format('M d, Y'),
-                'end' => $end->format('M d, Y'),
-            ];
-
-            if ($requestedDate && $requestedDate->between($start, $end)) {
-                $isAvailable = true;
+                if ($requestedDate && $requestedDate->between($start, $end)) {
+                    $isAvailable = true;
+                }
             }
         }
 
