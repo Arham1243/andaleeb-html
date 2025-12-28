@@ -97,6 +97,21 @@ Breadcrumbs::for('admin.package-inquiries.show', function (BreadcrumbTrail $trai
     $trail->push('Inquiry Details', route('admin.package-inquiries.show', $packageInquiry));
 });
 
+Breadcrumbs::for('admin.coupons.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Coupons', route('admin.coupons.index'));
+});
+
+Breadcrumbs::for('admin.coupons.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.coupons.index');
+    $trail->push('Add New Coupon', route('admin.coupons.create'));
+});
+
+Breadcrumbs::for('admin.coupons.edit', function (BreadcrumbTrail $trail, $coupon) {
+    $trail->parent('admin.coupons.index');
+    $trail->push('Edit Coupon', route('admin.coupons.edit', $coupon));
+});
+
 Breadcrumbs::for('admin.packages.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Manage Packages', route('admin.packages.index'));

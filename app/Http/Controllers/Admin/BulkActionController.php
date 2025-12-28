@@ -12,6 +12,7 @@ use App\Models\PackageInquiry;
 use App\Models\User;
 use App\Models\Newsletter;
 use App\Models\TourReview;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -71,6 +72,11 @@ class BulkActionController extends Controller
                 $modelClass = TourReview::class;
                 $column = 'id';
                 $redirectRoute = 'admin.tour-reviews.index';
+                break;
+            case 'coupons':
+                $modelClass = Coupon::class;
+                $column = 'id';
+                $redirectRoute = 'admin.coupons.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');

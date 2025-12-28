@@ -103,10 +103,11 @@
                                 </div>
 
                                 <!-- Coupon Code -->
-                                <div class="coupon-wrapper">
-                                    <input type="text" class="coupon-input" placeholder="Enter discount code">
+                                <form action="" method="POST" class="coupon-wrapper">
+                                    @csrf
+                                    <input type="text" name="coupon_code" class="coupon-input" placeholder="Enter discount code">
                                     <button class="btn-apply-overlay">Apply</button>
-                                </div>
+                                </form>
 
                                 <div class="summary-row">
                                     <span>Tax (0%)</span>

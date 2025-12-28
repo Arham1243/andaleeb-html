@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\TourReviewController;
 use App\Http\Controllers\Admin\TerminalController;
+use App\Http\Controllers\Admin\CouponController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admins', function () {
@@ -75,6 +76,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('package-inquiries', PackageInquiryController::class)->only(['index', 'show', 'destroy']);
 
     Route::resource('tour-reviews', TourReviewController::class);
+
+    Route::resource('coupons', CouponController::class);
+    Route::get('coupons/change-status/{coupon}', [CouponController::class, 'changeStatus'])->name('coupons.change-status');
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');

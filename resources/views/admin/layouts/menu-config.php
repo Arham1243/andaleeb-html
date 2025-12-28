@@ -45,6 +45,11 @@ return [
                 'icon' => 'bx bxs-star',
                 'route' => route('admin.tour-reviews.index'),
             ],
+             [
+                'title' => 'Coupons',
+                'icon' => 'bx bxs-coupon',
+                'route' => route('admin.coupons.index'),
+            ],
             [
                 'title' => 'Sync Tours',
                 'icon' => 'bx bx-refresh',
