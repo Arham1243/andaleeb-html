@@ -464,7 +464,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 mt-5">
+                <div class="col-md-12 my-5">
                     <div class="reviews">
 
                         <!-- Header with Toggle Button -->
