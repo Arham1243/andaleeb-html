@@ -107,12 +107,14 @@
                                 @endphp
                                 <div class="dsc-card p-3 mb-3">
                                     <div class="d-flex align-items-center">
-                                        <a href="{{ route('frontend.tour.details', $tour->slug) }}" class="dsc-img-container">
+                                        <a href="{{ route('frontend.tour.details', $tour->slug) }}"
+                                            class="dsc-img-container">
                                             <img src="{{ $tour->image }}" alt="{{ $tour->name }}" class="dsc-thumb">
                                         </a>
 
                                         <div class="flex-grow-1 ms-3">
-                                            <a href="{{ route('frontend.tour.details', $tour->slug) }}" class="dsc-title">{{ $tour->name }}</a>
+                                            <a href="{{ route('frontend.tour.details', $tour->slug) }}"
+                                                class="dsc-title">{{ $tour->name }}</a>
 
                                             <div class="dsc-meta-text">
                                                 <i class='bx bx-calendar dsc-icon'></i>
@@ -170,7 +172,8 @@
                                         @foreach ($cartData['applied_coupons'] as $coupon)
                                             <div class="summary-row">
                                                 <span>Coupon: {{ $coupon['code'] }}
-                                                    ({{ $coupon['type'] === 'percentage' ? $coupon['rate'] . '%' : formatPrice($coupon['rate']) }})</span>
+                                                    ({{ $coupon['type'] === 'percentage' ? $coupon['rate'] . '%' : formatPrice($coupon['rate']) }})
+                                                </span>
                                                 <span style="color: red;">-{{ formatPrice($coupon['discount']) }}</span>
                                             </div>
                                         @endforeach
@@ -178,13 +181,21 @@
                                 @endif
 
                                 <div class="mt-3">
+
                                     <div class="summary-row">
-                                        <span>All Taxes ({{ $cartData['total']['tax'] }}%)</span>
-                                        <span>{{ formatPrice($cartData['total']['tax']) }}</span>
+                                        <span>Tax ({{ $config['VAT_PERCENTAGE'] ?? 0 }}%)</span>
+                                        <span>{{ formatPrice($cartData['total']['vat']) }}</span>
                                     </div>
+
+                                    <div class="summary-row">
+                                        <span>Service Tax ({{ $config['SERVICE_TAX_PERCENTAGE'] ?? 0 }}%)</span>
+                                        <span>{{ formatPrice($cartData['total']['service_tax']) }}</span>
+                                    </div>
+                                    
                                     <div class="summary-row total">
                                         <span>Total Payable</span>
-                                        <span style="color: var(--color-primary)">{{ formatPrice($cartData['total']['grand_total']) }}</span>
+                                        <span
+                                            style="color: var(--color-primary)">{{ formatPrice($cartData['total']['grand_total']) }}</span>
                                     </div>
                                 </div>
 

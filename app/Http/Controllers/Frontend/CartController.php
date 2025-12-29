@@ -18,11 +18,13 @@ class CartController extends Controller
             'total' => [
                 'subtotal' => 0,
                 'discount' => 0,
+                'vat' => 0,
+                'service_tax' => 0,
                 'tax' => 0,
                 'grand_total' => 0,
             ]
         ]);
-
+    
         $tours = Tour::whereIn('id', array_keys($cartData['tours'] ?? []))->get();
 
         return view('frontend.cart.index', compact('cartData', 'tours'));
@@ -45,6 +47,8 @@ class CartController extends Controller
             'total' => [
                 'subtotal' => 0,
                 'discount' => 0,
+                'vat' => 0,
+                'service_tax' => 0,
                 'tax' => 0,
                 'grand_total' => 0,
             ]
@@ -124,6 +128,8 @@ class CartController extends Controller
             'total' => [
                 'subtotal' => 0,
                 'discount' => 0,
+                'vat' => 0,
+                'service_tax' => 0,
                 'tax' => 0,
                 'grand_total' => 0,
             ]
@@ -174,6 +180,8 @@ class CartController extends Controller
             'total' => [
                 'subtotal' => 0,
                 'discount' => 0,
+                'vat' => 0,
+                'service_tax' => 0,
                 'tax' => 0,
                 'grand_total' => 0,
             ]
@@ -226,6 +234,8 @@ class CartController extends Controller
             'total' => [
                 'subtotal' => 0,
                 'discount' => 0,
+                'vat' => 0,
+                'service_tax' => 0,
                 'tax' => 0,
                 'grand_total' => 0,
             ]
@@ -285,13 +295,23 @@ class CartController extends Controller
             $runningTotal -= $discount;
         }
 
-        $tax = 0;
-        $grandTotal = max($runningTotal - $tax, 0);
+        // Calculate taxes from shared config
+        $config = \Illuminate\Support\Facades\View::shared('config', []);
+        $vatPercentage = floatval($config['VAT_PERCENTAGE'] ?? 0);
+        $serviceTaxPercentage = floatval($config['SERVICE_TAX_PERCENTAGE'] ?? 0);
+        
+        $vat = ($vatPercentage / 100) * $runningTotal;
+        $serviceTax = ($serviceTaxPercentage / 100) * $runningTotal;
+        $totalTax = $vat + $serviceTax;
+        
+        $grandTotal = max($runningTotal + $totalTax, 0);
 
         $cartData['total'] = [
             'subtotal' => $subtotal,
             'discount' => $totalDiscount,
-            'tax' => $tax,
+            'vat' => $vat,
+            'service_tax' => $serviceTax,
+            'tax' => $totalTax,
             'grand_total' => $grandTotal,
         ];
     }

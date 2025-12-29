@@ -14,6 +14,8 @@ class CheckoutController extends Controller
             'total' => [
                 'subtotal' => 0,
                 'discount' => 0,
+                'vat' => 0,
+                'service_tax' => 0,
                 'tax' => 0,
                 'grand_total' => 0,
             ]

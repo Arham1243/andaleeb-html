@@ -19,7 +19,7 @@
                             @csrf
                             <div class="row">
 
-                                <div class="col-lg-6 col-md-6 col-12 mt-3">
+                                <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-fields">
                                         <label class="title">Facebook</label>
                                         <input type="url" name="FACEBOOK" class="field"
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 mt-3">
+                                <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-fields">
                                         <label class="title">Instagram</label>
                                         <input type="url" name="INSTAGRAM" class="field"
@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-box__body">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12 mt-3">
+                                <div class="col-lg-6 col-md-6 col-12 ">
                                     <div class="form-fields">
                                         <label class="title">Phone</label>
                                         <div class="relative-div">
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 mt-3">
+                                <div class="col-lg-6 col-md-6 col-12 ">
                                     <div class="form-fields">
                                         <label class="title">Whatsapp</label>
                                         <div class="relative-div">
@@ -118,6 +118,37 @@
                                     <div class="form-fields">
                                         <label class="title">Address</label>
                                         <textarea name="ADDRESS" class="field" rows="3" placeholder="Enter Company Address" required>{{ $config['ADDRESS'] ?? '' }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-box">
+                        <div class="form-box__header">
+                            <div class="title">Taxes</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-fields">
+                                        <label class="title">Vat Percentage</label>
+                                        <div class="relative-div">
+                                            <input type="number" name="VAT_PERCENTAGE" class="field"
+                                                value="{{ $config['VAT_PERCENTAGE'] ?? '' }}" placeholder="Enter Vat Percentage"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-fields">
+                                        <label class="title">Service Tax Percentage</label>
+                                        <div class="relative-div">
+                                            <input type="number" name="SERVICE_TAX_PERCENTAGE" class="field"
+                                                value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}" placeholder="Enter Service Tax Percentage"
+                                                required>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

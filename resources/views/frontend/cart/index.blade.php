@@ -116,15 +116,20 @@
                                     @foreach ($cartData['applied_coupons'] as $coupon)
                                         <div class="summary-row coupon-applied">
                                             <span>Coupon: {{ $coupon['code'] }}
-                                                ({{ $coupon['type'] === 'percentage' ? $coupon['rate'] . '%' : formatPrice($coupon['rate']) }})</span>
+                                                ({{ $coupon['type'] === 'percentage' ? $coupon['rate'] . '%' : formatPrice($coupon['rate']) }})
+                                            </span>
                                             <span style="color: red;">-{{ formatPrice($coupon['discount']) }}</span>
                                         </div>
                                     @endforeach
                                 @endif
 
                                 <div class="summary-row">
-                                    <span>Tax ({{ $cartData['total']['tax'] }}%)</span>
-                                    <span>{{ formatPrice($cartData['total']['tax']) }}</span>
+                                    <span>Tax ({{ $config['VAT_PERCENTAGE'] ?? 0 }}%)</span>
+                                    <span>{{ formatPrice($cartData['total']['vat']) }}</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Service Tax ({{ $config['SERVICE_TAX_PERCENTAGE'] ?? 0 }}%)</span>
+                                    <span>{{ formatPrice($cartData['total']['service_tax']) }}</span>
                                 </div>
 
                                 <div class="summary-row total">
