@@ -101,49 +101,58 @@
 
                     <div class="col-lg-4">
                         <div class="sticky-sidebar">
-                            <div class="dsc-card p-3">
-                                <div class="d-flex align-items-center">
+                            @foreach ($tours as $tour)
+                                @php
+                                    $item = $cartData['tours'][$tour->id];
+                                @endphp
+                                <div class="dsc-card p-3 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ route('frontend.tour.details', $tour->slug) }}" class="dsc-img-container">
+                                            <img src="{{ $tour->image }}" alt="{{ $tour->name }}" class="dsc-thumb">
+                                        </a>
 
-                                    <a href="#" class="dsc-img-container">
-                                        <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20437/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Desert-Safari-with-Dune-Bashing-5962/1737620054021_S.jpg?_a=BAVAZGE70"
-                                            alt="Desert Safari" class="dsc-thumb">
-                                    </a>
+                                        <div class="flex-grow-1 ms-3">
+                                            <a href="{{ route('frontend.tour.details', $tour->slug) }}" class="dsc-title">{{ $tour->name }}</a>
 
-                                    <div class="flex-grow-1 ms-3">
-                                        <a href="" class="dsc-title">Desert Safari</a>
+                                            <div class="dsc-meta-text">
+                                                <i class='bx bx-calendar dsc-icon'></i>
+                                                <span>{{ formatDate($item['date']) }}</span>
+                                            </div>
 
-                                        <div class="dsc-meta-text">
-                                            <i class='bx bx-calendar dsc-icon'></i>
-                                            <span>16 Dec 2025</span>
+                                            <div class="dsc-meta-text mt-1">
+                                                <i class='bx bx-map dsc-icon'></i>
+                                                <span class="dsc-location-link">
+                                                    {{ $tour->location ?? 'United Arab Emirates' }}
+                                                </span>
+                                            </div>
                                         </div>
+                                    </div>
 
-                                        <div class="dsc-meta-text mt-1">
-                                            <i class='bx bx-map dsc-icon'></i>
-                                            <span class="dsc-location-link">
-                                                United Arab Emirates
+                                    <div class="dsc-divider"></div>
+
+                                    <div class="dsc-details">
+                                        <div class="dsc-meta-text mb-2">
+                                            <i class='bx bx-time-five dsc-icon'></i>
+                                            <span>{{ $item['time_slot'] }}</span>
+                                        </div>
+                                        <div class="dsc-meta-text">
+                                            <i class='bx bx-group dsc-icon'></i>
+                                            <span>
+                                                @foreach ($item['pax'] as $paxType => $pax)
+                                                    {{ $pax['qty'] }} {{ Str::plural($pax['label'], $pax['qty']) }}
+                                                    @if (!$loop->last)
+                                                        &bull;
+                                                    @endif
+                                                @endforeach
                                             </span>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="dsc-divider"></div>
-
-                                <div class="dsc-details">
-                                    <div class="dsc-meta-text mb-2">
-                                        <i class='bx bx-time-five dsc-icon'></i>
-                                        <span>08:00 : 21:00</span>
-                                    </div>
-                                    <div class="dsc-meta-text">
-                                        <i class='bx bx-group dsc-icon'></i>
-                                        <span>2 Adults 1 Child 1 Infant</span>
+                                    <div class="dsc-price">
+                                        {{ formatPrice($item['total_price']) }}
                                     </div>
                                 </div>
-
-                                <div class="dsc-price">
-                                    <span class="dirham">D</span> 645
-                                </div>
-
-                            </div>
+                            @endforeach
 
                             <div class="modern-card">
                                 <div class="card-title">Payment Details
@@ -151,19 +160,31 @@
 
                                 <div class="order-item-mini">
                                     <div>
-                                        <h6>Activities <i class='bx bx-x'></i> 1</h6>
+                                        <h6>Activities <i class='bx bx-x'></i> {{ count($cartData['tours']) }}</h6>
                                     </div>
-                                    <span class='fw-bold'><span class="dirham">D</span> 168.00</span>
+                                    <span class='fw-bold'>{{ formatPrice($cartData['total']['subtotal']) }}</span>
                                 </div>
+
+                                @if (!empty($cartData['applied_coupons']))
+                                    <div class="mt-3">
+                                        @foreach ($cartData['applied_coupons'] as $coupon)
+                                            <div class="summary-row">
+                                                <span>Coupon: {{ $coupon['code'] }}
+                                                    ({{ $coupon['type'] === 'percentage' ? $coupon['rate'] . '%' : formatPrice($coupon['rate']) }})</span>
+                                                <span style="color: red;">-{{ formatPrice($coupon['discount']) }}</span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
 
                                 <div class="mt-3">
                                     <div class="summary-row">
-                                        <span>All Taxes</span>
-                                        <span><span class="dirham">D</span> 0.00</span>
+                                        <span>All Taxes ({{ $cartData['total']['tax'] }}%)</span>
+                                        <span>{{ formatPrice($cartData['total']['tax']) }}</span>
                                     </div>
                                     <div class="summary-row total">
                                         <span>Total Payable</span>
-                                        <span style="color: var(--color-primary)"><span class="dirham">D</span> 468.00</span>
+                                        <span style="color: var(--color-primary)">{{ formatPrice($cartData['total']['grand_total']) }}</span>
                                     </div>
                                 </div>
 

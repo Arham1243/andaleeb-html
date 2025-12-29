@@ -8,13 +8,24 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        $cartData = session('cartData', []);
+        $cartData = session()->get('cart', [
+            'tours' => [],
+            'applied_coupons' => [],
+            'total' => [
+                'subtotal' => 0,
+                'discount' => 0,
+                'tax' => 0,
+                'grand_total' => 0,
+            ]
+        ]);
 
-        if (empty($cartData['tours'] ?? [])) {
+        if (empty($cartData['tours'])) {
             return redirect()->route('frontend.cart.index')
                 ->with('notify_error', 'Your cart is empty. Please add some tours before checkout.');
         }
 
-        return view('frontend.checkout.index', compact('cartData'));
+        $tours = \App\Models\Tour::whereIn('id', array_keys($cartData['tours']))->get();
+
+        return view('frontend.checkout.index', compact('cartData', 'tours'));
     }
 }
