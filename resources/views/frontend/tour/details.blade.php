@@ -335,7 +335,9 @@
                                                     <option value="" selected disabled>Choose a time slot...</option>
                                                     @foreach ($timeSlots as $slot)
                                                         <option
-                                                            value="{{ $slot['start_time'] }} - {{ $slot['end_time'] }}">
+                                                            value="{{ $slot['id'] }}"
+                                                            data-start-time="{{ $slot['start_time'] }}"
+                                                            data-end-time="{{ $slot['end_time'] }}">
                                                             {{ $slot['start_time'] }} - {{ $slot['end_time'] }}
                                                             ({{ $slot['open_spots'] }}
                                                             {{ Str::plural('Spot', $slot['open_spots']) }}
@@ -795,6 +797,21 @@
                 const currentUrl = new URL(window.location.href);
                 currentUrl.searchParams.set('date', selectedDate);
                 window.location.href = currentUrl.toString();
+            });
+
+            // Store time slot display text when selection changes
+            $('select[name="time_slot"]').on('change', function() {
+                const selectedOption = $(this).find('option:selected');
+                const startTime = selectedOption.data('start-time');
+                const endTime = selectedOption.data('end-time');
+                
+                // Create hidden input to store display text
+                let hiddenInput = $('input[name="time_slot_display"]');
+                if (hiddenInput.length === 0) {
+                    hiddenInput = $('<input type="hidden" name="time_slot_display">');
+                    $(this).after(hiddenInput);
+                }
+                hiddenInput.val(startTime + ' - ' + endTime);
             });
 
             // Handle quantity controls min/max limits

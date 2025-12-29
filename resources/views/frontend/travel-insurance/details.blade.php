@@ -49,7 +49,7 @@
                                     <select class="custom-select" name="country" id="country-select">
                                         <option value="" selected disabled>Select</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country }}">{{ ucwords($country) }}</option>
+                                            <option value="{{ $country['value'] }}">{{ $country['label'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>

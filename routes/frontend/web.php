@@ -14,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    
+    Route::prefix('checkout')->name('checkout.')->group(function () {
+        Route::get('/', [CheckoutController::class, 'index'])->name('index');
+        Route::post('/store', [CheckoutController::class, 'store'])->name('store');
+    });
+    
     Route::post('/subscribe-newsletter', [IndexController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 
     Route::get('/uae-services', [TourController::class, 'uae_services'])->name('uae-services');

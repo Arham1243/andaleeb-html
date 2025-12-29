@@ -20,26 +20,34 @@
                             Thank you for your booking. A confirmation email has been sent to your inbox.
                         </p>
 
-                        <!-- Transaction Details (The "Receipt") -->
-                        <div class="transaction-details mb-4">
-                            <div class="detail-row">
-                                <span class="text-muted">Transaction ID</span>
-                                <span class="fw-medium">#TRX-88592</span>
+                        @if($order)
+                            <!-- Transaction Details (The "Receipt") -->
+                            <div class="transaction-details mb-4">
+                                <div class="detail-row">
+                                    <span class="text-muted">Order Number</span>
+                                    <span class="fw-medium">{{ $order->order_number }}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="text-muted">Date</span>
+                                    <span class="fw-medium">{{ $order->created_at->format('M d, Y') }}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="text-muted">Payment Method</span>
+                                    <span class="fw-medium">{{ ucfirst($order->payment_method) }}</span>
+                                </div>
+                                <div class="detail-row total">
+                                    <span>Amount Paid</span>
+                                    <span>{{ formatPrice($order->total) }}</span>
+                                </div>
                             </div>
-                            <div class="detail-row">
-                                <span class="text-muted">Date</span>
-                                <span class="fw-medium">Dec 17, 2025</span>
-                            </div>
-                            <div class="detail-row total">
-                                <span>Amount Paid</span>
-                                <span>$249.00</span>
-                            </div>
-                        </div>
+                        @endif
 
                         <!-- Actions -->
                         <div class="d-grid gap-2">
-                            <a href="#" class="btn btn-primary-theme btn-lg">View My Booking</a>
-                            <a href="#" class="btn btn-link text-decoration-none text-muted">Return to Home</a>
+                            @auth
+                                <a href="{{ route('user.dashboard') }}" class="btn btn-primary-theme btn-lg">View My Bookings</a>
+                            @endauth
+                            <a href="{{ route('frontend.index') }}" class="btn btn-link text-decoration-none text-muted">Return to Home</a>
                         </div>
                     </div>
 

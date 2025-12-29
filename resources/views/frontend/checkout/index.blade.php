@@ -7,7 +7,8 @@
         <div class="container">
             <h1 class="page-title">Checkout</h1>
 
-            <form action="#">
+            <form action="{{ route('frontend.checkout.store') }}" method="POST" id="checkoutForm">
+                @csrf
                 <div class="row">
                     <!-- Left Column: Forms -->
                     <div class="col-lg-8">
@@ -51,7 +52,7 @@
                                     <select class="custom-select" name="passenger[country]" id="country-select" required>
                                         <option value="" selected disabled>Select</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country }}">{{ ucwords($country) }}</option>
+                                            <option value="{{ $country['value'] }}">{{ $country['label'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -203,10 +204,6 @@
                                 </div>
 
                                 <div class="mt-2">
-                                    <span class="text-muted small">
-                                        Your card will be charged in AED
-                                    </span>
-
                                     <button type="submit" class="btn-primary-custom mt-2">
                                         Pay Now <i class='bx bx-lock-alt'></i>
                                     </button>
@@ -226,3 +223,19 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutForm = document.getElementById('checkoutForm');
+            const submitBtn = checkoutForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            checkoutForm.addEventListener('submit', function(e) {
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Processing...';
+            });
+        });
+    </script>
+@endpush

@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Tour;
 use App\Models\Package;
 use App\Models\Inquiry;
+use App\Models\Order;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,10 +42,21 @@ class IndexController extends Controller
         $banner = Banner::where('page', 'contact-us')->where('status', 'active')->first();
         return view('frontend.contact-us', compact('banner'));
     }
+
     public function paymentSuccess()
     {
-        return view('frontend.payment.success');
+        $orderNumber = session()->get('order_number');
+        $order = null;
+
+        if ($orderNumber) {
+            $order = Order::where('order_number', $orderNumber)
+                ->with('orderItems.tour')
+                ->first();
+        }
+
+        return view('frontend.payment.success', compact('order'));
     }
+    
     public function paymentFailed()
     {
         return view('frontend.payment.failed');
