@@ -127,7 +127,6 @@ class PrioTicketService
 
     public function buildReservationPayload($order, $orderItems, $passengerData)
     {
-        $rand = rand(110, 7120356789);
         $reservationDetails = [];
 
         // Get country name from country ID
@@ -137,12 +136,12 @@ class PrioTicketService
 
         foreach ($orderItems as $item) {
             $reservationDetails[] = [
-                'booking_external_reference' => 'ANDALEEBBER' . $rand . '-' . $item['tour_id'],
+                'booking_external_reference' => $order->order_number,
                 'booking_language' => 'en',
                 'product_availability_id' => $item['availability_id'],
                 'product_id' => (string) $item['product_id_prio'],
                 'product_type_details' => $item['product_type_details'],
-                'booking_reservation_reference' => 'ANDALEEBBRR' . $rand . '-' . $item['tour_id']
+                'booking_reservation_reference' => $order->order_number
             ];
         }
 
@@ -150,7 +149,7 @@ class PrioTicketService
             'data' => [
                 'reservation' => [
                     'reservation_distributor_id' => '49670',
-                    'reservation_external_reference' => 'ANDALEEBRER' . $rand,
+                    'reservation_external_reference' => $order->order_number,
                     'reservation_details' => $reservationDetails,
                     'reservation_contacts' => [
                         [

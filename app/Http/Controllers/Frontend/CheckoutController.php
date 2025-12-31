@@ -9,6 +9,7 @@ use App\Models\Tour;
 use App\Models\Country;
 use App\Models\UserCoupon;
 use App\Services\PrioTicketService;
+use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -88,12 +89,10 @@ class CheckoutController extends Controller
 
             DB::commit();
 
-            session()->forget('cart');
-            session()->put('order_number', $order->order_number);
+            $paymentService = new PaymentService();
+            $redirectUrl = $paymentService->getRedirectUrl($order, $request->payment_method);
 
-            return redirect()
-                ->route('frontend.payment.success')
-                ->with('notify_success', 'Order created successfully!');
+            return redirect($redirectUrl);
         } catch (\Exception $e) {
             DB::rollBack();
 
