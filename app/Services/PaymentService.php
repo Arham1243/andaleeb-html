@@ -54,7 +54,6 @@ class PaymentService
                     'redirectUrl' => route('frontend.payment.callback.payby', ['order' => $order->id])
                 ],
                 'reserved' => 'Andaleeb Travel Agency Order',
-                'notifyUrl' => route('frontend.payment.notify.payby'),
                 'accessoryContent' => [
                     'amountDetail' => [
                         'vatAmount' => $order->vat > 0 ? [

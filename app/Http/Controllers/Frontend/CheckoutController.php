@@ -467,100 +467,14 @@ class CheckoutController extends Controller
             ->with('error_message', $message);
     }
 
-    public function paybyNotify(Request $request)
-    {
-        Log::info('PayBy Notify Webhook', ['payload' => $request->all()]);
-
-        try {
-            $data = $request->all();
-            
-            if (!isset($data['bizContent']['merchantOrderNo'])) {
-                Log::error('PayBy Notify: Missing merchantOrderNo');
-                return response()->json(['status' => 'error', 'message' => 'Invalid payload'], 400);
-            }
-
-            $orderNumber = $data['bizContent']['merchantOrderNo'];
-            $order = Order::where('order_number', $orderNumber)->first();
-
-            if (!$order) {
-                Log::error('PayBy Notify: Order not found', ['order_number' => $orderNumber]);
-                return response()->json(['status' => 'error', 'message' => 'Order not found'], 404);
-            }
-
-            $paymentStatus = $data['bizContent']['status'] ?? null;
-
-            if ($paymentStatus === 'SUCCESS') {
-                $this->updateOrderPaymentStatus($order, 'paid', 'confirmed');
-                Log::info('PayBy Payment Success', ['order_id' => $order->id]);
-            } else {
-                $this->updateOrderPaymentStatus($order, 'failed', 'pending');
-                Log::warning('PayBy Payment Failed', [
-                    'order_id' => $order->id,
-                    'status' => $paymentStatus
-                ]);
-            }
-
-            return response()->json(['status' => 'success'], 200);
-
-        } catch (\Exception $e) {
-            Log::error('PayBy Notify Error', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
-        }
-    }
-
-    public function tabbyNotify(Request $request)
-    {
-        Log::info('Tabby Notify Webhook', ['payload' => $request->all()]);
-
-        try {
-            $data = $request->all();
-            
-            if (!isset($data['order_id'])) {
-                Log::error('Tabby Notify: Missing order_id');
-                return response()->json(['status' => 'error', 'message' => 'Invalid payload'], 400);
-            }
-
-            $orderNumber = $data['order_id'];
-            $order = Order::where('order_number', $orderNumber)->first();
-
-            if (!$order) {
-                Log::error('Tabby Notify: Order not found', ['order_number' => $orderNumber]);
-                return response()->json(['status' => 'error', 'message' => 'Order not found'], 404);
-            }
-
-            $paymentStatus = $data['status'] ?? null;
-
-            if ($paymentStatus === 'AUTHORIZED' || $paymentStatus === 'CLOSED') {
-                $this->updateOrderPaymentStatus($order, 'paid', 'confirmed');
-                Log::info('Tabby Payment Success', ['order_id' => $order->id]);
-            } else {
-                $this->updateOrderPaymentStatus($order, 'failed', 'pending');
-                Log::warning('Tabby Payment Failed', [
-                    'order_id' => $order->id,
-                    'status' => $paymentStatus
-                ]);
-            }
-
-            return response()->json(['status' => 'success'], 200);
-
-        } catch (\Exception $e) {
-            Log::error('Tabby Notify Error', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
-        }
-    }
-
     protected function updateOrderPaymentStatus(Order $order, string $paymentStatus, string $orderStatus)
     {
         $order->update([
             'payment_status' => $paymentStatus,
+            'status' => $orderStatus,
+        ]);
+        
+        $order->orderItems()->update([
             'status' => $orderStatus,
         ]);
     }

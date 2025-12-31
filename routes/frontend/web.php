@@ -70,9 +70,7 @@ Route::name('frontend.')->group(function () {
         Route::get('/success', [IndexController::class, 'paymentSuccess'])->name('success');
         Route::get('/failed', [IndexController::class, 'paymentFailed'])->name('failed');
         Route::get('/callback/payby', [CheckoutController::class, 'paybyCallback'])->name('callback.payby');
-        Route::post('/notify/payby', [CheckoutController::class, 'paybyNotify'])->name('notify.payby');
         Route::get('/callback/tabby', [CheckoutController::class, 'tabbyCallback'])->name('callback.tabby');
-        Route::post('/notify/tabby', [CheckoutController::class, 'tabbyNotify'])->name('notify.tabby');
     });
 
     Route::prefix('flights')->name('flights.')->group(function () {
