@@ -36,12 +36,65 @@ class PrioTicketService
         }
     }
 
+    public function fetchProduct(string $productId, string $accessToken): array
+    {
+        try {
+            $response = Http::withToken($accessToken)
+                ->acceptJson()
+                ->get($this->baseUrl . "/products/{$productId}");
+
+            if (! $response->successful()) {
+                Log::error('PrioTicket: Product fetch failed', [
+                    'product_id' => $productId,
+                    'status' => $response->status(),
+                    'body' => $response->body()
+                ]);
+
+                return [
+                    'success' => false,
+                    'error' => 'Product not found or unavailable'
+                ];
+            }
+
+            return [
+                'success' => true,
+                'data' => $response->json('data')
+            ];
+        } catch (\Exception $e) {
+            Log::error('PrioTicket: Exception fetching product', [
+                'product_id' => $productId,
+                'message' => $e->getMessage()
+            ]);
+
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function validateProductTypes(array $cartProductTypes, array $liveProductTypes): bool
+    {
+        foreach ($cartProductTypes as $cartType) {
+            $exists = collect($liveProductTypes)->contains(
+                fn($liveType) => $liveType['id'] === $cartType['id']
+            );
+
+            if (! $exists) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function createReservation($orderData, $accessToken)
     {
         try {
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $accessToken
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer ' . $accessToken,
             ])->post($this->baseUrl . '/reservations', $orderData);
 
             if ($response->successful()) {
@@ -87,7 +140,7 @@ class PrioTicketService
                 'booking_external_reference' => 'ANDALEEBBER' . $rand . '-' . $item['tour_id'],
                 'booking_language' => 'en',
                 'product_availability_id' => $item['availability_id'],
-                'product_id' => $item['product_id_prio'],
+                'product_id' => (string) $item['product_id_prio'],
                 'product_type_details' => $item['product_type_details'],
                 'booking_reservation_reference' => 'ANDALEEBBRR' . $rand . '-' . $item['tour_id']
             ];
@@ -110,9 +163,9 @@ class PrioTicketService
                             'contact_mobile' => $passengerData['phone'],
                             'contact_address' => [
                                 'name' => $passengerData['address'] ?? '',
-                                'city' => $passengerData['city'] ?? 'Dubai',
-                                'region' => $passengerData['region'] ?? 'Dubai',
-                                'postal_code' => $passengerData['postal_code'] ?? '00000',
+                                'city' => $passengerData['city'] ?? 'N/A',
+                                'region' => $passengerData['region'] ?? 'N/A',
+                                'postal_code' => $passengerData['postal_code'] ?? 'N/A',
                                 'country' => $countryName,
                                 'country_code' => $countryCode
                             ]

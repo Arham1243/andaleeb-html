@@ -52,7 +52,7 @@ class CheckoutController extends Controller
             'passenger.phone' => 'required|string|max:20',
             'passenger.country' => 'required|string|max:255',
             'passenger.address' => 'required|string|max:500',
-            'payment_method' => 'required|in:card,tabby',
+            'payment_method' => 'required|in:credit_debit,tabby',
         ]);
 
         $cartData = $this->getCartData();
@@ -67,8 +67,10 @@ class CheckoutController extends Controller
 
         // Validate coupon usage before creating order
         if (!empty($cartData['applied_coupons'])) {
-            $couponValidation = $this->validateCouponUsage($cartData['applied_coupons'], 
-            $request->passenger['email']);
+            $couponValidation = $this->validateCouponUsage(
+                $cartData['applied_coupons'],
+                $request->passenger['email']
+            );
             if (!$couponValidation['valid']) {
                 return redirect()
                     ->route('frontend.checkout.index')
@@ -195,13 +197,22 @@ class CheckoutController extends Controller
                 'status' => 'pending',
             ]);
 
+            $productTypeDetails = [];
+
+            foreach ($cartItem['pax'] as $pax) {
+                $productTypeDetails[] = [
+                    'product_type_id' => $pax['product_type_id'],
+                    'product_type_count' => $pax['qty'],
+                ];
+            }
+
             if (!empty($cartItem['product_id_prio']) && !empty($cartItem['availability_id'])) {
                 $prioTicketItems[] = [
                     'order_item_id' => $orderItem->id,
                     'tour_id' => $tour->id,
                     'product_id_prio' => $cartItem['product_id_prio'],
                     'availability_id' => $cartItem['availability_id'],
-                    'product_type_details' => $cartItem['product_type_details'] ?? [],
+                    'product_type_details' => $productTypeDetails,
                 ];
             }
         }
@@ -209,8 +220,11 @@ class CheckoutController extends Controller
         return $prioTicketItems;
     }
 
-    private function processPrioTicketReservation(Order $order, array $prioTicketItems, array $passengerData): void
-    {
+    private function processPrioTicketReservation(
+        Order $order,
+        array $prioTicketItems,
+        array $passengerData
+    ): void {
         if (empty($prioTicketItems)) {
             return;
         }
@@ -218,10 +232,40 @@ class CheckoutController extends Controller
         $prioService = new PrioTicketService();
         $accessToken = $prioService->getAccessToken();
 
-        if (!$accessToken) {
+        if (! $accessToken) {
+            Log::error('PrioTicket: Access token missing', [
+                'order_id' => $order->id
+            ]);
             return;
         }
 
+        // VALIDATE PRODUCTS
+        foreach ($prioTicketItems as $item) {
+            $productResponse = $prioService->fetchProduct(
+                $item['product_id_prio'],
+                $accessToken
+            );
+            $product = $productResponse['data']['product'] ?? null;
+
+            if (! $product) {
+                Log::error('PrioTicket: Product missing in response', [
+                    'order_id' => $order->id,
+                    'product_id' => $item['product_id_prio'],
+                ]);
+                return;
+            }
+
+            if (($product['product_status'] ?? null) !== 'ACTIVE') {
+                Log::error('PrioTicket: Product not active', [
+                    'order_id' => $order->id,
+                    'product_id' => $item['product_id_prio'],
+                    'status' => $product['product_status'] ?? null,
+                ]);
+                return;
+            }
+        }
+
+        // BUILD RESERVATION PAYLOAD
         $reservationPayload = $prioService->buildReservationPayload(
             $order,
             $prioTicketItems,
@@ -232,20 +276,33 @@ class CheckoutController extends Controller
                 'phone' => $passengerData['phone'],
                 'address' => $passengerData['address'],
                 'country_code' => $passengerData['country'],
+                'city' => $passengerData['city'] ?? null,
+                'region' => $passengerData['region'] ?? null,
+                'postal_code' => $passengerData['postal_code'] ?? null,
             ]
         );
 
-        $reservationResponse = $prioService->createReservation($reservationPayload, $accessToken);
+        // CREATE RESERVATION
+        $reservationResponse = $prioService->createReservation(
+            $reservationPayload,
+            $accessToken
+        );
 
         if ($reservationResponse['success']) {
-            $this->updateOrderWithReservation($order, $reservationResponse, $prioTicketItems);
-        } else {
-            Log::error('PrioTicket reservation failed', [
-                'order_id' => $order->id,
-                'error' => $reservationResponse['error']
-            ]);
+            $this->updateOrderWithReservation(
+                $order,
+                $reservationResponse,
+                $prioTicketItems
+            );
+            return;
         }
+
+        Log::error('PrioTicket reservation failed', [
+            'order_id' => $order->id,
+            'error' => $reservationResponse['error']
+        ]);
     }
+
 
     private function updateOrderWithReservation(Order $order, array $reservationResponse, array $prioTicketItems): void
     {
@@ -254,18 +311,25 @@ class CheckoutController extends Controller
             'reservation_data' => json_encode($reservationResponse['data']),
         ]);
 
+        $allConfirmed = true;
+
         if (isset($reservationResponse['data']['data']['reservation']['reservation_details'])) {
             foreach ($reservationResponse['data']['data']['reservation']['reservation_details'] as $index => $detail) {
+                $status = isset($prioTicketItems[$index]) ? 'confirmed' : 'failed';
+                if ($status === 'failed') $allConfirmed = false;
                 if (isset($prioTicketItems[$index])) {
                     OrderItem::where('id', $prioTicketItems[$index]['order_item_id'])
                         ->update([
-                            'booking_reference' => $detail['booking_reference'] ?? null,
+                            'booking_reference' => $detail['booking_reservation_reference'] ?? null,
                             'reservation_response' => json_encode($detail),
                             'status' => 'confirmed',
                         ]);
                 }
             }
         }
+        $order->update([
+            'status' => $allConfirmed ? 'confirmed' : 'partial',
+        ]);
     }
 
     private function validateCouponUsage(array $appliedCoupons, string $email): array

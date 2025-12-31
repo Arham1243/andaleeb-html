@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('tours', function (Blueprint $table) {
             $table->dropColumn('distributer_id');
-            $table->unsignedBigInteger('tour_pid')->after('id');
+            $table->unsignedBigInteger('product_id_prio')->after('id');
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tours', function (Blueprint $table) {
-            $table->dropColumn('tour_pid');
+            $table->dropColumn('product_id_prio');
             $table->unsignedBigInteger('distributer_id')->nullable();
         });
     }

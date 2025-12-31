@@ -71,6 +71,7 @@ class CartController extends Controller
 
         $cartData['tours'][$tour->id] = [
             'tour_id' => $tour->id,
+            'product_id_prio' => $tour->product_id_prio,
             'slug' => $tour->slug,
             'name' => $tour->name,
             'date' => $bookingDate,

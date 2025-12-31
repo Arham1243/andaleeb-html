@@ -65,7 +65,7 @@ class TourSyncService
                 ],
                 [
                     'distributer_name' => 'Prio Ticket',
-                    'tour_pid' => $item['product_id'],
+                    'product_id_prio' => $item['product_id'],
 
                     'type' => data_get($season, 'product_type_price_type'),
                     'name' => data_get($item, 'product_content.product_title'),
