@@ -43,20 +43,15 @@ class IndexController extends Controller
         return view('frontend.contact-us', compact('banner'));
     }
 
-    public function paymentSuccess()
+    public function paymentSuccess(Request $request)
     {
-        $orderNumber = session()->get('order_number');
-        $order = null;
-
-        if ($orderNumber) {
-            $order = Order::where('order_number', $orderNumber)
-                ->with('orderItems.tour')
-                ->first();
-        }
+        $order = Order::where('id', $request->order)
+            ->with('orderItems.tour')
+            ->firstOrFail();
 
         return view('frontend.payment.success', compact('order'));
     }
-    
+
     public function paymentFailed()
     {
         return view('frontend.payment.failed');

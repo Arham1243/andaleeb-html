@@ -27,26 +27,6 @@
                                     <span class="text-muted">Order Number</span>
                                     <span class="fw-medium">{{ $order->order_number }}</span>
                                 </div>
-                                <div class="detail-row">
-                                    <span class="text-muted">Date</span>
-                                    <span class="fw-medium">{{ $order->created_at->format('M d, Y') }}</span>
-                                </div>
-                                <div class="detail-row">
-                                    <span class="text-muted">Payment Method</span>
-                                    <span class="fw-medium">{{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</span>
-                                </div>
-                                @if($order->orderItems && $order->orderItems->count() > 0)
-                                    <div class="detail-row">
-                                        <span class="text-muted">Tours Booked</span>
-                                        <span class="fw-medium">{{ $order->orderItems->count() }}</span>
-                                    </div>
-                                @endif
-                                @if(!empty($order->applied_coupons))
-                                    <div class="detail-row">
-                                        <span class="text-muted">Discount Applied</span>
-                                        <span class="fw-medium text-success">-{{ formatPrice($order->discount) }}</span>
-                                    </div>
-                                @endif
                                 <div class="detail-row total">
                                     <span>Amount Paid</span>
                                     <span>{{ formatPrice($order->total) }}</span>

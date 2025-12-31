@@ -51,7 +51,7 @@ class PaymentService
                 ],
                 'paySceneCode' => 'PAYPAGE',
                 'paySceneParams' => [
-                    'redirectUrl' => route('frontend.payment.callback.payby', ['order' => $order->id])
+                    'redirectUrl' => route('frontend.payment.success', ['order' => $order->id])
                 ],
                 'reserved' => 'Andaleeb Travel Agency Order',
                 'accessoryContent' => [
@@ -225,7 +225,7 @@ class PaymentService
             'lang' => 'en',
             'merchant_code' => $merchantCode,
             'merchant_urls' => [
-                'success' => route('frontend.payment.callback.tabby', ['order' => $order->id]),
+                'success' => route('frontend.payment.success', ['order' => $order->id]),
                 'cancel' => route('frontend.payment.failed'),
                 'failure' => route('frontend.payment.failed')
             ]
