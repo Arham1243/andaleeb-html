@@ -5,10 +5,19 @@
 <div class="sidebar">
     <a href="{{ route('admin.dashboard') }}" class="sidebar-header">
         <div class="sidebar-header__icon">
-            <img src='{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}' alt='logo' class="imgFluid">
+            <img src='{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}'
+                alt='logo' class="imgFluid">
         </div>
     </a>
     <ul class="sidebar-nav">
+        <li class="">
+            <a href="{{ url('/') }}" target="_blank">
+                <div class="info">
+                    <i class="bx bx-globe"></i>
+                    Website
+                </div>
+            </a>
+        </li>
         @foreach ($menuItems as $item)
             @php
                 $isItemActive = Request::url() === ($item['route'] ?? '');

@@ -10,6 +10,11 @@ $menu = [
         'icon' => 'bx bxs-home',
         'route' => route('user.dashboard'),
     ],
+    [
+        'title' => 'My Orders',
+        'icon' => 'bx bxs-shopping-bag',
+        'route' => route('user.orders.index'),
+    ],
 ];
 
 if ($user && $user->auth_provider !== 'google') {

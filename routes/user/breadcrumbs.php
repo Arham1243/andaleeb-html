@@ -11,3 +11,13 @@ Breadcrumbs::for('user.profile.changePassword', function (BreadcrumbTrail $trail
     $trail->parent('user.dashboard');
     $trail->push('Change Password', route('user.profile.changePassword'));
 });
+
+Breadcrumbs::for('user.orders.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('My Orders', route('user.orders.index'));
+});
+
+Breadcrumbs::for('user.orders.show', function (BreadcrumbTrail $trail, $order) {
+    $trail->parent('user.orders.index');
+    $trail->push('Order ' . $order->order_number, route('user.orders.show', $order->id));
+});
