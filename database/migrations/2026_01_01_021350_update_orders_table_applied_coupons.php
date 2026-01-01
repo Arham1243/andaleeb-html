@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             // Drop old columns
-            $table->dropForeign(['coupon_id']);
             $table->dropColumn(['coupon_id', 'coupon_code', 'coupon_discount']);
 
             // Add new JSON column
