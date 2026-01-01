@@ -20,12 +20,18 @@ return new class extends Migration
                 $table->text('payment_response')->nullable()->after('payment_status');
             }
         });
-        
+
         // Remove old coupon columns if they exist (replaced by applied_coupons JSON)
         if (Schema::hasColumn('orders', 'coupon_id')) {
             Schema::table('orders', function (Blueprint $table) {
-                $table->dropForeign(['coupon_id']); 
+                // Drop foreign key first
+                $table->dropForeign(['coupon_id']);
+
+                // Now drop columns
                 $table->dropColumn(['coupon_id', 'coupon_code', 'coupon_discount']);
+
+                // Optional: add JSON column to store multiple applied coupons
+                $table->json('applied_coupons')->nullable()->after('total');
             });
         }
     }
@@ -37,7 +43,7 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn(['applied_coupons', 'payment_response']);
-            
+
             // Restore old coupon columns
             $table->foreignId('coupon_id')->nullable()->constrained('coupons')->onDelete('set null');
             $table->string('coupon_code')->nullable();
