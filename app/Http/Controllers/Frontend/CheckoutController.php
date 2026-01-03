@@ -474,6 +474,7 @@ class CheckoutController extends Controller
                     }
 
                     return $this->handlePaymentFailure(
+                        $order,
                         'PayBy Payment Verification Failed',
                         'We could not verify your PayBy payment.',
                         $result['error']
@@ -487,6 +488,7 @@ class CheckoutController extends Controller
                     }
 
                     return $this->handlePaymentFailure(
+                        $order,
                         'Tabby Payment Verification Failed',
                         'We could not verify your Tabby payment.',
                         $result['error']
@@ -504,10 +506,12 @@ class CheckoutController extends Controller
                 'trace' => $e->getTraceAsString()
             ]);
 
-            return redirect()->route('frontend.payment.failed')
-                ->with('error_title', 'Payment Verification Failed')
-                ->with('error_description', 'We could not verify your payment at this time.')
-                ->with('error_message', $e->getMessage());
+            return $this->handlePaymentFailure(
+                $order ?? null,
+                'Payment Verification Failed',
+                'We could not verify your payment at this time.',
+                $e->getMessage()
+            );
         }
     }
 
@@ -530,14 +534,33 @@ class CheckoutController extends Controller
         return view('frontend.payment.success', compact('order'));
     }
 
-    protected function handlePaymentFailure(string $title, string $description, string $message)
+    protected function handlePaymentFailure(?Order $order, string $title, string $description, string $message)
     {
+        if ($order) {
+            $order->update([
+                'payment_status' => 'failed',
+                'status' => 'failed',
+                'payment_response' => json_encode([
+                    'error_message' => $message,
+                    'error_description' => $description,
+                    'error_title' => $title,
+                    'updated_at' => now()
+                ])
+            ]);
+
+            // Update order items as failed
+            $order->orderItems()->update([
+                'status' => 'failed'
+            ]);
+        }
+
         return redirect()
             ->route('frontend.payment.failed')
             ->with('error_title', $title)
             ->with('error_description', $description)
             ->with('error_message', $message);
     }
+
 
     protected function processPrioTicketOrder(Order $order)
     {
