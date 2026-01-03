@@ -11,7 +11,7 @@ class PaymentService
     public $tabbyApiKey = 'pk_03168c56-d196-4e58-a72a-48dbebb88b87';
     public $tabbyMerchantCode = 'ATA';
     public $tabbyApiUrl = 'https://api.tabby.ai/api/v2';
-    
+
     public $paybyPartnerId = '200009116289';
     public $paybyApiUrl = 'https://api.payby.com/sgs/api/acquire2';
     public $paybyPrivateKey = 'admin/assets/files/payby-private-key.pem';
@@ -55,7 +55,8 @@ class PaymentService
                 ],
                 'paySceneCode' => 'PAYPAGE',
                 'paySceneParams' => [
-                    'redirectUrl' => route('frontend.payment.success', ['order' => $order->id])
+                    'redirectUrl' => route('frontend.payment.success', ['order' => $order->id]),
+                    'backUrl' => route('frontend.payment.failed', ['order' => $order->id])
                 ],
                 'reserved' => 'Andaleeb Travel Agency Order',
                 'accessoryContent' => [
@@ -252,13 +253,13 @@ class PaymentService
                 $order->update([
                     'tabby_payment_id' => $responseData['payment']['id']
                 ]);
-                
+
                 Log::info('Tabby payment ID saved', [
                     'order_id' => $order->id,
                     'payment_id' => $responseData['payment']['id']
                 ]);
             }
-            
+
             return $responseData['configuration']['available_products']['installments'][0]['web_url'];
         }
 
@@ -318,7 +319,6 @@ class PaymentService
             }
 
             throw new \Exception('PayBy payment not settled. Status: ' . ($responseData['body']['acquireOrder']['status'] ?? 'Unknown'));
-
         } catch (\Exception $e) {
             Log::error('PayBy Verification Error', [
                 'order_id' => $order->id,
@@ -361,7 +361,6 @@ class PaymentService
             }
 
             throw new \Exception('Tabby payment not captured. Status: ' . ($data['status'] ?? 'Unknown'));
-
         } catch (\Exception $e) {
             Log::error('Tabby Verification Error', [
                 'order_id' => $order->id,
