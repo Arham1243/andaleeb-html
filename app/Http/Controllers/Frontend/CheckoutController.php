@@ -77,6 +77,7 @@ class CheckoutController extends Controller
 
         $availabilityCheck = $this->validateCartAvailability($cartData);
         if (! $availabilityCheck['valid']) {
+            session()->forget('cart');
             return redirect()
                 ->route('frontend.cart.index')
                 ->with('notify_error', $availabilityCheck['message']);
@@ -106,12 +107,12 @@ class CheckoutController extends Controller
             $this->trackCouponUsage($order, $request->passenger['email']);
 
             DB::commit();
-            
+
             $this->sendOrderCreatedEmails($order);
-            
+
             $paymentService = new PaymentService();
             $redirectUrl = $paymentService->getRedirectUrl($order, $request->payment_method);
-            
+
             return redirect($redirectUrl);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -585,17 +586,17 @@ class CheckoutController extends Controller
     {
         try {
             $order->load('orderItems');
-            
+
             Mail::send('emails.order-created-admin', ['order' => $order], function ($message) use ($order) {
                 $message->to($this->adminEmail)
                     ->subject('New Order Received - ' . $order->order_number);
             });
-            
+
             Mail::send('emails.order-created-user', ['order' => $order], function ($message) use ($order) {
                 $message->to($order->passenger_email)
                     ->subject('Order Received - ' . $order->order_number);
             });
-            
+
             Log::info('Order created emails sent successfully', [
                 'order_id' => $order->id,
                 'order_number' => $order->order_number
