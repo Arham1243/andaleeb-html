@@ -398,24 +398,30 @@ const popupClose = document.querySelector("[data-popup-close]");
 const popupTriggers = document.querySelectorAll("[data-popup-trigger]");
 
 popupTriggers?.forEach((el) => {
-    el.addEventListener("click", () => {
+    el.addEventListener("click", (e) => {
         const title = el.dataset.popupTitle;
         const popupId = el.dataset.popupId;
         const htmlContent = document.getElementById(popupId)?.innerHTML || "";
-
+        
         popupWrapper.querySelector("[data-popup-title]").innerHTML = title;
         popupWrapper.querySelector("[data-popup-text]").innerHTML = htmlContent;
         popupWrapper.classList.add("open");
     });
 });
 
-popupClose?.addEventListener("click", () => {
+function closePopup() {
     popupWrapper.classList.remove("open");
-});
+    // reset all triggers to original text
+    popupTriggers.forEach((el, idx) => {
+        el.innerHTML = 'More Benefits <i class="bx bx-chevron-right"></i>';
+    });
+}
+
+popupClose?.addEventListener("click", closePopup);
 
 popupWrapper?.addEventListener("click", function (e) {
     if (e.target === popupWrapper) {
-        popupWrapper.classList.remove("open");
+        closePopup();
     }
 });
 /* Global popup */

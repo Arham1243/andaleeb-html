@@ -16,108 +16,190 @@
             </div>
         </div>
     </section>
+    @if (isset($data) && !empty($data['available_plans']))
+        <section class="section-plans mar-y">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <h4 class="fw-bold mb-1">Available Insurance Plans</h4>
+                            <p class="text-muted small">Choose the coverage that suits you best.</p>
+                        </div>
+                    </div>
+                </div>
 
-    <section class="section-plans mar-y">
-        <div class="container">
+                <form action="{{ route('frontend.travel-insurance.details') }}" method="GET">
+                    @php
+                        $availablePlans = $data['available_plans'];
+                        usort($availablePlans, function ($a, $b) {
+                            $finalA = $a['TotalPremiumAmount'] * 1.3;
+                            $finalB = $b['TotalPremiumAmount'] * 1.3;
+                            return $finalA <=> $finalB;
+                        });
+                    @endphp
 
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="text-center">
-                        <h4 class="fw-bold mb-1">Select Insurance Plan</h4>
-                        <p class="text-muted small">Choose the coverage that suits you best.</p>
+                    <div class="row justify-content-center">
+                        <input type="hidden" name="origin" value="{{ request('origin') }}">
+                        <input type="hidden" name="destination" value="{{ request('destination') }}">
+                        <input type="hidden" name="start_date" value="{{ request('start_date') }}">
+                        <input type="hidden" name="return_date" value="{{ request('return_date') }}">
+                        <input type="hidden" name="adult_count" value="{{ request('adult_count') }}">
+                        <input type="hidden" name="children_count" value="{{ request('children_count') }}">
+                        <input type="hidden" name="infant_count" value="{{ request('infant_count') }}">
+                        <input type="hidden" name="residence_country" value="{{ request('residence_country') }}">
+                        @if (request('adult_ages'))
+                            @foreach (request('adult_ages') as $age)
+                                <input type="hidden" name="adult_ages[]" value="{{ $age }}">
+                            @endforeach
+                        @endif
+
+                        @if (request('children_ages'))
+                            @foreach (request('children_ages') as $age)
+                                <input type="hidden" name="children_ages[]" value="{{ $age }}">
+                            @endforeach
+                        @endif
+
+                        <div class="col-md-8">
+                            <div class="plans-list-wrapper">
+                                @foreach ($availablePlans as $index => $plan)
+                                    @php
+                                        $planTitle = html_entity_decode($plan['PlanTitle'] ?? '');
+                                        $planContent = html_entity_decode($plan['PlanContent'] ?? '');
+                                        $finalPrice = $plan['TotalPremiumAmount'] + $plan['TotalPremiumAmount'] * 0.3;
+                                        $currencyCode = $plan['CurrencyCode'] ?? 'AED';
+                                    @endphp
+
+                                    <label class="plan-card-item">
+                                        <input type="radio" name="plan"
+                                            value="{{ $plan['PlanCode'] }}~{{ $plan['SSRFeeCode'] }}"
+                                            class="plan-radio-input" {{ $index === 0 ? 'checked' : '' }} required>
+                                        <div class="plan-card-inner">
+                                            <div class="plan-info">
+                                                <h6 class="plan-title">{{ $planTitle }}</h6>
+                                                <a href="javascript:void(0)" data-popup-trigger
+                                                    data-popup-title="{{ $planTitle }}"
+                                                    data-popup-id="popup-{{ $index }}" class="plan-link">More Benefits <i class="bx bx-chevron-right"></i></a>
+                                                <div id="popup-{{ $index }}" class="d-none">
+                                                    {!! $planContent !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="plan-cost">
+                                                <div class="price-tag">{{ number_format($finalPrice, 2) }}
+                                                    <small>{{ $currencyCode }}</small>
+                                                </div>
+                                                <span class="tax-note">Including Tax</span>
+                                            </div>
+
+                                            <div class="plan-check-icon">
+                                                <i class='bx bx-check'></i>
+                                            </div>
+                                        </div>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!empty($data['available_upsell_plans']))
+                        <div class="row mb-4 mt-5">
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <h4 class="fw-bold mb-1">Other Plans</h4>
+                                    <p class="text-muted small">Additional coverage options available.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        @php
+                            $upsellPlans = $data['available_upsell_plans'];
+                            usort($upsellPlans, function ($a, $b) {
+                                $finalA = $a['UpsellPlans']['UpsellPlan']['TotalPremiumAmount'] * 1.3;
+                                $finalB = $b['UpsellPlans']['UpsellPlan']['TotalPremiumAmount'] * 1.3;
+                                return $finalA <=> $finalB;
+                            });
+
+                            $excludedPlans = ['Travel Visit Assurance (Covid Plus)', 'Travel Assurance (Covid Plus)'];
+                        @endphp
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="plans-list-wrapper">
+                                    @foreach ($upsellPlans as $index => $upsellGroup)
+                                        @php
+                                            $plan = $upsellGroup['UpsellPlans']['UpsellPlan'];
+                                            $planType = $plan['PlanType'] ?? '';
+
+                                            if (in_array($planType, $excludedPlans)) {
+                                                continue;
+                                            }
+
+                                            $planTitle = html_entity_decode($plan['PlanTitle'] ?? '');
+                                            $planContent = html_entity_decode($plan['PlanContent'] ?? '');
+                                            $finalPrice =
+                                                $plan['TotalPremiumAmount'] + $plan['TotalPremiumAmount'] * 0.3;
+                                            $currencyCode = $plan['CurrencyCode'] ?? 'AED';
+                                            $upsellIndex = 'upsell-' . $index;
+                                        @endphp
+
+                                        <label class="plan-card-item">
+                                            <input type="radio" name="plan"
+                                                value="{{ $plan['PlanCode'] }}~{{ $plan['SSRFeeCode'] }}"
+                                                class="plan-radio-input" required>
+
+                                            <div class="plan-card-inner">
+                                                <div class="plan-info">
+                                                    <h6 class="plan-title">{{ $planTitle }}</h6>
+                                                    <a href="javascript:void(0)" data-popup-trigger
+                                                        data-popup-title="{{ $planTitle }}"
+                                                        data-popup-id="popup-{{ $upsellIndex }}" class="plan-link">More Benefits <i class="bx bx-chevron-right"></i></a>
+                                                    <div id="popup-{{ $upsellIndex }}" class="d-none">
+                                                        {!! $planContent !!}
+                                                    </div>
+                                                </div>
+
+                                                <div class="plan-cost">
+                                                    <div class="price-tag">{{ number_format($finalPrice, 2) }}
+                                                        <small>{{ $currencyCode }}</small>
+                                                    </div>
+                                                    <span class="tax-note">Including Tax</span>
+                                                </div>
+
+                                                <div class="plan-check-icon">
+                                                    <i class='bx bx-check'></i>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-md-8 text-center">
+                            <button type="submit" class="btn-primary-custom">
+                                Continue <i class='bx bx-right-arrow-alt'></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    @else
+        <section class="section-plans mar-y">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <h4 class="fw-bold mb-1">Select Insurance Plan</h4>
+                            <p class="text-muted small">Please fill in the search form above to view available plans.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="plans-list-wrapper">
-
-                        <label class="plan-card-item">
-                            <input type="radio" name="insurance_plan" class="plan-radio-input">
-                            <div class="plan-card-inner">
-
-                                <div class="plan-info">
-                                    <h6 class="plan-title">Travel Assurance - Silver Plan</h6>
-                                    <a href="javascript:void(0)" data-popup-trigger
-                                        data-popup-title="Travel Assurance - Silver Plan" data-popup-id="popup-1"
-                                        class="plan-link">More Benefits <i class="bx bx-chevron-right"></i></a>
-                                    <div id="popup-1" class="d-none">Travel Assurance - Silver Plan
-                                    </div>
-                                </div>
-
-
-                                <div class="plan-cost">
-                                    <div class="price-tag">85.00 <small>AED</small></div>
-                                    <span class="tax-note">Including Tax</span>
-                                </div>
-
-
-                                <div class="plan-check-icon">
-                                    <i class='bx bx-check'></i>
-                                </div>
-                            </div>
-                        </label>
-
-
-                        <label class="plan-card-item">
-                            <input type="radio" name="insurance_plan" class="plan-radio-input" checked>
-                            <div class="plan-card-inner">
-
-                                <div class="plan-info">
-                                    <h6 class="plan-title">Travel Assurance - Gold Covid Plus Plan</h6>
-                                    <a href="javascript:void(0)" data-popup-trigger
-                                        data-popup-title="Travel Assurance - Gold Covid Plus Plan" data-popup-id="popup-2"
-                                        class="plan-link">More Benefits <i class="bx bx-chevron-right"></i></a>
-                                    <div id="popup-2" class="d-none">Travel Assurance - Gold Covid Plus Plan
-                                    </div>
-                                </div>
-
-
-                                <div class="plan-cost">
-                                    <div class="price-tag">119.35 <small>AED</small></div>
-                                    <span class="tax-note">Including Tax</span>
-                                </div>
-
-
-                                <div class="plan-check-icon">
-                                    <i class='bx bx-check'></i>
-                                </div>
-                            </div>
-                        </label>
-
-
-                        <label class="plan-card-item">
-                            <input type="radio" name="insurance_plan" class="plan-radio-input">
-                            <div class="plan-card-inner">
-
-                                <div class="plan-info">
-                                    <h6 class="plan-title">Travel Assurance - Platinum Shield</h6>
-                                    <a href="javascript:void(0)" data-popup-trigger
-                                        data-popup-title="Travel Assurance - Platinum Shield" data-popup-id="popup-3"
-                                        class="plan-link">More Benefits <i class="bx bx-chevron-right"></i></a>
-                                    <div id="popup-3" class="d-none">Travel Assurance - Platinum Shield
-                                    </div>
-                                </div>
-
-
-                                <div class="plan-cost">
-                                    <div class="price-tag">155.00 <small>AED</small></div>
-                                    <span class="tax-note">Including Tax</span>
-                                </div>
-
-                                <div class="plan-check-icon">
-                                    <i class='bx bx-check'></i>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                    <a href="{{ route('frontend.travel-insurance.details') }}" class="btn-primary-custom"> Continue <i
-                            class='bx bx-right-arrow-alt'></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
 
     <div class="custom-popup-wrapper" data-popup-wrapper="">
