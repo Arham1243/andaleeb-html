@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\Auth\PasswordResetController;
 use App\Http\Controllers\User\UserDashController;
 use App\Http\Controllers\User\ProfileSettingsController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\TravelInsuranceController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->name('auth.')->middleware('user_guest')->group(function () {
@@ -33,6 +34,12 @@ Route::middleware(['auth', 'check_user_status'])->prefix('user')->name('user.')-
     Route::delete('/orders/destroy/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('/orders/pay-again/{id}', [OrderController::class, 'payAgain'])->name('orders.pay-again');
     Route::post('/orders/pay-again/{id}', [OrderController::class, 'proceedPayAgain'])->name('orders.pay-again.proceed');
+
+    // Travel Insurance
+    Route::get('/travel-insurances', [TravelInsuranceController::class, 'index'])->name('travel-insurances.index');
+    Route::get('/travel-insurances/{id}', [TravelInsuranceController::class, 'show'])->name('travel-insurances.show');
+    Route::get('/travel-insurances/pay-again/{id}', [TravelInsuranceController::class, 'payAgain'])->name('travel-insurances.pay-again');
+    Route::post('/travel-insurances/pay-again/{id}', [TravelInsuranceController::class, 'proceedPayAgain'])->name('travel-insurances.pay-again.proceed');
 
     Route::get('profile/change/password', [ProfileSettingsController::class, 'changePassword'])->name('profile.changePassword');
     Route::post('profile/change/password/update', [ProfileSettingsController::class, 'updatePassword'])->name('profile.updatePassword');

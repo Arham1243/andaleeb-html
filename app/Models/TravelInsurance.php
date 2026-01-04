@@ -10,6 +10,7 @@ class TravelInsurance extends Model
         'insurance_number',
         'plan_title',
         'plan_code',
+        'user_id',
         'ssr_fee_code',
         'channel',
         'pnr',

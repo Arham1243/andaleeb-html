@@ -26,3 +26,18 @@ Breadcrumbs::for('user.orders.pay-again', function (BreadcrumbTrail $trail, $ord
     $trail->parent('user.orders.show', $order);
     $trail->push('Pay Now', route('user.orders.pay-again', $order->id));
 });
+
+Breadcrumbs::for('user.travel-insurances.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('My Travel Insurance', route('user.travel-insurances.index'));
+});
+
+Breadcrumbs::for('user.travel-insurances.show', function (BreadcrumbTrail $trail, $insurance) {
+    $trail->parent('user.travel-insurances.index');
+    $trail->push($insurance->insurance_number, route('user.travel-insurances.show', $insurance->id));
+});
+
+Breadcrumbs::for('user.travel-insurances.pay-again', function (BreadcrumbTrail $trail, $insurance) {
+    $trail->parent('user.travel-insurances.show', $insurance);
+    $trail->push('Pay Now', route('user.travel-insurances.pay-again', $insurance->id));
+});

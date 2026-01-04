@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\TravelInsurance;
+use App\Models\TravelInsurancePassenger;
 use App\Services\TravelInsuranceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

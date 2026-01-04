@@ -15,6 +15,11 @@ $menu = [
         'icon' => 'bx bxs-shopping-bag',
         'route' => route('user.orders.index'),
     ],
+    [
+        'title' => 'My Insurance',
+        'icon' => 'bx bxs-shield',
+        'route' => route('user.travel-insurances.index'),
+    ],
 ];
 
 if ($user && $user->auth_provider !== 'google') {
