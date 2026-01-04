@@ -33,6 +33,9 @@ Route::name('frontend.')->group(function () {
     Route::prefix('travel-insurance')->name('travel-insurance.')->group(function () {
         Route::get('/', [TravelInsuranceController::class, 'index'])->name('index');
         Route::get('/details', [TravelInsuranceController::class, 'details'])->name('details');
+        Route::post('/payment/process', [TravelInsuranceController::class, 'processPayment'])->name('payment.process');
+        Route::get('/payment/success/{insurance}', [TravelInsuranceController::class, 'paymentSuccess'])->name('payment.success');
+        Route::get('/payment/failed', [TravelInsuranceController::class, 'paymentFailed'])->name('payment.failed');
     });
 
     Route::prefix('cart')->name('cart.')->group(function () {
