@@ -631,4 +631,275 @@ class TravelInsuranceService
             ];
         }
     }
+
+    /**
+     * Confirm Purchase with Insurance API after successful payment
+     */
+    public function confirmPurchase(TravelInsurance $insurance): array
+    {
+        try {
+            $requestData = json_decode($insurance->request_data, true);
+            
+            $residenceCountry = Country::where('iso_code', $requestData['residence_country'])->first();
+            $originCountry = Country::where('name', 'LIKE', '%' . $requestData['origin'] . '%')->first();
+            $destinationCountry = Country::where('name', 'LIKE', '%' . $requestData['destination'] . '%')->first();
+
+            $channel = 'IBE_ADDAE';
+            $currency = 'AED';
+            $cultureCode = 'EN';
+            $totalAdults = (int)($requestData['adult_count'] ?? 0);
+            $totalChild = (int)($requestData['children_count'] ?? 0);
+            $totalInfants = (int)($requestData['infant_count'] ?? 0);
+            $purchaseDate = $insurance->purchase_date->format('Y-m-d');
+            $pnr = $insurance->pnr;
+            $paymentMethod = 'Tap Pay';
+            $paymentReference = $insurance->payment_reference;
+
+            $departCountryCode = $originCountry->sb_iso_code ?? '';
+            $departStationCode = '';
+            $arrivalCountryCode = $destinationCountry->sb_iso_code ?? '';
+            $arrivalStationCode = '';
+            $departDateTime = date('Y-m-d', strtotime($requestData['start_date']));
+            $returnDateTime = date('Y-m-d', strtotime($requestData['return_date']));
+
+            $selectedPlanCode = $requestData['plan_code'] ?? '';
+            $selectedSSRFeeCode = $requestData['ssr_fee_code'] ?? '';
+            $totalPremium = $insurance->total_premium;
+
+            // Build passengers XML
+            $passengersXml = '';
+            $passengerCount = $totalAdults + $totalChild + $totalInfants;
+            $passengerPremiumAmount = $passengerCount > 0 ? ($totalPremium / $passengerCount) : 0;
+
+            // Add Adults
+            if (isset($requestData['adult']) && is_array($requestData['adult'])) {
+                for ($i = 0; $i < $totalAdults; $i++) {
+                    $dob = new DateTime($requestData['adult']['dob'][$i] ?? 'now');
+                    $now = new DateTime();
+                    $age = $now->diff($dob)->y;
+
+                    $nationalityCountry = Country::where('iso_code', $requestData['adult']['nationality'][$i] ?? '')->first();
+                    $residenceCountryPassenger = Country::where('iso_code', $requestData['adult']['country_of_residence'][$i] ?? '')->first();
+
+                    $passengersXml .= '<web:Passenger>
+                        <web:IsInfant>0</web:IsInfant>
+                        <web:FirstName>' . htmlspecialchars($requestData['adult']['fname'][$i] ?? '') . '</web:FirstName>
+                        <web:LastName>' . htmlspecialchars($requestData['adult']['lname'][$i] ?? '') . '</web:LastName>
+                        <web:Gender>' . htmlspecialchars($requestData['adult']['gender'][$i] ?? '') . '</web:Gender>
+                        <web:DOB>' . htmlspecialchars($requestData['adult']['dob'][$i] ?? '') . '</web:DOB>
+                        <web:Age>' . $age . '</web:Age>
+                        <web:IdentityType>Passport</web:IdentityType>
+                        <web:IdentityNo>' . htmlspecialchars($requestData['adult']['passport'][$i] ?? '') . '</web:IdentityNo>
+                        <web:IsQualified>1</web:IsQualified>
+                        <web:Nationality>' . ($nationalityCountry->sb_iso_code ?? '') . '</web:Nationality>
+                        <web:CountryOfResidence>' . ($residenceCountryPassenger->sb_iso_code ?? '') . '</web:CountryOfResidence>
+                        <web:SelectedPlanCode>' . htmlspecialchars($selectedPlanCode) . '</web:SelectedPlanCode>
+                        <web:SelectedSSRFeeCode>' . htmlspecialchars($selectedSSRFeeCode) . '</web:SelectedSSRFeeCode>
+                        <web:CurrencyCode>' . $currency . '</web:CurrencyCode>
+                        <web:PassengerPremiumAmount>' . number_format($passengerPremiumAmount, 2, '.', '') . '</web:PassengerPremiumAmount>
+                        <web:EmailAddress></web:EmailAddress>
+                        <web:PhoneNumber></web:PhoneNumber>
+                        <web:Address></web:Address>
+                        <web:ExtraInfo><web:Item><web:ItemID></web:ItemID><web:ItemKeyName></web:ItemKeyName><web:ItemDesc></web:ItemDesc></web:Item></web:ExtraInfo>
+                        <web:PassportIssueDate></web:PassportIssueDate>
+                        <web:PassportExpiryDate></web:PassportExpiryDate>
+                    </web:Passenger>';
+                }
+            }
+
+            // Add Children
+            if (isset($requestData['child']) && is_array($requestData['child'])) {
+                for ($i = 0; $i < $totalChild; $i++) {
+                    $dob = new DateTime($requestData['child']['dob'][$i] ?? 'now');
+                    $now = new DateTime();
+                    $age = $now->diff($dob)->y;
+
+                    $nationalityCountry = Country::where('iso_code', $requestData['child']['nationality'][$i] ?? '')->first();
+                    $residenceCountryPassenger = Country::where('iso_code', $requestData['child']['country_of_residence'][$i] ?? '')->first();
+
+                    $passengersXml .= '<web:Passenger>
+                        <web:IsInfant>0</web:IsInfant>
+                        <web:FirstName>' . htmlspecialchars($requestData['child']['fname'][$i] ?? '') . '</web:FirstName>
+                        <web:LastName>' . htmlspecialchars($requestData['child']['lname'][$i] ?? '') . '</web:LastName>
+                        <web:Gender>' . htmlspecialchars($requestData['child']['gender'][$i] ?? '') . '</web:Gender>
+                        <web:DOB>' . htmlspecialchars($requestData['child']['dob'][$i] ?? '') . '</web:DOB>
+                        <web:Age>' . $age . '</web:Age>
+                        <web:IdentityType>Passport</web:IdentityType>
+                        <web:IdentityNo>' . htmlspecialchars($requestData['child']['passport'][$i] ?? '') . '</web:IdentityNo>
+                        <web:IsQualified>1</web:IsQualified>
+                        <web:Nationality>' . ($nationalityCountry->sb_iso_code ?? '') . '</web:Nationality>
+                        <web:CountryOfResidence>' . ($residenceCountryPassenger->sb_iso_code ?? '') . '</web:CountryOfResidence>
+                        <web:SelectedPlanCode>' . htmlspecialchars($selectedPlanCode) . '</web:SelectedPlanCode>
+                        <web:SelectedSSRFeeCode>' . htmlspecialchars($selectedSSRFeeCode) . '</web:SelectedSSRFeeCode>
+                        <web:CurrencyCode>' . $currency . '</web:CurrencyCode>
+                        <web:PassengerPremiumAmount>' . number_format($passengerPremiumAmount, 2, '.', '') . '</web:PassengerPremiumAmount>
+                        <web:EmailAddress></web:EmailAddress>
+                        <web:PhoneNumber></web:PhoneNumber>
+                        <web:Address></web:Address>
+                        <web:ExtraInfo><web:Item><web:ItemID></web:ItemID><web:ItemKeyName></web:ItemKeyName><web:ItemDesc></web:ItemDesc></web:Item></web:ExtraInfo>
+                        <web:PassportIssueDate></web:PassportIssueDate>
+                        <web:PassportExpiryDate></web:PassportExpiryDate>
+                    </web:Passenger>';
+                }
+            }
+
+            // Add Infants
+            if (isset($requestData['infant']) && is_array($requestData['infant'])) {
+                for ($i = 0; $i < $totalInfants; $i++) {
+                    $dob = new DateTime($requestData['infant']['dob'][$i] ?? 'now');
+                    $now = new DateTime();
+                    $age = $now->diff($dob)->y;
+
+                    $nationalityCountry = Country::where('iso_code', $requestData['infant']['nationality'][$i] ?? '')->first();
+                    $residenceCountryPassenger = Country::where('iso_code', $requestData['infant']['country_of_residence'][$i] ?? '')->first();
+
+                    $passengersXml .= '<web:Passenger>
+                        <web:IsInfant>1</web:IsInfant>
+                        <web:FirstName>' . htmlspecialchars($requestData['infant']['fname'][$i] ?? '') . '</web:FirstName>
+                        <web:LastName>' . htmlspecialchars($requestData['infant']['lname'][$i] ?? '') . '</web:LastName>
+                        <web:Gender>' . htmlspecialchars($requestData['infant']['gender'][$i] ?? '') . '</web:Gender>
+                        <web:DOB>' . htmlspecialchars($requestData['infant']['dob'][$i] ?? '') . '</web:DOB>
+                        <web:Age>' . $age . '</web:Age>
+                        <web:IdentityType>Passport</web:IdentityType>
+                        <web:IdentityNo>' . htmlspecialchars($requestData['infant']['passport'][$i] ?? '') . '</web:IdentityNo>
+                        <web:IsQualified>1</web:IsQualified>
+                        <web:Nationality>' . ($nationalityCountry->sb_iso_code ?? '') . '</web:Nationality>
+                        <web:CountryOfResidence>' . ($residenceCountryPassenger->sb_iso_code ?? '') . '</web:CountryOfResidence>
+                        <web:SelectedPlanCode>' . htmlspecialchars($selectedPlanCode) . '</web:SelectedPlanCode>
+                        <web:SelectedSSRFeeCode>' . htmlspecialchars($selectedSSRFeeCode) . '</web:SelectedSSRFeeCode>
+                        <web:CurrencyCode>' . $currency . '</web:CurrencyCode>
+                        <web:PassengerPremiumAmount>' . number_format($passengerPremiumAmount, 2, '.', '') . '</web:PassengerPremiumAmount>
+                        <web:EmailAddress></web:EmailAddress>
+                        <web:PhoneNumber></web:PhoneNumber>
+                        <web:Address></web:Address>
+                        <web:ExtraInfo><web:Item><web:ItemID></web:ItemID><web:ItemKeyName></web:ItemKeyName><web:ItemDesc></web:ItemDesc></web:Item></web:ExtraInfo>
+                        <web:PassportIssueDate></web:PassportIssueDate>
+                        <web:PassportExpiryDate></web:PassportExpiryDate>
+                    </web:Passenger>';
+                }
+            }
+
+            // Build SOAP XML Request
+            $xmlRequest = '<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://ZEUSTravelInsuranceGateway/WebServices">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <web:ConfirmPurchase>
+            <web:GenericRequest>
+                <web:Authentication>
+                    <web:Username>andleb_prod</web:Username>
+                    <web:Password>rgJp8jgH1Clw</web:Password>
+                </web:Authentication>
+                <web:Header>
+                    <web:Channel>' . htmlspecialchars($channel) . '</web:Channel>
+                    <web:ItineraryID></web:ItineraryID>
+                    <web:PNR>' . htmlspecialchars($pnr) . '</web:PNR>
+                    <web:PolicyNo></web:PolicyNo>
+                    <web:PurchaseDate>' . htmlspecialchars($purchaseDate) . '</web:PurchaseDate>
+                    <web:SSRFeeCode>' . htmlspecialchars($selectedSSRFeeCode) . '</web:SSRFeeCode>
+                    <web:FeeDescription></web:FeeDescription>
+                    <web:Currency>' . htmlspecialchars($currency) . '</web:Currency>
+                    <web:TotalPremium>' . htmlspecialchars($totalPremium) . '</web:TotalPremium>
+                    <web:CountryCode>' . ($residenceCountry->sb_iso_code ?? 'AE') . '</web:CountryCode>
+                    <web:CultureCode>' . htmlspecialchars($cultureCode) . '</web:CultureCode>
+                    <web:TotalAdults>' . $totalAdults . '</web:TotalAdults>
+                    <web:TotalChild>' . $totalChild . '</web:TotalChild>
+                    <web:TotalInfants>' . $totalInfants . '</web:TotalInfants>
+                    <web:TotalPackagePrice></web:TotalPackagePrice>
+                    <web:Attachment></web:Attachment>
+                    <web:PackageType></web:PackageType>
+                    <web:PaymentMethod>' . htmlspecialchars($paymentMethod) . '</web:PaymentMethod>
+                    <web:PaymentReference>' . htmlspecialchars($paymentReference) . '</web:PaymentReference>
+                </web:Header>
+                <web:ContactDetails>
+                    <web:ContactPerson>' . htmlspecialchars($insurance->lead_name ?? '') . '</web:ContactPerson>
+                    <web:Address1>' . htmlspecialchars($insurance->lead_country_of_residence ?? '') . '</web:Address1>
+                    <web:Address2></web:Address2>
+                    <web:Address3></web:Address3>
+                    <web:HomePhoneNum></web:HomePhoneNum>
+                    <web:MobilePhoneNum>' . htmlspecialchars($insurance->lead_phone ?? '') . '</web:MobilePhoneNum>
+                    <web:OtherPhoneNum></web:OtherPhoneNum>
+                    <web:PostCode></web:PostCode>
+                    <web:City></web:City>
+                    <web:State></web:State>
+                    <web:Country>' . htmlspecialchars($insurance->lead_country_of_residence ?? '') . '</web:Country>
+                    <web:EmailAddress>' . htmlspecialchars($insurance->lead_email ?? '') . '</web:EmailAddress>
+                </web:ContactDetails>
+                <web:ApplicantDetail>
+                    <web:Name>' . htmlspecialchars($insurance->lead_name ?? '') . '</web:Name>
+                    <web:DOB></web:DOB>
+                    <web:Contact>' . htmlspecialchars($insurance->lead_phone ?? '') . '</web:Contact>
+                    <web:Address>' . htmlspecialchars($insurance->lead_country_of_residence ?? '') . '</web:Address>
+                </web:ApplicantDetail>
+                <web:Flights>
+                    <web:Flight>
+                        <web:DepartCountryCode>' . htmlspecialchars($departCountryCode) . '</web:DepartCountryCode>
+                        <web:DepartStationCode>' . htmlspecialchars($departStationCode) . '</web:DepartStationCode>
+                        <web:ArrivalCountryCode>' . htmlspecialchars($arrivalCountryCode) . '</web:ArrivalCountryCode>
+                        <web:ArrivalStationCode>' . htmlspecialchars($arrivalStationCode) . '</web:ArrivalStationCode>
+                        <web:DepartAirlineCode></web:DepartAirlineCode>
+                        <web:DepartDateTime>' . htmlspecialchars($departDateTime) . '</web:DepartDateTime>
+                        <web:ReturnAirlineCode></web:ReturnAirlineCode>
+                        <web:ReturnDateTime>' . htmlspecialchars($returnDateTime) . '</web:ReturnDateTime>
+                        <web:DepartFlightNo></web:DepartFlightNo>
+                        <web:ReturnFlightNo></web:ReturnFlightNo>
+                    </web:Flight>
+                </web:Flights>
+                <web:Passengers>' . $passengersXml . '</web:Passengers>
+            </web:GenericRequest>
+        </web:ConfirmPurchase>
+    </soapenv:Body>
+</soapenv:Envelope>';
+
+            $url = "https://zeus.tune2protect.com/ZeusAPI/v5/Zeus.asmx";
+            
+            $response = Http::withHeaders([
+                'Content-Type' => 'text/xml; charset=utf-8',
+                'SOAPAction' => 'http://ZEUSTravelInsuranceGateway/WebServices/ConfirmPurchase',
+            ])->send('POST', $url, [
+                'body' => $xmlRequest
+            ]);
+
+            if (!$response->successful()) {
+                throw new \Exception('Insurance API request failed: ' . $response->body());
+            }
+
+            $responseBody = $response->body();
+            
+            // Remove BOM and trim
+            $responseBody = preg_replace('/^\xEF\xBB\xBF/', '', $responseBody);
+            $responseBody = trim($responseBody);
+
+            // Extract SOAP Body
+            if (preg_match('/<soap:Body[^>]*>(.*?)<\/soap:Body>/is', $responseBody, $matches)) {
+                $bodyXml = $matches[1];
+                $xml = simplexml_load_string($bodyXml, 'SimpleXMLElement', LIBXML_NOCDATA);
+                
+                if ($xml === false) {
+                    throw new \Exception('Error parsing XML response');
+                }
+
+                $array = json_decode(json_encode($xml), true);
+                
+                return [
+                    'success' => true,
+                    'data' => $array
+                ];
+            }
+
+            throw new \Exception('No SOAP Body found in response');
+
+        } catch (\Exception $e) {
+            Log::error('Insurance Confirm Purchase Error', [
+                'insurance_id' => $insurance->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
 }

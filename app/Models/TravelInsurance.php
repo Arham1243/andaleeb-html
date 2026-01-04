@@ -37,6 +37,15 @@ class TravelInsurance extends Model
         'request_data',
         'api_response',
         'status',
+        'payby_merchant_order_no',
+        'payby_order_no',
+        'payby_payment_response',
+        'proposal_state',
+        'policy_numbers',
+        'confirmed_passengers',
+        'error_messages',
+        'booking_confirmed',
+        'confirmation_response',
     ];
 
     protected $casts = [
@@ -46,6 +55,7 @@ class TravelInsurance extends Model
         'return_date' => 'date',
         'request_data' => 'array',
         'api_response' => 'array',
+        'booking_confirmed' => 'boolean',
     ];
 
     public function passengers()

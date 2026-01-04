@@ -18,6 +18,9 @@ class TravelInsurancePassenger extends Model
         'country_of_residence',
         'age',
         'status',
+        'policy_number',
+        'policy_url_link',
+        'insurance_details',
     ];
 
     protected $casts = [

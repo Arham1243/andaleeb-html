@@ -144,11 +144,83 @@ class TravelInsuranceController extends Controller
             }
 
             if ($verification['success']) {
+                $paymentData = $verification['data'];
+                
+                // Save PayBy specific data
+                if ($insurance->payment_method === 'payby') {
+                    $insurance->update([
+                        'payby_merchant_order_no' => $paymentData['body']['acquireOrder']['merchantOrderNo'] ?? null,
+                        'payby_order_no' => $paymentData['body']['acquireOrder']['orderNo'] ?? null,
+                        'payby_payment_response' => json_encode($paymentData),
+                    ]);
+                }
+                
+                // Update payment status
                 $insurance->update([
                     'payment_status' => 'paid',
-                    'status' => 'active',
-                    'payment_response' => json_encode($verification['data'])
+                    'payment_response' => json_encode($paymentData)
                 ]);
+
+                // Call confirm purchase API to get policy details
+                $confirmResult = $this->insuranceService->confirmPurchase($insurance);
+
+                if ($confirmResult['success']) {
+                    $confirmData = $confirmResult['data'];
+                    $purchaseResponse = $confirmData['PurchaseResponse'] ?? $confirmData['ConfirmPurchaseResponse'] ?? [];
+                    
+                    $proposalState = $purchaseResponse['ProposalState'] ?? null;
+                    $isConfirmed = $proposalState === 'CONFIRMED';
+                    $errorCode = $purchaseResponse['ErrorCode'] ?? null;
+
+                    // Update insurance with confirmation data
+                    $insurance->update([
+                        'proposal_state' => $proposalState,
+                        'policy_numbers' => $purchaseResponse['PolicyNo'] ?? null,
+                        'confirmed_passengers' => json_encode($purchaseResponse['ConfirmedPassengers'] ?? []),
+                        'error_messages' => json_encode($purchaseResponse['ErrorMessage'] ?? []),
+                        'booking_confirmed' => $isConfirmed,
+                        'confirmation_response' => json_encode($confirmData),
+                        'status' => $isConfirmed ? 'confirmed' : 'pending',
+                    ]);
+
+                    // Update passenger policy details
+                    if ($isConfirmed && isset($purchaseResponse['ConfirmedPassengers']['ConfirmedPassenger'])) {
+                        $confirmedPassengers = $purchaseResponse['ConfirmedPassengers']['ConfirmedPassenger'];
+                        
+                        // Handle single passenger (not array of arrays)
+                        if (isset($confirmedPassengers['FirstName'])) {
+                            $confirmedPassengers = [$confirmedPassengers];
+                        }
+
+                        foreach ($confirmedPassengers as $confirmedPassenger) {
+                            $passenger = TravelInsurancePassenger::where('travel_insurance_id', $insurance->id)
+                                ->where('passport_number', $confirmedPassenger['IdentityNo'] ?? '')
+                                ->where('date_of_birth', $confirmedPassenger['DOB'] ?? '')
+                                ->where('last_name', $confirmedPassenger['LastName'] ?? '')
+                                ->where('first_name', $confirmedPassenger['FirstName'] ?? '')
+                                ->first();
+
+                            if ($passenger) {
+                                $passenger->update([
+                                    'policy_number' => $confirmedPassenger['PolicyNo'] ?? null,
+                                    'policy_url_link' => $confirmedPassenger['PolicyURLLink'] ?? null,
+                                    'insurance_details' => json_encode($confirmedPassenger),
+                                ]);
+                            }
+                        }
+                    }
+
+                    Log::info('Travel Insurance Confirmed', [
+                        'insurance_id' => $insurance->id,
+                        'proposal_state' => $proposalState,
+                        'booking_confirmed' => $isConfirmed
+                    ]);
+                } else {
+                    Log::warning('Travel Insurance Confirmation Failed', [
+                        'insurance_id' => $insurance->id,
+                        'error' => $confirmResult['error'] ?? 'Unknown error'
+                    ]);
+                }
 
                 return view('frontend.travel-insurance.payment-success', compact('insurance'));
             } else {
