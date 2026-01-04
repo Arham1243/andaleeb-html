@@ -145,3 +145,13 @@ Breadcrumbs::for('admin.orders.show', function (BreadcrumbTrail $trail, $order) 
     $trail->parent('admin.orders.index');
     $trail->push('Order ' . $order->order_number, route('admin.orders.show', $order->id));
 });
+
+Breadcrumbs::for('admin.travel-insurances.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Travel Insurance Bookings', route('admin.travel-insurances.index'));
+});
+
+Breadcrumbs::for('admin.travel-insurances.show', function (BreadcrumbTrail $trail, $insurance) {
+    $trail->parent('admin.travel-insurances.index');
+    $trail->push('Insurance ' . $insurance->insurance_number, route('admin.travel-insurances.show', $insurance->id));
+});

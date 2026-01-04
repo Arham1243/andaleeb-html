@@ -32,6 +32,11 @@ return [
         'route' => route('admin.orders.index'),
     ],
     [
+        'title' => 'Insurance Bookings',
+        'icon' => 'bx bxs-shield',
+        'route' => route('admin.travel-insurances.index'),
+    ],
+    [
         'title' => 'Tours',
         'icon' => 'bx bx-world',
         'submenu' => [

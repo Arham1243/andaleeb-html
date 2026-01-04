@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\TourReviewController;
 use App\Http\Controllers\Admin\TerminalController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\TravelInsuranceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admins', function () {
@@ -79,6 +80,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tour-reviews', TourReviewController::class);
 
     Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
+
+    Route::resource('travel-insurances', TravelInsuranceController::class)->only(['index', 'show', 'update']);
 
     Route::resource('coupons', CouponController::class);
     Route::get('coupons/change-status/{coupon}', [CouponController::class, 'changeStatus'])->name('coupons.change-status');
