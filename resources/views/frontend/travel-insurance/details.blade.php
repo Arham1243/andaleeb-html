@@ -286,6 +286,35 @@
                                     <i class='bx bx-info-circle'></i> No plan selected. Please go back and select a plan.
                                 </div>
                             @endif
+                              <div class="modern-card">
+                            <div class="card-title">
+                                <i class='bx bx-credit-card'></i> Choose Payment Method
+                            </div>
+
+                            <!-- Option 1: Card -->
+                            <label class="payment-option">
+                                <div class="payment-header">
+                                    <input type="radio" name="payment_method" class="payment-radio" value="payby" checked
+                                        required>
+                                    <span class="payment-label">Credit / Debit Card</span>
+                                </div>
+                                <div class="payment-desc">
+                                    Note: You will be redirected to the secure payment gateway to complete your purchase.
+                                </div>
+                            </label>
+
+                            <!-- Option 2: Tabby -->
+                            <label class="payment-option">
+                                <div class="payment-header">
+                                    <input type="radio" name="payment_method" class="payment-radio" value="tabby"
+                                        required>
+                                    <span class="payment-label">Tabby - Buy Now Pay Later</span>
+                                </div>
+                                <div class="payment-desc">
+                                    Pay in 4 interest-free installments. No fees, no hidden costs.
+                                </div>
+                            </label>
+                        </div>
 
                             <button type="submit" class="btn-primary-custom mt-2">
                                 <i class='bx bx-lock-alt'></i> Proceed to Payment
