@@ -24,38 +24,38 @@
     </section>
 
 
+    @if ($categories->isNotEmpty())
+        <section class="section-categories bg-light padd-y">
+            <div class="container">
+                <!-- Header -->
+                <div class="section-content mb-4 pb-4">
+                    <h3 class="heading mb-0">Explore by Category</h3>
+                    <p class="text-muted my-1">Discover the best experiences in the UAE</p>
+                </div>
 
-    <section class="section-categories bg-light padd-y">
-        <div class="container">
-            <!-- Header -->
-            <div class="section-content mb-4 pb-4">
-                <h3 class="heading mb-0">Explore by Category</h3>
-                <p class="text-muted my-1">Discover the best experiences in the UAE</p>
-            </div>
-
-            <!-- Categories Grid -->
-            <div class="row g-3 g-xl-4 category-slider2">
-                @foreach ($categories as $category)
-                    <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                        <a href="{{ route('frontend.tour-category.details', $category->slug) }}" class="cat-card">
-                            <div class="cat-bg" style="background-image: url('{{ asset($category->image) }}');">
-                            </div>
-                            <div class="cat-overlay"></div>
-                            <div class="cat-content">
-                                <h5 class="cat-title">{{ $category->name }}</h5>
-                                <div class="cat-action">
-                                    <span class="cat-count">{{ $category->tours->count() }}
-                                        {{ Str::plural('Activity', $category->tours->count()) }}</span>
-                                    <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                <!-- Categories Grid -->
+                <div class="row g-3 g-xl-4 category-slider2">
+                    @foreach ($categories as $category)
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                            <a href="{{ route('frontend.tour-category.details', $category->slug) }}" class="cat-card">
+                                <div class="cat-bg" style="background-image: url('{{ asset($category->image) }}');">
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
+                                <div class="cat-overlay"></div>
+                                <div class="cat-content">
+                                    <h5 class="cat-title">{{ $category->name }}</h5>
+                                    <div class="cat-action">
+                                        <span class="cat-count">{{ $category->tours->count() }}
+                                            {{ Str::plural('Activity', $category->tours->count()) }}</span>
+                                        <span class="btn-icon"><i class='bx bx-right-arrow-alt'></i></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    @endif
 
     <div class="expandable-wrapper mar-y" data-collapsed-height="50" data-more-text="Read More" data-less-text="Read Less">
         <div class="container">
@@ -97,12 +97,13 @@
                 <div class="section-header align-items-end">
                     <div class="section-content">
                         <h3 class="heading mb-0">Best Activities in Dubai</h3>
-                        @if(request('search'))
-                        <p class="text-muted mt-1 mb-0">
-                            Showing results for: <span class="fw-bold">"{{ request('search') }}"</span>
-                            
-                           <a href="{{ route('frontend.uae-services') }}#tours" class="fw-medium text-primary ms-2">Reset</a>
-                        </p>
+                        @if (request('search'))
+                            <p class="text-muted mt-1 mb-0">
+                                Showing results for: <span class="fw-bold">"{{ request('search') }}"</span>
+
+                                <a href="{{ route('frontend.uae-services') }}#tours"
+                                    class="fw-medium text-primary ms-2">Reset</a>
+                            </p>
                         @endif
                     </div>
                     <div>
