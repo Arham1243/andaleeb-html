@@ -9,6 +9,7 @@ use App\Models\PackageCategory;
 use Illuminate\Http\Request;
 use App\Models\Tour;
 use App\Models\TourReview;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 
@@ -117,15 +118,16 @@ class TourController extends Controller
             $rawSlots = $data['data']['items'] ?? [];
 
             $formattedSlots = collect($rawSlots)
-                ->filter(fn($slot) => $slot['availability_spots']['availability_spots_open'] > 0)
+                ->filter(fn($slot) => isset($slot['availability_spots']['availability_spots_open']) && $slot['availability_spots']['availability_spots_open'] > 0)
                 ->map(function ($slot) {
                     return [
-                        'id' => $slot['availability_id'],
-                        'start_time' => \Carbon\Carbon::parse($slot['availability_from_date_time'])->format('h:i A'),
-                        'end_time' => \Carbon\Carbon::parse($slot['availability_to_date_time'])->format('h:i A'),
-                        'open_spots' => $slot['availability_spots']['availability_spots_open'],
+                        'id' => $slot['availability_id'] ?? null,
+                        'start_time' => isset($slot['availability_from_date_time']) ? \Carbon\Carbon::parse($slot['availability_from_date_time'])->format('h:i A') : null,
+                        'end_time' => isset($slot['availability_to_date_time']) ? \Carbon\Carbon::parse($slot['availability_to_date_time'])->format('h:i A') : null,
+                        'open_spots' => $slot['availability_spots']['availability_spots_open'] ?? 0,
                     ];
-                })->toArray();
+                })
+                ->toArray();
 
             return $formattedSlots;
         }
