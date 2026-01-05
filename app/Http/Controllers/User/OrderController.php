@@ -158,6 +158,7 @@ class OrderController extends Controller
                 'date' => $item->booking_date,
                 'total_pax' => $item->quantity,
                 'name' => $item->tour_name,
+                'has_capacity' => $item->tour->has_capacity ?? true,
             ];
         }
 
@@ -188,7 +189,8 @@ class OrderController extends Controller
                 $item['availability_id'],
                 $date,
                 $item['total_pax'],
-                $accessToken
+                $accessToken,
+                $item['has_capacity'] ?? true
             );
 
             if (!$result['success']) {

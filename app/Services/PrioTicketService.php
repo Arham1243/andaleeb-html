@@ -393,7 +393,8 @@ class PrioTicketService
         string $availabilityId,
         string $date,
         int $pax,
-        string $accessToken
+        string $accessToken,
+        bool $hasCapacity = true
     ): array {
         try {
             $response = Http::withToken($accessToken)
@@ -421,11 +422,14 @@ class PrioTicketService
                 ];
             }
 
-            if (($availability['availability_spots']['availability_spots_open'] ?? 0) < $pax) {
-                return [
-                    'success' => false,
-                    'error' => 'Not enough seats available',
-                ];
+            // Only check spots if tour has capacity constraints
+            if ($hasCapacity) {
+                if (($availability['availability_spots']['availability_spots_open'] ?? 0) < $pax) {
+                    return [
+                        'success' => false,
+                        'error' => 'Not enough seats available',
+                    ];
+                }
             }
 
             return ['success' => true];

@@ -337,12 +337,17 @@ class CheckoutController extends Controller
         }
 
         foreach ($cartData['tours'] as $item) {
+            // Get tour to check has_capacity flag
+            $tour = Tour::where('slug', $item['slug'])->first();
+            $hasCapacity = $tour ? $tour->has_capacity : true;
+
             $result = $prioService->checkAvailability(
                 $item['product_id_prio'],
                 $item['availability_id'],
                 $item['date'],
                 $item['total_pax'],
-                $accessToken
+                $accessToken,
+                $hasCapacity
             );
 
             if (! $result['success']) {

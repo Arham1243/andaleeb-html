@@ -74,7 +74,7 @@ class TourSyncService
             $adultSeason = $seasonDetails[0] ?? null;
             $childSeason = $seasonDetails[1] ?? null;
             $infantSeason = $seasonDetails[2] ?? null;
-
+        
             Tour::updateOrCreate(
                 ['slug' => $item['product_slug']],
                 [
@@ -92,6 +92,7 @@ class TourSyncService
 
                     'min_qty' => $item['product_booking_quantity_min'] ?? 1,
                     'max_qty' => $item['product_booking_quantity_max'] ?? 99,
+                    'has_capacity' => $item['product_capacity'],
 
                     'content' => $item['product_content'] ?? null,
                     'duration' => data_get($item, 'product_content.product_duration_text'),

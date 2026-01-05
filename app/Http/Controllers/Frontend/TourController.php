@@ -69,7 +69,7 @@ class TourController extends Controller
         $availableRanges = $availability['available_ranges'] ?? [];
         $timeSlots = [];
         if ($date) {
-            $timeSlots = $this->getTimeSlots($tour->product_id_prio, $date);
+            $timeSlots = $this->getTimeSlots($tour, $date);
         }
 
         $tourCategories = TourCategory::with([
@@ -103,7 +103,7 @@ class TourController extends Controller
     }
 
 
-    public function getTimeSlots($tourId, $date)
+    public function getTimeSlots($tour, $date)
     {
         $date = $date ?? now()->format('Y-m-d');
         $accessToken = $this->getAccessToken();
@@ -111,7 +111,7 @@ class TourController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
             'Accept' => 'application/json',
-        ])->get("https://distributor-api.prioticket.com/v3.5/distributor/products/{$tourId}/availability?distributor_id=49670&from_date={$date}");
+        ])->get("https://distributor-api.prioticket.com/v3.5/distributor/products/{$tour->product_id_prio}/availability?distributor_id=49670&from_date={$date}");
         if ($response->successful()) {
             $data = $response->json();
             $rawSlots = $data['data']['items'] ?? [];
@@ -121,7 +121,7 @@ class TourController extends Controller
                 $rawSlots = $data['data']['items'] ?? [];
 
                 $formattedSlots = collect($rawSlots)
-                    ->map(function ($slot) {
+                    ->map(function ($slot) use ($tour) {
                         return [
                             'id' => $slot['availability_id'] ?? null,
                             'start_time' => isset($slot['availability_from_date_time'])
@@ -131,9 +131,15 @@ class TourController extends Controller
                                 ? \Carbon\Carbon::parse($slot['availability_to_date_time'])->format('h:i A')
                                 : null,
                             'open_spots' => $slot['availability_spots']['availability_spots_open'] ?? 0,
+                            'has_capacity' => $tour->has_capacity,
                         ];
                     })
-                    ->filter(function ($slot) {
+                    ->filter(function ($slot) use ($tour) {
+                        // If tour doesn't have capacity constraints, show all slots
+                        if (!$tour->has_capacity) {
+                            return true;
+                        }
+                        // Otherwise, only show slots with open spots
                         return $slot['open_spots'] > 0;
                     })
                     ->values()
