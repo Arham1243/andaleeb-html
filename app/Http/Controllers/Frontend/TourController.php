@@ -124,11 +124,19 @@ class TourController extends Controller
                     ->map(function ($slot) {
                         return [
                             'id' => $slot['availability_id'] ?? null,
-                            'start_time' => isset($slot['availability_from_date_time']) ? \Carbon\Carbon::parse($slot['availability_from_date_time'])->format('h:i A') : null,
-                            'end_time' => isset($slot['availability_to_date_time']) ? \Carbon\Carbon::parse($slot['availability_to_date_time'])->format('h:i A') : null,
+                            'start_time' => isset($slot['availability_from_date_time'])
+                                ? \Carbon\Carbon::parse($slot['availability_from_date_time'])->format('h:i A')
+                                : null,
+                            'end_time' => isset($slot['availability_to_date_time'])
+                                ? \Carbon\Carbon::parse($slot['availability_to_date_time'])->format('h:i A')
+                                : null,
                             'open_spots' => $slot['availability_spots']['availability_spots_open'] ?? 0,
                         ];
                     })
+                    ->filter(function ($slot) {
+                        return $slot['open_spots'] > 0;
+                    })
+                    ->values()
                     ->toArray();
 
                 return $formattedSlots;
