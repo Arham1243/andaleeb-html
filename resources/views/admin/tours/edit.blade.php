@@ -102,112 +102,110 @@
                                             </div>
                                         </div>
 
-                                         </div>
-
-                                        <div class="col-md-6 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Child Price</label>
-                                                <input data-error="Child Price" type="number" step="0.01"
-                                                    name="child_price" class="field" value="{{ old('child_price', $tour->child_price) }}">
-                                                @error('child_price')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Infant Price</label>
-                                                <input data-error="Infant Price" type="number" step="0.01"
-                                                    name="infant_price" class="field" value="{{ old('infant_price', $tour->infant_price) }}">
-                                                @error('infant_price')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Duration</label>
-                                                <input data-required data-error="Duration" type="text" name="duration"
-                                                    class="field" value="{{ old('duration', $tour->duration) }}">
-                                                @error('duration')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Minimum Pax</label>
-                                                <input data-required data-error="Minimum Pax" type="number" name="min_qty"
-                                                    class="field" value="{{ old('min_qty', $tour->min_qty) }}">
-                                                @error('min_qty')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Maximum Pax</label>
-                                                <input data-required data-error="Maximum Pax" type="number"
-                                                    name="max_qty" class="field"
-                                                    value="{{ old('max_qty', $tour->max_qty) }}">
-                                                @error('max_qty')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Short Description</label>
-                                                <textarea data-required data-error="Short Description" name="short_description" class="field" rows="4">{{ old('short_description', $tour->short_description) }}</textarea>
-                                                @error('short_description')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Long Description</label>
-                                                <textarea data-required data-error="Long Description" name="long_description" class="field" rows="6">{{ old('long_description', $tour->long_description) }}</textarea>
-                                                @error('long_description')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Additional Information</label>
-                                                <textarea data-required data-error="Additional Information" name="additional_information" class="field"
-                                                    rows="4">{{ old('additional_information', $tour->additional_information) }}</textarea>
-                                                @error('additional_information')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title required">Cancellation Policies</label>
-                                                <textarea data-required data-error="Cancellation Policies" name="cancellation_policies" class="field"
-                                                    rows="4">{{ old('cancellation_policies', $tour->cancellation_policies) }}</textarea>
-                                                @error('cancellation_policies')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
                                     </div>
-                                </div>
 
+                                    <div class="col-md-6 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Child Price</label>
+                                            <input data-error="Child Price" type="number" step="0.01" name="child_price"
+                                                class="field" value="{{ old('child_price', $tour->child_price) }}">
+                                            @error('child_price')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Infant Price</label>
+                                            <input data-error="Infant Price" type="number" step="0.01"
+                                                name="infant_price" class="field"
+                                                value="{{ old('infant_price', $tour->infant_price) }}">
+                                            @error('infant_price')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Duration</label>
+                                            <input data-required data-error="Duration" type="text" name="duration"
+                                                class="field" value="{{ old('duration', $tour->duration) }}">
+                                            @error('duration')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Minimum Pax</label>
+                                            <input data-required data-error="Minimum Pax" type="number" name="min_qty"
+                                                class="field" value="{{ old('min_qty', $tour->min_qty) }}">
+                                            @error('min_qty')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Maximum Pax</label>
+                                            <input data-required data-error="Maximum Pax" type="number" name="max_qty"
+                                                class="field" value="{{ old('max_qty', $tour->max_qty) }}">
+                                            @error('max_qty')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Short Description</label>
+                                            <textarea data-required data-error="Short Description" name="short_description" class="field" rows="4">{{ old('short_description', $tour->short_description) }}</textarea>
+                                            @error('short_description')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Long Description</label>
+                                            <textarea data-required data-error="Long Description" name="long_description" class="field" rows="6">{{ old('long_description', $tour->long_description) }}</textarea>
+                                            @error('long_description')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Additional Information</label>
+                                            <textarea data-required data-error="Additional Information" name="additional_information" class="field"
+                                                rows="4">{{ old('additional_information', $tour->additional_information) }}</textarea>
+                                            @error('additional_information')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-4">
+                                        <div class="form-fields">
+                                            <label class="title required">Cancellation Policies</label>
+                                            <textarea data-required data-error="Cancellation Policies" name="cancellation_policies" class="field"
+                                                rows="4">{{ old('cancellation_policies', $tour->cancellation_policies) }}</textarea>
+                                            @error('cancellation_policies')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
+
                         </div>
                     </div>
-
                     <div class="col-md-3">
                         <div class="seo-wrapper">
                             <div class="form-box">
@@ -251,7 +249,6 @@
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>

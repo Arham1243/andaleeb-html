@@ -142,7 +142,7 @@
                                         </div>
                                         <div class="text-content">
                                             <h5 class="feat-title">Cancellation Policy</h5>
-                                            <p class="feat-desc">{!! sanitizeBulletText($tour->cancellation_policies) !!}</p>
+                                            <p class="feat-desc">{{ $tour->cancellation_policies }}</p>
                                         </div>
                                     </div>
                                 </div>
