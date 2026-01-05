@@ -141,8 +141,8 @@
                                             <i class='bx bx-refresh'></i>
                                         </div>
                                         <div class="text-content">
-                                            <h5 class="feat-title">Free Cancellation</h5>
-                                            <p class="feat-desc">Cancel up to 24 hours in advance for a full refund.</p>
+                                            <h5 class="feat-title">Cancellation Policy</h5>
+                                            <p class="feat-desc">{!! sanitizeBulletText($tour->cancellation_policies) !!}</p>
                                         </div>
                                     </div>
                                 </div>
