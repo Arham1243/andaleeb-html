@@ -85,9 +85,9 @@ class CountryController extends Controller
         $newCount = 0;
 
         foreach ($countries as $country) {
-                $existing = Country::where('yalago_id', $country['CountryId'])
-                       ->orWhere('iso_code', $country['CountryCode'])
-                       ->first();
+            $existing = Country::where('yalago_id', $country['CountryId'])
+                ->orWhere('iso_code', $country['CountryCode'])
+                ->first();
 
             if ($existing) {
                 $existing->update([
@@ -106,7 +106,19 @@ class CountryController extends Controller
             }
         }
 
+        $this->dumpToJson();
+
         return redirect()->route('admin.countries.index')
             ->with('notify_success', "{$newCount} Countries synced");
+    }
+
+    protected function dumpToJson()
+    {
+        $countries = Country::all()
+            ->sortBy('name')
+            ->values()
+            ->map(fn($country) => ['name' => $country->name]);
+
+        file_put_contents(public_path('frontend/mocks/yalago_countries.json'), $countries->toJson(JSON_PRETTY_PRINT));
     }
 }

@@ -140,7 +140,32 @@ class LocationController extends Controller
                 $newCount++;
             }
         }
+
+        $this->dumpToJson();
+
         return redirect()->route('admin.countries.index')
             ->with('notify_success', "{$newCount} Locations synced");
+    }
+
+    protected function dumpToJson()
+    {
+        $locations = Location::with('country', 'province')
+            ->get()
+            ->sortBy('name')
+            ->values()
+            ->map(function ($location) {
+                return [
+                    'id' => $location->id,
+                    'name' => $location->name,
+                    'country_name' => $location->country->name ?? null,
+                    'province_id' => $location->province_id,
+                    'province_name' => $location->province->name ?? null,
+                ];
+            });
+
+        file_put_contents(
+            public_path('frontend/mocks/yalago_locations.json'),
+            $locations->toJson(JSON_PRETTY_PRINT)
+        );
     }
 }

@@ -121,7 +121,30 @@ class ProvinceController extends Controller
             }
         }
 
+        $this->dumpToJson();
+
         return redirect()->route('admin.provinces.index')
             ->with('notify_success', "{$newCount} Provinces synced");
+    }
+
+    protected function dumpToJson()
+    {
+        $provinces = Province::with('country')
+            ->get()
+            ->sortBy('name')
+            ->values()
+            ->map(function ($province) {
+                return [
+                    'id' => $province->id,
+                    'name' => $province->name,
+                    'country_id' => $province->country_id,
+                    'country_name' => $province->country->name ?? null,
+                ];
+            });
+
+        file_put_contents(
+            public_path('frontend/mocks/yalago_provinces.json'),
+            $provinces->toJson(JSON_PRETTY_PRINT)
+        );
     }
 }

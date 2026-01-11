@@ -2,8 +2,8 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.locations.create') }}
-            <form action="{{ route('admin.locations.store') }}" method="POST" enctype="multipart/form-data"
+            {{ Breadcrumbs::render('admin.countries.create') }}
+            <form action="{{ route('admin.countries.store') }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
                 <div class="row">
@@ -11,9 +11,7 @@
                         <div class="form-wrapper">
                             <div class="form-box">
                                 <div class="form-box__header">
-                                    <div class="title">
-                                        Location Details
-                                    </div>
+                                    <div class="title">Country Details</div>
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
@@ -33,32 +31,10 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">Country <span class="text-danger">*</span></label>
-                                        <select name="country_id" class="field select2-select" data-error="Country"
-                                            data-required>
-                                            <option value="" selected disabled>Select Country</option>
-                                            @foreach ($countries as $c)
-                                                <option value="{{ $c->id }}"
-                                                    {{ old('country_id') == $c->id ? 'selected' : '' }}>
-                                                    {{ $c->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('country_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                     <div class="form-fields">
-                                        <label class="title">Province <span class="text-danger">*</span></label>
-                                        <select name="province_id" class="field select2-select" data-error="Province"
-                                            data-required>
-                                            <option value="" selected disabled>Select Province</option>
-                                            @foreach ($provinces as $p)
-                                                <option value="{{ $p->id }}"
-                                                    {{ old('province_id') == $p->id ? 'selected' : '' }}>
-                                                    {{ $p->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('province_id')
+                                        <label class="title">ISO Code <span class="text-danger">*</span></label>
+                                        <input type="text" name="iso_code" class="field" value="{{ old('iso_code') }}"
+                                            data-required data-error="ISO Code">
+                                        @error('iso_code')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
