@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\TourReviewController;
 use App\Http\Controllers\Admin\TerminalController;
 use App\Http\Controllers\Admin\ProvinceController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TravelInsuranceController;
@@ -94,6 +95,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('provinces/{country}/sync', [ProvinceController::class, 'sync'])->name('provinces.sync');
     Route::resource('provinces', ProvinceController::class);
+
+    Route::get('locations/{country}/{province}/sync', [LocationController::class, 'sync'])->name('locations.sync');
+    Route::resource('locations', LocationController::class);
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');

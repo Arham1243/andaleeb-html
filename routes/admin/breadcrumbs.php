@@ -170,6 +170,7 @@ Breadcrumbs::for('admin.countries.edit', function (BreadcrumbTrail $trail, $coun
     $trail->parent('admin.countries.index');
     $trail->push('Edit Country', route('admin.countries.edit', $country));
 });
+
 Breadcrumbs::for('admin.provinces.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Manage Provinces', route('admin.provinces.index'));
@@ -183,4 +184,19 @@ Breadcrumbs::for('admin.provinces.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.provinces.edit', function (BreadcrumbTrail $trail, $province) {
     $trail->parent('admin.provinces.index');
     $trail->push('Edit Province', route('admin.provinces.edit', $province));
+});
+
+Breadcrumbs::for('admin.locations.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Locations', route('admin.locations.index'));
+});
+
+Breadcrumbs::for('admin.locations.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.locations.index');
+    $trail->push('Add New Location', route('admin.locations.create'));
+});
+
+Breadcrumbs::for('admin.locations.edit', function (BreadcrumbTrail $trail, $location) {
+    $trail->parent('admin.locations.index');
+    $trail->push('Edit Location', route('admin.locations.edit', $location));
 });

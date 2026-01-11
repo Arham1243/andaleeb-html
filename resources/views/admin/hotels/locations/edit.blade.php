@@ -2,32 +2,32 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.provinces.create') }}
-            <form action="{{ route('admin.provinces.store') }}" method="POST" enctype="multipart/form-data"
+            {{ Breadcrumbs::render('admin.locations.create') }}
+            <form action="{{ route('admin.locations.update', $location->id) }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-wrapper">
                             <div class="form-box">
                                 <div class="form-box__header">
-                                    <div class="title">
-                                        Province Details
-                                    </div>
+                                    <div class="title">Location Details</div>
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Yalago ID <span class="text-danger">*</span></label>
-                                        <input type="text" name="yalago_id" class="field" value="{{ old('yalago_id') }}"
-                                            data-required data-error="Yalago ID">
+                                        <input type="text" name="yalago_id" class="field"
+                                            value="{{ old('yalago_id', $location->yalago_id) }}" data-required
+                                            data-error="Yalago ID">
                                         @error('yalago_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" class="field" value="{{ old('name') }}"
-                                            data-required data-error="Name">
+                                        <input type="text" name="name" class="field"
+                                            value="{{ old('name', $location->name) }}" data-required data-error="Name">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -39,11 +39,26 @@
                                             <option value="" selected disabled>Select Country</option>
                                             @foreach ($countries as $c)
                                                 <option value="{{ $c->id }}"
-                                                    {{ old('country_id') == $c->id ? 'selected' : '' }}>
+                                                    {{ old('country_id', $location->country_id) == $c->id ? 'selected' : '' }}>
                                                     {{ $c->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('country_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-fields">
+                                        <label class="title">Province <span class="text-danger">*</span></label>
+                                        <select name="province_id" class="field select2-select" data-error="Province"
+                                            data-required>
+                                            <option value="" selected disabled>Select Province</option>
+                                            @foreach ($locations as $p)
+                                                <option value="{{ $p->id }}"
+                                                    {{ old('province_id', $location->province_id) == $p->id ? 'selected' : '' }}>
+                                                    {{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('province_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -60,20 +75,22 @@
                                 <div class="form-box__body">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="active"
-                                            value="active" {{ old('status', 'active') == 'active' ? 'checked' : '' }}>
+                                            value="active"
+                                            {{ old('status', $location->status) == 'active' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="active">
                                             Active
                                         </label>
                                     </div>
                                     <div class="form-check mt-2">
                                         <input class="form-check-input" type="radio" name="status" id="inactive"
-                                            value="inactive" {{ old('status') == 'inactive' ? 'checked' : '' }}>
+                                            value="inactive"
+                                            {{ old('status', $location->status) == 'inactive' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="inactive">
                                             Inactive
                                         </label>
                                     </div>
                                     <div class="text-end mt-3">
-                                        <button class="themeBtn" type="submit">Add</button>
+                                        <button class="themeBtn" type="submit">Save Changes</button>
                                     </div>
                                 </div>
                             </div>

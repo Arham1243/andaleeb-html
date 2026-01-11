@@ -58,7 +58,7 @@ return [
             [
                 'title' => 'Manage Locations',
                 'icon'  => 'bx bx-location-plus',
-                'route' => '',
+                'route' => route('admin.locations.index'),
             ],
             [
                 'title' => 'Sync Hotels',

@@ -2,8 +2,8 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.provinces.index') }}
-            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'provinces']) }}">
+            {{ Breadcrumbs::render('admin.locations.index') }}
+            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'locations']) }}">
                 @csrf
                 <div class="table-container universal-table">
                     <div class="custom-sec">
@@ -11,7 +11,7 @@
                             <div class="section-content">
                                 <h3 class="heading">{{ $title }}</h3>
                             </div>
-                            <a href="{{ route('admin.provinces.create') }}" class="themeBtn">Add New</a>
+                            <a href="{{ route('admin.locations.create') }}" class="themeBtn">Add New</a>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-5">
@@ -40,39 +40,42 @@
                                         <th>Yalago ID</th>
                                         <th>Name</th>
                                         <th>Country</th>
+                                        <th>Province</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($provinces as $province)
+                                    @foreach ($locations as $location)
                                         <tr>
                                             <td>
                                                 <div class="selection item-select-container"><input type="checkbox"
-                                                        class="bulk-item" name="bulk_select[]" value="{{ $province->id }}">
+                                                        class="bulk-item" name="bulk_select[]" value="{{ $location->id }}">
                                                 </div>
                                             </td>
-                                            <td>{{ $province->yalago_id ?? 'N/A' }}
+                                            <td>{{ $location->yalago_id ?? 'N/A' }}
                                             </td>
                                             <td>
                                                 <a class="blue-link"
-                                                    href="{{ route('admin.provinces.edit', $province->id) }}">
-                                                    {{ $province->name ?? 'N/A' }}
+                                                    href="{{ route('admin.locations.edit', $location->id) }}">
+                                                    {{ $location->name ?? 'N/A' }}
                                                 </a>
                                             </td>
-                                            <td>{{ $province->country->name ?? 'N/A' }}
+                                            <td>{{ $location->country->name ?? 'N/A' }}
+                                            </td>
+                                            <td>{{ $location->province->name ?? 'N/A' }}
                                             </td>
                                             <td>
                                                 <span
-                                                    class="badge rounded-pill bg-{{ $province->status === 'active' ? 'success' : 'danger' }}">
-                                                    {{ ucfirst($province->status) }}
+                                                    class="badge rounded-pill bg-{{ $location->status === 'active' ? 'success' : 'danger' }}">
+                                                    {{ ucfirst($location->status) }}
                                                 </span>
                                             </td>
-                                            <td>{{ formatDateTime($province->created_at) }}</td>
+                                            <td>{{ formatDateTime($location->created_at) }}</td>
                                             <td>
-                                                <a onclick="return confirm('Are you sure you want to sync?')" style="white-space: nowrap;" href="{{ route('admin.locations.sync', [$province->country, $province]) }}" class="themeBtn"><i
-                                                        class='bx bx-refresh'></i>Import Locations</a>
+                                                <a onclick="return confirm('Are you sure you want to sync?')" style="white-space: nowrap;" href="" class="themeBtn"><i
+                                                        class='bx bx-refresh'></i>Import Hotel</a>
                                             </td>
                                         </tr>
                                     @endforeach

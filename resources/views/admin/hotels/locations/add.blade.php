@@ -2,8 +2,8 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.provinces.create') }}
-            <form action="{{ route('admin.provinces.store') }}" method="POST" enctype="multipart/form-data"
+            {{ Breadcrumbs::render('admin.locations.create') }}
+            <form action="{{ route('admin.locations.store') }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
                 <div class="row">
@@ -12,7 +12,7 @@
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">
-                                        Province Details
+                                        Location Details
                                     </div>
                                 </div>
                                 <div class="form-box__body">
@@ -44,6 +44,21 @@
                                             @endforeach
                                         </select>
                                         @error('country_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                     <div class="form-fields">
+                                        <label class="title">Province <span class="text-danger">*</span></label>
+                                        <select name="province_id" class="field select2-select" data-error="Province"
+                                            data-required>
+                                            <option value="" selected disabled>Select Province</option>
+                                            @foreach ($provinces as $p)
+                                                <option value="{{ $p->id }}"
+                                                    {{ old('province_id') == $p->id ? 'selected' : '' }}>
+                                                    {{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('province_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
