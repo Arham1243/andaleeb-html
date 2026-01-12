@@ -27,14 +27,77 @@
     <div class="hotets-listing">
         <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    <div class="row justify-content-between">
+                        <div class="col-md-3">
+                            <div class="section-content mb-1">
+                                <div class="heading">{{ $hotels->count() }} results</div>
+                                @php
+                                    // These are the "default" query parameters that are always in the URL
+                                    $defaultParams = ['destination', 'check_in', 'check_out', 'room_count'];
+
+                                    // All current query parameters
+                                    $currentParams = request()->query();
+
+                                    // Check if there is any query param **outside the default ones**
+                                    $userFilters = collect($currentParams)
+                                        ->filter(
+                                            fn($value, $key) => !in_array($key, $defaultParams) &&
+                                                str_starts_with($key, 'room_') === false,
+                                        )
+                                        ->toArray();
+
+                                    $query = collect(request()->query())
+                                        ->filter(
+                                            fn($value, $key) => in_array($key, $defaultParams) ||
+                                                str_starts_with($key, 'room_'),
+                                        )
+                                        ->toArray();
+                                @endphp
+
+                                @if (count($userFilters) > 0)
+                                    <a href="{{ route('frontend.hotels.search', $query) }}"
+                                        class="themeBtn mb-3 themeBtn--full">
+                                        <i class="bx bx-sm bx-refresh"></i> Reset Filters
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Sort by:</label>
+                                @php
+                                    use Carbon\Carbon;
+                                    $checkIn = Carbon::createFromFormat('M d, Y', request('check_in'));
+                                    $checkOut = Carbon::createFromFormat('M d, Y', request('check_out'));
+
+                                    $nights = max(1, $checkIn->diffInDays($checkOut));
+                                    $sortOptions = [
+                                        '' => 'Select',
+                                        'recommended' => 'Recommended',
+                                        'price_low_to_high' => 'Price Low to High',
+                                        'price_high_to_low' => 'Price High to Low',
+                                        'top_rated' => 'Top Rated',
+                                    ];
+
+                                    $sortBy = request('sort_by', '');
+                                @endphp
+
+                                <select class="custom-select filter_dropdown" name="sort_by" id="sort_by">
+                                    @foreach ($sortOptions as $value => $label)
+                                        <option value="{{ $value }}" {{ $sortBy === $value ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="hotets-listing__sidebar">
-                        <div class="section-content mb-1">
-                            <div class="heading">25 results</div>
-                        </div>
-                        <a href="{{ route('frontend.hotels.search') }}" class="themeBtn themeBtn--full"><i
-                                class="bx bx-sm bx-refresh"></i>Reset Filters</a>
-                        <ul class="filter-blocks">
+                        <ul class="filter-blocks mt-0">
                             <li class="filter-block open" custom-accordion="">
                                 <div class="filter-block__header" custom-accordion-header="">
                                     <div class="title">Board type</div>
@@ -87,7 +150,7 @@
                                             <div class="price-ranges-wrapper">
                                                 @php
                                                     $minPrice = request()->input('min_price', 0);
-                                                    $maxPrice = request()->input('max_price', 10000);
+                                                    $maxPrice = request()->input('max_price', 100000);
                                                 @endphp
 
                                                 <div class="price-ranges">
@@ -99,7 +162,7 @@
                                                     -
                                                     <div class="price-ranges__input">
                                                         <label for="max">Max (<span class="dirham">D</span>)</label>
-                                                        <input id="max" type="number" max="10000" name="max_price"
+                                                        <input id="max" type="number" name="max_price"
                                                             value="{{ $maxPrice }}">
                                                     </div>
                                                 </div>
@@ -230,199 +293,118 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-9 pt-3">
-                    <div class="row justify-content-end">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Sort by:</label>
-                                @php
-                                    $sortOptions = [
-                                        '' => 'Select',
-                                        'recommended' => 'Recommended',
-                                        'price_low_to_high' => 'Price Low to High',
-                                        'price_high_to_low' => 'Price High to Low',
-                                        'top_rated' => 'Top Rated',
-                                    ];
+                <div class="col-md-9">
+                    @if ($hotels->isNotEmpty())
+                        @foreach ($hotels as $hotel)
+                            <div class="event-card">
+                                <div class="row g-0">
 
-                                    $sortBy = request('sort_by', '');
-                                @endphp
-
-                                <select class="custom-select filter_dropdown" name="sort_by" id="sort_by">
-                                    @foreach ($sortOptions as $value => $label)
-                                        <option value="{{ $value }}" {{ $sortBy === $value ? 'selected' : '' }}>
-                                            {{ $label }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="event-card">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <div class="event-card-slider-wrapper">
-                                    <div class="event-images-slider">
-                                        <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
+                                    <div class="col-md-4">
+                                        <a href="{{ route('frontend.hotels.details', $hotel['id']) }}"
                                             class="event-card__img">
-                                            <img data-src="https://images.dnatatravel.com/ei/1/1/1/7/6/0/0.jpg"
-                                                class="imgFluid lazyload" alt="Image" />
+                                            <img data-src="{{ $hotel['image'] ?? asset('frontend/images/placeholder.png') }}"
+                                                class="imgFluid lazyload" alt="{{ $hotel['name'] }}" />
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="event-card__content">
+                                            <a href="{{ route('frontend.hotels.details', $hotel['id']) }}"
+                                                class="title">
+                                                {{ $hotel['name'] }}
+                                            </a>
+
+                                            <div class="details">
+                                                <div class="icon"><i class="bx bx-map"></i></div>
+                                                <div class="content">{{ $hotel['location'] ?? '' }},
+                                                    {{ $hotel['province'] ?? '' }}</div>
+                                            </div>
+
+
+                                            @if ($hotel['rating'])
+                                                <div class="rating">
+                                                    <div class="stars">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <i class="bx bxs-star"
+                                                                style="color: {{ $i <= $hotel['rating'] ? '#f2ac06' : '#ccc' }}"></i>
+                                                        @endfor
+                                                    </div>
+                                                    <div class="rating-average">
+                                                        <div class="rating-average-blob">
+                                                            {{ number_format($hotel['rating'], 1) }}
+                                                        </div>
+                                                        <div class="info"> {{ $hotel['rating_text'] }}</div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            <div class="details">
+                                                <div class="icon"><i class="bx bxs-moon"></i></div>
+                                                <div class="content">
+                                                    {{ $checkIn->format('M d, Y') }} - {{ $nights }} nights at hotel
+                                                </div>
+                                            </div>
+
+
+
+                                            @if ($hotel['boards']->isNotEmpty())
+                                                <div class="details">
+                                                    <div class="icon"><i class="bx bx-restaurant"></i></div>
+                                                    <div class="content">
+                                                        {{ $hotel['boards']->implode(' | ') }}
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="event-card__content event-card__content--price">
+                                            @if ($hotel['price'])
+                                                <span class="subtitle">Total price from</span>
+                                                <div class="price">
+                                                    <span class="dirham">D</span>{{ number_format($hotel['price'], 2) }}
+                                                </div>
+                                            @endif
+
+                                            <a href="{{ route('frontend.hotels.details', $hotel['id']) }}"
+                                                class="themeBtn mt-3">
+                                                View More
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="empty-results" aria-labelledby="no-results-title">
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-md-8 col-lg-6 text-center">
+                                    <div class="mb-3">
+                                        <i class='bx bx-search-alt empty-icon' aria-hidden="true"></i>
+                                    </div>
+                                    <h2 id="no-results-title" class="h4 fw-bold mb-2">
+                                        No hotels found
+                                    </h2>
+                                    <p class="text-muted mb-4">
+                                        We couldn't find any properties matching your criteria.
+                                        Try adjusting your filters or searching for different dates.
+                                    </p>
+                                    <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
+                                        <a href="{{ route('frontend.hotels.index') }}"
+                                            class="themeBtn themeBtn--primary">
+                                            Search alternative dates
+                                        </a>
+                                        <a href="{{ route('frontend.hotels.search', $query) }}" class="themeBtn">
+                                            Reset filters
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
-                                <div class="event-card__content">
-                                    <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
-                                        class="title">Le Meridien Dubai Hotel & Conference Centre</a>
-                                    <div class="details">
-                                        <div class="icon"><i class="bx bx-map"></i></div>
-                                        <div class="content">Dubai International Airport, Dubai</div>
-                                    </div>
-                                    <div class="rating">
-                                        <div class="stars">
-
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-
-                                        </div>
-                                        <div class="rating-average">
-                                            <div class="rating-average-blob">5.0</div>
-                                            <div class="info">Spectacular</div>
-                                        </div>
-
-                                    </div>
-                                    <div class="details">
-                                        <div class="icon"><i class="bx bxs-moon"></i></div>
-                                        <div class="content">
-                                            Jan 13, 2026 - 2 nights at hotel
-                                        </div>
-                                    </div>
-                                    <div class="details">
-                                        <div class="icon">
-                                            <i class="bx bx-restaurant"></i>
-                                        </div>
-
-                                        <div class="content"><span class="">Bed And Breakfast</span> | <span
-                                                class="">Half Board</span> | <span class="">Full
-                                                Board</span></div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="event-card__content event-card__content--price">
-                                    <span class="subtitle">Total price from</span>
-                                    <div class="price"><span class="dirham">D</span>2,136.35</div>
-                                    </span>
-                                    <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
-                                        class="themeBtn mt-3">View More</a>
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="event-card">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <div class="event-card-slider-wrapper">
-                                    <div class="event-images-slider">
-                                        <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
-                                            class="event-card__img">
-                                            <img data-src="https://images.dnatatravel.com/ei/1/1/1/7/6/0/0.jpg"
-                                                class="imgFluid lazyload" alt="Image" />
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="event-card__content">
-                                    <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
-                                        class="title">Le Meridien Dubai Hotel & Conference Centre</a>
-                                    <div class="details">
-                                        <div class="icon"><i class="bx bx-map"></i></div>
-                                        <div class="content">Dubai International Airport, Dubai</div>
-                                    </div>
-                                    <div class="rating">
-                                        <div class="stars">
+                    @endif
 
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                            <i class="bx bxs-star" style="color: #f2ac06"></i>
-
-                                        </div>
-                                        <div class="rating-average">
-                                            <div class="rating-average-blob">5.0</div>
-                                            <div class="info">Spectacular</div>
-                                        </div>
-
-                                    </div>
-                                    <div class="details">
-                                        <div class="icon"><i class="bx bxs-moon"></i></div>
-                                        <div class="content">
-                                            Jan 13, 2026 - 2 nights at hotel
-                                        </div>
-                                    </div>
-                                    <div class="details">
-                                        <div class="icon">
-                                            <i class="bx bx-restaurant"></i>
-                                        </div>
-
-                                        <div class="content"><span class="">Bed And Breakfast</span> | <span
-                                                class="">Half Board</span> | <span class="">Full
-                                                Board</span></div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="event-card__content event-card__content--price">
-                                    <span class="subtitle">Total price from</span>
-                                    <div class="price"><span class="dirham">D</span>2,136.35</div>
-                                    </span>
-                                    <a href="https://andaleebtours.com/hotels/detail/111760?destination=Dubai&start_date=Jan+13%2C+2026&end_date=Jan+15%2C+2026&roomData=rooms.0.adults%3D1%26rooms.0.childAges%3D&sort_by=recommended&rating_range_min=0&rating_range_max=10"
-                                        class="themeBtn mt-3">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="empty-results " aria-labelledby="no-results-title">
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-md-8 col-lg-6 text-center">
-
-                                <!-- Visual Cue -->
-                                <div class="mb-3">
-                                    <i class='bx bx-search-alt empty-icon' aria-hidden="true"></i>
-                                </div>
-
-                                <!-- Content -->
-                                <h2 id="no-results-title" class="h4 fw-bold mb-2">
-                                    No hotels found
-                                </h2>
-
-                                <p class="text-muted mb-4">
-                                    We couldn't find any properties matching your criteria.
-                                    Try adjusting your filters or searching for different dates.
-                                </p>
-
-                                <!-- Actions -->
-                                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
-                                    <a href="{{ route('frontend.hotels.index') }}" type="button" class="themeBtn themeBtn--primary">
-                                        Search alternative dates
-                                    </a>
-                                    <a href="{{ route('frontend.hotels.search') }}" type="button" class="themeBtn">
-                                        Reset filters
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -546,7 +528,9 @@
             const maxInput = document.querySelector('input[name="max_price"]');
 
             if (minInput && maxInput) {
-                const maxLimit = parseInt(maxInput.getAttribute('max')) || 10000;
+                const maxLimit = maxInput.hasAttribute('max') ? parseInt(maxInput.getAttribute('max'), 10) :
+                    Infinity;
+
 
                 const enforcePriceRules = () => {
                     let minVal = parseInt(minInput.value) || 0;

@@ -10,6 +10,7 @@ use App\Models\Province;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 
 class HotelController extends Controller
@@ -44,27 +45,25 @@ class HotelController extends Controller
         // 1. Build rooms array
         $rooms = $this->buildRoomsArray($request);
 
-        // 2. Detect source market and currency
-        [$sourceMarket, $currencyCode] = $this->getMarketAndCurrency($request);
-
-        // 3. Resolve destination to hotel IDs
+        // 2. Resolve destination to hotel IDs
         $hotelIds = $this->resolveDestinationToHotelIds($request->destination);
 
-        $availableHotels = collect();
+        $hotels = collect();
 
         if ($hotelIds->isNotEmpty()) {
-            // 4. Fetch availability from API
-            $availableHotels = $this->fetchAvailability($hotelIds, $rooms, $request, $currencyCode);
+            // 3. Fetch availability from API
+            $hotels = $this->fetchAvailability($hotelIds, $rooms, $request);
 
-            // 5. Apply filters
-            $availableHotels = $this->applyFilters($availableHotels, $request);
+            // 4. Apply filters
+            $hotels = $this->applyFilters($hotels, $request);
 
-            // 6. Apply sorting
-            $availableHotels = $this->applySorting($availableHotels, $request);
+            // 5. Apply sorting
+            $hotels = $this->applySorting($hotels, $request);
+
+            $hotels = $this->formatHotels($hotels);
         }
-
         return view('frontend.hotels.search', [
-            'available_list' => $availableHotels->values()
+            'hotels' => $hotels->values()
         ]);
     }
 
@@ -82,20 +81,6 @@ class HotelController extends Controller
             $rooms[] = ['Adults' => $adults, 'ChildAges' => $childAges];
         }
         return $rooms;
-    }
-
-    // 2. Get Market & Currency
-    protected function getMarketAndCurrency(Request $request)
-    {
-        $ip = $request->ip();
-        $sourceMarket = Http::get("https://ipinfo.io/{$ip}/json")->json()['country'] ?? 'AE';
-        $currencyCode = Http::get("https://api.ipgeolocation.io/ipgeo", [
-            'apiKey' => 'dd55065188e34beca718e355c7a57df6',
-            'ip' => $ip,
-            'fields' => 'currency'
-        ])->json()['currency']['code'] ?? 'AED';
-
-        return [$sourceMarket, $currencyCode];
     }
 
     // 3. Resolve Destination to Hotel IDs
@@ -125,7 +110,7 @@ class HotelController extends Controller
     }
 
     // 4. Fetch availability from API
-    protected function fetchAvailability($hotelIds, $rooms, Request $request, $currencyCode)
+    protected function fetchAvailability($hotelIds, $rooms, Request $request)
     {
         $startDate = Carbon::parse($request->check_in)->format('Y-m-d');
         $endDate = Carbon::parse($request->check_out)->format('Y-m-d');
@@ -140,7 +125,7 @@ class HotelController extends Controller
             "GetTaxBreakdown" => true,
             "IsPackage" => false,
             "GetLocalCharges" => true,
-            "CurrencyCode" => $currencyCode
+            "CurrencyCode" => 'AED'
         ];
 
         $response = Http::withHeaders([
@@ -239,10 +224,54 @@ class HotelController extends Controller
         } elseif ($sort === 'recommended') {
             $hotels = $hotels->filter(fn($hotel) => $hotel['EstablishmentInfo']['Rating'] == 5);
         } elseif ($sort === 'top_rated') {
-            $hotels = $hotels->filter(fn($hotel) => in_array($hotel['EstablishmentInfo']['Rating'], [4, 5]));
+            $hotels = $hotels->filter(fn($hotel) => in_array($hotel['EstablishmentInfo']['Rating'], [5, 4]));
         }
 
         return $hotels;
+    }
+
+    private function formatHotels(Collection $hotels): Collection
+    {
+        $yalagoIds = $hotels->pluck('EstablishmentId')->all();
+
+        $localHotels = Hotel::with(['province', 'location'])
+            ->whereIn('yalago_id', $yalagoIds)
+            ->get()
+            ->keyBy('yalago_id');
+
+        return $hotels->map(function ($item) use ($localHotels) {
+
+            $localHotel = $localHotels->get($item['EstablishmentId']);
+
+            $boards = collect($item['Rooms'])
+                ->flatMap(fn($room) => $room['Boards']);
+
+            $cheapestBoard = $boards
+                ->sortBy('NetCost.Amount')
+                ->first();
+
+            return [
+                'id' => $localHotel?->id,
+
+                'name' => $localHotel?->name,
+                'address' => $localHotel?->address,
+                'rating' => $localHotel?->rating,
+                'rating_text' => $localHotel?->rating_text,
+
+                'province' => $localHotel?->province?->name,
+                'location' => $localHotel?->location?->name,
+
+                'image' => data_get($localHotel?->images, '0.Url'),
+
+                'price' => data_get($cheapestBoard, 'NetCost.Amount'),
+                'currency' => data_get($cheapestBoard, 'NetCost.Currency', 'AED'),
+
+                'boards' => $boards
+                    ->pluck('Description')
+                    ->unique()
+                    ->values(),
+            ];
+        });
     }
 
     public function details()
