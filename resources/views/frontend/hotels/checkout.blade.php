@@ -10,15 +10,19 @@
                         <i class='bx bx-chevron-right breadcrumb-separator'></i>
                     </li>
 
-
                     <li class="breadcrumb-item">
                         <a href="{{ route('frontend.hotels.index') }}" class="breadcrumb-link">Hotels</a>
                         <i class='bx bx-chevron-right breadcrumb-separator'></i>
                     </li>
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('frontend.hotels.details') }}" class="breadcrumb-link">Le Meridien Dubai Hotel &
-                            Conference Centre</a>
+                        <a href="{!! route('frontend.hotels.search') . '?' . http_build_query(request()->query()) !!}" class="breadcrumb-link">Listing</a>
+                        <i class='bx bx-chevron-right breadcrumb-separator'></i>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a href="{!! route('frontend.hotels.details', $hotel['id']) . '?' . http_build_query(request()->query()) !!}" class="breadcrumb-link">
+                            {{ $hotel['name'] }}</a>
                         <i class='bx bx-chevron-right breadcrumb-separator'></i>
                     </li>
 
@@ -29,460 +33,6 @@
             </nav>
         </div>
     </div>
-    <section class="section-gap">
-        <div class="container">
-            <form action="#">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div id="extras" class="{{ $is_extras ? 'd-block' : 'd-none' }}">
-                            <div class="modern-card">
-                                <div class="card-title">
-                                    <i class='bx bx-receipt'></i> Return Transfer | Deluxe Bungalow | Bed and Breakfast
-                                </div>
-
-                                <div class="transfers-list">
-                                    <div class="row g-3">
-                                        <div class="col-md-6">
-                                            <div class="transfers-item">
-                                                <input class="transfers-item__radio" id="transfer-1" type="radio"
-                                                    name="extras-item"
-                                                    value="Return Speedboat Transfer (Shared, from Velana International Airport, MLE)"
-                                                    data-price="472.56" data-option-id="94" data-extra-type-id="2"
-                                                    data-extra-id="71" required data-required='true'>
-                                                <label class="transfers-item__box" for="transfer-1">
-                                                    <p
-                                                        style="font-weight: 500;"class="content text-danger text-center mb-1">
-                                                        Selection Required
-                                                    </p>
-                                                    <div class="transfer-header">
-                                                        <i class='bx bxs-check-circle'></i>
-                                                        <div class="title">Selected</div>
-                                                    </div>
-                                                    <div class="transfer-body">
-                                                        <div class="content">Return Speedboat Transfer (Shared, from
-                                                            Velana International Airport, MLE)</div>
-                                                        <div class="bottom-price">
-                                                            <div class="price-details">
-                                                                <span>Per person return</span>
-                                                                <div class="price"><span class="dirham">D</span> 472.56
-                                                                </div>
-                                                                <span>Total <span class="dirham">D</span> 472.56</span>
-                                                            </div>
-                                                            <div class="selected-btn" selected-text="Selected"
-                                                                select-text="Select"></div>
-                                                        </div>
-                                                    </div>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="transfers-item">
-                                                <input class="transfers-item__radio" id="transfer-2" type="radio"
-                                                    name="extras-item"
-                                                    value="Return Speedboat Transfer (Shared, from Velana International Airport, MLE)"
-                                                    data-price="472.56" data-option-id="94" data-extra-type-id="2"
-                                                    data-extra-id="71" required data-required='true'>
-                                                <label class="transfers-item__box" for="transfer-2">
-                                                    <p style="font-weight: 500;"
-                                                        class="content text-danger text-center mb-1">Selection Required
-                                                    </p>
-                                                    <div class="transfer-header">
-                                                        <i class='bx bxs-check-circle'></i>
-                                                        <div class="title">Selected</div>
-                                                    </div>
-                                                    <div class="transfer-body">
-                                                        <div class="content">Return Speedboat Transfer (Shared, from
-                                                            Velana International Airport, MLE)</div>
-                                                        <div class="bottom-price">
-                                                            <div class="price-details">
-                                                                <span>Per person return</span>
-                                                                <div class="price"><span class="dirham">D</span> 472.56
-                                                                </div>
-                                                                <span>Total <span class="dirham">D</span> 472.56</span>
-                                                            </div>
-                                                            <div class="selected-btn" selected-text="Selected"
-                                                                select-text="Select"></div>
-                                                        </div>
-                                                    </div>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern-card">
-                                <div class="card-title">
-                                    <i class='bx bxs-plane-alt'></i> Flight Details
-                                </div>
-
-                                <div class="row g-3">
-                                    <div class="col-md-12">
-                                        <div class="custom-info-alert my-2">
-                                            <div class="icon"><i class="bx bx-info-circle"></i></div>
-                                            <div class="content">To proceed with your booking, we also need your flight
-                                                details to arrange transfers for you.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="card-title mb-0">Outbound Flight</div>
-                                    </div>
-                                    <div class="col-md-4 mt-2">
-                                        <label class="form-label">Flight number *</label>
-                                        <input type="text" class="custom-input" required>
-                                    </div>
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label">Arrival time *</label>
-                                        <div class="flight-fields">
-                                            <select class="custom-select" id="flight_outbound_hr"
-                                                name="out_flight_arrival_time_h">
-                                                <option value="">hh</option>
-                                                <option value="00">00</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label d-none d-md-block">&nbsp;</label>
-                                        <select class="custom-select" id="flight_outbound_min"
-                                            name="out_flight_arrival_time_m">
-                                            <option value="">mm</option>
-                                            <option value="00">00</option>
-                                            <option value="05">05</option>
-                                            <option value="10">10</option>
-                                            <option value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="25">25</option>
-                                            <option value="30">30</option>
-                                            <option value="35">35</option>
-                                            <option value="40">40</option>
-                                            <option value="45">45</option>
-                                            <option value="50">50</option>
-                                            <option value="55">55</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="card-title mb-0">Inbound Flight</div>
-                                    </div>
-                                    <div class="col-md-4 mt-2">
-                                        <label class="form-label">Flight number *</label>
-                                        <input type="text" class="custom-input" required>
-                                    </div>
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label">Departure time *</label>
-                                        <div class="flight-fields">
-                                            <select class="custom-select" id="flight_outbound_hr"
-                                                name="in_flight_arrival_time_h">
-                                                <option value="">hh</option>
-                                                <option value="00">00</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label d-none d-md-block">&nbsp;</label>
-                                        <select class="custom-select" id="flight_outbound_min"
-                                            name="in_flight_arrival_time_m">
-                                            <option value="">mm</option>
-                                            <option value="00">00</option>
-                                            <option value="05">05</option>
-                                            <option value="10">10</option>
-                                            <option value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="25">25</option>
-                                            <option value="30">30</option>
-                                            <option value="35">35</option>
-                                            <option value="40">40</option>
-                                            <option value="45">45</option>
-                                            <option value="50">50</option>
-                                            <option value="55">55</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="guest-info" class="{{ $is_extras ? 'd-none' : 'd-block' }}">
-                            <div class="modern-card">
-                                <div class="card-title">
-                                    <i class='bx bx-user'></i> Guest information
-                                </div>
-
-                                <div class="row g-3">
-                                    <div class="col-md-12">
-                                        <div class="custom-info-alert my-2">
-                                            <div class="icon"><i class="bx bx-info-circle"></i></div>
-                                            <div class="content">All names of those travelling must exactly match their
-                                                passport as
-                                                charges may apply to change a name. If you have autofill enabled on your
-                                                browser or
-                                                device, please check all names and details are correct.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Title</label>
-                                        <select class="custom-select">
-                                            <option>Mr.</option>
-                                            <option>Mrs.</option>
-                                            <option>Ms.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label class="form-label">First Name *</label>
-                                        <input type="text" class="custom-input" required>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label class="form-label">Last Name *</label>
-                                        <input type="text" class="custom-input" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label">Email Address *</label>
-                                        <input type="email" class="custom-input" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label">Phone Number *</label>
-                                        <input type="tel" class="custom-input"required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label">Address *</label>
-                                        <input type="text" class="custom-input">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern-card">
-                                <div class="card-title">
-                                    <i class='bx bx-user'></i> #1 Guest Details
-                                </div>
-
-                                <div class="row g-3">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Title</label>
-                                        <select class="custom-select">
-                                            <option>Mr.</option>
-                                            <option>Mrs.</option>
-                                            <option>Ms.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label class="form-label">First Name *</label>
-                                        <input type="text" class="custom-input" required>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label class="form-label">Last Name *</label>
-                                        <input type="text" class="custom-input" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label">Age *</label>
-                                        <input type="number" class="custom-input" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern-card">
-                                <div class="card-title">
-                                    <i class='bx bx-info-circle'></i> Important information
-                                </div>
-
-                                <p class="text-muted fw-bold pt-3 mb-1">Hotel Information</p>
-                                <p>For health and safety reasons, children under 8 years are not allowed in any over water
-                                    or
-                                    over ocean categories.WOW INCLUSIVE- YOUR 24-HOUR PREMIUM ALL INCLUSIVE BENEFITS -
-                                    Breakfast
-                                </p>
-                                <a data-info-popup-open="Privacy Policy" href="javascript:void(0)"
-                                    class="custom-link">Show
-                                    more</a>
-                            </div>
-
-                            <div class="modern-card">
-                                <button type="submit" class="btn-primary-custom mt-2">
-                                    Pay Now <i class='bx bx-lock-alt'></i>
-                                </button>
-
-                                <div class="text-center mt-3">
-                                    <small
-                                        class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
-                                            class='bx bx-check-shield'></i>Secure
-                                        Checkout</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="event-card event-card--details">
-                            <div class="event-card__img">
-                                <img data-src="https://images.dnatatravel.com/ei/1/1/1/7/6/0/0.jpg"
-                                    class="imgFluid lazyload" alt="Image">
-                            </div>
-                            <div class="event-card__content">
-                                <div class="title title--sm">Le Meridien Dubai Hotel &amp; Conference Centre </div>
-                                <div class="rating pb-1">
-                                    <div class="stars">
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                    </div>
-                                    <div class="rating-average">
-                                        <div class="rating-average-blob">5.0</div>
-                                        <div class="info">Spectacular</div>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="icon"><i class="bx bxs-calendar-alt"></i></div>
-                                    <div class="content">12 Jan 2026 - 1 nights at hotel</div>
-                                </div>
-                                <div class="details">
-                                    <div class="icon"><i class="bx bx-map"></i></div>
-                                    <div class="content">Airport Road, P.O. Box 10001, Dubai, United Arab Emirates
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="icon"><i class="bx bxs-group"></i></div>
-                                    <div class="content">1 Adults, 0 Child, 1 Rooms </div>
-                                </div>
-                                <div class="details">
-                                    <div class="icon"><i class="bx bxs-bed"></i></div>
-                                    <div class="content showroomtype">Deluxe Room</div>
-                                </div>
-                                <div class="details details--border">
-                                    <div class="content">Rooms total</div>
-                                    <div class="content roomstotal"><span class="dirham">D</span>1068.18</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        @if ($is_extras)
-                        <div class="modern-card">
-                            <div class="card-title">Transfers / Extras
-                            </div>
-
-                            <div class="order-item-mini" id="extras-summary-item" style="display: none;">
-                                <div>
-                                    <h6>
-                                        <span id="extras-pkg-title">pkg title here</span>
-                                        <i class='bx bx-x'></i> AED
-                                        <span id="extras-pkg-amount">amount here</span>
-                                    </h6>
-                                </div>
-                            </div>
-
-                            <div class="mt-3">
-                                <div class="summary-row total">
-                                    <span>Total</span>
-                                    <span style="color: var(--color-primary)"><span class="dirham">D</span>
-                                        <span id="extras-total-amount">0.00</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        <div class="modern-card">
-
-                            <div class="order-item-mini">
-                                <div>
-                                    <h6>Rooms Total</h6>
-                                </div>
-                                <span class="fw-bold"><span class="dirham">D</span> 1068.18</span>
-                            </div>
-
-                            <div class="mt-3">
-                                @if ($is_extras)
-                                <div class="summary-row">
-                                    <span>Extras total</span>
-                                    <span><span class="dirham">D</span> <span id="summary-extras-total">0.00</span></span>
-                                </div>
-                                @endif
-                                <div class="summary-row total">
-                                    <span>Total Price</span>
-                                    <span style="color: var(--color-primary)"><span class="dirham">D</span>
-                                        <span id="summary-net-total">1068.18</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-    @if ($is_extras)
-        <div class="continue-bar">
-            <div class="container">
-                <div class="continue-bar-padding">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-12 col-md-6">
-                            <div class="details-wrapper">
-                                <div class="details">
-                                    <div class="total">Total</div>
-                                    <div><span class="dirham">D</span><span class="total-price"
-                                            id="total-price">1068.18</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="details-btn-wrapper">
-                                <button type="button" id="continue-btn" class="btn-primary-custom">
-                                    Continue
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
 
     <div class="custom-popup-wrapper" data-info-popup-wrapper="Privacy Policy">
         <div class="custom-popup" data-info-popup>
@@ -621,6 +171,502 @@
             </div>
         </div>
     </div>
+
+    <section class="section-gap">
+        <div class="container">
+            <form action="{{ route('frontend.hotels.payment.process') }}" method="POST">
+                @csrf
+                <input type="hidden" name="selected_room[room_code]" value="{{ $selected_room['room_code'] }}">
+                <input type="hidden" name="selected_room[board_code]" value="{{ $selected_room['board_code'] }}">
+                <input type="hidden" name="selected_room[price]" value="{{ $selected_room['price'] }}">
+                <input type="hidden" name="selected_room[room_name]" value="{{ $selected_room['room_name'] }}">
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div id="extras" class="{{ $show_extras ? 'd-block' : 'd-none' }}">
+                            @if ($show_extras && $yalago_extras->isNotEmpty())
+                                <div id="selected-extras-hidden-fields"></div>
+
+                                @php $j = 0; @endphp
+
+                                @foreach ($yalago_extras as $item)
+                                    @php
+                                        $extra = $item['extra'];
+                                        $room = $item['room'];
+                                        $board = $item['board'];
+
+                                        if (empty($extra['IsMandatory'])) {
+                                            continue;
+                                        }
+
+                                        $groupName = strtolower($room['Code'] . '-' . $extra['ExtraId']);
+                                    @endphp
+
+                                    <div class="modern-card">
+                                        <div class="card-title">
+                                            {{ $extra['Title'] }}
+                                            | {{ $room['Description'] }}
+                                            | {{ $board['Description'] }}
+                                        </div>
+
+                                        <div class="transfers-list">
+                                            <div class="row g-3">
+                                                @foreach ($extra['Options'] as $option)
+                                                    @php
+                                                        $j++;
+
+                                                        if (!empty($extra['IsBindingPrice'])) {
+                                                            $price = number_format($option['GrossCost']['Amount'], 2);
+                                                        } else {
+                                                            $net = $option['NetCost']['Amount'];
+                                                            $commission = ($net * $hotelCommissionPercentage) / 100;
+                                                            $price = $net + $commission;
+                                                        }
+                                                    @endphp
+
+                                                    <div class="col-md-6">
+                                                        <div class="transfers-item">
+                                                            <input class="transfers-item__radio" type="radio"
+                                                                id="transfer-{{ $j }}"
+                                                                name="{{ $groupName }}" value="{{ $option['Title'] }}"
+                                                                data-price="{{ $price }}"
+                                                                data-option-id="{{ $option['OptionId'] }}"
+                                                                data-extra-id="{{ $extra['ExtraId'] }}"
+                                                                data-extra-type-id="{{ $extra['ExtraTypeId'] }}"
+                                                                {{ $extra['IsMandatory'] ? 'required data-required=true' : '' }}>
+
+                                                            <label class="transfers-item__box"
+                                                                for="transfer-{{ $j }}">
+                                                                <p
+                                                                    class="content text-danger text-center mb-1 extras-required">
+                                                                    Selection Required
+                                                                </p>
+
+                                                                <div class="transfer-header">
+                                                                    <i class='bx bxs-check-circle'></i>
+                                                                    <div class="title">Selected</div>
+                                                                </div>
+
+                                                                <div class="transfer-body">
+                                                                    <div class="content">{{ $option['Title'] }}</div>
+
+                                                                    <div class="bottom-price">
+                                                                        <div class="price-details">
+                                                                            <span>Per person return</span>
+                                                                            <div class="price"> {{ formatPrice($price) }}
+                                                                            </div>
+                                                                            <span>Total <span class="dirham">D</span>
+                                                                                {{ $price }}</span>
+                                                                        </div>
+                                                                        <div class="selected-btn" select-text="Select"
+                                                                            selected-text="Selected"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bxs-plane-alt'></i> Flight Details
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <div class="custom-info-alert my-2">
+                                            <div class="icon"><i class="bx bx-info-circle"></i></div>
+                                            <div class="content">
+                                                To proceed with your booking, we also need your flight details to arrange
+                                                transfers for you.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- OUTBOUND -->
+                                    <div class="col-md-12">
+                                        <div class="card-title mb-0">Outbound Flight</div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-2">
+                                        <label class="form-label">Flight number *</label>
+                                        <input type="text" class="custom-input"
+                                            name="flight_details[outbound][flight_number]" required>
+                                    </div>
+
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label">Arrival time *</label>
+                                        <div class="flight-fields">
+                                            <select class="custom-select" name="flight_details[outbound][arrival_hour]"
+                                                required>
+                                                <option value="">hh</option>
+                                                @for ($i = 0; $i < 24; $i++)
+                                                    <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
+                                                        {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label d-none d-md-block">&nbsp;</label>
+                                        <select class="custom-select" name="flight_details[outbound][arrival_minute]"
+                                            required>
+                                            <option value="">mm</option>
+                                            @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
+                                                <option value="{{ $m }}">{{ $m }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <!-- INBOUND -->
+                                    <div class="col-md-12">
+                                        <div class="card-title mb-0">Inbound Flight</div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-2">
+                                        <label class="form-label">Flight number *</label>
+                                        <input type="text" class="custom-input"
+                                            name="flight_details[inbound][flight_number]" required>
+                                    </div>
+
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label">Departure time *</label>
+                                        <div class="flight-fields">
+                                            <select class="custom-select" name="flight_details[inbound][departure_hour]"
+                                                required>
+                                                <option value="">hh</option>
+                                                @for ($i = 0; $i < 24; $i++)
+                                                    <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
+                                                        {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-label d-none d-md-block">&nbsp;</label>
+                                        <select class="custom-select" name="flight_details[inbound][departure_minute]"
+                                            required>
+                                            <option value="">mm</option>
+                                            @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
+                                                <option value="{{ $m }}">{{ $m }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div id="guest-info" class="{{ $show_extras ? 'd-none' : 'd-block' }}">
+                            @php
+                                $adultCount = collect($rooms_request)->sum('Adults');
+                            @endphp
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bx-user'></i> Guest information
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <div class="custom-info-alert my-2">
+                                            <div class="icon"><i class="bx bx-info-circle"></i></div>
+                                            <div class="content">
+                                                All names must exactly match passports.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="form-label">Title</label>
+                                        <select class="custom-select" name="booking[lead_guest][title]" required>
+                                            <option value="Mr">Mr.</option>
+                                            <option value="Mrs">Mrs.</option>
+                                            <option value="Ms">Ms.</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="custom-input" name="booking[lead_guest][first_name]"
+                                            required>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="custom-input" name="booking[lead_guest][last_name]"
+                                            required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="custom-input" name="booking[lead_guest][email]"
+                                            required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Phone Number *</label>
+                                        <input type="tel" class="custom-input" name="booking[lead_guest][phone]"
+                                            required>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label class="form-label">Address *</label>
+                                        <input type="text" class="custom-input" name="booking[lead_guest][address]"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @for ($i = 0; $i < $adultCount; $i++)
+                                <div class="modern-card">
+                                    <div class="card-title">
+                                        <i class='bx bx-user'></i> Guest #{{ $i + 1 }} Details
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-2">
+                                            <label class="form-label">Title</label>
+                                            <select class="custom-select"
+                                                name="booking[guests][{{ $i }}][title]" required>
+                                                <option value="Mr">Mr.</option>
+                                                <option value="Mrs">Mrs.</option>
+                                                <option value="Ms">Ms.</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <label class="form-label">First Name *</label>
+                                            <input type="text" class="custom-input"
+                                                name="booking[guests][{{ $i }}][first_name]" required>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <label class="form-label">Last Name *</label>
+                                            <input type="text" class="custom-input"
+                                                name="booking[guests][{{ $i }}][last_name]" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">Age *</label>
+                                            <input type="number" min="1" class="custom-input"
+                                                name="booking[guests][{{ $i }}][age]" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endfor
+
+
+
+                            <div class="modern-card">
+                                <div class="card-title">
+                                    <i class='bx bx-info-circle'></i> Important information
+                                </div>
+
+                                <p class="text-muted fw-bold pt-3 mb-1">Hotel Information</p>
+                                <p>For health and safety reasons, children under 8 years are not allowed in any over water
+                                    or
+                                    over ocean categories.WOW INCLUSIVE- YOUR 24-HOUR PREMIUM ALL INCLUSIVE BENEFITS -
+                                    Breakfast
+                                </p>
+                                <a data-info-popup-open="Privacy Policy" href="javascript:void(0)"
+                                    class="custom-link">Show
+                                    more</a>
+                            </div>
+
+                            <div class="modern-card">
+                                <!-- Option 1: Card -->
+                                <label class="payment-option">
+                                    <div class="payment-header">
+                                        <input type="radio" name="payment_method" class="payment-radio" value="payby"
+                                            checked="" required="">
+                                        <span class="payment-label">Credit / Debit Card</span>
+                                    </div>
+                                    <div class="payment-desc">
+                                        Note: You will be redirected to the secure payment gateway to complete your
+                                        purchase.
+                                    </div>
+                                </label>
+
+                                <!-- Option 2: Tabby -->
+                                <label class="payment-option">
+                                    <div class="payment-header">
+                                        <input type="radio" name="payment_method" class="payment-radio" value="tabby"
+                                            required="">
+                                        <span class="payment-label">Tabby - Buy Now Pay Later</span>
+                                    </div>
+                                    <div class="payment-desc">
+                                        Pay in 4 interest-free installments. No fees, no hidden costs.
+                                    </div>
+                                </label>
+
+                                <button type="submit" class="btn-primary-custom mt-2">
+                                    Pay Now <i class='bx bx-lock-alt'></i>
+                                </button>
+
+                                <div class="text-center mt-3">
+                                    <small
+                                        class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
+                                            class='bx bx-check-shield'></i>Secure
+                                        Checkout</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="event-card event-card--details">
+                            <div class="event-card__img">
+                                <img data-src="{{ $hotel['image'] ?? asset('frontend/images/placeholder.png') }}"
+                                    class="imgFluid lazyload" alt="{{ $hotel['name'] }}" />
+                            </div>
+
+                            <div class="event-card__content">
+                                <div class="title title--sm">{{ $hotel['name'] }}</div>
+
+                                @if (!empty($hotel['rating']))
+                                    <div class="rating pb-1">
+                                        <div class="stars">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <i class="bx bxs-star"
+                                                    style="color: {{ $i <= $hotel['rating'] ? '#f2ac06' : '#ccc' }}"></i>
+                                            @endfor
+                                        </div>
+                                        <div class="rating-average">
+                                            <div class="rating-average-blob">{{ number_format($hotel['rating'], 1) }}
+                                            </div>
+                                            <div class="info">{{ $hotel['rating_text'] ?? '' }}</div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="details">
+                                    <div class="icon"><i class="bx bxs-calendar-alt"></i></div>
+                                    <div class="content">
+                                        {{ \Carbon\Carbon::parse($check_in)->format('d M, Y') }} -
+                                        {{ \Carbon\Carbon::parse($check_in)->diffInDays(\Carbon\Carbon::parse($check_out)) }}
+                                        nights at hotel
+                                    </div>
+                                </div>
+
+                                <div class="details">
+                                    <div class="icon"><i class="bx bx-map"></i></div>
+                                    <div class="content">
+                                        {{ $hotel['address'] ?? '' }}
+                                    </div>
+                                </div>
+
+                                <div class="details">
+                                    <div class="icon"><i class="bx bxs-group"></i></div>
+                                    <div class="content">
+                                        {{ collect($rooms_request)->sum('Adults') }} Adults,
+                                        {{ collect($rooms_request)->sum(fn($r) => count($r['ChildAges'])) }} Children,
+                                        {{ count($rooms_request) }} Rooms
+                                    </div>
+                                </div>
+
+                                <div class="details">
+                                    <div class="icon"><i class="bx bxs-bed"></i></div>
+                                    <div class="content showroomtype">{{ $selected_room['room_name'] }}</div>
+                                </div>
+
+                                <div class="details details--border">
+                                    <div class="content">Rooms total</div>
+                                    <div class="content roomstotal">{{ formatPrice($selected_room['price']) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @if ($show_extras)
+                            <div class="modern-card">
+                                <div class="card-title">Transfers / Extras
+                                </div>
+
+                                <div class="order-item-mini" id="extras-summary-item" style="display: none;">
+                                    <div>
+                                        <h6>
+                                            <span id="extras-pkg-title">pkg title here</span>
+                                            <i class='bx bx-x'></i> AED
+                                            <span id="extras-pkg-amount">amount here</span>
+                                        </h6>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="summary-row total">
+                                        <span>Total</span>
+                                        <span style="color: var(--color-primary)"><span class="dirham">D</span>
+                                            <span id="extras-total-amount">0.00</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="modern-card">
+
+                            <div class="order-item-mini">
+                                <div>
+                                    <h6>Rooms Total</h6>
+                                </div>
+                                <span class="fw-bold"><span class="dirham">D</span> 1068.18</span>
+                            </div>
+
+                            <div class="mt-3">
+                                @if ($show_extras)
+                                    <div class="summary-row">
+                                        <span>Extras total</span>
+                                        <span><span class="dirham">D</span> <span
+                                                id="summary-extras-total">0.00</span></span>
+                                    </div>
+                                @endif
+                                <div class="summary-row total">
+                                    <span>Total Price</span>
+                                    <span style="color: var(--color-primary)"><span class="dirham">D</span>
+                                        <span id="summary-net-total">1068.18</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    @if ($show_extras)
+        <div class="continue-bar mt-0">
+            <div class="container">
+                <div class="continue-bar-padding">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-12 col-md-6">
+                            <div class="details-wrapper">
+                                <div class="details">
+                                    <div class="total">Total</div>
+                                    <div><span class="dirham">D</span><span class="total-price" id="total-price"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="details-btn-wrapper">
+                                <button type="button" id="continue-btn" class="btn-primary-custom">
+                                    Continue
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
 @endsection
 @push('js')
     <script>
@@ -651,39 +697,111 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            const roomsTotal = 1068.18;
-            const transferRadios = document.querySelectorAll('.transfers-item__radio');
 
-            transferRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.checked) {
-                        const packageTitle = this.value;
-                        const packagePrice = parseFloat(this.getAttribute('data-price'));
 
-                        const extrasSummaryItem = document.getElementById('extras-summary-item');
-                        const extrasPkgTitle = document.getElementById('extras-pkg-title');
-                        const extrasPkgAmount = document.getElementById('extras-pkg-amount');
-                        const extrasTotalAmount = document.getElementById('extras-total-amount');
-                        const summaryExtrasTotal = document.getElementById('summary-extras-total');
-                        const summaryNetTotal = document.getElementById('summary-net-total');
-                        const continueBarTotal = document.getElementById('total-price');
 
-                        extrasPkgTitle.textContent = packageTitle;
-                        extrasPkgAmount.textContent = packagePrice.toFixed(2);
-                        extrasTotalAmount.textContent = packagePrice.toFixed(2);
-                        extrasSummaryItem.style.display = 'block';
+            /* -----------------------------
+             Helpers
+            ----------------------------- */
+            function getQueryParam(name) {
+                const params = new URLSearchParams(window.location.search);
+                return params.get(name);
+            }
 
-                        summaryExtrasTotal.textContent = packagePrice.toFixed(2);
+            const roomsTotal = parseFloat(getQueryParam('price')) || 0;
 
-                        const netTotal = roomsTotal + packagePrice;
-                        summaryNetTotal.textContent = netTotal.toFixed(2);
-                        continueBarTotal.textContent = netTotal.toFixed(2);
-                    }
+            const totalPriceEls = {
+                extrasTotal: document.getElementById('extras-total-amount'),
+                summaryExtras: document.getElementById('summary-extras-total'),
+                summaryNet: document.getElementById('summary-net-total'),
+                continueTotal: document.getElementById('total-price')
+            };
+
+            /* -----------------------------
+             Recalculate extras + totals
+            ----------------------------- */
+            const formatPrice = (value) =>
+                Number(value).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
                 });
-            });
-        });
 
-        document.addEventListener("DOMContentLoaded", function() {
+
+            /* Populate extras hidden fields */
+            const extrasHiddenContainer = document.getElementById('selected-extras-hidden-fields');
+
+            function clearExtrasHiddenFields() {
+                extrasHiddenContainer.innerHTML = '';
+            }
+
+            function addExtraHiddenField(index, data) {
+                document.querySelectorAll('.extras-required').forEach(el => {
+                    el.style.display = 'none';
+                });
+                const wrapper = document.createElement('div');
+
+                wrapper.innerHTML = `
+        <input type="hidden" name="booking[extras][${index}][title]" value="${data.title}">
+        <input type="hidden" name="booking[extras][${index}][price]" value="${data.price}">
+        <input type="hidden" name="booking[extras][${index}][option_id]" value="${data.optionId}">
+        <input type="hidden" name="booking[extras][${index}][extra_id]" value="${data.extraId}">
+        <input type="hidden" name="booking[extras][${index}][extra_type_id]" value="${data.extraTypeId}">
+    `;
+
+                extrasHiddenContainer.appendChild(wrapper);
+            }
+
+            function recalcTotals() {
+                let extrasTotal = 0;
+                let extrasIndex = 0;
+
+                clearExtrasHiddenFields();
+
+                document.querySelectorAll('.transfers-item__radio:checked').forEach(radio => {
+                    const price = Number(radio.dataset.price || 0);
+                    extrasTotal += price;
+
+                    addExtraHiddenField(extrasIndex++, {
+                        title: radio.value,
+                        price: price,
+                        optionId: radio.dataset.optionId,
+                        extraId: radio.dataset.extraId,
+                        extraTypeId: radio.dataset.extraTypeId
+                    });
+                });
+
+
+                const netTotal = roomsTotal + extrasTotal;
+
+                if (totalPriceEls.extrasTotal) {
+                    totalPriceEls.extrasTotal.textContent = formatPrice(extrasTotal);
+                }
+
+                if (totalPriceEls.summaryExtras) {
+                    totalPriceEls.summaryExtras.textContent = formatPrice(extrasTotal);
+                }
+
+                if (totalPriceEls.summaryNet) {
+                    totalPriceEls.summaryNet.textContent = formatPrice(netTotal);
+                }
+
+                if (totalPriceEls.continueTotal) {
+                    totalPriceEls.continueTotal.textContent = formatPrice(netTotal);
+
+
+                }
+            }
+
+            /* -----------------------------
+             Listen to extras selection
+            ----------------------------- */
+            document.querySelectorAll('.transfers-item__radio').forEach(radio => {
+                radio.addEventListener('change', recalcTotals);
+            });
+
+            /* -----------------------------
+             Continue button validation
+            ----------------------------- */
             const continueBtn = document.getElementById('continue-btn');
             const extrasSection = document.getElementById('extras');
             const guestInfoSection = document.getElementById('guest-info');
@@ -691,49 +809,46 @@
 
             if (continueBtn && extrasSection) {
                 continueBtn.addEventListener('click', function() {
-                    if (extrasSection.classList.contains('d-block')) {
-                        let isValid = true;
 
-                        const transferRadio = document.querySelector('input[name="extras-item"]:checked');
-                        if (!transferRadio) {
-                            isValid = false;
-                            showMessage("Please select a transfer package before continuing.", "error");
-                            return;
-                        }
+                    if (!extrasSection.classList.contains('d-block')) return;
 
-                        const requiredFields = extrasSection.querySelectorAll('[required]');
-                        requiredFields.forEach(field => {
-                            if (field.type === 'radio') {
-                                const radioGroup = extrasSection.querySelectorAll(
-                                    `input[name="${field.name}"]`);
-                                const isChecked = Array.from(radioGroup).some(radio => radio
-                                    .checked);
-                                if (!isChecked) {
-                                    isValid = false;
-                                }
-                            } else if (!field.value.trim()) {
-                                isValid = false;
-                            }
+                    /* Validate mandatory extra groups */
+                    const requiredGroups = new Set();
+
+                    document.querySelectorAll('.transfers-item__radio[data-required="true"]').forEach(
+                        radio => {
+                            requiredGroups.add(radio.name);
                         });
 
-                        if (!isValid) {
-                            showMessage("Please fill all required fields before continuing.", "error");
+                    for (const group of requiredGroups) {
+                        if (!document.querySelector(`input[name="${group}"]:checked`)) {
+                            showMessage("Please select all required extras before continuing.", "error");
                             return;
                         }
-
-                        extrasSection.classList.remove('d-block');
-                        extrasSection.classList.add('d-none');
-                        guestInfoSection.classList.remove('d-none');
-                        guestInfoSection.classList.add('d-block');
-                        continueBar.style.display = 'none';
-
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
                     }
+
+                    /* Switch to guest info */
+                    extrasSection.classList.remove('d-block');
+                    extrasSection.classList.add('d-none');
+
+                    guestInfoSection.classList.remove('d-none');
+                    guestInfoSection.classList.add('d-block');
+
+                    if (continueBar) {
+                        continueBar.style.display = 'none';
+                    }
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                 });
             }
+
+            /* Initial total sync */
+            recalcTotals();
+
+
         });
     </script>
 @endpush

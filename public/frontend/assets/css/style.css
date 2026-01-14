@@ -5225,14 +5225,6 @@ body.fancybox-active.compensate-for-scrollbar {
     height: 100%;
     object-fit: cover;
 }
-.hotels-sm-img-list-slider .slick-track {
-    width: 100% !important;
-    display: flex;
-    justify-content: center;
-}
-.hotels-sm-img-list-slider .slick-slide {
-    width: 153px !important;
-}
 .hotels-lg-img-wrapper {
     position: relative;
 }

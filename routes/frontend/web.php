@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
-    
+
     Route::prefix('checkout')->name('checkout.')->group(function () {
         Route::get('/', [CheckoutController::class, 'index'])->name('index');
         Route::post('/store', [CheckoutController::class, 'store'])->name('store');
     });
-    
+
     // Test routes for insurance email templates
     Route::get('/test-insurance-success-user/{id}', [IndexController::class, 'testInsuranceSuccessUser']);
     Route::get('/test-insurance-success-admin/{id}', [IndexController::class, 'testInsuranceSuccessAdmin']);
@@ -72,10 +72,10 @@ Route::name('frontend.')->group(function () {
         Route::get('/search', [HotelController::class, 'search'])->name('search');
         Route::get('/search-hotels', [HotelController::class, 'searchHotels'])->name('search.hotels');
         Route::get('/details/{id}', [HotelController::class, 'details'])->name('details');
-        Route::get('/extras', [HotelController::class, 'extras'])->name('extras');
-        Route::get('/checkout', [HotelController::class, 'checkout'])->name('checkout');
+        Route::get('/checkout/{id}', [HotelController::class, 'checkout'])->name('checkout');
+        Route::post('/payment/process', [HotelController::class, 'processPayment'])->name('payment.process');
     });
-    
+
     Route::prefix('payment')->name('payment.')->group(function () {
         Route::get('/success', [CheckoutController::class, 'paymentSuccess'])->name('success');
         Route::get('/failed', [CheckoutController::class, 'paymentFailed'])->name('failed');

@@ -143,7 +143,7 @@ class LocationController extends Controller
 
         $this->dumpToJson();
 
-        return redirect()->route('admin.countries.index')
+        return redirect()->route('admin.locations.index')
             ->with('notify_success', "{$newCount} Locations synced");
     }
 

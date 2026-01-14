@@ -50,6 +50,13 @@ class HotelController extends Controller
 
     public function search(Request $request)
     {
+
+        if (!$request->has(['destination', 'check_in', 'check_out', 'room_count'])) {
+            return redirect()->route('frontend.hotels.index')
+                ->with('notify_error', 'Missing required parameters.');
+        }
+
+
         // 1. Build rooms array
         $rooms = $this->buildRoomsArray($request);
 
@@ -128,12 +135,13 @@ class HotelController extends Controller
             "CheckOutDate" => $endDate,
             "EstablishmentIds" => $hotelIds->toArray(),
             "Rooms" => $rooms,
+            "SourceMarket" => "",
             "Culture" => "en-GB",
             "GetPackagePrice" => false,
             "GetTaxBreakdown" => true,
             "IsPackage" => false,
             "GetLocalCharges" => true,
-            "CurrencyCode" => 'AED'
+            "IsBindingPrice" => true
         ];
 
         $response = Http::withHeaders([
@@ -284,6 +292,11 @@ class HotelController extends Controller
 
     private function formatHotel(Hotel $hotel, ?float $price = null, ?array $boards = null): array
     {
+        // decode images if they are JSON string
+        $images = is_string($hotel->images)
+            ? json_decode($hotel->images, true)
+            : $hotel->images;
+
         return [
             'id'          => $hotel->id,
             'name'        => $hotel->name,
@@ -293,7 +306,8 @@ class HotelController extends Controller
             'rating_text' => $hotel->rating_text,
             'province'    => $hotel->province?->name,
             'location'    => $hotel->location?->name,
-            'images'      => $hotel->images,
+            'images'      => $images,
+            'image'    => $images[0]['Url'] ?? null,
 
             // API-related fields
             'price'       => $price
@@ -306,6 +320,11 @@ class HotelController extends Controller
 
     public function details(Request $request, int $id)
     {
+        if (!$request->has(['check_in', 'check_out', 'room_count'])) {
+            return redirect()->route('frontend.hotels.index')
+                ->with('notify_error', 'Missing required parameters.');
+        }
+
         // 1. Fetch hotel with relations
         $hotel = Hotel::with(['province', 'location', 'country'])->findOrFail($id);
 
@@ -340,7 +359,7 @@ class HotelController extends Controller
 
         if ($availableList->isEmpty()) {
             return redirect()->route('frontend.hotels.search')
-                ->with('error', 'No Hotel Found! Please try again.');
+                ->with('notify_error', 'No Hotel Found! Please try again.');
         }
 
         // 5. Fetch detailed hotel info for first room as default
@@ -361,7 +380,7 @@ class HotelController extends Controller
         $boardCode = $firstRoom['Boards'][0]['Code'] ?? null;
 
         if (!$roomCode || !$boardCode) {
-            return redirect()->back()->with('error', 'Unable to fetch hotel details. Missing room or board codes.');
+            return redirect()->back()->with('notify_error', 'Unable to fetch hotel details. Missing room or board codes.');
         }
 
         $detailPayload = [
@@ -383,7 +402,6 @@ class HotelController extends Controller
             "GetBoardBasis"   => true,
             "CurrencyCode"    => "AED",
         ];
-
         $response = Http::withHeaders([
             'x-api-key' => '93082895-c45f-489f-ae10-bed9eaae161e',
             'Accept'    => 'application/json',
@@ -395,25 +413,162 @@ class HotelController extends Controller
             'info_items' => $response['InfoItems'] ?? [],
             'api_availability' => $availableList,
             'total_rooms'      => count($rooms),
-            'show_extras'      => $hotel->country?->iso_code === 'ML',
+            'show_extras'      => $hotel->country?->iso_code === 'MV',
             'check_in'         => $startDate,
             'check_out'        => $endDate,
             'rooms_request'    => $rooms,
+            'hotelCommissionPercentage'    => $this->hotelCommissionPercentage,
         ];
         return view('frontend.hotels.details', $data);
     }
 
-    public function checkout()
+
+
+    public function checkout(Request $request, int $id)
     {
-        $is_extras = false;
-        $data = compact('is_extras');
-        return view('frontend.hotels.checkout')->with($data);
+        // Required query parameters
+        $requiredParams = [
+            'check_in',
+            'check_out',
+            'room_count',
+            'room_code',
+            'board_code',
+            'price',
+            'room_name',
+            'show_extras'
+        ];
+
+        foreach ($requiredParams as $param) {
+            if (!$request->has($param)) {
+                return redirect()->route('frontend.hotels.index')
+                    ->with('notify_error', 'Missing required information. Please try again.');
+            }
+        }
+
+        // 1. Fetch hotel
+        $hotel = Hotel::with(['province', 'location', 'country'])->findOrFail($id);
+
+        // 2. Parse dates from query
+        $startDate = Carbon::parse($request->query('check_in'))->format('Y-m-d');
+        $endDate   = Carbon::parse($request->query('check_out'))->format('Y-m-d');
+
+        // 3. Build rooms array from query parameters
+        $rooms = $this->buildRoomsArray($request);
+
+        // 4. Get selected room_code, board_code, price, room_name from query
+        $roomCode  = $request->query('room_code');
+        $boardCode = $request->query('board_code');
+        $price     = (float) $request->query('price');
+        $roomName  = $request->query('room_name');
+        $showExtras = filter_var($request->query('show_extras', false), FILTER_VALIDATE_BOOLEAN);
+
+        // 5. Fetch availability from Yalago API (like legacy code)
+        $availabilityPayload = [
+            "CheckInDate"      => $startDate,
+            "CheckOutDate"     => $endDate,
+            "EstablishmentIds" => [$hotel->yalago_id],
+            "Rooms"            => $rooms,
+            "Culture"          => "en-GB",
+            "GetPackagePrice"  => false,
+            "IsPackage"        => false,
+            "GetTaxBreakdown"  => true,
+            "GetLocalCharges"  => true,
+            "IsBindingPrice"   => true,
+        ];
+
+        $availability = Http::withHeaders([
+            'x-api-key' => '93082895-c45f-489f-ae10-bed9eaae161e',
+            'Accept'    => 'application/json',
+        ])->post('https://api.yalago.com/hotels/availability/get', $availabilityPayload)
+            ->json('Establishments', []);
+
+        if (empty($availability)) {
+            return redirect()->route('frontend.hotels.search')
+                ->with('notify_error', 'No availability found for this hotel. Please try again.');
+        }
+
+        $availableList = collect($availability);
+
+        // 6. Fetch detailed info for the selected room
+        $detailPayload = [
+            "CheckInDate"     => $startDate,
+            "CheckOutDate"    => $endDate,
+            "EstablishmentId" => $hotel->yalago_id,
+            "Rooms"           => [
+                [
+                    "Adults"    => $rooms[0]['Adults'] ?? 1,
+                    "ChildAges" => $rooms[0]['ChildAges'] ?? [],
+                    "RoomCode"  => $roomCode,
+                    "BoardCode" => $boardCode,
+                ]
+            ],
+            "Culture"         => "en-GB",
+            "GetPackagePrice" => false,
+            "GetTaxBreakdown" => true,
+            "GetLocalCharges" => true,
+            "GetBoardBasis"   => true,
+            "CurrencyCode"    => "AED",
+        ];
+
+        $response = Http::withHeaders([
+            'x-api-key' => '93082895-c45f-489f-ae10-bed9eaae161e',
+            'Accept'    => 'application/json',
+        ])->post('https://api.yalago.com/hotels/details/get', $detailPayload)
+            ->json();
+
+        // 7. Format hotel info and boards
+        $boardsCollection = collect($availableList[0]['Rooms'] ?? [])
+            ->flatMap(fn($room) => $room['Boards'] ?? []);
+
+        $cheapestBoard = $boardsCollection->sortBy('NetCost.Amount')->first();
+
+        $hotelFormatted = $this->formatHotel(
+            $hotel,
+            $cheapestBoard['NetCost']['Amount'] ?? null,
+            $boardsCollection->all()
+        );
+
+        $extras = collect($response['Establishment']['Rooms'] ?? [])
+            ->flatMap(
+                fn($room) =>
+                collect($room['Boards'] ?? [])
+                    ->flatMap(
+                        fn($board) =>
+                        collect($board['Extras'] ?? [])
+                            ->map(fn($extra) => [
+                                'room'  => $room,
+                                'board' => $board,
+                                'extra' => $extra,
+                            ])
+                    )
+            )
+            ->values();
+        // 8. Prepare data for checkout view
+        $data = [
+            'hotel'            => $hotelFormatted,
+            'api_availability' => $availableList,
+            'selected_room'    => [
+                'room_code'  => $roomCode,
+                'board_code' => $boardCode,
+                'price'      => $price,
+                'room_name'  => $roomName,
+            ],
+            'rooms_request'    => $rooms,
+            'show_extras'    => $showExtras,
+            'yalago_extras' => $extras,
+            'total_rooms'      => count($rooms),
+            'info_items'       => $response['InfoItems'] ?? [],
+            'check_in'         => $startDate,
+            'check_out'        => $endDate,
+            'hotelCommissionPercentage' => $this->hotelCommissionPercentage,
+        ];
+
+        return view('frontend.hotels.checkout', $data);
     }
 
-    public function extras()
+
+    public function processPayment(Request $request)
     {
-        $is_extras = true;
-        $data = compact('is_extras');
-        return view('frontend.hotels.checkout')->with($data);
+        dd($request->all());
     }
 }

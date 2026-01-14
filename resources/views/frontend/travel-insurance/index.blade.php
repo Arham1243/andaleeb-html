@@ -16,6 +16,7 @@
             </div>
         </div>
     </section>
+
     @if (isset($data) && !empty($data['available_plans']))
         <section class="section-plans mar-y">
             <div class="container">
@@ -78,7 +79,8 @@
                                                 <h6 class="plan-title">{{ $planTitle }}</h6>
                                                 <a href="javascript:void(0)" data-popup-trigger
                                                     data-popup-title="{{ $planTitle }}"
-                                                    data-popup-id="popup-{{ $index }}" class="plan-link">More Benefits <i class="bx bx-chevron-right"></i></a>
+                                                    data-popup-id="popup-{{ $index }}" class="plan-link">More
+                                                    Benefits <i class="bx bx-chevron-right"></i></a>
                                                 <div id="popup-{{ $index }}" class="d-none">
                                                     {!! $planContent !!}
                                                 </div>
@@ -101,7 +103,26 @@
                         </div>
                     </div>
 
-                    @if (!empty($data['available_upsell_plans']))
+                    @php
+                        $upsellPlans = $data['available_upsell_plans'] ?? [];
+
+                        // Filter out excluded plans
+                        $excludedPlans = ['Travel Visit Assurance (Covid Plus)', 'Travel Assurance (Covid Plus)'];
+                        $filteredPlans = array_filter($upsellPlans, function ($upsellGroup) use ($excludedPlans) {
+                            $plan = $upsellGroup['UpsellPlans']['UpsellPlan'] ?? [];
+                            $planType = $plan['PlanType'] ?? '';
+                            return !in_array($planType, $excludedPlans);
+                        });
+
+                        // Sort the filtered plans
+                        usort($filteredPlans, function ($a, $b) {
+                            $finalA = $a['UpsellPlans']['UpsellPlan']['TotalPremiumAmount'] * 1.3;
+                            $finalB = $b['UpsellPlans']['UpsellPlan']['TotalPremiumAmount'] * 1.3;
+                            return $finalA <=> $finalB;
+                        });
+                    @endphp
+
+                    @if (!empty($filteredPlans))
                         <div class="row mb-4 mt-5">
                             <div class="col-12">
                                 <div class="text-center">
@@ -110,22 +131,10 @@
                                 </div>
                             </div>
                         </div>
-
-                        @php
-                            $upsellPlans = $data['available_upsell_plans'];
-                            usort($upsellPlans, function ($a, $b) {
-                                $finalA = $a['UpsellPlans']['UpsellPlan']['TotalPremiumAmount'] * 1.3;
-                                $finalB = $b['UpsellPlans']['UpsellPlan']['TotalPremiumAmount'] * 1.3;
-                                return $finalA <=> $finalB;
-                            });
-
-                            $excludedPlans = ['Travel Visit Assurance (Covid Plus)', 'Travel Assurance (Covid Plus)'];
-                        @endphp
-
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="plans-list-wrapper">
-                                    @foreach ($upsellPlans as $index => $upsellGroup)
+                                    @foreach ($filteredPlans as $index => $upsellGroup)
                                         @php
                                             $plan = $upsellGroup['UpsellPlans']['UpsellPlan'];
                                             $planType = $plan['PlanType'] ?? '';
@@ -152,7 +161,8 @@
                                                     <h6 class="plan-title">{{ $planTitle }}</h6>
                                                     <a href="javascript:void(0)" data-popup-trigger
                                                         data-popup-title="{{ $planTitle }}"
-                                                        data-popup-id="popup-{{ $upsellIndex }}" class="plan-link">More Benefits <i class="bx bx-chevron-right"></i></a>
+                                                        data-popup-id="popup-{{ $upsellIndex }}" class="plan-link">More
+                                                        Benefits <i class="bx bx-chevron-right"></i></a>
                                                     <div id="popup-{{ $upsellIndex }}" class="d-none">
                                                         {!! $planContent !!}
                                                     </div>
