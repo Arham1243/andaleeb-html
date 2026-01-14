@@ -196,7 +196,7 @@ class HotelService
     protected function paybyRedirect(HotelBooking $booking)
     {
         $requestTime = now()->timestamp * 1000;
-        $finalAmount = $booking->total_amount + ($booking->total_amount * $this->commissionPercentage);
+        $finalAmount = $booking->total_amount;
 
         $requestData = [
             'requestTime' => $requestTime,
@@ -255,11 +255,11 @@ class HotelService
             'Partner-Id' => $this->paybyPartnerId,
             'sign' => $base64Signature,
         ])->post($this->paybyApiUrl . '/placeOrder', $requestData);
-
+        
         if (!$response->successful()) {
             throw new \Exception('PayBy API request failed: ' . $response->body());
         }
-
+        
         $responseData = $response->json();
 
         if (

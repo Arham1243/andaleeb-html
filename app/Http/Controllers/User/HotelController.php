@@ -4,14 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\HotelBooking;
-use App\Models\Country;
 use App\Models\Config;
-use Carbon\Carbon;
-use App\Models\UserCoupon;
-use App\Services\PrioTicketService;
-use App\Services\PaymentService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -30,9 +24,9 @@ class HotelController extends Controller
 
         // Get hotels for this user (both authenticated and guest hotels by email)
         $hotels = HotelBooking::where(function ($query) use ($user) {
-                $query->where('user_id', $user->id)
-                    ->orWhere('lead_email', $user->email);
-            })
+            $query->where('user_id', $user->id)
+                ->orWhere('lead_email', $user->email);
+        })
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -45,9 +39,9 @@ class HotelController extends Controller
 
         // Get order only if it belongs to this user (by user_id or email)
         $booking = HotelBooking::where(function ($query) use ($user) {
-                $query->where('user_id', $user->id)
-                    ->orWhere('lead_email', $user->email);
-            })
+            $query->where('user_id', $user->id)
+                ->orWhere('lead_email', $user->email);
+        })
             ->findOrFail($id);
 
         // Get config for tax percentages
@@ -68,14 +62,36 @@ class HotelController extends Controller
         $booking = HotelBooking::where('id', $id)->firstOrFail();
         return view('user.hotels.pay-again', compact('booking'))->with('title', 'Pay Again');
     }
-
+    
     public function proceedPayAgain(Request $request, $id)
     {
         $request->validate([
             'payment_method' => 'required|in:payby,tabby',
         ]);
 
-        // TODO: Implement payment
+        $booking = HotelBooking::where('id', $id)
+            ->where(function ($query) {
+                $query->where('payment_status', 'pending')
+                    ->orWhere('payment_status', 'failed');
+            })
+            ->firstOrFail();
+
+        // Update payment method and set status to pending
+        $booking->update([
+            'payment_method' => $request->payment_method,
+            'payment_status' => 'pending',
+        ]);
+
+        try {
+            // Use your HotelService to get redirect URL
+            $hotelService = app(\App\Services\HotelService::class);
+            $redirectUrl = $hotelService->getRedirectUrl($booking, $request->payment_method);
+            dd($redirectUrl);
+
+            return redirect($redirectUrl);
+        } catch (\Exception $e) {
+            return back()->with('notify_error', 'Failed to process payment: ' . $e->getMessage());
+        }
     }
 
     public function cancel($id)
@@ -84,9 +100,9 @@ class HotelController extends Controller
             $user = auth()->user();
 
             $booking = HotelBooking::where(function ($query) use ($user) {
-                    $query->where('user_id', $user->id)
-                        ->orWhere('lead_email', $user->email);
-                })
+                $query->where('user_id', $user->id)
+                    ->orWhere('lead_email', $user->email);
+            })
                 ->findOrFail($id);
 
             if ($booking->status === 'cancelled') {
@@ -118,7 +134,6 @@ class HotelController extends Controller
             ]);
 
             return redirect()->route('user.hotels.show', $id)->with('notify_success', 'Booking cancelled successfully.');
-
         } catch (\Exception $e) {
             Log::error('Booking cancellation failed', [
                 'booking_id' => $id,

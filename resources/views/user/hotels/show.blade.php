@@ -74,8 +74,7 @@
                                         </tr>
                                         <tr>
                                             <td><strong>Total Amount:</strong></td>
-                                            <td class="text-end"><strong>{!! formatPrice($booking->total_amount) !!}
-                                                    {{ $booking->currency }}</strong></td>
+                                            <td class="text-end"><strong>{!! formatPrice($booking->total_amount) !!}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>

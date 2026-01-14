@@ -98,7 +98,7 @@ class TravelInsuranceController extends Controller
             $redirectUrl = $this->insuranceService->getRedirectUrl($insurance, $request->payment_method);
             return redirect($redirectUrl);
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to process payment: ' . $e->getMessage());
+            return back()->with('notify_error', 'Failed to process payment: ' . $e->getMessage());
         }
     }
 }

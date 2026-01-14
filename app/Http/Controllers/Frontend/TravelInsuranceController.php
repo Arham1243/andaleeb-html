@@ -275,7 +275,7 @@ class TravelInsuranceController extends Controller
                         $this->sendFailureEmails($insurance);
 
                         return view('frontend.travel-insurance.payment-failed', compact('insurance'))
-                            ->with('error', 'Your payment was successful, but insurance confirmation failed: ' . $errorMessage)
+                            ->with('notify_error', 'Your payment was successful, but insurance confirmation failed: ' . $errorMessage)
                             ->with('notify_error', 'Your payment was successful, but insurance confirmation failed: ' . $errorMessage);
                     }
                 } else {
@@ -294,7 +294,7 @@ class TravelInsuranceController extends Controller
                     $errorMessage = 'Your payment was successful, but we could not confirm your insurance: ' . ($confirmResult['error'] ?? 'Unknown error');
 
                     return view('frontend.travel-insurance.payment-failed', compact('insurance'))
-                        ->with('error', $errorMessage)
+                        ->with('notify_error', $errorMessage)
                         ->with('notify_error', $errorMessage);
                 }
 
@@ -314,7 +314,7 @@ class TravelInsuranceController extends Controller
                 $errorMessage = 'Payment verification failed: ' . ($verification['error'] ?? 'Unknown error');
 
                 return view('frontend.travel-insurance.payment-failed', compact('insurance'))
-                    ->with('error', $errorMessage)
+                    ->with('notify_error', $errorMessage)
                     ->with('notify_error', $errorMessage);
             }
         } catch (\Exception $e) {
@@ -326,7 +326,7 @@ class TravelInsuranceController extends Controller
             $errorMessage = 'An error occurred while verifying your payment: ' . $e->getMessage();
 
             return view('frontend.travel-insurance.payment-failed', ['insurance' => null])
-                ->with('error', $errorMessage)
+                ->with('notify_error', $errorMessage)
                 ->with('notify_error', $errorMessage);
         }
     }
