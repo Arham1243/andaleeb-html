@@ -222,7 +222,7 @@
                                         <input type="radio" name="room_selection" class="room-card__input"
                                             data-price="{{ $finalPrice }}" data-room-code="{{ $room['Code'] }}"
                                             data-board-code="{{ $board['Code'] }}"
-                                            value="{{ $room['Description'] }} - {{ $boardTitle }}">
+                                            data-board-title="{{ $boardTitle }}" value="{{ $room['Description'] }}">
 
                                         <div class="room-card__box">
 
@@ -397,6 +397,7 @@
             const params = new URLSearchParams({
                 room_code: radio.dataset.roomCode,
                 board_code: radio.dataset.boardCode,
+                board_title: radio.dataset.boardTitle,
                 price: radio.dataset.price,
                 room_name: radio.value,
                 show_extras: showExtras ? true : false

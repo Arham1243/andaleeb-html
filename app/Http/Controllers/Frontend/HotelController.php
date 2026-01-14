@@ -458,6 +458,7 @@ class HotelController extends Controller
         // 4. Get selected room_code, board_code, price, room_name from query
         $roomCode  = $request->query('room_code');
         $boardCode = $request->query('board_code');
+        $boardTitle = $request->query('board_title');
         $price     = (float) $request->query('price');
         $roomName  = $request->query('room_name');
         $showExtras = filter_var($request->query('show_extras', false), FILTER_VALIDATE_BOOLEAN);
@@ -550,6 +551,7 @@ class HotelController extends Controller
             'selected_room'    => [
                 'room_code'  => $roomCode,
                 'board_code' => $boardCode,
+                'board_title' => $boardTitle,
                 'price'      => $price,
                 'room_name'  => $roomName,
             ],

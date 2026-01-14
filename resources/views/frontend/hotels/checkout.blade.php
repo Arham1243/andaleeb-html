@@ -174,10 +174,11 @@
 
     <section class="section-gap">
         <div class="container">
-            <form action="{{ route('frontend.hotels.payment.process') }}" method="POST">
+            <form id="checkoutForm" action="{{ route('frontend.hotels.payment.process') }}" method="POST">
                 @csrf
                 <input type="hidden" name="selected_room[room_code]" value="{{ $selected_room['room_code'] }}">
                 <input type="hidden" name="selected_room[board_code]" value="{{ $selected_room['board_code'] }}">
+                <input type="hidden" name="selected_room[board_title]" value="{{ $selected_room['board_title'] }}">
                 <input type="hidden" name="selected_room[price]" value="{{ $selected_room['price'] }}">
                 <input type="hidden" name="selected_room[room_name]" value="{{ $selected_room['room_name'] }}">
 
@@ -473,11 +474,9 @@
                                 </div>
 
                                 <p class="text-muted fw-bold pt-3 mb-1">Hotel Information</p>
-                                <p>For health and safety reasons, children under 8 years are not allowed in any over water
-                                    or
-                                    over ocean categories.WOW INCLUSIVE- YOUR 24-HOUR PREMIUM ALL INCLUSIVE BENEFITS -
-                                    Breakfast
-                                </p>
+                                <p>For health and safety reasons, children under 8 years are not allowed in any over-water
+                                    or over-ocean categories.</p>
+                                <p>WOW INCLUSIVE offers 24-hour premium all-inclusive benefits, including breakfast.</p>
                                 <a data-info-popup-open="Privacy Policy" href="javascript:void(0)"
                                     class="custom-link">Show
                                     more</a>
@@ -849,6 +848,19 @@
             recalcTotals();
 
 
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutForm = document.getElementById('checkoutForm');
+            const submitBtn = checkoutForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            checkoutForm.addEventListener('submit', function(e) {
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Processing...';
+            });
         });
     </script>
 @endpush
