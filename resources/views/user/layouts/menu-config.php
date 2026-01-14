@@ -11,7 +11,7 @@ $menu = [
         'route' => route('user.dashboard'),
     ],
     [
-        'title' => 'My Orders',
+        'title' => 'My Tour Bookings',
         'icon' => 'bx bxs-shopping-bag',
         'route' => route('user.orders.index'),
     ],
@@ -19,6 +19,11 @@ $menu = [
         'title' => 'My Insurance',
         'icon' => 'bx bxs-shield',
         'route' => route('user.travel-insurances.index'),
+    ],
+    [
+        'title' => 'My Hotel Bookings',
+        'icon'  => 'bx bx-restaurant',
+        'route' => route('user.hotels.index'),
     ],
 ];
 

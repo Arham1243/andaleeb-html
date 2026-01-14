@@ -6,6 +6,7 @@ use App\Http\Controllers\User\UserDashController;
 use App\Http\Controllers\User\ProfileSettingsController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TravelInsuranceController;
+use App\Http\Controllers\User\HotelController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->name('auth.')->middleware('user_guest')->group(function () {
@@ -41,6 +42,14 @@ Route::middleware(['auth', 'check_user_status'])->prefix('user')->name('user.')-
     Route::get('/travel-insurances/{id}', [TravelInsuranceController::class, 'show'])->name('travel-insurances.show');
     Route::get('/travel-insurances/pay-again/{id}', [TravelInsuranceController::class, 'payAgain'])->name('travel-insurances.pay-again');
     Route::post('/travel-insurances/pay-again/{id}', [TravelInsuranceController::class, 'proceedPayAgain'])->name('travel-insurances.pay-again.proceed');
+
+    // Hotel Booking
+    Route::get('/hotels', [HotelController::class, 'index'])->name('hotels.index');
+    Route::get('/hotels/{id}', [HotelController::class, 'show'])->name('hotels.show');
+    Route::delete('/hotels/destroy/{id}', [HotelController::class, 'destroy'])->name('hotels.destroy');
+    Route::get('/hotels/{id}/cancel', [HotelController::class, 'cancel'])->name('hotels.cancel');
+    Route::get('/hotels/pay-again/{id}', [HotelController::class, 'payAgain'])->name('hotels.pay-again');
+    Route::post('/hotels/pay-again/{id}', [HotelController::class, 'proceedPayAgain'])->name('hotels.pay-again.proceed');
 
     Route::get('profile/change/password', [ProfileSettingsController::class, 'changePassword'])->name('profile.changePassword');
     Route::post('profile/change/password/update', [ProfileSettingsController::class, 'updatePassword'])->name('profile.updatePassword');

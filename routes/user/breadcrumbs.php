@@ -41,3 +41,18 @@ Breadcrumbs::for('user.travel-insurances.pay-again', function (BreadcrumbTrail $
     $trail->parent('user.travel-insurances.show', $insurance);
     $trail->push('Pay Now', route('user.travel-insurances.pay-again', $insurance->id));
 });
+
+Breadcrumbs::for('user.hotels.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('My Hotel Bookings', route('user.hotels.index'));
+});
+
+Breadcrumbs::for('user.hotels.show', function (BreadcrumbTrail $trail, $hotel) {
+    $trail->parent('user.hotels.index');
+    $trail->push($hotel->booking_number, route('user.hotels.show', $hotel->id));
+});
+
+Breadcrumbs::for('user.hotels.pay-again', function (BreadcrumbTrail $trail, $hotel) {
+    $trail->parent('user.hotels.show', $hotel);
+    $trail->push('Pay Now', route('user.hotels.pay-again', $hotel->id));
+});
