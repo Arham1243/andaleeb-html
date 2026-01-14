@@ -29,7 +29,7 @@ class IndexController extends Controller
     public function test($id)
     {
         $booking = HotelBooking::findOrFail($id);
-        return view('emails.hotel-booking-success-user', compact('booking'));
+        return view('emails.hotel-booking-cancelled-admin', compact('booking'));
     }
     
     public function terms_and_conditions()

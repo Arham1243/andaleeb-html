@@ -255,11 +255,11 @@ class HotelService
             'Partner-Id' => $this->paybyPartnerId,
             'sign' => $base64Signature,
         ])->post($this->paybyApiUrl . '/placeOrder', $requestData);
-        
+
         if (!$response->successful()) {
             throw new \Exception('PayBy API request failed: ' . $response->body());
         }
-        
+
         $responseData = $response->json();
 
         if (
@@ -726,5 +726,44 @@ class HotelService
                 'error' => $e->getMessage()
             ]);
         }
+    }
+
+    public function getCancellationCharges(HotelBooking $booking): array
+    {
+        $response = Http::withHeaders([
+            'x-api-key' => $this->yalagoApiKey,
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->post(
+            'https://api.yalago.com/hotels/bookings/getcancellationcharges',
+            [
+                'BookingRef' => $booking->yalago_booking_reference,
+                'GetTaxBreakdown' => true,
+            ]
+        );
+
+        if (!$response->successful()) {
+            throw new \Exception('Failed to fetch cancellation charges');
+        }
+
+        return $response->json();
+    }
+
+    public function cancelYalagoBooking(HotelBooking $booking): array
+    {
+        // TODO: Integrate Yalago cancel booking API here
+        // This is a mocked response for now
+        Log::info('Mock: cancelling Yalago hotel booking', [
+            'booking_id'   => $booking->id,
+            'booking_ref'  => $booking->supplier_booking_ref ?? null,
+        ]);
+
+        return [
+            'status'        => 'SUCCESS',
+            'refundAmount'  => 0.00,
+            'currency'      => $booking->currency ?? 'USD',
+            'message'       => 'Booking cancelled successfully (mock)',
+            'cancelledAt'   => now()->toDateTimeString(),
+        ];
     }
 }

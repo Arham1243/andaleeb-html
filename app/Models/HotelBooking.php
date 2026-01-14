@@ -49,6 +49,8 @@ class HotelBooking extends Model
         'source_market',
         'ip_address',
         'user_agent',
+        'cancelled_at',
+        'cancelled_by',
     ];
 
     protected $casts = [

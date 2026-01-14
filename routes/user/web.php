@@ -48,6 +48,10 @@ Route::middleware(['auth', 'check_user_status'])->prefix('user')->name('user.')-
     Route::get('/hotels/{id}', [HotelController::class, 'show'])->name('hotels.show');
     Route::delete('/hotels/destroy/{id}', [HotelController::class, 'destroy'])->name('hotels.destroy');
     Route::get('/hotels/{id}/cancel', [HotelController::class, 'cancel'])->name('hotels.cancel');
+    Route::post(
+        '/hotels/cancellation-charges',
+        [HotelController::class, 'getCancellationCharges']
+    )->name('hotels.cancellation.charges');
     Route::get('/hotels/pay-again/{id}', [HotelController::class, 'payAgain'])->name('hotels.pay-again');
     Route::post('/hotels/pay-again/{id}', [HotelController::class, 'proceedPayAgain'])->name('hotels.pay-again.proceed');
 

@@ -97,15 +97,15 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label class="title">Price:</label>
-                                            <input type="text" class="field" value="{{ number_format($room['price'], 2) }}"
-                                                readonly>
+                                            <input type="text" class="field"
+                                                value="{{ number_format($room['price'], 2) }}" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
 
-                        
+
                         {{-- Lead Details --}}
                         <div class="form-box mb-4">
                             <div class="form-box__header">
@@ -232,9 +232,9 @@
                                     <p><strong>Note:</strong> Refunds may take 10-15 working days if the booking is
                                         refundable. Non-refundable bookings or bookings within cancellation deadline have no
                                         refund.</p>
-                                    <a href="{{ route('user.hotels.cancel', $booking->id) }}"
-                                        onclick="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.');"
-                                        class="themeBtn">Cancel Booking</a>
+                                    <button class="themeBtn cancel-booking-btn" data-booking-id="{{ $booking->id }}">
+                                        Cancel Booking
+                                    </button>
                                 </div>
                             </div>
                         @endif
@@ -244,4 +244,53 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="cancelBookingModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancellation Charges</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="cancelBookingModalBody">
+                    <div class="text-center py-5">
+                        Loading cancellation policy...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
+@push('js')
+    <script>
+        $(document).on('click', '.cancel-booking-btn', function() {
+            const bookingId = $(this).data('booking-id');
+
+            const modal = new bootstrap.Modal(
+                document.getElementById('cancelBookingModal')
+            );
+
+            $('#cancelBookingModalBody').html(
+                '<div class="text-center py-5">Loading cancellation policy...</div>'
+            );
+
+            modal.show();
+
+            $.post(
+                    "{{ route('user.hotels.cancellation.charges') }}", {
+                        booking_id: bookingId,
+                        _token: "{{ csrf_token() }}"
+                    }
+                )
+                .done(function(html) {
+                    $('#cancelBookingModalBody').html(html);
+                })
+                .fail(function() {
+                    $('#cancelBookingModalBody').html(
+                        '<p class="text-danger">Failed to load cancellation policy.</p>'
+                    );
+                });
+        });
+    </script>
+@endpush

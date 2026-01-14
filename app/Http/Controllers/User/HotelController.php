@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\HotelBooking;
 use App\Models\Config;
+use App\Services\HotelService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -62,7 +64,7 @@ class HotelController extends Controller
         $booking = HotelBooking::where('id', $id)->firstOrFail();
         return view('user.hotels.pay-again', compact('booking'))->with('title', 'Pay Again');
     }
-    
+
     public function proceedPayAgain(Request $request, $id)
     {
         $request->validate([
@@ -94,82 +96,118 @@ class HotelController extends Controller
         }
     }
 
-    public function cancel($id)
+    public function getCancellationCharges(Request $request, HotelService $hotelService)
     {
-        try {
-            $user = auth()->user();
+        $request->validate([
+            'booking_id' => 'required|integer'
+        ]);
 
+        $user = auth()->user();
+
+        $booking = HotelBooking::where(function ($q) use ($user) {
+            $q->where('user_id', $user->id)
+                ->orWhere('lead_email', $user->email);
+        })->findOrFail($request->booking_id);
+
+        $response = $hotelService->getCancellationCharges($booking);
+
+        return view(
+            'user.hotels.partials.cancellation-charges',
+            compact('booking', 'response')
+        );
+    }
+
+    public function cancel($id, HotelService $hotelService)
+    {
+        $user = auth()->user();
+
+        try {
             $booking = HotelBooking::where(function ($query) use ($user) {
                 $query->where('user_id', $user->id)
                     ->orWhere('lead_email', $user->email);
-            })
-                ->findOrFail($id);
+            })->findOrFail($id);
 
-            if ($booking->status === 'cancelled') {
-                return redirect()->back()->with('notify_error', 'This order is already cancelled.');
+            if ($booking->booking_status === 'cancelled') {
+                return back()->with('notify_error', 'This booking is already cancelled.');
             }
 
             if ($booking->payment_status !== 'paid') {
-                return redirect()->back()->with('notify_error', 'Only paid itemscan be cancelled.');
+                return back()->with('notify_error', 'Only paid bookings can be cancelled.');
             }
 
-            // TODO: Cancel order 
+            DB::beginTransaction();
 
-            if (false) {
-                return redirect()->back()->with('notify_error', 'Failed to cancel');
-            }
+            // 🔥 Cancel booking at supplier
+            $hotelService->cancelYalagoBooking($booking);
 
+            // 🔄 Update local booking
             $booking->update([
                 'booking_status' => 'cancelled',
-                'cancelled_at' => now(),
-                'cancelled_by' => 'user'
+                'cancelled_at'   => now(),
+                'cancelled_by'   => 'user',
             ]);
+
+            DB::commit();
 
             $this->sendCancellationEmails($booking);
 
-            Log::info('Order cancelled by user', [
-                'booking_id' => $booking->id,
+            Log::info('Hotel booking cancelled by user', [
+                'booking_id'     => $booking->id,
                 'booking_number' => $booking->booking_number,
-                'user_id' => $user->id
+                'user_id'        => $user->id,
             ]);
 
-            return redirect()->route('user.hotels.show', $id)->with('notify_success', 'Booking cancelled successfully.');
-        } catch (\Exception $e) {
-            Log::error('Booking cancellation failed', [
+            return redirect()
+                ->route('user.hotels.show', $booking->id)
+                ->with('notify_success', 'Booking cancelled successfully.');
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            Log::error('Hotel booking cancellation failed', [
                 'booking_id' => $id,
-                'error' => $e->getMessage()
+                'error'      => $e->getMessage(),
             ]);
 
-            return redirect()->back()->with('notify_error', 'Failed to cancel order: ' . $e->getMessage());
+            return back()->with(
+                'notify_error',
+                'Failed to cancel booking. Please contact support.'
+            );
         }
     }
 
     protected function sendCancellationEmails(HotelBooking $booking)
     {
         try {
-            $booking->load('orderItems');
+            $booking->loadMissing('orderItems');
 
-            // Send email to user
-            Mail::send('emails.hotel-booking-cancelled-user', ['order' => $booking], function ($message) use ($booking) {
-                $message->to($booking->lead_email)
-                    ->subject('Booking Cancelled - ' . $booking->booking_number);
-            });
+            Mail::send(
+                'emails.hotel-booking-cancelled-user',
+                ['order' => $booking],
+                function ($message) use ($booking) {
+                    $message->to($booking->lead_email)
+                        ->subject('Booking Cancelled - ' . $booking->booking_number);
+                }
+            );
 
-            // Send email to admin
-            Mail::send('emails.hotel-booking-cancelled-admin', ['order' => $booking], function ($message) use ($booking) {
-                $message->to($this->adminEmail)
-                    ->subject('Booking Cancelled by User - ' . $booking->booking_number);
-            });
+            Mail::send(
+                'emails.hotel-booking-cancelled-admin',
+                ['order' => $booking],
+                function ($message) use ($booking) {
+                    $message->to($this->adminEmail)
+                        ->subject('Booking Cancelled by User - ' . $booking->booking_number);
+                }
+            );
 
-            Log::info('Cancellation emails sent', [
+            Log::info('Hotel cancellation emails sent', [
                 'booking_id' => $booking->id,
-                'customer_email' => $booking->lead_email,
-                'admin_email' => $this->adminEmail
+                'user_email' => $booking->lead_email,
             ]);
-        } catch (\Exception $e) {
-            Log::error('Failed to send cancellation emails', [
+        } catch (\Throwable $e) {
+
+            Log::error('Hotel cancellation email failed', [
                 'booking_id' => $booking->id,
-                'error' => $e->getMessage()
+                'error'      => $e->getMessage(),
             ]);
         }
     }
