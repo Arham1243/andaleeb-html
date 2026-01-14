@@ -7,7 +7,7 @@ use App\Models\Tour;
 use App\Models\Package;
 use App\Models\Inquiry;
 use App\Models\Newsletter;
-use App\Models\Order;
+use App\Models\HotelBooking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,8 +28,8 @@ class IndexController extends Controller
 
     public function test($id)
     {
-        $order = Order::findOrFail($id);
-        return view('emails.booking-cancelled-admin', compact('order'));
+        $booking = HotelBooking::findOrFail($id);
+        return view('emails.hotel-booking-success-user', compact('booking'));
     }
     
     public function terms_and_conditions()

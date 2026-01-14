@@ -176,11 +176,20 @@
         <div class="container">
             <form id="checkoutForm" action="{{ route('frontend.hotels.payment.process') }}" method="POST">
                 @csrf
+                <input type="hidden" name="hotel_id" value="{{ $hotel['yalago_id'] }}">
+                <input type="hidden" name="check_in" value="{{ $check_in }}">
+                <input type="hidden" name="check_out" value="{{ $check_out }}">
                 <input type="hidden" name="selected_room[room_code]" value="{{ $selected_room['room_code'] }}">
                 <input type="hidden" name="selected_room[board_code]" value="{{ $selected_room['board_code'] }}">
                 <input type="hidden" name="selected_room[board_title]" value="{{ $selected_room['board_title'] }}">
                 <input type="hidden" name="selected_room[price]" value="{{ $selected_room['price'] }}">
                 <input type="hidden" name="selected_room[room_name]" value="{{ $selected_room['room_name'] }}">
+
+                @foreach ($rooms_request as $index => $room)
+                    <input type="hidden" name="rooms[{{ $index }}][adults]" value="{{ $room['Adults'] }}">
+                    <input type="hidden" name="rooms[{{ $index }}][child_ages]"
+                        value="{{ implode(',', $room['ChildAges']) }}">
+                @endforeach
 
                 <div class="row">
                     <div class="col-lg-8">
@@ -297,14 +306,13 @@
                                     <div class="col-md-4 mt-2">
                                         <label class="form-label">Flight number *</label>
                                         <input type="text" class="custom-input"
-                                            name="flight_details[outbound][flight_number]" required>
+                                            name="flight_details[outbound][flight_number]">
                                     </div>
 
                                     <div class="col-md-3 mt-2">
                                         <label class="form-label">Arrival time *</label>
                                         <div class="flight-fields">
-                                            <select class="custom-select" name="flight_details[outbound][arrival_hour]"
-                                                required>
+                                            <select class="custom-select" name="flight_details[outbound][arrival_hour]">
                                                 <option value="">hh</option>
                                                 @for ($i = 0; $i < 24; $i++)
                                                     <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
@@ -317,8 +325,7 @@
 
                                     <div class="col-md-3 mt-2">
                                         <label class="form-label d-none d-md-block">&nbsp;</label>
-                                        <select class="custom-select" name="flight_details[outbound][arrival_minute]"
-                                            required>
+                                        <select class="custom-select" name="flight_details[outbound][arrival_minute]">
                                             <option value="">mm</option>
                                             @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
                                                 <option value="{{ $m }}">{{ $m }}</option>
@@ -334,14 +341,13 @@
                                     <div class="col-md-4 mt-2">
                                         <label class="form-label">Flight number *</label>
                                         <input type="text" class="custom-input"
-                                            name="flight_details[inbound][flight_number]" required>
+                                            name="flight_details[inbound][flight_number]">
                                     </div>
 
                                     <div class="col-md-3 mt-2">
                                         <label class="form-label">Departure time *</label>
                                         <div class="flight-fields">
-                                            <select class="custom-select" name="flight_details[inbound][departure_hour]"
-                                                required>
+                                            <select class="custom-select" name="flight_details[inbound][departure_hour]">
                                                 <option value="">hh</option>
                                                 @for ($i = 0; $i < 24; $i++)
                                                     <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
@@ -354,8 +360,7 @@
 
                                     <div class="col-md-3 mt-2">
                                         <label class="form-label d-none d-md-block">&nbsp;</label>
-                                        <select class="custom-select" name="flight_details[inbound][departure_minute]"
-                                            required>
+                                        <select class="custom-select" name="flight_details[inbound][departure_minute]">
                                             <option value="">mm</option>
                                             @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
                                                 <option value="{{ $m }}">{{ $m }}</option>
@@ -730,10 +735,16 @@
             const extrasHiddenContainer = document.getElementById('selected-extras-hidden-fields');
 
             function clearExtrasHiddenFields() {
+                if (!extrasHiddenContainer) {
+                    return;
+                }
                 extrasHiddenContainer.innerHTML = '';
             }
 
             function addExtraHiddenField(index, data) {
+                if (!extrasHiddenContainer) {
+                    return;
+                }
                 document.querySelectorAll('.extras-required').forEach(el => {
                     el.style.display = 'none';
                 });

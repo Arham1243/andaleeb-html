@@ -11,6 +11,7 @@ use App\Models\Province;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 
@@ -267,6 +268,11 @@ class HotelController extends Controller
                 ->sortBy('NetCost.Amount')
                 ->first();
 
+            // decode images if they are JSON string
+            $images = is_string($localHotel->images)
+                ? json_decode($localHotel->images, true)
+                : $localHotel->images;
+
             return [
                 'id' => $localHotel?->id,
 
@@ -278,7 +284,7 @@ class HotelController extends Controller
                 'province' => $localHotel?->province?->name,
                 'location' => $localHotel?->location?->name,
 
-                'image' => data_get($localHotel?->images, '0.Url'),
+                'image'    => $images[0]['Url'] ?? null,
 
                 'price' => calculatePriceWithCommission(data_get($cheapestBoard, 'NetCost.Amount'), $this->hotelCommissionPercentage),
 
@@ -299,6 +305,7 @@ class HotelController extends Controller
 
         return [
             'id'          => $hotel->id,
+            'yalago_id'   => $hotel->yalago_id,
             'name'        => $hotel->name,
             'address'     => $hotel->address,
             'rating'      => $hotel->rating,
@@ -356,6 +363,7 @@ class HotelController extends Controller
             ->json('Establishments', []);
 
         $availableList = collect($availability);
+        dd($availableList);
 
         if ($availableList->isEmpty()) {
             return redirect()->route('frontend.hotels.search')
@@ -571,6 +579,272 @@ class HotelController extends Controller
 
     public function processPayment(Request $request)
     {
-        dd($request->all());
+        try {
+            $validated = $request->validate([
+                'hotel_id' => 'required|integer',
+                'check_in' => 'required|date',
+                'check_out' => 'required|date|after:check_in',
+                'rooms' => 'required|array',
+                'selected_room.room_code' => 'required|string',
+                'selected_room.board_code' => 'required|string',
+                'selected_room.board_title' => 'required|string',
+                'selected_room.price' => 'required|numeric',
+                'selected_room.room_name' => 'required|string',
+                'booking.lead_guest.title' => 'required|string',
+                'booking.lead_guest.first_name' => 'required|string',
+                'booking.lead_guest.last_name' => 'required|string',
+                'booking.lead_guest.email' => 'required|email',
+                'booking.lead_guest.phone' => 'required|string',
+                'booking.lead_guest.address' => 'required|string',
+                'booking.guests' => 'nullable|array',
+                'booking.extras' => 'nullable|array',
+                'flight_details' => 'nullable|array',
+                'payment_method' => 'required|in:payby,tabby',
+            ]);
+
+            // Get hotel information from POST data
+            $hotelId = $validated['hotel_id'];
+            $hotel = Hotel::where('yalago_id', $hotelId)->first();
+
+            if (!$hotel) {
+                return redirect()->route('frontend.hotels.index')
+                    ->with('notify_error', 'Hotel not found.');
+            }
+
+            // Build rooms data from POST data
+            $roomsData = [];
+            foreach ($validated['rooms'] as $room) {
+                $childAges = [];
+                if (!empty($room['child_ages'])) {
+                    $childAges = array_map('intval', explode(',', $room['child_ages']));
+                }
+                $roomsData[] = [
+                    'Adults' => (int)$room['adults'],
+                    'ChildAges' => $childAges
+                ];
+            }
+
+            // Calculate extras total
+            $extrasTotal = 0;
+            $extrasData = [];
+            if (isset($validated['booking']['extras'])) {
+                foreach ($validated['booking']['extras'] as $extra) {
+                    $extrasTotal += (float)($extra['price'] ?? 0);
+                    $extrasData[] = [
+                        'title' => $extra['title'] ?? '',
+                        'price' => (float)($extra['price'] ?? 0),
+                        'option_id' => $extra['option_id'] ?? '',
+                        'extra_id' => $extra['extra_id'] ?? '',
+                        'extra_type_id' => $extra['extra_type_id'] ?? '',
+                    ];
+                }
+            }
+
+            // Calculate total amount
+            $roomsTotal = (float)$validated['selected_room']['price'];
+            $totalAmount = $roomsTotal + $extrasTotal;
+
+            // Get source market from IP
+            $sourceMarket = $this->getSourceMarketFromIP();
+
+            // Prepare booking data
+            $bookingData = [
+                'yalago_hotel_id' => $hotel->yalago_id,
+                'hotel_name' => $hotel->name,
+                'hotel_address' => $hotel->address,
+                'check_in_date' => $validated['check_in'],
+                'check_out_date' => $validated['check_out'],
+                'rooms_data' => $roomsData,
+                'selected_rooms' => [$validated['selected_room']],
+                'lead_guest' => $validated['booking']['lead_guest'],
+                'guests' => $validated['booking']['guests'] ?? null,
+                'extras' => $extrasData,
+                'extras_total' => $extrasTotal,
+                'flight_details' => $validated['flight_details'] ?? null,
+                'rooms_total' => $roomsTotal,
+                'total_amount' => $totalAmount,
+                'payment_method' => $validated['payment_method'],
+                'source_market' => $sourceMarket,
+            ];
+
+            // Initialize HotelService
+            $hotelService = new \App\Services\HotelService();
+
+            // Create booking record
+            $booking = $hotelService->createBookingRecord($bookingData);
+
+            // Verify availability
+            $availabilityCheck = $hotelService->verifyAvailability($booking);
+
+            if (!$availabilityCheck['success']) {
+                $booking->update([
+                    'booking_status' => 'failed',
+                    'payment_status' => 'failed',
+                ]);
+
+                return redirect()->route('frontend.hotels.index')
+                    ->with('notify_error', $availabilityCheck['error']);
+            }
+
+            // Get payment redirect URL
+            try {
+                $redirectUrl = $hotelService->getRedirectUrl($booking, $validated['payment_method']);
+                return redirect($redirectUrl);
+            } catch (\Exception $e) {
+                $booking->update([
+                    'booking_status' => 'failed',
+                    'payment_status' => 'failed',
+                ]);
+
+                Log::error('Payment redirect failed', [
+                    'booking_id' => $booking->id,
+                    'error' => $e->getMessage()
+                ]);
+
+                return redirect()->route('frontend.hotels.payment.failed', ['booking' => $booking->id])
+                    ->with('notify_error', 'Unable to process payment. Please try again.');
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->errors())
+                ->withInput()
+                ->with('notify_error', 'Please fill in all required fields correctly.');
+        } catch (\Exception $e) {
+            Log::error('Hotel booking process failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->route('frontend.hotels.index')
+                ->with('notify_error', 'An error occurred while processing your booking. Please try again.');
+        }
+    }
+
+    public function paymentSuccess(Request $request, $booking)
+    {
+        try {
+            $booking = \App\Models\HotelBooking::findOrFail($booking);
+
+            // Prevent re-processing if already paid
+            if ($booking->isPaid() && $booking->isConfirmed()) {
+                return redirect()->route('frontend.hotels.payment.success.view', ['booking' => $booking->id]);
+            }
+
+            $hotelService = new \App\Services\HotelService();
+
+            // Verify payment based on payment method
+            if ($booking->payment_method === 'payby') {
+                $verificationResult = $hotelService->verifyPayByPayment($booking);
+            } elseif ($booking->payment_method === 'tabby') {
+                $verificationResult = $hotelService->verifyTabbyPayment($booking);
+            } else {
+                throw new \Exception('Invalid payment method');
+            }
+
+            if (!$verificationResult['success']) {
+                $booking->update([
+                    'payment_status' => 'failed',
+                    'booking_status' => 'failed',
+                ]);
+
+                $hotelService->sendBookingFailureEmail($booking, $verificationResult['error'] ?? 'Payment verification failed');
+                $hotelService->sendBookingFailureEmailToAdmin($booking, $verificationResult['error'] ?? 'Payment verification failed');
+
+                return redirect()->route('frontend.hotels.payment.failed', ['booking' => $booking->id])
+                    ->with('notify_error', 'Payment verification failed. Please contact support.');
+            }
+
+            // Update payment status
+            $booking->update([
+                'payment_status' => 'paid',
+                'payment_response' => $verificationResult['data'] ?? null,
+            ]);
+
+            // Place booking order with Yalago
+            $bookingResult = $hotelService->placeBookingOrder($booking);
+
+            if (!$bookingResult['success']) {
+                $hotelService->sendBookingFailureEmail($booking, $bookingResult['error'] ?? 'Booking placement failed');
+                $hotelService->sendBookingFailureEmailToAdmin($booking, $bookingResult['error'] ?? 'Booking placement failed');
+
+                return redirect()->route('frontend.hotels.payment.failed', ['booking' => $booking->id])
+                    ->with('notify_error', 'Unable to confirm your booking. Our team will contact you shortly.');
+            }
+
+            // Send confirmation emails
+            $hotelService->sendBookingConfirmationEmail($booking);
+            $hotelService->sendBookingConfirmationEmailToAdmin($booking);
+
+            return redirect()->route('frontend.hotels.payment.success.view', ['booking' => $booking->id]);
+        } catch (\Exception $e) {
+            Log::error('Payment success processing failed', [
+                'booking_id' => $booking ?? null,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->route('frontend.hotels.index')
+                ->with('notify_error', 'An error occurred while processing your payment. Please contact support.');
+        }
+    }
+
+    public function paymentSuccessView($booking)
+    {
+        try {
+            $booking = \App\Models\HotelBooking::findOrFail($booking);
+
+            if (!$booking->isPaid()) {
+                return redirect()->route('frontend.hotels.index')
+                    ->with('notify_error', 'Invalid booking access.');
+            }
+
+            return view('frontend.hotels.payment-success', compact('booking'));
+        } catch (\Exception $e) {
+            return redirect()->route('frontend.hotels.index')
+                ->with('notify_error', 'Booking not found.');
+        }
+    }
+
+    public function paymentFailed(Request $request, $booking = null)
+    {
+        try {
+            if ($booking) {
+                $booking = \App\Models\HotelBooking::findOrFail($booking);
+
+                if ($booking->payment_status === 'pending') {
+                    $booking->update([
+                        'payment_status' => 'failed',
+                        'booking_status' => 'failed',
+                    ]);
+
+                    $hotelService = new \App\Services\HotelService();
+                    $hotelService->sendBookingFailureEmail($booking, 'Payment was cancelled or failed');
+                    $hotelService->sendBookingFailureEmailToAdmin($booking, 'Payment was cancelled or failed');
+                }
+
+                return view('frontend.hotels.payment-failed', compact('booking'));
+            }
+
+            return view('frontend.hotels.payment-failed', ['booking' => null]);
+        } catch (\Exception $e) {
+            return view('frontend.hotels.payment-failed', ['booking' => null]);
+        }
+    }
+
+    protected function getSourceMarketFromIP()
+    {
+        try {
+            $ip = request()->ip();
+            $response = file_get_contents("https://ipinfo.io/{$ip}/json");
+            $data = json_decode($response, true);
+
+            if (isset($data['country'])) {
+                return $data['country'];
+            }
+        } catch (\Exception $e) {
+            Log::warning('Failed to get source market from IP', ['error' => $e->getMessage()]);
+        }
+
+        return 'AE';
     }
 }

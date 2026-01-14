@@ -74,6 +74,9 @@ Route::name('frontend.')->group(function () {
         Route::get('/details/{id}', [HotelController::class, 'details'])->name('details');
         Route::get('/checkout/{id}', [HotelController::class, 'checkout'])->name('checkout');
         Route::post('/payment/process', [HotelController::class, 'processPayment'])->name('payment.process');
+        Route::get('/payment/success/{booking}', [HotelController::class, 'paymentSuccess'])->name('payment.success');
+        Route::get('/payment/success/view/{booking}', [HotelController::class, 'paymentSuccessView'])->name('payment.success.view');
+        Route::get('/payment/failed/{booking?}', [HotelController::class, 'paymentFailed'])->name('payment.failed');
     });
 
     Route::prefix('payment')->name('payment.')->group(function () {
