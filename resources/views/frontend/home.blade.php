@@ -549,7 +549,8 @@
             </div>
         </div>
     </section>
-
+    
+{{-- 
     <section class="section-hotel-offers py-5 bg-light">
         <div class="container">
             <div class="row align-items-end mb-4">
@@ -649,7 +650,7 @@
 
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
     {{-- <section class="travel-stories-pro mar-y">
