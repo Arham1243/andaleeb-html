@@ -63,7 +63,8 @@
                 if (urlParams.origin) {
                     insuranceFromInputValue.value = urlParams.origin;
                     const countries = await getInsuranceCountries(urlParams.origin);
-                    const match = countries.find(c => c.name.toLowerCase() === urlParams.origin.toLowerCase());
+                    const match = countries.find(c => c.name.toLowerCase() === urlParams.origin
+                        .toLowerCase());
                     if (match) {
                         selectedInsuranceFrom.value = match;
                     }
@@ -73,7 +74,8 @@
                 if (urlParams.destination) {
                     insuranceToInputValue.value = urlParams.destination;
                     const countries = await getInsuranceCountries(urlParams.destination);
-                    const match = countries.find(c => c.name.toLowerCase() === urlParams.destination.toLowerCase());
+                    const match = countries.find(c => c.name.toLowerCase() === urlParams.destination
+                        .toLowerCase());
                     if (match) {
                         selectedInsuranceTo.value = match;
                     }
@@ -83,7 +85,8 @@
                 if (urlParams.residence_country) {
                     insuranceResidenceInputValue.value = urlParams.residence_country;
                     const countries = await getInsuranceCountries(urlParams.residence_country);
-                    const match = countries.find(c => c.name.toLowerCase() === urlParams.residence_country.toLowerCase());
+                    const match = countries.find(c => c.name.toLowerCase() === urlParams
+                        .residence_country.toLowerCase());
                     if (match) {
                         selectedInsuranceResidence.value = match;
                     }
@@ -102,7 +105,7 @@
 
                 // Wait for watchers to create age arrays, then populate them
                 await nextTick();
-                
+
                 // Set ages by updating existing array elements instead of replacing the array
                 if (urlParams.adult_ages && urlParams.adult_ages.length > 0) {
                     urlParams.adult_ages.forEach((age, index) => {
@@ -136,10 +139,12 @@
                         }
                         if (urlParams.return_date) {
                             const $returnInput = $('#insurance-return-input');
-                            const returnMoment = moment(urlParams.return_date, 'MMM D, YYYY');
+                            const returnMoment = moment(urlParams.return_date,
+                                'MMM D, YYYY');
                             if (returnMoment.isValid()) {
                                 $returnInput.val(returnMoment.format('MMM D, YYYY'));
-                                $('#insurance-return-day').text(returnMoment.format('dddd'));
+                                $('#insurance-return-day').text(returnMoment.format(
+                                'dddd'));
                                 const picker = $returnInput.data('daterangepicker');
                                 if (picker) {
                                     picker.setStartDate(returnMoment);
@@ -460,10 +465,35 @@
             });
         }
 
-
         $(document).ready(function() {
             initSingleDatePicker("insurance-start-box", "insurance-start-input", "insurance-start-day");
             initSingleDatePicker("insurance-return-box", "insurance-return-input", "insurance-return-day");
+
+            const $startInput = $("#insurance-start-input");
+            const $returnInput = $("#insurance-return-input");
+
+            // Sync return date with start date
+            $startInput.on("apply.daterangepicker", function(ev, picker) {
+                const startDate = picker.startDate;
+                const returnPicker = $returnInput.data('daterangepicker');
+
+                if (returnPicker) {
+                    // Set minimum date for return (day after start)
+                    returnPicker.minDate = startDate.clone().add(1, 'day');
+
+                    // Navigate return calendar to same month as start
+                    returnPicker.setStartDate(startDate.clone().add(1, 'day'));
+
+                    // If current return date is before new minimum, reset it
+                    if ($returnInput.val()) {
+                        const currentReturn = moment($returnInput.val(), "MMM D, YYYY");
+                        if (currentReturn.isSameOrBefore(startDate)) {
+                            $returnInput.val('');
+                            $("#insurance-return-day").text('');
+                        }
+                    }
+                }
+            });
         });
     </script>
 @endpush

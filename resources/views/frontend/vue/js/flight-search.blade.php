@@ -320,10 +320,35 @@
             });
         }
 
-
         $(document).ready(function() {
             initSingleDatePicker("departure-box", "departure-input", "departure-day");
             initSingleDatePicker("return-box", "return-input", "return-day");
+
+            const $departureInput = $("#departure-input");
+            const $returnInput = $("#return-input");
+
+            // Sync return date with departure date
+            $departureInput.on("apply.daterangepicker", function(ev, picker) {
+                const departureDate = picker.startDate;
+                const returnPicker = $returnInput.data('daterangepicker');
+
+                if (returnPicker) {
+                    // Set minimum date for return (day after departure)
+                    returnPicker.minDate = departureDate.clone().add(1, 'day');
+
+                    // Navigate return calendar to same month as departure
+                    returnPicker.setStartDate(departureDate.clone().add(1, 'day'));
+
+                    // If current return date is before new minimum, reset it
+                    if ($returnInput.val()) {
+                        const currentReturn = moment($returnInput.val(), "MMM D, YYYY");
+                        if (currentReturn.isSameOrBefore(departureDate)) {
+                            $returnInput.val('');
+                            $("#return-day").text('');
+                        }
+                    }
+                }
+            });
         });
     </script>
 @endpush

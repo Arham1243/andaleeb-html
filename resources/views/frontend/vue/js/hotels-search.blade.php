@@ -4,7 +4,7 @@
         setup() {
 
 
-               function useDropdown() {
+            function useDropdown() {
                 const open = ref(false);
                 const wrapper = ref(null);
 
@@ -74,7 +74,7 @@
                 const totalChildren = hotelRooms.value.reduce((sum, room) => sum + room.children, 0);
                 const totalGuests = totalAdults + totalChildren;
                 const roomText = hotelRoomCount.value === 1 ? '1 Room' :
-                `${hotelRoomCount.value} Rooms`;
+                    `${hotelRoomCount.value} Rooms`;
                 const guestText = totalGuests === 1 ? '1 Guest' : `${totalGuests} Guests`;
                 return `${roomText}, ${guestText}`;
             });
@@ -227,7 +227,6 @@
             const $wrapper = $(`#${wrapperId}`);
             const $input = $(`#${inputId}`);
             const $dayDisplay = $(`#${dayDisplayId}`);
-
             if (!$wrapper.length || !$input.length || !$dayDisplay.length) return;
 
             // Initialize daterangepicker
@@ -257,10 +256,35 @@
             });
         }
 
-
         $(document).ready(function() {
             initSingleDatePicker("hotel-checkin-box", "hotel-checkin-input", "hotel-checkin-day");
             initSingleDatePicker("hotel-checkout-box", "hotel-checkout-input", "hotel-checkout-day");
+
+            const $checkinInput = $("#hotel-checkin-input");
+            const $checkoutInput = $("#hotel-checkout-input");
+
+            // Sync checkout with checkin
+            $checkinInput.on("apply.daterangepicker", function(ev, picker) {
+                const checkinDate = picker.startDate;
+                const checkoutPicker = $checkoutInput.data('daterangepicker');
+
+                if (checkoutPicker) {
+                    // Set minimum date for checkout (day after checkin)
+                    checkoutPicker.minDate = checkinDate.clone().add(1, 'day');
+
+                    // Navigate checkout calendar to same month as checkin
+                    checkoutPicker.setStartDate(checkinDate.clone().add(1, 'day'));
+
+                    // If current checkout date is before new minimum, reset it
+                    if ($checkoutInput.val()) {
+                        const currentCheckout = moment($checkoutInput.val(), "MMM D, YYYY");
+                        if (currentCheckout.isSameOrBefore(checkinDate)) {
+                            $checkoutInput.val('');
+                            $("#hotel-checkout-day").text('');
+                        }
+                    }
+                }
+            });
         });
     </script>
 @endpush
