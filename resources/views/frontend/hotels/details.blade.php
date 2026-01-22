@@ -231,7 +231,7 @@
 
                                 <div class="col-12 col-lg-4">
                                     <label class="room-card">
-                                        <input type="radio" name="room_selection" class="room-card__input"
+                                        <input type="checkbox" name="room_selection[]" class="room-card__input"
                                             data-price="{{ $finalPrice }}" data-room-code="{{ $room['Code'] }}"
                                             data-board-code="{{ $board['Code'] }}"
                                             data-board-title="{{ $boardTitle }}" value="{{ $room['Description'] }}">
@@ -374,11 +374,11 @@
 @push('js')
     <script>
         const priceEl = document.getElementById('total-room-price');
-        const radios = document.querySelectorAll('input[name="room_selection"]');
+        const checkboxes = document.querySelectorAll('input[name="room_selection[]"]');
         const continueBtn = document.getElementById('continueBtn');
+        const maxRooms = {{ $roomCount }};
         const baseUrl = "{!! route('frontend.hotels.checkout', $hotel['id']) . '?' . http_build_query(request()->query()) !!}";
         const showExtras = @json($show_extras);
-
 
         const formatPrice = (value) =>
             Number(value).toLocaleString('en-US', {
@@ -386,60 +386,79 @@
                 maximumFractionDigits: 2
             });
 
-        // Set initial price from checked radio
-        const checkedRadio = document.querySelector('input[name="room_selection"]:checked');
-        if (checkedRadio) {
-            priceEl.textContent = formatPrice(checkedRadio.dataset.price);
-            updateContinueUrl(checkedRadio);
+        function getSelectedRooms() {
+            return Array.from(checkboxes).filter(cb => cb.checked);
         }
 
-        // Update price and URL on change
-        radios.forEach(radio => {
-            radio.addEventListener('change', () => {
-                priceEl.textContent = formatPrice(radio.dataset.price);
-                updateContinueUrl(radio);
-            });
-        });
+        function updateTotalPrice() {
+            const selected = getSelectedRooms();
+            const total = selected.reduce((sum, cb) => sum + Number(cb.dataset.price), 0);
+            priceEl.textContent = formatPrice(total);
+        }
 
-        // Update continue button URL with selected room
-        function updateContinueUrl(radio) {
-            const separator = baseUrl.includes('?') ? '&' : '?';
+        function updateContinueUrl() {
+            const selected = getSelectedRooms();
 
-            // Collect all needed data
             const params = new URLSearchParams({
-                room_code: radio.dataset.roomCode,
-                board_code: radio.dataset.boardCode,
-                board_title: radio.dataset.boardTitle,
-                price: radio.dataset.price,
-                room_name: radio.value,
                 show_extras: showExtras ? true : false
             });
 
+            selected.forEach((cb, index) => {
+                const i = index + 1;
+                params.append(`room_${i}_code`, cb.dataset.roomCode);
+                params.append(`room_${i}_board_code`, cb.dataset.boardCode);
+                params.append(`room_${i}_board_title`, cb.dataset.boardTitle);
+                params.append(`room_${i}_price`, cb.dataset.price);
+                params.append(`room_${i}_name`, cb.value);
+            });
+
+            params.append('selected_rooms', selected.length);
+
+            const separator = baseUrl.includes('?') ? '&' : '?';
             continueBtn.href = baseUrl + separator + params.toString();
         }
 
-        // Validate room selection on continue button click
+        function enforceRoomLimit(changedCheckbox) {
+            const selected = getSelectedRooms();
+
+            if (selected.length > maxRooms) {
+                changedCheckbox.checked = false;
+                showMessage(`You can only select ${maxRooms} room(s).`, "error");
+                return false;
+            }
+
+            return true;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                if (!enforceRoomLimit(cb)) return;
+
+                updateTotalPrice();
+                updateContinueUrl();
+            });
+        });
+
         continueBtn.addEventListener('click', (e) => {
-            const selectedRadio = document.querySelector('input[name="room_selection"]:checked');
-            if (!selectedRadio) {
+            const selected = getSelectedRooms();
+
+            if (selected.length !== maxRooms) {
                 e.preventDefault();
-                showMessage("Please select a room before continuing.", "error");
+                showMessage(
+                    `Please select exactly ${maxRooms} room(s) before continuing.`,
+                    "error"
+                );
 
-                // Activate the Rooms tab
                 const roomsTab = document.getElementById('pills-profile-tab');
-                if (roomsTab) {
-                    roomsTab.click();
-                }
+                roomsTab?.click();
 
-                // Scroll to the tabs section
                 setTimeout(() => {
-                    const tabsSection = document.querySelector('.hotel-detail__tabs');
-                    if (tabsSection) {
-                        tabsSection.scrollIntoView({
+                    document
+                        .querySelector('.hotel-detail__tabs')
+                        ?.scrollIntoView({
                             behavior: 'smooth',
                             block: 'start'
                         });
-                    }
                 }, 100);
             }
         });
