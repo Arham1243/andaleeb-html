@@ -79,3 +79,16 @@ function calculatePriceWithCommission($basePrice, $commissionPercentage = 10)
 {
     return $basePrice + ($commissionPercentage / 100) * $basePrice;
 }
+
+
+function yalagoFinalPrice(array $board, float $commissionPercent): float
+{
+    if (!empty($board['IsBindingPrice'])) {
+        return round($board['GrossCost']['Amount'], 2);
+    }
+
+    $net = $board['NetCost']['Amount'];
+    $commission = ($net * $commissionPercent) / 100;
+
+    return round($net + $commission, 2);
+}

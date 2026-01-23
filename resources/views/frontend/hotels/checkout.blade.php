@@ -172,6 +172,39 @@
         </div>
     </div>
 
+    @if ($price_changed)
+        <div class="custom-popup-wrapper open" data-info-popup-wrapper="Price Update" id="price-update-popup">
+            <div class="custom-popup" data-info-popup>
+                <div class="custom-popup__header">
+                    <div class="title">Price Update</div>
+                </div>
+
+                <div class="custom-popup__content">
+                    <p>We noticed a small update in the room pricing.</p>
+                    <p>
+                        The total price has changed to
+                        <strong>{{ formatPrice($total_price) }}</strong>.
+                        Would you like to continue with the updated price?
+                    </p>
+
+                    <div class="modal-footer" style="display:flex; gap:16px; align-items:center;">
+
+                        <a href="{{ route('frontend.hotels.index') }}" style="color:#666;text-decoration:underline;">
+                            Cancel
+                        </a>
+                        <a href="javascript:void(0)"
+                            onclick="document.getElementById('price-update-popup').classList.remove('open')" class="btn"
+                            style="background:#cd1b4f;color:#fff;padding:10px 20px;border-radius:6px;">
+                            Continue
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
     <section class="section-gap">
         <div class="container">
             <form id="checkoutForm" action="{{ route('frontend.hotels.payment.process') }}" method="POST">
@@ -179,12 +212,17 @@
                 <input type="hidden" name="hotel_id" value="{{ $hotel['yalago_id'] }}">
                 <input type="hidden" name="check_in" value="{{ $check_in }}">
                 <input type="hidden" name="check_out" value="{{ $check_out }}">
-                <input type="hidden" name="selected_room[room_code]" value="{{ $selected_room['room_code'] }}">
-                <input type="hidden" name="selected_room[board_code]" value="{{ $selected_room['board_code'] }}">
-                <input type="hidden" name="selected_room[board_title]" value="{{ $selected_room['board_title'] }}">
-                <input type="hidden" name="selected_room[price]" value="{{ $selected_room['price'] }}">
-                <input type="hidden" name="selected_room[room_name]" value="{{ $selected_room['room_name'] }}">
-
+                @foreach ($selected_rooms as $index => $room)
+                    <input type="hidden" name="selected_rooms[{{ $index }}][room_code]"
+                        value="{{ $room['room_code'] }}">
+                    <input type="hidden" name="selected_rooms[{{ $index }}][board_code]"
+                        value="{{ $room['board_code'] }}">
+                    <input type="hidden" name="selected_rooms[{{ $index }}][board_title]"
+                        value="{{ $room['board_title'] }}">
+                    <input type="hidden" name="selected_rooms[{{ $index }}][price]" value="{{ $room['price'] }}">
+                    <input type="hidden" name="selected_rooms[{{ $index }}][room_name]"
+                        value="{{ $room['room_name'] }}">
+                @endforeach
                 @foreach ($rooms_request as $index => $room)
                     <input type="hidden" name="rooms[{{ $index }}][adults]" value="{{ $room['Adults'] }}">
                     <input type="hidden" name="rooms[{{ $index }}][child_ages]"
@@ -197,181 +235,220 @@
                             @if ($show_extras && $yalago_extras->isNotEmpty())
                                 <div id="selected-extras-hidden-fields"></div>
 
-                                @php $j = 0; @endphp
+                                @php
+                                    // Group extras by room index
+                                    $extrasByRoom = $yalago_extras->groupBy('room_index');
+                                @endphp
 
-                                @foreach ($yalago_extras as $item)
+                                @foreach ($selected_rooms as $roomIndex => $selectedRoom)
                                     @php
-                                        $extra = $item['extra'];
-                                        $room = $item['room'];
-                                        $board = $item['board'];
+                                        $roomExtras = $extrasByRoom->get($roomIndex + 1, collect());
 
-                                        if (empty($extra['IsMandatory'])) {
-                                            continue;
-                                        }
-
-                                        $groupName = strtolower($room['Code'] . '-' . $extra['ExtraId']);
+                                        // Group extras for this room by extra title
+                                        $groupedExtras = $roomExtras->groupBy(function ($item) {
+                                            return $item['extra']['Title'];
+                                        });
                                     @endphp
 
-                                    <div class="modern-card">
-                                        <div class="card-title">
-                                            {{ $extra['Title'] }}
-                                            | {{ $room['Description'] }}
-                                            | {{ $board['Description'] }}
-                                        </div>
+                                    @if ($groupedExtras->isNotEmpty())
+                                        <div class="modern-card mb-3">
+                                            <div class="card-title">
+                                                <i class='bx bxs-bed'></i> Room {{ $roomIndex + 1 }}:
+                                                {{ $selectedRoom['room_name'] }}
+                                                <small
+                                                    style="display: block; color: #666; font-weight: normal; margin-top: 4px;">
+                                                    {{ $selectedRoom['board_title'] }}
+                                                </small>
+                                            </div>
 
-                                        <div class="transfers-list">
-                                            <div class="row g-3">
-                                                @foreach ($extra['Options'] as $option)
-                                                    @php
-                                                        $j++;
+                                            @php $counter = 0; @endphp
 
-                                                        if (!empty($extra['IsBindingPrice'])) {
-                                                            $price = number_format($option['GrossCost']['Amount'], 2);
-                                                        } else {
-                                                            $net = $option['NetCost']['Amount'];
-                                                            $commission = ($net * $hotelCommissionPercentage) / 100;
-                                                            $price = $net + $commission;
-                                                        }
-                                                    @endphp
+                                            @foreach ($groupedExtras as $extraTitle => $group)
+                                                @php
+                                                    $first = $group->first();
+                                                    $extra = $first['extra'];
 
-                                                    <div class="col-md-6">
-                                                        <div class="transfers-item">
-                                                            <input class="transfers-item__radio" type="radio"
-                                                                id="transfer-{{ $j }}"
-                                                                name="{{ $groupName }}" value="{{ $option['Title'] }}"
-                                                                data-price="{{ $price }}"
-                                                                data-option-id="{{ $option['OptionId'] }}"
-                                                                data-extra-id="{{ $extra['ExtraId'] }}"
-                                                                data-extra-type-id="{{ $extra['ExtraTypeId'] }}"
-                                                                {{ $extra['IsMandatory'] ? 'required data-required=true' : '' }}>
+                                                    if (empty($extra['IsMandatory'])) {
+                                                        continue;
+                                                    }
 
-                                                            <label class="transfers-item__box"
-                                                                for="transfer-{{ $j }}">
-                                                                <p
-                                                                    class="content text-danger text-center mb-1 extras-required">
-                                                                    Selection Required
-                                                                </p>
+                                                    $groupName =
+                                                        'room_' . ($roomIndex + 1) . '_extra_' . $extra['ExtraId'];
+                                                @endphp
 
-                                                                <div class="transfer-header">
-                                                                    <i class='bx bxs-check-circle'></i>
-                                                                    <div class="title">Selected</div>
-                                                                </div>
+                                                <div class="extra-group mb-4">
+                                                    <div class="transfers-list">
+                                                        <div class="row g-3">
+                                                            @foreach ($group as $item)
+                                                                @foreach ($item['extra']['Options'] as $option)
+                                                                    @php
+                                                                        $counter++;
 
-                                                                <div class="transfer-body">
-                                                                    <div class="content">{{ $option['Title'] }}</div>
+                                                                        if (!empty($extra['IsBindingPrice'])) {
+                                                                            $price = $option['GrossCost']['Amount'];
+                                                                        } else {
+                                                                            $price = $option['NetCost']['Amount'];
+                                                                        }
 
-                                                                    <div class="bottom-price">
-                                                                        <div class="price-details">
-                                                                            <span>Per person return</span>
-                                                                            <div class="price"> {{ formatPrice($price) }}
-                                                                            </div>
-                                                                            <span>Total <span class="dirham">D</span>
-                                                                                {{ $price }}</span>
+                                                                        $uniqueId =
+                                                                            'room_' .
+                                                                            ($roomIndex + 1) .
+                                                                            '_transfer_' .
+                                                                            $counter;
+                                                                    @endphp
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="transfers-item">
+                                                                            <input class="transfers-item__radio"
+                                                                                type="radio" id="{{ $uniqueId }}"
+                                                                                name="{{ $groupName }}"
+                                                                                value="{{ $option['Title'] }}"
+                                                                                data-room-index="{{ $roomIndex + 1 }}"
+                                                                                data-room-name="{{ $selectedRoom['room_name'] }}"
+                                                                                data-extra-title="{{ $extra['Title'] }}"
+                                                                                data-price="{{ $price }}"
+                                                                                data-option-id="{{ $option['OptionId'] }}"
+                                                                                data-extra-id="{{ $extra['ExtraId'] }}"
+                                                                                data-extra-type-id="{{ $extra['ExtraTypeId'] }}"
+                                                                                {{ $extra['IsMandatory'] ? 'required data-required=true' : '' }}>
+
+                                                                            <label class="transfers-item__box"
+                                                                                for="{{ $uniqueId }}">
+                                                                                <p
+                                                                                    class="content text-danger text-center mb-1 extras-required">
+                                                                                    Selection Required
+                                                                                </p>
+
+                                                                                <div class="transfer-header">
+                                                                                    <i class="bx bxs-check-circle"></i>
+                                                                                    <div class="title">Selected</div>
+                                                                                </div>
+
+                                                                                <div class="transfer-body">
+                                                                                    <div class="content">
+                                                                                        {{ $option['Title'] }}</div>
+
+                                                                                    <div class="bottom-price">
+                                                                                        <div class="price-details">
+                                                                                            <span>Per person return</span>
+                                                                                            <div class="price">
+                                                                                                {{ formatPrice($price) }}
+                                                                                            </div>
+                                                                                            <span>Total <span
+                                                                                                    class="dirham">D</span>
+                                                                                                {{ number_format($price, 2) }}</span>
+                                                                                        </div>
+                                                                                        <div class="selected-btn"
+                                                                                            select-text="Select"
+                                                                                            selected-text="Selected"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </label>
                                                                         </div>
-                                                                        <div class="selected-btn" select-text="Select"
-                                                                            selected-text="Selected"></div>
                                                                     </div>
-                                                                </div>
-                                                            </label>
+                                                                @endforeach
+                                                            @endforeach
                                                         </div>
                                                     </div>
-                                                @endforeach
-                                            </div>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                    </div>
+                                    @endif
                                 @endforeach
-                            @endif
 
-                            <div class="modern-card">
-                                <div class="card-title">
-                                    <i class='bx bxs-plane-alt'></i> Flight Details
-                                </div>
+                                <!-- Flight Details Section -->
+                                <div class="modern-card">
+                                    <div class="card-title">
+                                        <i class='bx bxs-plane-alt'></i> Flight Details
+                                    </div>
 
-                                <div class="row g-3">
-                                    <div class="col-md-12">
-                                        <div class="custom-info-alert my-2">
-                                            <div class="icon"><i class="bx bx-info-circle"></i></div>
-                                            <div class="content">
-                                                To proceed with your booking, we also need your flight details to arrange
-                                                transfers for you.
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <div class="custom-info-alert my-2">
+                                                <div class="icon"><i class="bx bx-info-circle"></i></div>
+                                                <div class="content">
+                                                    To proceed with your booking, we also need your flight details to
+                                                    arrange
+                                                    transfers for you.
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- OUTBOUND -->
-                                    <div class="col-md-12">
-                                        <div class="card-title mb-0">Outbound Flight</div>
-                                    </div>
+                                        <!-- OUTBOUND -->
+                                        <div class="col-md-12">
+                                            <div class="card-title mb-0">Outbound Flight</div>
+                                        </div>
 
-                                    <div class="col-md-4 mt-2">
-                                        <label class="form-label">Flight number *</label>
-                                        <input type="text" class="custom-input"
-                                            name="flight_details[outbound][flight_number]">
-                                    </div>
+                                        <div class="col-md-4 mt-2">
+                                            <label class="form-label">Flight number *</label>
+                                            <input type="text" class="custom-input"
+                                                name="flight_details[outbound][flight_number]">
+                                        </div>
 
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label">Arrival time *</label>
-                                        <div class="flight-fields">
-                                            <select class="custom-select" name="flight_details[outbound][arrival_hour]">
-                                                <option value="">hh</option>
-                                                @for ($i = 0; $i < 24; $i++)
-                                                    <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
-                                                        {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
-                                                    </option>
-                                                @endfor
+                                        <div class="col-md-3 mt-2">
+                                            <label class="form-label">Arrival time *</label>
+                                            <div class="flight-fields">
+                                                <select class="custom-select"
+                                                    name="flight_details[outbound][arrival_hour]">
+                                                    <option value="">hh</option>
+                                                    @for ($i = 0; $i < 24; $i++)
+                                                        <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
+                                                            {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
+                                                        </option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 mt-2">
+                                            <label class="form-label d-none d-md-block">&nbsp;</label>
+                                            <select class="custom-select" name="flight_details[outbound][arrival_minute]">
+                                                <option value="">mm</option>
+                                                @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
+                                                    <option value="{{ $m }}">{{ $m }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label d-none d-md-block">&nbsp;</label>
-                                        <select class="custom-select" name="flight_details[outbound][arrival_minute]">
-                                            <option value="">mm</option>
-                                            @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
-                                                <option value="{{ $m }}">{{ $m }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <!-- INBOUND -->
+                                        <div class="col-md-12">
+                                            <div class="card-title mb-0">Inbound Flight</div>
+                                        </div>
 
-                                    <!-- INBOUND -->
-                                    <div class="col-md-12">
-                                        <div class="card-title mb-0">Inbound Flight</div>
-                                    </div>
+                                        <div class="col-md-4 mt-2">
+                                            <label class="form-label">Flight number *</label>
+                                            <input type="text" class="custom-input"
+                                                name="flight_details[inbound][flight_number]">
+                                        </div>
 
-                                    <div class="col-md-4 mt-2">
-                                        <label class="form-label">Flight number *</label>
-                                        <input type="text" class="custom-input"
-                                            name="flight_details[inbound][flight_number]">
-                                    </div>
+                                        <div class="col-md-3 mt-2">
+                                            <label class="form-label">Departure time *</label>
+                                            <div class="flight-fields">
+                                                <select class="custom-select"
+                                                    name="flight_details[inbound][departure_hour]">
+                                                    <option value="">hh</option>
+                                                    @for ($i = 0; $i < 24; $i++)
+                                                        <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
+                                                            {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
+                                                        </option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label">Departure time *</label>
-                                        <div class="flight-fields">
-                                            <select class="custom-select" name="flight_details[inbound][departure_hour]">
-                                                <option value="">hh</option>
-                                                @for ($i = 0; $i < 24; $i++)
-                                                    <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
-                                                        {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
-                                                    </option>
-                                                @endfor
+                                        <div class="col-md-3 mt-2">
+                                            <label class="form-label d-none d-md-block">&nbsp;</label>
+                                            <select class="custom-select"
+                                                name="flight_details[inbound][departure_minute]">
+                                                <option value="">mm</option>
+                                                @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
+                                                    <option value="{{ $m }}">{{ $m }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-3 mt-2">
-                                        <label class="form-label d-none d-md-block">&nbsp;</label>
-                                        <select class="custom-select" name="flight_details[inbound][departure_minute]">
-                                            <option value="">mm</option>
-                                            @foreach (['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'] as $m)
-                                                <option value="{{ $m }}">{{ $m }}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                 </div>
-
-
-                            </div>
-
+                            @endif
                         </div>
                         <div id="guest-info" class="{{ $show_extras ? 'd-none' : 'd-block' }}">
                             @php
@@ -534,6 +611,14 @@
                                     class="imgFluid lazyload" alt="{{ $hotel['name'] }}" />
                             </div>
 
+                            @php
+                                $groupedRooms = collect($selected_rooms)->groupBy(function ($room) {
+                                    return $room['room_name'] . '|' . $room['board_title'];
+                                });
+
+                            @endphp
+
+
                             <div class="event-card__content">
                                 <div class="title title--sm">{{ $hotel['name'] }}</div>
 
@@ -558,7 +643,8 @@
                                     <div class="content">
                                         {{ \Carbon\Carbon::parse($check_in)->format('d M, Y') }} -
                                         {{ \Carbon\Carbon::parse($check_in)->diffInDays(\Carbon\Carbon::parse($check_out)) }}
-                                        nights at hotel
+                                        {{ \Carbon\Carbon::parse($check_in)->diffInDays(\Carbon\Carbon::parse($check_out)) > 1 ? 'nights' : 'night' }}
+                                        at hotel
                                     </div>
                                 </div>
 
@@ -574,68 +660,86 @@
                                     <div class="content">
                                         {{ collect($rooms_request)->sum('Adults') }} Adults,
                                         {{ collect($rooms_request)->sum(fn($r) => count($r['ChildAges'])) }} Children,
-                                        {{ count($rooms_request) }} Rooms
+                                        {{ count($rooms_request) }} {{ count($rooms_request) > 1 ? 'Rooms' : 'Room' }}
                                     </div>
                                 </div>
 
-                                <div class="details">
-                                    <div class="icon"><i class="bx bxs-bed"></i></div>
-                                    <div class="content showroomtype">{{ $selected_room['room_name'] }}</div>
-                                </div>
+                                {{-- Display all selected rooms --}}
+                                @foreach ($groupedRooms as $group)
+                                    @php
+                                        $room = $group->first();
+                                        $qty = $group->count();
+                                        $roomTotal = $room['price'] * $qty;
+                                    @endphp
 
-                                <div class="details details--border">
-                                    <div class="content">Rooms total</div>
-                                    <div class="content roomstotal">{{ formatPrice($selected_room['price']) }}</div>
-                                </div>
+                                    <div class="summary-row details details--border" style="margin-top:8px;">
+                                        <span>{{ $qty }} <i class='bx bx-x'></i> {{ $room['room_name'] }}
+                                            <div class="board-title mt-2">
+                                                {{ $room['board_title'] }}
+                                            </div>
+                                        </span>
+                                        <span>{{ formatPrice($roomTotal) }}</span>
+                                    </div>
+                                @endforeach
+
+
+                                {{-- Show total price for all rooms --}}
+                                @if (count($selected_rooms) > 1)
+                                    <div class="details details--border"
+                                        style="background: #f8f9fa; font-weight: 600; margin-top: 8px;">
+                                        <div class="content">Total</div>
+                                        <div class="content roomstotal">{{ formatPrice($total_price) }}</div>
+                                    </div>
+                                @else
+                                    <div class="details details--border">
+                                        <div class="content">Total</div>
+                                        <div class="content roomstotal">{{ formatPrice($total_price) }}</div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
 
                         @if ($show_extras)
                             <div class="modern-card">
-                                <div class="card-title">Transfers / Extras
-                                </div>
+                                <div class="card-title">Transfers / Extras</div>
 
-                                <div class="order-item-mini" id="extras-summary-item" style="display: none;">
-                                    <div>
-                                        <h6>
-                                            <span id="extras-pkg-title">pkg title here</span>
-                                            <i class='bx bx-x'></i> AED
-                                            <span id="extras-pkg-amount">amount here</span>
-                                        </h6>
-                                    </div>
+                                <div id="selected-extras-list">
+                                    <!-- Will be populated by JavaScript -->
                                 </div>
 
                                 <div class="mt-3">
                                     <div class="summary-row total">
-                                        <span>Total</span>
-                                        <span style="color: var(--color-primary)"><span class="dirham">D</span>
-                                            <span id="extras-total-amount">0.00</span></span>
+                                        <span>Extras Total</span>
+                                        <span style="color: var(--color-primary)">
+                                            <span class="dirham">D</span><span id="extras-total-amount">0.00</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         @endif
-                        <div class="modern-card">
 
+                        <div class="modern-card">
                             <div class="order-item-mini">
                                 <div>
                                     <h6>Rooms Total</h6>
                                 </div>
-                                <span class="fw-bold"><span class="dirham">D</span> 1068.18</span>
+                                <span class="fw-bold">{{ formatPrice($total_price) }}</span>
                             </div>
-
                             <div class="mt-3">
                                 @if ($show_extras)
                                     <div class="summary-row">
                                         <span>Extras total</span>
-                                        <span><span class="dirham">D</span> <span
+                                        <span><span class="dirham">D</span><span
                                                 id="summary-extras-total">0.00</span></span>
                                     </div>
                                 @endif
                                 <div class="summary-row total">
                                     <span>Total Price</span>
-                                    <span style="color: var(--color-primary)"><span class="dirham">D</span>
-                                        <span id="summary-net-total">1068.18</span></span>
+                                    <span style="color: var(--color-primary)">
+                                        <span class="dirham">D</span><span
+                                            id="summary-net-total">{{ formatPrice($total_price) }}</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -702,68 +806,96 @@
 
         document.addEventListener("DOMContentLoaded", function() {
 
-
-
-            /* -----------------------------
-             Helpers
-            ----------------------------- */
-            function getQueryParam(name) {
-                const params = new URLSearchParams(window.location.search);
-                return params.get(name);
-            }
-
-            const roomsTotal = parseFloat(getQueryParam('price')) || 0;
+            const roomsTotal = @json($total_price);
 
             const totalPriceEls = {
                 extrasTotal: document.getElementById('extras-total-amount'),
                 summaryExtras: document.getElementById('summary-extras-total'),
                 summaryNet: document.getElementById('summary-net-total'),
-                continueTotal: document.getElementById('total-price')
+                continueTotal: document.getElementById('total-price'),
+                extrasList: document.getElementById('selected-extras-list')
             };
 
-            /* -----------------------------
-             Recalculate extras + totals
-            ----------------------------- */
             const formatPrice = (value) =>
                 Number(value).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 });
 
-
-            /* Populate extras hidden fields */
             const extrasHiddenContainer = document.getElementById('selected-extras-hidden-fields');
 
             function clearExtrasHiddenFields() {
-                if (!extrasHiddenContainer) {
-                    return;
-                }
+                if (!extrasHiddenContainer) return;
                 extrasHiddenContainer.innerHTML = '';
             }
 
             function addExtraHiddenField(index, data) {
-                if (!extrasHiddenContainer) {
-                    return;
-                }
-                document.querySelectorAll('.extras-required').forEach(el => {
-                    el.style.display = 'none';
-                });
-                const wrapper = document.createElement('div');
+                if (!extrasHiddenContainer) return;
 
+                const wrapper = document.createElement('div');
                 wrapper.innerHTML = `
+        <input type="hidden" name="booking[extras][${index}][room_index]" value="${data.roomIndex}">
+        <input type="hidden" name="booking[extras][${index}][room_name]" value="${data.roomName}">
+        <input type="hidden" name="booking[extras][${index}][extra_title]" value="${data.extraTitle}">
         <input type="hidden" name="booking[extras][${index}][title]" value="${data.title}">
         <input type="hidden" name="booking[extras][${index}][price]" value="${data.price}">
         <input type="hidden" name="booking[extras][${index}][option_id]" value="${data.optionId}">
         <input type="hidden" name="booking[extras][${index}][extra_id]" value="${data.extraId}">
         <input type="hidden" name="booking[extras][${index}][extra_type_id]" value="${data.extraTypeId}">
     `;
-
                 extrasHiddenContainer.appendChild(wrapper);
+            }
+
+            function updateExtrasList(selectedExtras) {
+                if (!totalPriceEls.extrasList) return;
+
+                if (selectedExtras.length === 0) {
+                    totalPriceEls.extrasList.innerHTML = '<p class="text-muted">No extras selected</p>';
+                    return;
+                }
+
+                let html = '';
+                selectedExtras.forEach(extra => {
+                    html += `
+                        <div class="order-item-mini mb-2" style="border-bottom: 1px solid #eee; padding-bottom: 8px;">
+                            <div>
+                                <h6 style="font-size: 0.9rem; margin-bottom: 2px;">${extra.title}</h6>
+                                <small style="color: #666;">Room ${extra.roomIndex}: ${extra.extraTitle}</small>
+                            </div>
+                            <span class="fw-bold"><span class="dirham">D</span>${formatPrice(extra.price)}</span>
+                        </div>
+                    `;
+                });
+
+                totalPriceEls.extrasList.innerHTML = html;
+            }
+
+            function updateExtrasRequiredMessages() {
+                // Get all required radio groups
+                const requiredGroups = new Set();
+                document.querySelectorAll('.transfers-item__radio[data-required="true"]').forEach(radio => {
+                    requiredGroups.add(radio.name);
+                });
+
+                // Check each group and hide/show the "Selection Required" message
+                requiredGroups.forEach(groupName => {
+                    const radios = document.querySelectorAll(`input[name="${groupName}"]`);
+                    const isSelected = Array.from(radios).some(radio => radio.checked);
+
+                    radios.forEach(radio => {
+                        const label = radio.closest('.transfers-item').querySelector(
+                            '.extras-required');
+                        if (label) {
+                            label.style.display = isSelected ? 'none' : 'block';
+                        }
+                    });
+                });
             }
 
             function recalcTotals() {
                 let extrasTotal = 0;
                 let extrasIndex = 0;
+                const selectedExtras = [];
 
                 clearExtrasHiddenFields();
 
@@ -771,15 +903,20 @@
                     const price = Number(radio.dataset.price || 0);
                     extrasTotal += price;
 
-                    addExtraHiddenField(extrasIndex++, {
+                    const extraData = {
+                        roomIndex: radio.dataset.roomIndex,
+                        roomName: radio.dataset.roomName,
+                        extraTitle: radio.dataset.extraTitle,
                         title: radio.value,
                         price: price,
                         optionId: radio.dataset.optionId,
                         extraId: radio.dataset.extraId,
                         extraTypeId: radio.dataset.extraTypeId
-                    });
-                });
+                    };
 
+                    selectedExtras.push(extraData);
+                    addExtraHiddenField(extrasIndex++, extraData);
+                });
 
                 const netTotal = roomsTotal + extrasTotal;
 
@@ -797,21 +934,16 @@
 
                 if (totalPriceEls.continueTotal) {
                     totalPriceEls.continueTotal.textContent = formatPrice(netTotal);
-
-
                 }
+
+                updateExtrasList(selectedExtras);
+                updateExtrasRequiredMessages(); // Update "Selection Required" messages
             }
 
-            /* -----------------------------
-             Listen to extras selection
-            ----------------------------- */
             document.querySelectorAll('.transfers-item__radio').forEach(radio => {
                 radio.addEventListener('change', recalcTotals);
             });
 
-            /* -----------------------------
-             Continue button validation
-            ----------------------------- */
             const continueBtn = document.getElementById('continue-btn');
             const extrasSection = document.getElementById('extras');
             const guestInfoSection = document.getElementById('guest-info');
@@ -819,16 +951,13 @@
 
             if (continueBtn && extrasSection) {
                 continueBtn.addEventListener('click', function() {
-
                     if (!extrasSection.classList.contains('d-block')) return;
 
-                    /* Validate mandatory extra groups */
+                    // Validate required extras
                     const requiredGroups = new Set();
-
                     document.querySelectorAll('.transfers-item__radio[data-required="true"]').forEach(
-                        radio => {
-                            requiredGroups.add(radio.name);
-                        });
+                        radio => requiredGroups.add(radio.name)
+                    );
 
                     for (const group of requiredGroups) {
                         if (!document.querySelector(`input[name="${group}"]:checked`)) {
@@ -837,10 +966,31 @@
                         }
                     }
 
-                    /* Switch to guest info */
+                    // Validate flight details
+                    const flightFields = [
+                        'flight_details[outbound][flight_number]',
+                        'flight_details[outbound][arrival_hour]',
+                        'flight_details[outbound][arrival_minute]',
+                        'flight_details[inbound][flight_number]',
+                        'flight_details[inbound][departure_hour]',
+                        'flight_details[inbound][departure_minute]'
+                    ];
+
+                    for (const name of flightFields) {
+                        const field = document.querySelector(`[name="${name}"]`);
+                        if (field && !field.value) {
+                            const fieldLabel = field.closest('.col-md-4, .col-md-3, .col-md-12')
+                                ?.querySelector('label')?.textContent || 'Flight detail';
+                            showMessage(`Please fill in the required flight detail: ${fieldLabel}`,
+                            "error");
+                            field.focus();
+                            return;
+                        }
+                    }
+
+                    // Everything validated, move to next section
                     extrasSection.classList.remove('d-block');
                     extrasSection.classList.add('d-none');
-
                     guestInfoSection.classList.remove('d-none');
                     guestInfoSection.classList.add('d-block');
 
@@ -855,20 +1005,15 @@
                 });
             }
 
-            /* Initial total sync */
+
             recalcTotals();
-
-
         });
-
 
         document.addEventListener('DOMContentLoaded', function() {
             const checkoutForm = document.getElementById('checkoutForm');
             const submitBtn = checkoutForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
 
             checkoutForm.addEventListener('submit', function(e) {
-                // Show loading state
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Processing...';
             });

@@ -100,6 +100,10 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         '/hotels/cancellation-charges',
         [HotelBookingController::class, 'getCancellationCharges']
     )->name('hotels.cancellation.charges');
+    Route::get(
+        '/hotels/{id}/cancel',
+        [HotelBookingController::class, 'cancel']
+    )->name('hotels.cancel');
 
     Route::resource('travel-insurances', TravelInsuranceController::class)->only(['index', 'show', 'update']);
 

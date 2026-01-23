@@ -89,6 +89,8 @@ class HotelService
     {
         try {
             $roomsData = $booking->rooms_data;
+
+
             $selectedRooms = $booking->selected_rooms;
 
             $requestData = [
@@ -488,98 +490,148 @@ class HotelService
     /**
      * Place booking order with Yalago API after successful payment
      */
-    public function placeBookingOrder(HotelBooking $booking): array
+    public function placeBookingOrder(HotelBooking $booking)
     {
+
         try {
-            $roomsData = $booking->rooms_data;
             $selectedRooms = $booking->selected_rooms;
             $extrasData = $booking->extras_data ?? [];
+            $guestsData = $booking->guests_data ?? [];
 
-            // Build rooms array for booking
-            $bookingRooms = [];
-            foreach ($selectedRooms as $index => $selectedRoom) {
-                $roomBooking = [
-                    'Code' => $selectedRoom['room_code'],
-                    'BoardCode' => $selectedRoom['board_code'],
+            $totalRooms = count($selectedRooms);
+            $totalGuests = count($guestsData);
+
+            // Divide guests equally across rooms
+            $roomsGuestsPayload = array_fill(0, $totalRooms, []); // initialize empty arrays per room
+
+            foreach ($guestsData as $guestIndex => $guest) {
+                // Determine which room this guest goes into
+                $roomIndex = $guestIndex % $totalRooms; // round-robin distribution
+                $roomsGuestsPayload[$roomIndex][] = [
+                    'Title' => $guest['title'] ?? 'Mr',
+                    'FirstName' => $guest['first_name'],
+                    'LastName' => $guest['last_name'],
+                    'Age' => $guest['age'] ?? null,
                 ];
-
-                // Add extras if available
-                if (!empty($extrasData)) {
-                    $roomExtras = [];
-                    foreach ($extrasData as $extra) {
-                        $roomExtras[] = [
-                            'ExtraId' => $extra['extra_id'],
-                            'ExtraTypeId' => $extra['extra_type_id'],
-                            'OptionId' => $extra['option_id'],
-                        ];
-                    }
-                    if (!empty($roomExtras)) {
-                        $roomBooking['Extras'] = $roomExtras;
-                    }
-                }
-
-                $bookingRooms[] = $roomBooking;
             }
 
-            // Build guests array
-            $guests = [];
+            $roomsPayload = [];
+            foreach ($selectedRooms as $index => $room) {
+                $affiliateRoomRef = $booking->booking_number . sprintf('%05d', $index);
 
-            // Add lead guest
-            $guests[] = [
+                // Extras (1-to-1 guaranteed)
+                $roomExtra = $extrasData[$index] ?? null;
+                $roomExtrasPayload = [];
+                if ($roomExtra) {
+                    $roomExtrasPayload[] = [
+                        'ExtraId' => $roomExtra['extra_id'],
+                        'OptionId' => $roomExtra['option_id'],
+                        'ExpectedNetCost' => [
+                            'Amount' => number_format($roomExtra['price'], 2, '.', ''),
+                            'Currency' => 'AED',
+                        ],
+                    ];
+                }
+
+                // Guests assigned to this room
+                $roomGuests = $roomsGuestsPayload[$index];
+
+                $roomsPayload[] = [
+                    'AffiliateRoomRef' => $affiliateRoomRef,
+                    'RoomCode' => $room['room_code'],
+                    'BoardCode' => $room['board_code'],
+                    'ExpectedNetCost' => [
+                        'Amount' => number_format($room['price'], 2, '.', ''),
+                        'Currency' => 'AED',
+                    ],
+                    'Extras' => $roomExtrasPayload,
+                    'Guests' => $roomGuests,
+                ];
+            }
+
+
+
+            // Contact details from lead guest
+            $lead = $booking->lead_guest;
+            $contactDetails = [
                 'Title' => $booking->lead_title ?? 'Mr',
                 'FirstName' => $booking->lead_first_name,
                 'LastName' => $booking->lead_last_name,
-                'IsLeadGuest' => true,
+                'Address1' => $booking->lead_address ?? '',
+                'Town' => '', // Optional, fill if available
+                'Country' => '', // Optional
+                'EmailAddress' => $booking->lead_email,
+                'HomeTel' => $booking->lead_phone,
+                'MobileTel' => $booking->lead_phone,
             ];
 
-            // Add other guests
-            if (!empty($booking->guests_data)) {
-                foreach ($booking->guests_data as $guest) {
-                    $guests[] = [
-                        'Title' => $guest['title'] ?? 'Mr',
-                        'FirstName' => $guest['first_name'],
-                        'LastName' => $guest['last_name'],
-                        'IsLeadGuest' => false,
+            // Flight details
+            $flightDetails = [];
+            $checkInDate = $booking->check_in_date->format('Y-m-d');
+            $checkOutDate = $booking->check_out_date->format('Y-m-d');
+
+            if (!empty($booking->flight_details)) {
+                // Outbound flight
+                $outbound = $booking->flight_details['outbound'] ?? [];
+
+                if (!empty($outbound['flight_number'])) {
+                    $flightDetails[] = [
+                        'IsFlightOutbound' => 'true',
+                        'ArriveDate' => sprintf(
+                            '%sT%s:%s:00',
+                            $checkInDate,
+                            str_pad($outbound['arrival_hour'], 2, '0', STR_PAD_LEFT),
+                            str_pad($outbound['arrival_minute'], 2, '0', STR_PAD_LEFT)
+                        ),
+                        'DepartDate' => $checkInDate . 'T00:00:00',
+                        'Number' => $outbound['flight_number'],
+                        'From' => '',
+                        'To' => '',
+                    ];
+                }
+
+                // Inbound flight
+                $inbound = $booking->flight_details['inbound'] ?? [];
+                if (!empty($inbound['flight_number'])) {
+                    $flightDetails[] = [
+                        'IsFlightOutbound' => 'false',
+                        'ArriveDate' => sprintf(
+                            '%sT%s:%s:00',
+                            $checkOutDate,
+                            str_pad($inbound['departure_hour'], 2, '0', STR_PAD_LEFT),
+                            str_pad($inbound['departure_minute'], 2, '0', STR_PAD_LEFT)
+                        ),
+                        'DepartDate' => $checkOutDate . 'T00:00:00',
+                        'Number' => $inbound['flight_number'],
+                        'From' => '',
+                        'To' => '',
                     ];
                 }
             }
 
+
+
+            // Final payload
             $requestData = [
-                'EstablishmentId' => $booking->yalago_hotel_id,
+                'AffiliateRef' => $booking->booking_number,
                 'CheckInDate' => $booking->check_in_date->format('Y-m-d'),
                 'CheckOutDate' => $booking->check_out_date->format('Y-m-d'),
-                'Rooms' => $bookingRooms,
-                'Guests' => $guests,
-                'LeadGuest' => [
-                    'Title' => $booking->lead_title ?? 'Mr',
-                    'FirstName' => $booking->lead_first_name,
-                    'LastName' => $booking->lead_last_name,
-                    'Email' => $booking->lead_email,
-                    'Phone' => $booking->lead_phone,
-                    'Address' => $booking->lead_address ?? '',
-                ],
-                'SpecialRequests' => '',
-                'InternalReference' => $booking->booking_number,
+                'Culture' => 'en-GB',
+                'EstablishmentId' => $booking->yalago_hotel_id,
+                'SourceMarket' => $booking->source_market ?? 'AE',
+                'GetTaxBreakdown' => true,
+                'ContactDetails' => $contactDetails,
+                'Rooms' => $roomsPayload,
+                'FlightDetails' => $flightDetails,
             ];
 
-            // Add flight details if available
-            if (!empty($booking->flight_details)) {
-                $flightDetails = $booking->flight_details;
-                if (isset($flightDetails['outbound'])) {
-                    $requestData['ArrivalFlightNumber'] = $flightDetails['outbound']['flight_number'] ?? '';
-                    $requestData['ArrivalTime'] = ($flightDetails['outbound']['arrival_hour'] ?? '00') . ':' . ($flightDetails['outbound']['arrival_minute'] ?? '00');
-                }
-                if (isset($flightDetails['inbound'])) {
-                    $requestData['DepartureFlightNumber'] = $flightDetails['inbound']['flight_number'] ?? '';
-                    $requestData['DepartureTime'] = ($flightDetails['inbound']['departure_hour'] ?? '00') . ':' . ($flightDetails['inbound']['departure_minute'] ?? '00');
-                }
-            }
-
+            // Send to Yalago API
             $response = Http::withHeaders([
                 'x-api-key' => $this->yalagoApiKey,
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ])->post($this->yalagoApiUrl . '/bookings/create', $requestData);
+
 
             if (!$response->successful()) {
                 throw new Exception('Yalago booking API request failed: ' . $response->body());
@@ -587,23 +639,22 @@ class HotelService
 
             $responseData = $response->json();
 
-            // Store booking request/response
+
             $booking->update([
                 'booking_request' => $requestData,
                 'booking_response' => $responseData,
             ]);
 
-            // Check if booking was successful
-            if (isset($responseData['BookingReference']) && !empty($responseData['BookingReference'])) {
+            if (!empty($responseData['BookingRef'])) {
                 $booking->update([
-                    'yalago_booking_reference' => $responseData['BookingReference'],
+                    'yalago_booking_reference' => $responseData['BookingRef'],
                     'booking_status' => 'confirmed',
                 ]);
 
                 return [
                     'success' => true,
                     'data' => $responseData,
-                    'booking_reference' => $responseData['BookingReference']
+                    'booking_reference' => $responseData['BookingRef']
                 ];
             }
 
@@ -615,9 +666,9 @@ class HotelService
                 'trace' => $e->getTraceAsString()
             ]);
 
-            $booking->update([
-                'booking_status' => 'failed',
-            ]);
+            $booking->update(['booking_status' => 'failed']);
+
+            throw new Exception('Booking creation failed');
 
             return [
                 'success' => false,
@@ -625,6 +676,7 @@ class HotelService
             ];
         }
     }
+
 
     /**
      * Send booking confirmation email to user
@@ -763,10 +815,16 @@ class HotelService
         $today = now()->toDateString();
         $currentCharge = null;
 
-        foreach ($charges['CancellationPolicyStatic'][0]['CancellationCharges'] as $charge) {
-            if ($today <= substr($charge['ExpiryDate'], 0, 10)) {
-                $currentCharge = $charge['Charge'];
-                break;
+        $policy = $charges['CancellationPolicyStatic'][0] ?? null;
+
+        if ($policy) {
+            foreach ($policy['CancellationCharges'] as $charge) {
+                $expiry = substr($charge['ExpiryDate'], 0, 10);
+
+                if ($today <= $expiry) {
+                    $currentCharge = $charge['Charge'];
+                    break;
+                }
             }
         }
 
@@ -784,7 +842,7 @@ class HotelService
                 'BookingRef' => $booking->yalago_booking_reference,
                 'ExpectedCharge' => [
                     'Charge' => [
-                        'Amount'   => $currentCharge['Amount'],
+                        'Amount'   => number_format($currentCharge['Amount'], 2, '.', ''),
                         'Currency' => $currentCharge['Currency'],
                     ],
                 ],
@@ -798,102 +856,3 @@ class HotelService
         return $response->json();
     }
 }
-
-
-
-
-
-// {
-//     "AffiliateRef": "S1769027327-2026-697136fff135a",
-//     "CheckInDate": "2026-03-15",
-//     "CheckOutDate": "2026-03-16",
-//     "Culture": "en-GB",
-//     "EstablishmentId": "6851451",
-//     "SourceMarket": "AE",
-//     "GetTaxBreakdown": true,
-//     "ContactDetails": {
-//         "Title": "Ms",
-//         "FirstName": "Charde Solis",
-//         "LastName": "Drake Grant",
-//         "Address1": "hiqu@mailinator.com",
-//         "Town": "Frankfurt",
-//         "Country": "Germany",
-//         "EmailAddress": "huvyzyr@mailinator.com",
-//         "HomeTel": "+1 (381) 419-2128",
-//         "MobileTel": "+1 (381) 419-2128"
-//     },
-//     "Rooms": [
-//         {
-//             "AffiliateRoomRef": "S1769027327-2026-697136fff135a02993",
-//             "RoomCode": "CGISBzg1ODMxNzIaBzE0MTAyOTM=",
-//             "BoardCode": "CgE1",
-//             "ExpectedNetCost": {
-//                 "Amount": "2641.07",
-//                 "Currency": "AED"
-//             },
-//             "Extras": [
-//                 {
-//                     "ExtraId": "45",
-//                     "OptionId": "56",
-//                     "ExpectedNetCost": {
-//                         "Amount": "2802.09",
-//                         "Currency": "AED"
-//                     }
-//                 }
-//             ],
-//             "Guests": [
-//                 {
-//                     "Title": "Mrs",
-//                     "FirstName": "Raven Oneal",
-//                     "LastName": "Ferdinand Rhodes",
-//                     "Age": "23"
-//                 }
-//             ]
-//         },
-//         {
-//             "AffiliateRoomRef": "S1769027327-2026-697136fff135a14875",
-//             "RoomCode": "CGISBzg1ODMxNzIaBzE0MTAyOTQ=",
-//             "BoardCode": "CgE1",
-//             "ExpectedNetCost": {
-//                 "Amount": "2986.12",
-//                 "Currency": "AED"
-//             },
-//             "Extras": [
-//                 {
-//                     "ExtraId": "45",
-//                     "OptionId": "56",
-//                     "ExpectedNetCost": {
-//                         "Amount": "2802.09",
-//                         "Currency": "AED"
-//                     }
-//                 }
-//             ],
-//             "Guests": [
-//                 {
-//                     "Title": "Dr",
-//                     "FirstName": "Dacey Crane",
-//                     "LastName": "Cara Hull",
-//                     "Age": "23"
-//                 }
-//             ]
-//         }
-//     ],
-//     "FlightDetails": [
-//         {
-//             "IsFlightOutbound": "true",
-//             "ArriveDate": "2026-03-15T14:15:00",
-//             "DepartDate": "2026-03-15T00:00:00",
-//             "Number": "260",
-//             "From": "",
-//             "To": ""
-//         },
-//         {
-//             "IsFlightOutbound": "false",
-//             "ArriveDate": "2026-03-16T20:45:00",
-//             "DepartDate": "2026-03-16T00:00:00",
-//             "Number": "155",
-//             "From": "",
-//             "To": ""
-//         }
-//     ]
-// }

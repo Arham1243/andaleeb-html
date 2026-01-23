@@ -29,7 +29,7 @@
     </div>
 
     <div class="container">
-        <div class="row justify-content-center mb-5 pb-2">
+        <div class="row justify-content-center mt-2 mb-4">
             <div class="col-md-10">
                 <div class="main-page-search">
                     @include('frontend.vue.main', [
@@ -211,39 +211,27 @@
                         @foreach ($api_availability[0]['Rooms'] as $roomIndex => $room)
                             @foreach (collect($room['Boards'])->unique('Code') as $boardIndex => $board)
                                 @php
-                                    $netAmount = $board['NetCost']['Amount'];
-                                    $isBinding = $board['IsBindingPrice'] ?? false;
-
-                                    if ($isBinding) {
-                                        $finalPrice = $netAmount;
-                                        $commission = 0;
-                                    } else {
-                                        $commission = ($netAmount * $hotelCommissionPercentage) / 100;
-                                        $finalPrice = $netAmount + $commission;
-                                    }
-
+                                    $finalPrice = yalagoFinalPrice($board, $hotelCommissionPercentage);
                                     $finalPriceFormatted = formatPrice($finalPrice);
-                                    $netFormatted = number_format($netAmount, 2);
 
-                                    $isRefundable = !$board['NonRefundable'];
-                                    $boardTitle = $board['Description'];
+                                    // Refundable / Non-refundable
+                                    $isRefundable = empty($board['NonRefundable']) ? true : false;
+                                    $boardTitle = $board['Description'] ?? '';
                                 @endphp
 
+
                                 <div class="col-12 col-lg-4">
-                                    <label class="room-card">
-                                        <input type="checkbox" name="room_selection[]" class="room-card__input"
-                                            data-price="{{ $finalPrice }}" data-room-code="{{ $room['Code'] }}"
-                                            data-board-code="{{ $board['Code'] }}"
-                                            data-board-title="{{ $boardTitle }}" value="{{ $room['Description'] }}">
+                                    <div class="room-card" data-room-code="{{ $room['Code'] }}"
+                                        data-board-code="{{ $board['Code'] }}" data-price="{{ $finalPrice }}"
+                                        data-board-title="{{ $boardTitle }}"
+                                        data-room-name="{{ $room['Description'] }}">
 
                                         <div class="room-card__box">
-
                                             <!-- Header -->
                                             <div class="room-card__header">
                                                 <h3 class="room-card__title">
                                                     {{ $room['Description'] }}
                                                 </h3>
-                                                <div class="room-card__radio"></div>
                                             </div>
 
                                             <!-- Tags -->
@@ -263,7 +251,6 @@
                                                 @endif
                                             </div>
 
-                                            <!-- Policy -->
                                             <!-- Policy -->
                                             <div class="room-card__policy">
                                                 @foreach ($board['CancellationPolicy']['CancellationCharges'] ?? [] as $policy)
@@ -303,17 +290,29 @@
                                                 @endforeach
                                             </div>
 
-
                                             <!-- Footer -->
                                             <div class="room-card__footer">
-                                                <span class="room-card__label">Total Price</span>
-                                                <span class="room-card__total">
-                                                    {{ $finalPriceFormatted }}
-                                                </span>
-                                            </div>
+                                                <div class="room-card__price-info">
+                                                    <span class="room-card__label">Price per room</span>
+                                                    <span class="room-card__total">
+                                                        {{ $finalPriceFormatted }}
+                                                    </span>
+                                                </div>
 
+                                                <div class="qty-control">
+                                                    <button onclick="decrementRoom(this)" class="qty-btn" type="button">
+                                                        <i class="bx bx-minus"></i>
+                                                    </button>
+                                                    <input type="number" class="counter-input qty-input room-qty-input"
+                                                        value="0" readonly min="0"
+                                                        max="{{ $roomCount }}">
+                                                    <button onclick="incrementRoom(this)" class="qty-btn" type="button">
+                                                        <i class="bx bx-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </label>
+                                    </div>
                                 </div>
                             @endforeach
                         @endforeach
@@ -374,7 +373,7 @@
 @push('js')
     <script>
         const priceEl = document.getElementById('total-room-price');
-        const checkboxes = document.querySelectorAll('input[name="room_selection[]"]');
+        const roomCards = document.querySelectorAll('.room-card');
         const continueBtn = document.getElementById('continueBtn');
         const maxRooms = {{ $roomCount }};
         const baseUrl = "{!! route('frontend.hotels.checkout', $hotel['id']) . '?' . http_build_query(request()->query()) !!}";
@@ -386,63 +385,102 @@
                 maximumFractionDigits: 2
             });
 
-        function getSelectedRooms() {
-            return Array.from(checkboxes).filter(cb => cb.checked);
+        function getTotalRoomsSelected() {
+            let total = 0;
+            roomCards.forEach(card => {
+                const input = card.querySelector('.room-qty-input');
+                total += parseInt(input.value) || 0;
+            });
+            return total;
         }
 
         function updateTotalPrice() {
-            const selected = getSelectedRooms();
-            const total = selected.reduce((sum, cb) => sum + Number(cb.dataset.price), 0);
+            let total = 0;
+            roomCards.forEach(card => {
+                const quantity = parseInt(card.querySelector('.room-qty-input').value) || 0;
+                const price = parseFloat(card.dataset.price);
+                total += quantity * price;
+            });
             priceEl.textContent = formatPrice(total);
         }
 
         function updateContinueUrl() {
-            const selected = getSelectedRooms();
-
             const params = new URLSearchParams({
                 show_extras: showExtras ? true : false
             });
 
-            selected.forEach((cb, index) => {
-                const i = index + 1;
-                params.append(`room_${i}_code`, cb.dataset.roomCode);
-                params.append(`room_${i}_board_code`, cb.dataset.boardCode);
-                params.append(`room_${i}_board_title`, cb.dataset.boardTitle);
-                params.append(`room_${i}_price`, cb.dataset.price);
-                params.append(`room_${i}_name`, cb.value);
+            let roomIndex = 1;
+
+            roomCards.forEach(card => {
+                const quantity = parseInt(card.querySelector('.room-qty-input').value) || 0;
+
+                if (quantity > 0) {
+                    for (let i = 0; i < quantity; i++) {
+                        params.append(`room_${roomIndex}_code`, card.dataset.roomCode);
+                        params.append(`room_${roomIndex}_board_code`, card.dataset.boardCode);
+                        params.append(`room_${roomIndex}_board_title`, card.dataset.boardTitle);
+                        params.append(`room_${roomIndex}_price`, card.dataset.price);
+                        params.append(`room_${roomIndex}_name`, card.dataset.roomName);
+                        roomIndex++;
+                    }
+                }
             });
 
-            params.append('selected_rooms', selected.length);
+            params.append('selected_rooms', getTotalRoomsSelected());
 
             const separator = baseUrl.includes('?') ? '&' : '?';
             continueBtn.href = baseUrl + separator + params.toString();
         }
 
-        function enforceRoomLimit(changedCheckbox) {
-            const selected = getSelectedRooms();
+        function updateRoomCardState(card) {
+            const input = card.querySelector('.room-qty-input');
+            const quantity = parseInt(input.value) || 0;
 
-            if (selected.length > maxRooms) {
-                changedCheckbox.checked = false;
-                showMessage(`You can only select ${maxRooms} room(s).`, "error");
-                return false;
+            if (quantity > 0) {
+                card.classList.add('room-card--selected');
+            } else {
+                card.classList.remove('room-card--selected');
             }
-
-            return true;
         }
 
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', () => {
-                if (!enforceRoomLimit(cb)) return;
+        function incrementRoom(button) {
+            const card = button.closest('.room-card');
+            const input = card.querySelector('.room-qty-input');
+            const currentTotal = getTotalRoomsSelected();
+            const currentValue = parseInt(input.value) || 0;
+            const max = parseInt(input.max);
 
+            if (currentTotal >= maxRooms) {
+                showMessage(`You can only select ${maxRooms} room(s) in total.`, "error");
+                return;
+            }
+
+            if (currentValue < max) {
+                input.value = currentValue + 1;
+                updateRoomCardState(card);
                 updateTotalPrice();
                 updateContinueUrl();
-            });
-        });
+            }
+        }
+
+        function decrementRoom(button) {
+            const card = button.closest('.room-card');
+            const input = card.querySelector('.room-qty-input');
+            const currentValue = parseInt(input.value) || 0;
+            const min = parseInt(input.min);
+
+            if (currentValue > min) {
+                input.value = currentValue - 1;
+                updateRoomCardState(card);
+                updateTotalPrice();
+                updateContinueUrl();
+            }
+        }
 
         continueBtn.addEventListener('click', (e) => {
-            const selected = getSelectedRooms();
+            const totalCount = getTotalRoomsSelected();
 
-            if (selected.length !== maxRooms) {
+            if (totalCount !== maxRooms) {
                 e.preventDefault();
                 showMessage(
                     `Please select exactly ${maxRooms} room(s) before continuing.`,

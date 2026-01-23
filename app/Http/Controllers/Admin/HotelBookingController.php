@@ -52,16 +52,16 @@ class HotelBookingController extends Controller
         ]);
 
         $booking = HotelBooking::findOrFail($request->booking_id);
+        $cancelUrl = route('admin.hotels.cancel', $booking->id);
 
         // Call service to get cancellation charges
         $response = $hotelService->getCancellationCharges($booking);
 
         return view(
             'frontend.partials.cancellation-charges',
-            compact('booking', 'response')
+            compact('booking', 'response', 'cancelUrl')
         );
     }
-
     /**
      * Cancel a booking (Admin)
      */

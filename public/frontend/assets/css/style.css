@@ -5161,7 +5161,8 @@ body.fancybox-active.compensate-for-scrollbar {
 .details-tabs {
     width: 100%;
     border-bottom: 1px solid #ccc;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    justify-content: center;
 }
 .details-tabs .nav-link {
     color: #00000078;
@@ -5578,6 +5579,27 @@ body.fancybox-active.compensate-for-scrollbar {
 .room-card__input:checked + .room-card__box .room-card__radio::after {
     transform: translate(-50%, -50%) scale(1);
 }
+
+.room-card {
+    transition: all 0.3s ease;
+}
+
+.room-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.room-card__price-info {
+    display: flex;
+    flex-direction: column;
+}
+.board-title {
+    opacity: 0.8;
+    font-weight: 600;
+}
 .transfers-item {
     position: relative;
     margin: 0.85rem 1.1rem 0.4rem 0;
@@ -5585,6 +5607,7 @@ body.fancybox-active.compensate-for-scrollbar {
 .transfers-item__box {
     cursor: pointer;
     margin-bottom: 0;
+    width: 100%;
 }
 :is(.transfer-header, .transfer-body) {
     padding-inline: 1rem;

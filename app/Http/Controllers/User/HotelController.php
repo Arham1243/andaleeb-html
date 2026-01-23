@@ -95,21 +95,21 @@ class HotelController extends Controller
     /**
      * Get cancellation charges for a booking (Admin)
      */
-    public function getCancellationCharges(
-        Request $request,
-        HotelService $hotelService
-    ) {
+    public function getCancellationCharges(Request $request, HotelService $hotelService)
+    {
         $request->validate([
-            'booking_id' => 'required|integer',
+            'booking_id' => 'required|integer'
         ]);
 
         $booking = HotelBooking::findOrFail($request->booking_id);
+        $cancelUrl = route('user.hotels.cancel', $booking->id);
 
-        $charges = $hotelService->getCancellationCharges($booking);
+        // Call service to get cancellation charges
+        $response = $hotelService->getCancellationCharges($booking);
 
         return view(
             'frontend.partials.cancellation-charges',
-            compact('booking', 'charges')
+            compact('booking', 'response', 'cancelUrl')
         );
     }
 
