@@ -15,10 +15,10 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $banner = Banner::where('page', 'home')->where('status', 'active')->first();
+        $banners = Banner::where('page', 'home')->where('status', 'active')->get();
         $featuredTours = Tour::where('status', 'active')->where('is_featured', 1)->latest()->get();
         $featuredPackages = Package::where('status', 'active')->where('is_featured', 1)->latest()->get();
-        return view('frontend.home', compact('banner', 'featuredTours', 'featuredPackages'));
+        return view('frontend.home', compact('banners', 'featuredTours', 'featuredPackages'));
     }
 
     public function privacy_policy()

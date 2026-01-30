@@ -1,12 +1,14 @@
 @extends('frontend.layouts.main')
 @section('content')
-    @if (isset($banner) && $banner)
+    @if (isset($banners) && $banners)
         <div class="banner-slider">
+            @foreach ($banners as $banner)
             <div class="banner">
                 <div class="banner__img">
                     <img src="{{ asset($banner->image) }}" alt="{{ $banner->heading ?? 'Banner' }}" class="imgFluid">
                 </div>
             </div>
+            @endforeach
         </div>
     @else
         <div class="banner-slider">
@@ -99,7 +101,7 @@
             </div>
         </div>
     </div>
-    <section class="categories categories--padd">
+    {{-- <section class="categories categories--padd">
         <div class="container">
             <div class="section-content mb-4">
                 <h3 class="heading">Best Cities to Visit</h3>
@@ -179,9 +181,7 @@
                 </div>
             </div>
         </div>
-    </section>
-
-
+    </section> --}}
 
     <section class="pro-dest-section">
         <div class="container">
@@ -292,7 +292,7 @@
             <div class="container">
                 <div class="section-header">
                     <div class="section-content">
-                        <h3 class="heading mb-0">Best Activities in Dubai</h3>
+                        <h3 class="heading mb-0">Top Activities & Experiences</h3>
                     </div>
                     <div class="custom-slider-arrows">
                         <div class="slick-arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
