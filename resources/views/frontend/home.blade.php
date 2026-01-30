@@ -102,10 +102,11 @@
         </div>
     </div>
     
+    @if($featuredCategories->isNotEmpty())
     <section class="categories categories--padd">
         <div class="container">
             <div class="section-content mb-4">
-                <h3 class="heading">Best Cities to Visit</h3>
+                <h3 class="heading">Handpicked Categories</h3>
             </div>
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-3">
                 @foreach ($featuredCategories as $featuredCategory)
@@ -126,6 +127,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     <section class="pro-dest-section py-5">
         <div class="container">
