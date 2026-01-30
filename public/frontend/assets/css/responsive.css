@@ -248,10 +248,10 @@
         height: auto !important;
         padding: 2rem 0 !important;
     }
-    .page-header .row.mt-5 {
-        margin-top: 0 !important;
-    }
     div#hotels-search .search-options-wrapper {
         margin-bottom: 0 !important;
+    }
+    .page-header--uae {
+        background-position: 13%;
     }
 }
