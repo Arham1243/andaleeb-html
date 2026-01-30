@@ -18,7 +18,7 @@
                                             <div class="form-fields">
                                                 <label class="title">Select Categories</label>
                                                 <select name="categories[]" class="field select2-select"
-                                                    data-error="Categories" required multiple placeholder="Select">
+                                                    data-error="Categories" multiple placeholder="Select">
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}"
                                                             {{ old('categories') == $category->id ? 'selected' : '' }}>
