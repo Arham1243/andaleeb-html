@@ -11,7 +11,7 @@
         <section class="page-header py-5 d-flex align-items-center"
             style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/4.jpg') }}'); background-size: cover; background-position: center; height:288px;">
             <div class="container text-center text-white">
-                <h1 class="fw-bold display-4">Garden & Parks</h1>
+                <h1 class="fw-bold display-4">{{ $category->name ?? 'Top Rated Tours' }}</h1>
             </div>
         </section>
     @endif
