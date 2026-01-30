@@ -111,10 +111,10 @@
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-3">
                 @foreach ($featuredCategories as $featuredCategory)
                 <div class="col">
-                    <a href="#" class="category-card">
+                    <a href="{{ route('frontend.tour-category.details', $featuredCategory->slug) }}" class="category-card">
                         <div class="category-card__img">
-                            <img data-src={{ asset($featuredCategory->image) }}"
-                                alt="{{ $featuredCategory->name }}" class="imgFluid lazyload">
+                            <img src={{ asset($featuredCategory->image) }}"
+                                alt="{{ $featuredCategory->name }}" class="imgFluid">
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-1">{{ $featuredCategory->name }}</div>
