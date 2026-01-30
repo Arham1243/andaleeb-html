@@ -14,19 +14,19 @@
         <div class="banner-slider">
             <div class="banner">
                 <div class="banner__img">
-                    <img src="https://andaleebtours.com/assets/uploads/banner/tabby_banner176314308936.webp" alt="Image"
+                    <img src="{{ asset('frontend/assets/images/banners/1.webp') }}" alt="Image"
                         class="imgFluid">
                 </div>
             </div>
             <div class="banner">
                 <div class="banner__img">
-                    <img src="https://andaleebtours.com/assets/uploads/banner/baku_now176314245084.webp" alt="Image"
+                    <img src="{{ asset('frontend/assets/images/banners/2.webp') }}" alt="Image"
                         class="imgFluid">
                 </div>
             </div>
             <div class="banner">
                 <div class="banner__img">
-                    <img src="https://andaleebtours.com/assets/uploads/banner/dubai_city_tour176314429547.webp"
+                    <img src="{{ asset('frontend/assets/images/banners/4.webp') }}" alt="Image"
                         alt="Image" class="imgFluid">
                 </div>
             </div>
@@ -183,7 +183,7 @@
         </div>
     </section> --}}
 
-    <section class="pro-dest-section">
+    <section class="pro-dest-section py-5">
         <div class="container">
             <div class="row">
 
