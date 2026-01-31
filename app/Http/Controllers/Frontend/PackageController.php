@@ -7,10 +7,19 @@ use App\Models\Banner;
 use App\Models\Package;
 use App\Models\PackageCategory;
 use App\Models\PackageInquiry;
+use App\Models\Config;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
+    protected $adminEmail;
+    public function __construct()
+    {
+        $config = Config::pluck('config_value', 'config_key')->toArray();
+        $this->adminEmail = $config['ADMINEMAIL'] ?? 'info@andaleebtours.com';
+    }
+
     public function index()
     {
         $banner = Banner::where('page', 'packages')->where('status', 'active')->first();
@@ -72,7 +81,7 @@ class PackageController extends Controller
             'message' => 'nullable|string',
         ]);
 
-        PackageInquiry::create([
+        $inquiry = PackageInquiry::create([
             'package_id' => $request->package_id,
             'name' => $request->name,
             'email' => $request->email,
@@ -82,6 +91,22 @@ class PackageController extends Controller
             'pickup_location' => $request->pickup_location,
             'message' => $request->message,
         ]);
+        $inquiry->load('package');
+
+        try {
+            Mail::send('emails.package-inquiry', [
+                'inquiry' => $inquiry,
+                'adminUrl' => route('admin.package-inquiries.show', $inquiry->id),
+            ], function ($mail) {
+                $mail->to($this->adminEmail)
+                    ->subject('New Package Inquiry');
+            });
+        } catch (\Throwable $e) {
+            \Log::error('Inquiry email failed', [
+                'error' => $e->getMessage(),
+                'inquiry_id' => $inquiry->id,
+            ]);
+        }
 
         return redirect()->back()->with('notify_success', 'Your inquiry has been submitted successfully! We will contact you soon.');
     }

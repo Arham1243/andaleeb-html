@@ -72,7 +72,7 @@
 
                                 <div class="form-fields">
                                     <label class="title">Package Price</label>
-                                    <input type="text" class="field" value="{{ formatPrice($packageInquiry->package->price) }}" readonly>
+                                    <input type="text" class="field" value="AED {{ number_format($packageInquiry->package->price, 2) }}" readonly>
                                 </div>
 
                                 <div class="form-fields">
