@@ -11,7 +11,7 @@ class TourCategoryController extends Controller
     public function details($slug)
     {
         $search = request('search') ?? '';
-        $category = TourCategory::where('slug', $slug)->first();
+        $category = TourCategory::where('slug', $slug)->findOrFail();
         $banner = Banner::where('page', 'tour-category')->where('status', 'active')->first();
         $tours = $category->tours()->where('status', 'active')->where('name', 'like', '%' . $search . '%')->get()->take(16);
         $total_tours = $category->tours()->where('status', 'active')->where('name', 'like', '%' . $search . '%')->latest()->get()->count();
