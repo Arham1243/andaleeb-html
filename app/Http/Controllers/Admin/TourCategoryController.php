@@ -50,7 +50,7 @@ class TourCategoryController extends Controller
             'slug' => $slug,
             'image' => $imagePath,
             'status' => $request->status,
-            'is_featured' => $request->is_featured,
+            'is_featured' => isset($request->is_featured) ? $request->is_featured : 0,
         ]);
 
         return redirect()->route('admin.tour-categories.index')->with('notify_success', 'Tour Category created successfully!');
@@ -87,7 +87,7 @@ class TourCategoryController extends Controller
             'slug' => $slug,
             'image' => $imagePath,
             'status' => $request->status,
-            'is_featured' => $request->is_featured,
+            'is_featured' => isset($request->is_featured) ? $request->is_featured : 0,
         ]);
 
         return redirect()->route('admin.tour-categories.index')->with('notify_success', 'Tour Category updated successfully!');
