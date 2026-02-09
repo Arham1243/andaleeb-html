@@ -18,7 +18,7 @@ class LocationController extends Controller
     public function index()
     {
         $title = 'Manage Locations';
-        $locations = Location::latest()->get();
+        $locations = Location::latest()->get()->paginate(10);
 
         return view('admin.hotels.locations.list', compact('locations', 'title'));
     }
