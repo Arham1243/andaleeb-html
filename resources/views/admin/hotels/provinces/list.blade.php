@@ -81,7 +81,7 @@
                                 </tbody>
                             </table>
                              <div class="mt-4">
-                                {{ $hotels->links('pagination::bootstrap-5') }}
+                                {{ $provinces->links('pagination::bootstrap-5') }}
                             </div>
                         </div>
                     </div>
