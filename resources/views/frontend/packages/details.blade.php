@@ -134,7 +134,7 @@
                                     <!-- Tour Date -->
                                     <div class="form-group mb-3">
                                         <label class="form-label">Tour Date</label>
-                                        <input type="date" name="tour_date" class="form-control custom-input"
+                                        <input type="date" onclick="this.showPicker()" name="tour_date" class="form-control custom-input"
                                             value="{{ old('tour_date') }}">
                                     </div>
 
