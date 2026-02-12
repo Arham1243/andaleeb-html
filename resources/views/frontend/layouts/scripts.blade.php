@@ -6,7 +6,7 @@
 <script src="{{ asset('frontend/assets/js/slick.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
 
         setInterval(function() {
@@ -24,4 +24,4 @@
         }, 3000);
 
     });
-</script>
+</script> --}}
