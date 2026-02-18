@@ -2054,6 +2054,7 @@ button.slick-prev.slick-arrow::before {
 .options-dropdown__body .form-control {
     box-shadow: none !important;
     font-size: 0.8rem;
+    border: 1px solid #3333336b;
 }
 .child-ages {
     display: flex;
