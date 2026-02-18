@@ -32,6 +32,23 @@
                 <form action="{{ route('frontend.travel-insurance.details') }}" method="GET">
                     @php
                         $availablePlans = $data['available_plans'];
+                        $upsellPlans = $data['available_upsell_plans'] ?? [];
+                        
+                        // Extract Travel Lite Assurance plans from upsell plans
+                        $travelLitePlans = [];
+                        foreach ($upsellPlans as $upsellGroup) {
+                            $plan = $upsellGroup['UpsellPlans']['UpsellPlan'] ?? [];
+                            $planType = $plan['PlanType'] ?? '';
+                            
+                            if ($planType === 'Travel Lite Assurance') {
+                                $travelLitePlans[] = $plan;
+                            }
+                        }
+                        
+                        // Merge Travel Lite Assurance plans with available plans
+                        $availablePlans = array_merge($availablePlans, $travelLitePlans);
+                        
+                        // Sort all available plans by price
                         usort($availablePlans, function ($a, $b) {
                             $finalA = $a['TotalPremiumAmount'] * 1.3;
                             $finalB = $b['TotalPremiumAmount'] * 1.3;
@@ -104,10 +121,8 @@
                     </div>
 
                     @php
-                        $upsellPlans = $data['available_upsell_plans'] ?? [];
-
-                        // Filter out excluded plans
-                        $excludedPlans = ['Travel Visit Assurance (Covid Plus)', 'Travel Assurance (Covid Plus)'];
+                        // Filter out excluded plans including Travel Lite Assurance (now shown in main list)
+                        $excludedPlans = ['Travel Visit Assurance (Covid Plus)', 'Travel Assurance (Covid Plus)', 'Travel Lite Assurance'];
                         $filteredPlans = array_filter($upsellPlans, function ($upsellGroup) use ($excludedPlans) {
                             $plan = $upsellGroup['UpsellPlans']['UpsellPlan'] ?? [];
                             $planType = $plan['PlanType'] ?? '';
