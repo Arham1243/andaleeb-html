@@ -39,7 +39,7 @@
             // Hotel Search Logic
             const hotelCheckInDate = ref(null);
             const hotelCheckOutDate = ref(null);
-            const hotelRoomCount = ref(0);
+            const hotelRoomCount = ref('');
             const hotelRooms = ref([]);
 
             const {
@@ -66,7 +66,7 @@
             const loadingHotelDestination = ref(false);
 
             const totalHotelGuestsText = computed(() => {
-                if (hotelRoomCount.value === 0) {
+                if (hotelRoomCount.value === '') {
                     return 'Select Rooms & Guests';
                 }
                 const totalAdults = hotelRooms.value.reduce((sum, room) => sum + room.adults, 0);
