@@ -375,7 +375,7 @@
             <div class="row g-4">
                 @forelse ($featuredFlights as $flight)
                     <div class="col-md-6 col-lg-3">
-                        <a href="#" class="flight-card">
+                        <a href="javascript:void(0);" class="flight-card">
                             <img data-src="{{ asset($flight->image) }}"
                                 alt="{{ $flight->destination_name }}" class="card-img lazyload">
 
