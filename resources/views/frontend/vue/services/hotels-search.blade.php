@@ -12,7 +12,7 @@
     const {
         provinces,
         locations
-    } = await hotelsDataPromise;
+    } = hotelsDataPromise;
     const dubai = provinces.find(p => p.name.toLowerCase() === 'dubai');
     console.log('Dubai province:', dubai);
     console.log('Dubai province_id:', dubai?.id);
