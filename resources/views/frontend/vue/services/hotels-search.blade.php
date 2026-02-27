@@ -78,8 +78,6 @@
         const pMatch = exactMatch1(provinces, 'name', q);
         if (pMatch) {
             const locs = byField1(locations, 'province_id', pMatch.id);
-            console.log('pMatch:', pMatch);
-            console.log('locs:', locs);
             return formatResults({
                 countries: [],
                 provinces: [pMatch],
