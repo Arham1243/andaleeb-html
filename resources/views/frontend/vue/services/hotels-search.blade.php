@@ -10,6 +10,7 @@
     }));
 
     if (hotelsDataPromise) {
+        console.log(hotelsDataPromise)
         const {
             provinces,
             locations
@@ -20,7 +21,7 @@
         console.log('Locations with that province_id:', locations.filter(l => l.province_id === dubai?.id));
         console.log('Sample location:', locations.find(l => l.name === 'Dubai Marina'));
     }
-    
+
     const formatResults = ({
         countries,
         provinces,
