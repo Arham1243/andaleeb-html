@@ -9,6 +9,8 @@
         locations
     }));
 
+    const exactMatch = (arr, key, q) => arr.find(o => o[key]?.toLowerCase().trim() === q);
+    const startsWith = (arr, key, q) => arr.filter(o => o[key]?.toLowerCase().startsWith(q));
     const byField = (arr, field, value) => arr.filter(o => o[field] === value);
 
     const formatHotels = ({
@@ -29,15 +31,12 @@
 
     window.HotelGlobalSearchAPI = async qRaw => {
         const q = qRaw.trim().toLowerCase();
-
-        if (!q) {
-            return formatHotels({
-                countries: [],
-                provinces: [],
-                locations: [],
-                hotels: []
-            });
-        }
+        if (!q) return formatHotels({
+            countries: [],
+            provinces: [],
+            locations: [],
+            hotels: []
+        });
 
         const {
             countries,
@@ -47,21 +46,13 @@
 
         // COUNTRY EXACT
         const cMatch = exactMatch(countries, 'name', q);
-        let matchedLocations = [];
         if (cMatch) {
             const provs = byField(provinces, 'country_id', cMatch.id);
-            provs.unshift({
-                ...cMatch,
-                name: cMatch.name
-            });
-
-            // include all locations under this country
-            matchedLocations = locations.filter(l => l.country_id === cMatch.id);
-
+            const locs = locations.filter(l => l.country_id === cMatch.id);
             return formatHotels({
                 countries: [],
                 provinces: provs,
-                locations: matchedLocations,
+                locations: locs,
                 hotels: []
             });
         }
@@ -70,11 +61,6 @@
         const pMatch = exactMatch(provinces, 'name', q);
         if (pMatch) {
             const locs = byField(locations, 'province_id', pMatch.id);
-            locs.unshift({
-                ...pMatch,
-                name: pMatch.name
-            });
-
             return formatHotels({
                 countries: [],
                 provinces: [],
@@ -83,29 +69,23 @@
             });
         }
 
-        // LOCATION MATCH (Exact + Partial together)
+        // LOCATION MATCH (exact + partial)
         const lMatch = exactMatch(locations, 'name', q);
         const ls = startsWith(locations, 'name', q);
-
         if (lMatch) {
             const rest = ls.filter(l => l.id !== lMatch.id);
-
             try {
                 const {
                     data: hotelsForLocation
-                } =
-                await axios.get(`{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`);
-
+                } = await axios.get(`{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`);
                 return formatHotels({
                     countries: [],
                     provinces: [],
                     locations: [lMatch, ...rest],
                     hotels: hotelsForLocation
                 });
-
             } catch (error) {
                 console.error('Error fetching hotels for location:', error);
-
                 return formatHotels({
                     countries: [],
                     provinces: [],
@@ -119,24 +99,20 @@
         const cs = startsWith(countries, 'name', q);
         const ps = startsWith(provinces, 'name', q);
 
-        // If no geo match → direct hotel search
+        // Direct hotel search if nothing matches
         if (!cs.length && !ps.length && !ls.length) {
             try {
                 const {
                     data
-                } =
-                await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
-
+                } = await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
                 return formatHotels({
                     countries: [],
                     provinces: [],
                     locations: [],
                     hotels: data
                 });
-
             } catch (error) {
                 console.error('Error fetching hotels directly:', error);
-
                 return formatHotels({
                     countries: [],
                     provinces: [],
