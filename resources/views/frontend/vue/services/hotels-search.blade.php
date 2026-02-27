@@ -39,18 +39,29 @@
             });
         }
 
-        const { countries, provinces, locations } = await hotelsDataPromise;
+        const {
+            countries,
+            provinces,
+            locations
+        } = await hotelsDataPromise;
 
         // COUNTRY EXACT
         const cMatch = exactMatch(countries, 'name', q);
+        let matchedLocations = [];
         if (cMatch) {
             const provs = byField(provinces, 'country_id', cMatch.id);
-            provs.unshift({ ...cMatch, name: cMatch.name });
+            provs.unshift({
+                ...cMatch,
+                name: cMatch.name
+            });
+
+            // include all locations under this country
+            matchedLocations = locations.filter(l => l.country_id === cMatch.id);
 
             return formatHotels({
                 countries: [],
                 provinces: provs,
-                locations: [],
+                locations: matchedLocations,
                 hotels: []
             });
         }
@@ -59,7 +70,10 @@
         const pMatch = exactMatch(provinces, 'name', q);
         if (pMatch) {
             const locs = byField(locations, 'province_id', pMatch.id);
-            locs.unshift({ ...pMatch, name: pMatch.name });
+            locs.unshift({
+                ...pMatch,
+                name: pMatch.name
+            });
 
             return formatHotels({
                 countries: [],
@@ -77,8 +91,10 @@
             const rest = ls.filter(l => l.id !== lMatch.id);
 
             try {
-                const { data: hotelsForLocation } =
-                    await axios.get(`{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`);
+                const {
+                    data: hotelsForLocation
+                } =
+                await axios.get(`{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`);
 
                 return formatHotels({
                     countries: [],
@@ -106,8 +122,10 @@
         // If no geo match → direct hotel search
         if (!cs.length && !ps.length && !ls.length) {
             try {
-                const { data } =
-                    await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
+                const {
+                    data
+                } =
+                await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
 
                 return formatHotels({
                     countries: [],
