@@ -25,6 +25,9 @@
         }
     });
 
+    const byField = (arr, field, value) =>
+        arr.filter(o => o[field] === value);
+
     window.HotelGlobalSearchAPI = async qRaw => {
         const q = qRaw.trim().toLowerCase();
         if (!q) return formatHotels({
