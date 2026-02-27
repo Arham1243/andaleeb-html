@@ -12,23 +12,46 @@
     const byField = (arr, field, value) =>
         arr.filter(o => o[field] === value);
 
-    const formatResults = ({ countries, provinces, locations, hotels = [] }) => ({
-        destinations: { countries, provinces, locations },
-        hotels: { hotels }
+    const formatResults = ({
+        countries,
+        provinces,
+        locations,
+        hotels = []
+    }) => ({
+        destinations: {
+            countries,
+            provinces,
+            locations
+        },
+        hotels: {
+            hotels
+        }
     });
 
     window.HotelGlobalSearchAPI = async qRaw => {
         const q = qRaw.trim().toLowerCase();
 
-        if (!q) return formatResults({ countries: [], provinces: [], locations: [], hotels: [] });
+        if (!q) return formatResults({
+            countries: [],
+            provinces: [],
+            locations: [],
+            hotels: []
+        });
 
-        const { countries, provinces, locations } = await hotelsDataPromise;
+        const {
+            countries,
+            provinces,
+            locations
+        } = await hotelsDataPromise;
 
         // COUNTRY EXACT
         const cMatch = exactMatch(countries, 'name', q);
         if (cMatch) {
             const provs = byField(provinces, 'country_id', cMatch.id);
-            provs.unshift({ ...cMatch, name: cMatch.name });
+            provs.unshift({
+                ...cMatch,
+                name: cMatch.name
+            });
 
             return formatResults({
                 countries: [],
@@ -42,7 +65,10 @@
         const pMatch = exactMatch(provinces, 'name', q);
         if (pMatch) {
             const locs = byField(locations, 'province_id', pMatch.id);
-            locs.unshift({ ...pMatch, name: pMatch.name });
+            locs.unshift({
+                ...pMatch,
+                name: pMatch.name
+            });
 
             return formatResults({
                 countries: [],
@@ -58,7 +84,9 @@
         if (lMatch) {
             const rest = ls.filter(l => l.id !== lMatch.id);
             try {
-                const { data: hotelsForLocation } = await axios.get(
+                const {
+                    data: hotelsForLocation
+                } = await axios.get(
                     `{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`
                 );
                 return formatResults({
@@ -85,7 +113,9 @@
         // Direct hotel search if nothing matches
         if (!cs.length && !ps.length && !ls.length) {
             try {
-                const { data } = await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
+                const {
+                    data
+                } = await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
                 return formatResults({
                     countries: [],
                     provinces: [],
@@ -94,7 +124,12 @@
                 });
             } catch (error) {
                 console.error('Error fetching hotels directly:', error);
-                return formatResults({ countries: [], provinces: [], locations: [], hotels: [] });
+                return formatResults({
+                    countries: [],
+                    provinces: [],
+                    locations: [],
+                    hotels: []
+                });
             }
         }
 
