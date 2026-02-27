@@ -9,16 +9,18 @@
         locations
     }));
 
-    const {
-        provinces,
-        locations
-    } = hotelsDataPromise;
-    const dubai = provinces.find(p => p.name.toLowerCase() === 'dubai');
-    console.log('Dubai province:', dubai);
-    console.log('Dubai province_id:', dubai?.id);
-    console.log('Locations with that province_id:', locations.filter(l => l.province_id === dubai?.id));
-    console.log('Sample location:', locations.find(l => l.name === 'Dubai Marina'));
-
+    if (hotelsDataPromise) {
+        const {
+            provinces,
+            locations
+        } = hotelsDataPromise;
+        const dubai = provinces.find(p => p.name.toLowerCase() === 'dubai');
+        console.log('Dubai province:', dubai);
+        console.log('Dubai province_id:', dubai?.id);
+        console.log('Locations with that province_id:', locations.filter(l => l.province_id === dubai?.id));
+        console.log('Sample location:', locations.find(l => l.name === 'Dubai Marina'));
+    }
+    
     const formatResults = ({
         countries,
         provinces,
