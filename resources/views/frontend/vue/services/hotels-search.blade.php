@@ -9,9 +9,6 @@
         locations
     }));
 
-    const startsWith = (arr, key, q) => arr.filter(o => o[key]?.toLowerCase().startsWith(q));
-    const byField = (arr, field, value) => arr.filter(o => o[field] === value);
-
     const formatHotels = ({
         countries,
         provinces,
