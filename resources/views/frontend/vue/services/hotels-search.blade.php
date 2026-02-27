@@ -65,15 +65,11 @@
         const pMatch = exactMatch(provinces, 'name', q);
         if (pMatch) {
             const locs = byField(locations, 'province_id', pMatch.id);
-            locs.unshift({
-                ...pMatch,
-                name: pMatch.name
-            });
 
             return formatResults({
                 countries: [],
-                provinces: [],
-                locations: locs,
+                provinces: [pMatch], 
+                locations: locs, 
                 hotels: []
             });
         }
