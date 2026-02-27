@@ -9,7 +9,10 @@
         locations
     }));
 
-    if (hotelsDataPromise) {
+    if (hotelsDataPromise instanceof Promise) {
+        console.log('hotelsDataPromise is a promise');
+    } else {
+        console.log('hotelsDataPromise is not a promise');
         console.log(hotelsDataPromise)
         const {
             provinces,
