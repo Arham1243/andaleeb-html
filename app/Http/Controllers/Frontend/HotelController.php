@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
-
+// 
 class HotelController extends Controller
 {
     protected $hotelCommissionPercentage;
