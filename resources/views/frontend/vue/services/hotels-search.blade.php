@@ -9,14 +9,11 @@
         locations
     }));
 
-
-    const byField = (arr, field, value) => arr.filter(o => o[field] === value);
-
-    const formatHotels = ({
+    const formatResults = ({
         countries,
         provinces,
         locations,
-        hotels
+        hotels = []
     }) => ({
         destinations: {
             countries,
@@ -28,29 +25,48 @@
         }
     });
 
-
     window.HotelGlobalSearchAPI = async qRaw => {
         const q = qRaw.trim().toLowerCase();
-        if (!q) return formatHotels({
+
+        if (!q) return formatResults({
             countries: [],
             provinces: [],
             locations: [],
             hotels: []
         });
+
         const {
             countries,
             provinces,
             locations
         } = await hotelsDataPromise;
 
-        const cMatch = exactMatch(countries, 'name', q);
+
+        const exactMatch1 = (arr, key, q) =>
+            arr.find(o => {
+                const value = o[key];
+                return value && value.toLowerCase().trim() === q;
+            });
+
+        const startsWith1 = (arr, key, q) =>
+            arr.filter(o => {
+                const value = o[key];
+                return value && value.toLowerCase().startsWith(q);
+            });
+
+        const byField1 = (arr, field, value) =>
+            arr.filter(o => o[field] == value);
+
+        // COUNTRY EXACT
+        const cMatch = exactMatch1(countries, 'name', q);
         if (cMatch) {
-            const provs = byField(provinces, 'country_id', cMatch.id);
+            const provs = byField1(provinces, 'country_id', cMatch.id);
             provs.unshift({
                 ...cMatch,
                 name: cMatch.name
             });
-            return formatHotels({
+
+            return formatResults({
                 countries: [],
                 provinces: provs,
                 locations: [],
@@ -58,57 +74,57 @@
             });
         }
 
-        const pMatch = exactMatch(provinces, 'name', q);
+        // PROVINCE EXACT
+        const pMatch = exactMatch1(provinces, 'name', q);
         if (pMatch) {
-            const locs = byField(locations, 'province_id', pMatch.id);
-            locs.unshift({
-                ...pMatch,
-                name: pMatch.name
-            });
-            return formatHotels({
+            const locs = byField1(locations, 'province_id', pMatch.id);
+            return formatResults({
                 countries: [],
-                provinces: [],
+                provinces: [pMatch],
                 locations: locs,
                 hotels: []
             });
         }
 
-        const lMatch = exactMatch(locations, 'name', q);
+        // LOCATION EXACT
+        const lMatch = exactMatch1(locations, 'name', q);
+        const ls = startsWith1(locations, 'name', q);
         if (lMatch) {
+            const rest = ls.filter(l => l.id !== lMatch.id);
             try {
                 const {
                     data: hotelsForLocation
-                } = await axios.get(`{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`);
-                return formatHotels({
+                } = await axios.get(
+                    `{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`
+                );
+                return formatResults({
                     countries: [],
                     provinces: [],
-                    locations: [lMatch],
+                    locations: [lMatch, ...rest],
                     hotels: hotelsForLocation
                 });
             } catch (error) {
                 console.error('Error fetching hotels for location:', error);
-                return formatHotels({
+                return formatResults({
                     countries: [],
                     provinces: [],
-                    locations: [lMatch],
+                    locations: [lMatch, ...rest],
                     hotels: []
                 });
             }
         }
 
+        // PARTIAL MATCHES
+        const cs = startsWith1(countries, 'name', q);
+        const ps = startsWith1(provinces, 'name', q);
 
-        // Check for partial matches
-        const cs = startsWith(countries, 'name', q);
-        const ps = startsWith(provinces, 'name', q);
-        const ls = startsWith(locations, 'name', q);
-
-        // If no geo data matches, search hotels directly
+        // Direct hotel search if nothing matches
         if (!cs.length && !ps.length && !ls.length) {
             try {
                 const {
                     data
                 } = await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
-                return formatHotels({
+                return formatResults({
                     countries: [],
                     provinces: [],
                     locations: [],
@@ -116,7 +132,7 @@
                 });
             } catch (error) {
                 console.error('Error fetching hotels directly:', error);
-                return formatHotels({
+                return formatResults({
                     countries: [],
                     provinces: [],
                     locations: [],
@@ -125,7 +141,7 @@
             }
         }
 
-        return formatHotels({
+        return formatResults({
             countries: cs,
             provinces: ps,
             locations: ls,
