@@ -573,18 +573,21 @@ class HotelService
             if (!empty($booking->flight_details)) {
                 // Outbound flight
                 $outbound = $booking->flight_details['outbound'] ?? [];
+                $outboundFlightNumber = $outbound['flight_number'] ?? null;
+                $outboundArrivalHour = $outbound['arrival_hour'] ?? null;
+                $outboundArrivalMinute = $outbound['arrival_minute'] ?? null;
 
-                if (!empty($outbound['flight_number'])) {
+                if (!empty($outboundFlightNumber) && $outboundArrivalHour !== null && $outboundArrivalMinute !== null) {
                     $flightDetails[] = [
                         'IsFlightOutbound' => 'true',
                         'ArriveDate' => sprintf(
                             '%sT%s:%s:00',
                             $checkInDate,
-                            str_pad($outbound['arrival_hour'], 2, '0', STR_PAD_LEFT),
-                            str_pad($outbound['arrival_minute'], 2, '0', STR_PAD_LEFT)
+                            str_pad((string) $outboundArrivalHour, 2, '0', STR_PAD_LEFT),
+                            str_pad((string) $outboundArrivalMinute, 2, '0', STR_PAD_LEFT)
                         ),
                         'DepartDate' => $checkInDate . 'T00:00:00',
-                        'Number' => $outbound['flight_number'],
+                        'Number' => $outboundFlightNumber,
                         'From' => '',
                         'To' => '',
                     ];
@@ -592,17 +595,21 @@ class HotelService
 
                 // Inbound flight
                 $inbound = $booking->flight_details['inbound'] ?? [];
-                if (!empty($inbound['flight_number'])) {
+                $inboundFlightNumber = $inbound['flight_number'] ?? null;
+                $inboundDepartureHour = $inbound['departure_hour'] ?? null;
+                $inboundDepartureMinute = $inbound['departure_minute'] ?? null;
+
+                if (!empty($inboundFlightNumber) && $inboundDepartureHour !== null && $inboundDepartureMinute !== null) {
                     $flightDetails[] = [
                         'IsFlightOutbound' => 'false',
                         'ArriveDate' => sprintf(
                             '%sT%s:%s:00',
                             $checkOutDate,
-                            str_pad($inbound['departure_hour'], 2, '0', STR_PAD_LEFT),
-                            str_pad($inbound['departure_minute'], 2, '0', STR_PAD_LEFT)
+                            str_pad((string) $inboundDepartureHour, 2, '0', STR_PAD_LEFT),
+                            str_pad((string) $inboundDepartureMinute, 2, '0', STR_PAD_LEFT)
                         ),
                         'DepartDate' => $checkOutDate . 'T00:00:00',
-                        'Number' => $inbound['flight_number'],
+                        'Number' => $inboundFlightNumber,
                         'From' => '',
                         'To' => '',
                     ];

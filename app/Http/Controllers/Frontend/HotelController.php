@@ -763,7 +763,7 @@ class HotelController extends Controller
                 'total_amount' => $totalAmount,
 
                 'payment_method' => $validated['payment_method'],
-                'flight_details' => $validated['flight_details'] ?? null,
+                'flight_details' => $validated['flight_details'] ?? $request->input('flight_details'),
                 'source_market' => $this->getSourceMarketFromIP(),
             ];
 
@@ -945,7 +945,7 @@ class HotelController extends Controller
                 return $data['country'];
             }
         } catch (\Exception $e) {
-            Log::warning('Failed to get source market from IP', ['error' => $e->getMessage()]);
+            //
         }
 
         return 'AE';
