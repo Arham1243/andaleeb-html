@@ -259,6 +259,12 @@
                                                             $policy['ExpiryDateUTC'],
                                                         )->format('d M Y');
                                                         $amount = $policy['Charge']['Amount'] ?? 0;
+                                                        $amountWithCommission = $amount > 0
+                                                            ? calculatePriceWithCommission(
+                                                                $amount,
+                                                                $hotelCommissionPercentage,
+                                                            )
+                                                            : 0;
                                                         $isFree = $amount == 0;
                                                     @endphp
 
@@ -283,7 +289,7 @@
                                                                 </span>
                                                             </div>
                                                             <span class="room-card__price-text">
-                                                                {{ formatPrice($amount) }}
+                                                                {{ formatPrice($amountWithCommission) }}
                                                             </span>
                                                         </div>
                                                     @endif

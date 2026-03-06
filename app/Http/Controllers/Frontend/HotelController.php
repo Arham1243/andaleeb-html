@@ -18,10 +18,37 @@ use Carbon\Carbon;
 class HotelController extends Controller
 {
     protected $hotelCommissionPercentage;
+    protected $hotelCommissionApplyAll;
+    protected $hotelCommissionHotelIds;
+
     public function __construct()
     {
         $config = Config::pluck('config_value', 'config_key')->toArray();
-        $this->hotelCommissionPercentage = $config['HOTEL_COMMISSION_PERCENTAGE'] ?? 10;
+        $this->hotelCommissionPercentage = (float) ($config['HOTEL_COMMISSION_PERCENTAGE'] ?? 10);
+        $this->hotelCommissionApplyAll = ($config['HOTEL_COMMISSION_APPLY_ALL'] ?? '1') === '1';
+        $this->hotelCommissionHotelIds = collect(explode(',', $config['HOTEL_COMMISSION_HOTEL_IDS'] ?? ''))
+            ->map(fn($id) => (int) trim($id))
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    protected function isHotelCommissionApplicable(?Hotel $hotel): bool
+    {
+        if (!$hotel) {
+            return false;
+        }
+
+        if ($this->hotelCommissionApplyAll) {
+            return true;
+        }
+
+        return in_array((int) $hotel->id, $this->hotelCommissionHotelIds, true);
+    }
+
+    protected function getApplicableHotelCommissionPercentage(?Hotel $hotel): float
+    {
+        return $this->isHotelCommissionApplicable($hotel) ? $this->hotelCommissionPercentage : 0.0;
     }
 
     public function index()
@@ -282,6 +309,7 @@ class HotelController extends Controller
         return $hotels->map(function ($item) use ($localHotels) {
 
             $localHotel = $localHotels->get($item['EstablishmentId']);
+            $commissionPercentage = $this->getApplicableHotelCommissionPercentage($localHotel);
 
             $boards = collect($item['Rooms'])
                 ->flatMap(fn($room) => $room['Boards']);
@@ -309,7 +337,7 @@ class HotelController extends Controller
 
                 'image'    => $images[0]['Url'] ?? null,
 
-                'price' => calculatePriceWithCommission(data_get($cheapestBoard, 'NetCost.Amount'), $this->hotelCommissionPercentage),
+                'price' => calculatePriceWithCommission(data_get($cheapestBoard, 'NetCost.Amount'), $commissionPercentage),
 
                 'boards' => $boards
                     ->pluck('Description')
@@ -319,7 +347,7 @@ class HotelController extends Controller
         });
     }
 
-    private function formatHotel(Hotel $hotel, ?float $price = null, ?array $boards = null): array
+    private function formatHotel(Hotel $hotel, ?float $price = null, ?array $boards = null, ?float $commissionPercentage = null): array
     {
         // decode images if they are JSON string
         $images = is_string($hotel->images)
@@ -341,7 +369,7 @@ class HotelController extends Controller
 
             // API-related fields
             'price'       => $price
-                ? calculatePriceWithCommission($price, $this->hotelCommissionPercentage)
+                ? calculatePriceWithCommission($price, $commissionPercentage ?? $this->getApplicableHotelCommissionPercentage($hotel))
                 : null,
             'boards'      => collect($boards ?? [])->pluck('Description')->unique()->values(),
         ];
@@ -399,12 +427,14 @@ class HotelController extends Controller
             ->flatMap(fn($room) => $room['Boards'] ?? []);
 
         $cheapestBoard = $boardsCollection->sortBy('NetCost.Amount')->first();
+        $hotelCommissionPercentage = $this->getApplicableHotelCommissionPercentage($hotel);
 
 
         $hotelFormatted = $this->formatHotel(
             $hotel,
             $cheapestBoard['NetCost']['Amount'] ?? null,
-            $boardsCollection->all()
+            $boardsCollection->all(),
+            $hotelCommissionPercentage
         );
         $roomCode  = $firstRoom['Code'] ?? null;
         $boardCode = $firstRoom['Boards'][0]['Code'] ?? null;
@@ -447,7 +477,7 @@ class HotelController extends Controller
             'check_in'         => $startDate,
             'check_out'        => $endDate,
             'rooms_request'    => $rooms,
-            'hotelCommissionPercentage'    => $this->hotelCommissionPercentage,
+            'hotelCommissionPercentage'    => $hotelCommissionPercentage,
         ];
         return view('frontend.hotels.details', $data);
     }
@@ -503,6 +533,7 @@ class HotelController extends Controller
         $roomsData = $this->prepareRoomsData($request->all());
 
         $hotel = Hotel::with(['province', 'location', 'country'])->findOrFail($id);
+        $hotelCommissionPercentage = $this->getApplicableHotelCommissionPercentage($hotel);
 
         $availabilityPayload = [
             'CheckInDate'      => $checkInDate,
@@ -580,7 +611,7 @@ class HotelController extends Controller
 
             $finalRoomPrice = yalagoFinalPrice(
                 $board,
-                $this->hotelCommissionPercentage
+                $hotelCommissionPercentage
             );
 
             $selectedRoom['price'] = $finalRoomPrice;
@@ -628,7 +659,8 @@ class HotelController extends Controller
         $hotelFormatted = $this->formatHotel(
             $hotel,
             $cheapestBoard['NetCost']['Amount'] ?? null,
-            $boardsCollection->all()
+            $boardsCollection->all(),
+            $hotelCommissionPercentage
         );
 
         return view('frontend.hotels.checkout', [
@@ -644,7 +676,7 @@ class HotelController extends Controller
             'price_changed'          => $priceChanged,
             'check_in'               => $checkInDate,
             'check_out'              => $checkOutDate,
-            'hotelCommissionPercentage'              => $this->hotelCommissionPercentage,
+            'hotelCommissionPercentage'              => $hotelCommissionPercentage,
         ]);
     }
 
@@ -695,6 +727,7 @@ class HotelController extends Controller
                 return back()->with('notify_error', 'Room selection mismatch.');
             }
 
+            $hotelCommissionPercentage = $this->getApplicableHotelCommissionPercentage($hotel);
 
             // Build rooms data from POST data
             $roomsData = [];
@@ -711,6 +744,50 @@ class HotelController extends Controller
                     'ChildAges' => $childAges,
                 ];
             }
+
+            $checkInDate = Carbon::parse($validated['check_in'])->format('Y-m-d');
+            $checkOutDate = Carbon::parse($validated['check_out'])->format('Y-m-d');
+
+            foreach ($validated['selected_rooms'] as $index => &$selectedRoom) {
+                $detailPayload = [
+                    'CheckInDate'     => $checkInDate,
+                    'CheckOutDate'    => $checkOutDate,
+                    'EstablishmentId' => $hotel->yalago_id,
+                    'Rooms' => [[
+                        'Adults'    => $roomsData[$index]['Adults'] ?? 1,
+                        'ChildAges' => $roomsData[$index]['ChildAges'] ?? [],
+                        'RoomCode'  => $selectedRoom['room_code'],
+                        'BoardCode' => $selectedRoom['board_code'],
+                    ]],
+                    'Culture'         => 'en-GB',
+                    'GetTaxBreakdown' => true,
+                    'GetLocalCharges' => true,
+                    'GetBoardBasis'   => true,
+                    'CurrencyCode'    => 'AED',
+                ];
+
+                $detailResponse = Http::withHeaders([
+                    'x-api-key' => '93082895-c45f-489f-ae10-bed9eaae161e',
+                    'Accept'    => 'application/json',
+                ])->post('https://api.yalago.com/hotels/details/get', $detailPayload);
+
+                if (!$detailResponse->successful()) {
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('notify_error', 'Unable to verify latest room prices. Please try again.');
+                }
+
+                $board = $detailResponse->json('Establishment.Rooms.0.Boards.0');
+
+                if (!$board) {
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('notify_error', 'Selected room is no longer available. Please search again.');
+                }
+
+                $selectedRoom['price'] = yalagoFinalPrice($board, $hotelCommissionPercentage);
+            }
+            unset($selectedRoom);
 
             // Calculate extras total
             $extrasTotal = 0;

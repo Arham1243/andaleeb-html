@@ -140,6 +140,35 @@
                                         </div>
                                     </div>
                                 </div>
+                                @php
+                                    $applyAllHotels = ($config['HOTEL_COMMISSION_APPLY_ALL'] ?? '1') === '1';
+                                @endphp
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-fields">
+                                        <label class="title d-block">Hotel Commission Scope</label>
+                                        <div class="d-flex align-items-center gap-2 mt-2">
+                                            <input type="checkbox" id="hotel-commission-apply-all"
+                                                name="HOTEL_COMMISSION_APPLY_ALL" value="1"
+                                                {{ $applyAllHotels ? 'checked' : '' }}>
+                                            <label for="hotel-commission-apply-all" class="mb-0">Apply to all Hotels</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-12" id="hotel-commission-hotels-wrapper"
+                                    style="{{ $applyAllHotels ? 'display: none;' : '' }}">
+                                    <div class="form-fields">
+                                        <label class="title">Select Hotels</label>
+                                        <select name="HOTEL_COMMISSION_HOTEL_IDS[]" class="field select2-select" multiple
+                                            placeholder="Select Hotels">
+                                            @foreach ($hotels as $hotel)
+                                                <option value="{{ $hotel->id }}"
+                                                    {{ in_array($hotel->id, old('HOTEL_COMMISSION_HOTEL_IDS', $commissionHotelIds ?? [])) ? 'selected' : '' }}>
+                                                    {{ $hotel->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-fields">
                                         <label class="title">Insurance Commission In Percent</label>
@@ -214,3 +243,20 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const applyAllCheckbox = document.getElementById('hotel-commission-apply-all');
+            const hotelsWrapper = document.getElementById('hotel-commission-hotels-wrapper');
+
+            if (!applyAllCheckbox || !hotelsWrapper) return;
+
+            const toggleHotelsDropdown = () => {
+                hotelsWrapper.style.display = applyAllCheckbox.checked ? 'none' : '';
+            };
+
+            toggleHotelsDropdown();
+            applyAllCheckbox.addEventListener('change', toggleHotelsDropdown);
+        });
+    </script>
+@endpush

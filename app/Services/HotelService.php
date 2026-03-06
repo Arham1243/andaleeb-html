@@ -281,7 +281,7 @@ class HotelService
      */
     protected function tabbyRedirect(HotelBooking $booking)
     {
-        $finalAmount = $booking->total_amount + ($booking->total_amount * $this->commissionPercentage);
+        $finalAmount = $booking->total_amount;
 
         $items = [[
             'title' => $booking->hotel_name,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Config;
+use App\Models\Hotel;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 
@@ -43,13 +44,29 @@ class ConfigController extends Controller
     {
         $title = 'Update Details';
         $config = Config::pluck('config_value', 'config_key')->toArray();
+        $hotels = Hotel::orderBy('name')->get(['id', 'name']);
+        $commissionHotelIds = collect(explode(',', $config['HOTEL_COMMISSION_HOTEL_IDS'] ?? ''))
+            ->map(fn($id) => (int) trim($id))
+            ->filter()
+            ->values()
+            ->all();
 
-        return view('admin.site-settings.details', compact('title', 'config'));
+        return view('admin.site-settings.details', compact('title', 'config', 'hotels', 'commissionHotelIds'));
     }
 
     public function saveDetails(Request $request)
     {
-        foreach ($request->all() as $field => $value) {
+        $payload = $request->except('_token');
+
+        $payload['HOTEL_COMMISSION_APPLY_ALL'] = $request->has('HOTEL_COMMISSION_APPLY_ALL') ? '1' : '0';
+
+        $selectedHotelIds = $request->input('HOTEL_COMMISSION_HOTEL_IDS', []);
+        if (!is_array($selectedHotelIds)) {
+            $selectedHotelIds = [];
+        }
+        $payload['HOTEL_COMMISSION_HOTEL_IDS'] = implode(',', $selectedHotelIds);
+
+        foreach ($payload as $field => $value) {
             Config::updateOrCreate(
                 ['config_key' => $field],
                 ['config_value' => $value]
