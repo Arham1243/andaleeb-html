@@ -32,7 +32,7 @@
                                         <label class="title">Instagram</label>
                                         <input type="url" name="INSTAGRAM" class="field"
                                             value="{{ $config['INSTAGRAM'] ?? '' }}" placeholder="Enter Instagram Address"
-                                            required>
+                                            >
                                     </div>
                                 </div>
 
@@ -41,7 +41,7 @@
                                         <label class="title">Twitter</label>
                                         <input type="url" name="TWITTER" class="field"
                                             value="{{ $config['TWITTER'] ?? '' }}" placeholder="Enter Twitter Address"
-                                            required>
+                                            >
                                     </div>
                                 </div>
 
@@ -76,7 +76,7 @@
                                         <div class="relative-div">
                                             <input type="text" name="COMPANYPHONE" class="field"
                                                 value="{{ $config['COMPANYPHONE'] ?? '' }}" placeholder="Enter Phone Number"
-                                                required>
+                                                >
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                         <div class="relative-div">
                                             <input type="text" name="WHATSAPP" class="field"
                                                 value="{{ $config['WHATSAPP'] ?? '' }}" placeholder="Enter Whatsapp Number"
-                                                required>
+                                                >
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                         <div class="relative-div">
                                             <input type="email" name="COMPANYEMAIL" class="field"
                                                 value="{{ $config['COMPANYEMAIL'] ?? '' }}"
-                                                placeholder="Enter Email Address" required>
+                                                placeholder="Enter Email Address" >
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                         <div class="relative-div">
                                             <input type="email" name="ADMINEMAIL" class="field"
                                                 value="{{ $config['ADMINEMAIL'] ?? '' }}"
-                                                placeholder="Enter Admin Email Address" required>
+                                                placeholder="Enter Admin Email Address" >
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                 <div class="col-lg-12 col-md-12 col-12 mt-3">
                                     <div class="form-fields">
                                         <label class="title">Address</label>
-                                        <textarea name="ADDRESS" class="field" rows="3" placeholder="Enter Company Address" required>{{ $config['ADDRESS'] ?? '' }}</textarea>
+                                        <textarea name="ADDRESS" class="field" rows="3" placeholder="Enter Company Address" >{{ $config['ADDRESS'] ?? '' }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                         <div class="relative-div">
                                             <input type="number" name="HOTEL_COMMISSION_PERCENTAGE" class="field"
                                                 value="{{ $config['HOTEL_COMMISSION_PERCENTAGE'] ?? '10' }}"
-                                                placeholder="Enter Hotel Commission In Percent" required>
+                                                placeholder="Enter Hotel Commission In Percent" >
                                         </div>
                                     </div>
                                     <div class="form-fields">
@@ -175,7 +175,7 @@
                                         <div class="relative-div">
                                             <input type="number" name="INSURANCE_COMMISSION_PERCENTAGE" class="field"
                                                 value="{{ $config['INSURANCE_COMMISSION_PERCENTAGE'] ?? '30' }}"
-                                                placeholder="Enter Insurance Commission In Percent" required>
+                                                placeholder="Enter Insurance Commission In Percent" >
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@
                                             <div class="relative-div">
                                                 <input type="number" name="VAT_PERCENTAGE" class="field"
                                                     value="{{ $config['VAT_PERCENTAGE'] ?? '' }}"
-                                                    placeholder="Enter Vat Percentage" required>
+                                                    placeholder="Enter Vat Percentage" >
                                             </div>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
                                             <div class="relative-div">
                                                 <input type="number" name="SERVICE_TAX_PERCENTAGE" class="field"
                                                     value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}"
-                                                    placeholder="Enter Service Tax Percentage" required>
+                                                    placeholder="Enter Service Tax Percentage" >
                                             </div>
                                         </div>
                                     </div>
