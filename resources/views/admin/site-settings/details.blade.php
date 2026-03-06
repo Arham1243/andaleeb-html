@@ -128,10 +128,13 @@
                         <div class="form-box__header">
                             <div class="title">Commission</div>
                         </div>
+                        @php
+                            $applyAllHotels = ($config['HOTEL_COMMISSION_APPLY_ALL'] ?? '1') === '1';
+                        @endphp
                         <div class="form-box__body">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-fields">
+                                    <div class="form-fields ">
                                         <label class="title">Hotel Commission In Percent</label>
                                         <div class="relative-div">
                                             <input type="number" name="HOTEL_COMMISSION_PERCENTAGE" class="field"
@@ -139,35 +142,31 @@
                                                 placeholder="Enter Hotel Commission In Percent" required>
                                         </div>
                                     </div>
-                                </div>
-                                @php
-                                    $applyAllHotels = ($config['HOTEL_COMMISSION_APPLY_ALL'] ?? '1') === '1';
-                                @endphp
-                                <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-fields">
                                         <label class="title d-block">Hotel Commission Scope</label>
                                         <div class="d-flex align-items-center gap-2 mt-2">
                                             <input type="checkbox" id="hotel-commission-apply-all"
                                                 name="HOTEL_COMMISSION_APPLY_ALL" value="1"
                                                 {{ $applyAllHotels ? 'checked' : '' }}>
-                                            <label for="hotel-commission-apply-all" class="mb-0">Apply to all Hotels</label>
+                                            <label for="hotel-commission-apply-all" class="mb-0">Apply to all
+                                                Hotels</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-12" id="hotel-commission-hotels-wrapper"
-                                    style="{{ $applyAllHotels ? 'display: none;' : '' }}">
-                                    <div class="form-fields">
-                                        <label class="title">Select Hotels</label>
-                                        <select name="HOTEL_COMMISSION_HOTEL_IDS[]"
-                                            class="field select2-select js-hotel-commission-select" multiple
-                                            placeholder="Select Hotels">
-                                            @foreach ($selectedCommissionHotels as $hotel)
-                                                <option value="{{ $hotel->id }}"
-                                                    {{ in_array($hotel->id, old('HOTEL_COMMISSION_HOTEL_IDS', $commissionHotelIds ?? [])) ? 'selected' : '' }}>
-                                                    {{ $hotel->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                    <div class="form-fields" id="hotel-commission-hotels-wrapper"
+                                        style="{{ $applyAllHotels ? 'display: none;' : '' }}">
+                                        <div class="form-fields">
+                                            <label class="title">Select Hotels</label>
+                                            <select name="HOTEL_COMMISSION_HOTEL_IDS[]"
+                                                class="field select2-select js-hotel-commission-select" multiple
+                                                placeholder="Select Hotels">
+                                                @foreach ($selectedCommissionHotels as $hotel)
+                                                    <option value="{{ $hotel->id }}"
+                                                        {{ in_array($hotel->id, old('HOTEL_COMMISSION_HOTEL_IDS', $commissionHotelIds ?? [])) ? 'selected' : '' }}>
+                                                        {{ $hotel->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
@@ -182,64 +181,63 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-box">
-                        <div class="form-box__header">
-                            <div class="title">Taxes</div>
-                        </div>
-                        <div class="form-box__body">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-fields">
-                                        <label class="title">Vat Percentage</label>
-                                        <div class="relative-div">
-                                            <input type="number" name="VAT_PERCENTAGE" class="field"
-                                                value="{{ $config['VAT_PERCENTAGE'] ?? '' }}"
-                                                placeholder="Enter Vat Percentage" required>
+                        <div class="form-box">
+                            <div class="form-box__header">
+                                <div class="title">Taxes</div>
+                            </div>
+                            <div class="form-box__body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-fields">
+                                            <label class="title">Vat Percentage</label>
+                                            <div class="relative-div">
+                                                <input type="number" name="VAT_PERCENTAGE" class="field"
+                                                    value="{{ $config['VAT_PERCENTAGE'] ?? '' }}"
+                                                    placeholder="Enter Vat Percentage" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-fields">
+                                            <label class="title">Service Tax Percentage</label>
+                                            <div class="relative-div">
+                                                <input type="number" name="SERVICE_TAX_PERCENTAGE" class="field"
+                                                    value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}"
+                                                    placeholder="Enter Service Tax Percentage" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-fields">
-                                        <label class="title">Service Tax Percentage</label>
-                                        <div class="relative-div">
-                                            <input type="number" name="SERVICE_TAX_PERCENTAGE" class="field"
-                                                value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}"
-                                                placeholder="Enter Service Tax Percentage" required>
+                        <div class="form-box">
+                            <div class="form-box__header">
+                                <div class="title">Footer Content</div>
+                            </div>
+                            <div class="form-box__body">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-12 mt-3">
+                                        <div class="form-fields">
+                                            <label class="title">Copyright Text</label>
+                                            <input type="text" name="COPYRIGHT" class="field"
+                                                value="{{ $config['COPYRIGHT'] ?? '' }}"
+                                                placeholder="e.g., © {{ date('Y') }} Andaleeb Travel Agency. All Rights Reserved.">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-12 mt-3">
+                                        <div class="form-fields">
+                                            <label class="title">Disclaimer</label>
+                                            <textarea name="DISCLAIMER" class="field" rows="3" placeholder="Enter Footer Disclaimer">{{ $config['DISCLAIMER'] ?? '' }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-box">
-                        <div class="form-box__header">
-                            <div class="title">Footer Content</div>
-                        </div>
-                        <div class="form-box__body">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-12 mt-3">
-                                    <div class="form-fields">
-                                        <label class="title">Copyright Text</label>
-                                        <input type="text" name="COPYRIGHT" class="field"
-                                            value="{{ $config['COPYRIGHT'] ?? '' }}"
-                                            placeholder="e.g., © {{date('Y')}} Andaleeb Travel Agency. All Rights Reserved.">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-12 mt-3">
-                                    <div class="form-fields">
-                                        <label class="title">Disclaimer</label>
-                                        <textarea name="DISCLAIMER" class="field" rows="3" placeholder="Enter Footer Disclaimer">{{ $config['DISCLAIMER'] ?? '' }}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
