@@ -31,8 +31,7 @@
                                     <div class="form-fields">
                                         <label class="title">Instagram</label>
                                         <input type="url" name="INSTAGRAM" class="field"
-                                            value="{{ $config['INSTAGRAM'] ?? '' }}" placeholder="Enter Instagram Address"
-                                            >
+                                            value="{{ $config['INSTAGRAM'] ?? '' }}" placeholder="Enter Instagram Address">
                                     </div>
                                 </div>
 
@@ -40,8 +39,7 @@
                                     <div class="form-fields">
                                         <label class="title">Twitter</label>
                                         <input type="url" name="TWITTER" class="field"
-                                            value="{{ $config['TWITTER'] ?? '' }}" placeholder="Enter Twitter Address"
-                                            >
+                                            value="{{ $config['TWITTER'] ?? '' }}" placeholder="Enter Twitter Address">
                                     </div>
                                 </div>
 
@@ -75,8 +73,8 @@
                                         <label class="title">Phone</label>
                                         <div class="relative-div">
                                             <input type="text" name="COMPANYPHONE" class="field"
-                                                value="{{ $config['COMPANYPHONE'] ?? '' }}" placeholder="Enter Phone Number"
-                                                >
+                                                value="{{ $config['COMPANYPHONE'] ?? '' }}"
+                                                placeholder="Enter Phone Number">
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +84,7 @@
                                         <label class="title">Whatsapp</label>
                                         <div class="relative-div">
                                             <input type="text" name="WHATSAPP" class="field"
-                                                value="{{ $config['WHATSAPP'] ?? '' }}" placeholder="Enter Whatsapp Number"
-                                                >
+                                                value="{{ $config['WHATSAPP'] ?? '' }}" placeholder="Enter Whatsapp Number">
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +95,7 @@
                                         <div class="relative-div">
                                             <input type="email" name="COMPANYEMAIL" class="field"
                                                 value="{{ $config['COMPANYEMAIL'] ?? '' }}"
-                                                placeholder="Enter Email Address" >
+                                                placeholder="Enter Email Address">
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +106,7 @@
                                         <div class="relative-div">
                                             <input type="email" name="ADMINEMAIL" class="field"
                                                 value="{{ $config['ADMINEMAIL'] ?? '' }}"
-                                                placeholder="Enter Admin Email Address" >
+                                                placeholder="Enter Admin Email Address">
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +114,7 @@
                                 <div class="col-lg-12 col-md-12 col-12 mt-3">
                                     <div class="form-fields">
                                         <label class="title">Address</label>
-                                        <textarea name="ADDRESS" class="field" rows="3" placeholder="Enter Company Address" >{{ $config['ADDRESS'] ?? '' }}</textarea>
+                                        <textarea name="ADDRESS" class="field" rows="3" placeholder="Enter Company Address">{{ $config['ADDRESS'] ?? '' }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +136,7 @@
                                         <div class="relative-div">
                                             <input type="number" name="HOTEL_COMMISSION_PERCENTAGE" class="field"
                                                 value="{{ $config['HOTEL_COMMISSION_PERCENTAGE'] ?? '10' }}"
-                                                placeholder="Enter Hotel Commission In Percent" >
+                                                placeholder="Enter Hotel Commission In Percent">
                                         </div>
                                     </div>
                                     <div class="form-fields">
@@ -175,69 +172,70 @@
                                         <div class="relative-div">
                                             <input type="number" name="INSURANCE_COMMISSION_PERCENTAGE" class="field"
                                                 value="{{ $config['INSURANCE_COMMISSION_PERCENTAGE'] ?? '30' }}"
-                                                placeholder="Enter Insurance Commission In Percent" >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-box">
-                            <div class="form-box__header">
-                                <div class="title">Taxes</div>
-                            </div>
-                            <div class="form-box__body">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-fields">
-                                            <label class="title">Vat Percentage</label>
-                                            <div class="relative-div">
-                                                <input type="number" name="VAT_PERCENTAGE" class="field"
-                                                    value="{{ $config['VAT_PERCENTAGE'] ?? '' }}"
-                                                    placeholder="Enter Vat Percentage" >
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-fields">
-                                            <label class="title">Service Tax Percentage</label>
-                                            <div class="relative-div">
-                                                <input type="number" name="SERVICE_TAX_PERCENTAGE" class="field"
-                                                    value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}"
-                                                    placeholder="Enter Service Tax Percentage" >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-box">
-                            <div class="form-box__header">
-                                <div class="title">Footer Content</div>
-                            </div>
-                            <div class="form-box__body">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-12 mt-3">
-                                        <div class="form-fields">
-                                            <label class="title">Copyright Text</label>
-                                            <input type="text" name="COPYRIGHT" class="field"
-                                                value="{{ $config['COPYRIGHT'] ?? '' }}"
-                                                placeholder="e.g., © {{ date('Y') }} Andaleeb Travel Agency. All Rights Reserved.">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-md-12 col-12 mt-3">
-                                        <div class="form-fields">
-                                            <label class="title">Disclaimer</label>
-                                            <textarea name="DISCLAIMER" class="field" rows="3" placeholder="Enter Footer Disclaimer">{{ $config['DISCLAIMER'] ?? '' }}</textarea>
+                                                placeholder="Enter Insurance Commission In Percent">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-box">
+                        <div class="form-box__header">
+                            <div class="title">Taxes</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-fields">
+                                        <label class="title">Vat Percentage</label>
+                                        <div class="relative-div">
+                                            <input type="number" name="VAT_PERCENTAGE" class="field"
+                                                value="{{ $config['VAT_PERCENTAGE'] ?? '' }}"
+                                                placeholder="Enter Vat Percentage">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-fields">
+                                        <label class="title">Service Tax Percentage</label>
+                                        <div class="relative-div">
+                                            <input type="number" name="SERVICE_TAX_PERCENTAGE" class="field"
+                                                value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}"
+                                                placeholder="Enter Service Tax Percentage">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-box">
+                        <div class="form-box__header">
+                            <div class="title">Footer Content</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-12 mt-3">
+                                    <div class="form-fields">
+                                        <label class="title">Copyright Text</label>
+                                        <input type="text" name="COPYRIGHT" class="field"
+                                            value="{{ $config['COPYRIGHT'] ?? '' }}"
+                                            placeholder="e.g., © {{ date('Y') }} Andaleeb Travel Agency. All Rights Reserved.">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-12 mt-3">
+                                    <div class="form-fields">
+                                        <label class="title">Disclaimer</label>
+                                        <textarea name="DISCLAIMER" class="field" rows="3" placeholder="Enter Footer Disclaimer">{{ $config['DISCLAIMER'] ?? '' }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
