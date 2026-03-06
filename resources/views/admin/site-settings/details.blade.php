@@ -158,9 +158,10 @@
                                     style="{{ $applyAllHotels ? 'display: none;' : '' }}">
                                     <div class="form-fields">
                                         <label class="title">Select Hotels</label>
-                                        <select name="HOTEL_COMMISSION_HOTEL_IDS[]" class="field select2-select" multiple
+                                        <select name="HOTEL_COMMISSION_HOTEL_IDS[]"
+                                            class="field select2-select js-hotel-commission-select" multiple
                                             placeholder="Select Hotels">
-                                            @foreach ($hotels as $hotel)
+                                            @foreach ($selectedCommissionHotels as $hotel)
                                                 <option value="{{ $hotel->id }}"
                                                     {{ in_array($hotel->id, old('HOTEL_COMMISSION_HOTEL_IDS', $commissionHotelIds ?? [])) ? 'selected' : '' }}>
                                                     {{ $hotel->name }}
@@ -248,12 +249,45 @@
         document.addEventListener('DOMContentLoaded', function() {
             const applyAllCheckbox = document.getElementById('hotel-commission-apply-all');
             const hotelsWrapper = document.getElementById('hotel-commission-hotels-wrapper');
+            const $hotelSelect = $('.js-hotel-commission-select');
 
             if (!applyAllCheckbox || !hotelsWrapper) return;
 
             const toggleHotelsDropdown = () => {
                 hotelsWrapper.style.display = applyAllCheckbox.checked ? 'none' : '';
             };
+
+            if ($hotelSelect.length) {
+                if ($hotelSelect.data('select2')) {
+                    $hotelSelect.select2('destroy');
+                }
+
+                $hotelSelect.select2({
+                    placeholder: 'Search and select hotels',
+                    allowClear: true,
+                    minimumInputLength: 2,
+                    ajax: {
+                        url: "{{ route('admin.settings.details.hotels-search') }}",
+                        dataType: 'json',
+                        delay: 300,
+                        data: function(params) {
+                            return {
+                                q: params.term || '',
+                                page: params.page || 1
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: data.results || [],
+                                pagination: {
+                                    more: data.pagination?.more || false
+                                }
+                            };
+                        },
+                        cache: true
+                    }
+                });
+            }
 
             toggleHotelsDropdown();
             applyAllCheckbox.addEventListener('change', toggleHotelsDropdown);

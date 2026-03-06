@@ -129,6 +129,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');
+    Route::get('details/hotels-search', [ConfigController::class, 'searchHotels'])->name('settings.details.hotels-search');
     Route::get('details', [ConfigController::class, 'details'])->name('settings.details');
     Route::post('details', [ConfigController::class, 'saveDetails'])->name('settings.details');
 });

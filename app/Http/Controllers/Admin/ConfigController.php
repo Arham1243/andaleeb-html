@@ -44,14 +44,40 @@ class ConfigController extends Controller
     {
         $title = 'Update Details';
         $config = Config::pluck('config_value', 'config_key')->toArray();
-        $hotels = Hotel::orderBy('name')->get(['id', 'name']);
         $commissionHotelIds = collect(explode(',', $config['HOTEL_COMMISSION_HOTEL_IDS'] ?? ''))
             ->map(fn($id) => (int) trim($id))
             ->filter()
             ->values()
             ->all();
+        $selectedCommissionHotels = Hotel::whereIn('id', $commissionHotelIds)
+            ->orderBy('name')
+            ->get(['id', 'name']);
 
-        return view('admin.site-settings.details', compact('title', 'config', 'hotels', 'commissionHotelIds'));
+        return view('admin.site-settings.details', compact('title', 'config', 'selectedCommissionHotels', 'commissionHotelIds'));
+    }
+
+    public function searchHotels(Request $request)
+    {
+        $q = trim((string) $request->input('q', ''));
+        $perPage = 20;
+
+        $query = Hotel::query()->select(['id', 'name']);
+
+        if ($q !== '') {
+            $query->where('name', 'like', '%' . $q . '%');
+        }
+
+        $paginated = $query->orderBy('name')->paginate($perPage);
+
+        return response()->json([
+            'results' => $paginated->getCollection()->map(fn($hotel) => [
+                'id' => $hotel->id,
+                'text' => $hotel->name,
+            ])->values(),
+            'pagination' => [
+                'more' => $paginated->hasMorePages(),
+            ],
+        ]);
     }
 
     public function saveDetails(Request $request)
