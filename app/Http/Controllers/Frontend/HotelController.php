@@ -777,7 +777,21 @@ class HotelController extends Controller
                         ->with('notify_error', 'Unable to verify latest room prices. Please try again.');
                 }
 
-                $board = $detailResponse->json('Establishment.Rooms.0.Boards.0');
+                $roomsFromDetail = $detailResponse->json('Establishment.Rooms', []);
+                $board = null;
+
+                foreach ($roomsFromDetail as $detailRoom) {
+                    if (($detailRoom['Code'] ?? null) !== $selectedRoom['room_code']) {
+                        continue;
+                    }
+
+                    foreach (($detailRoom['Boards'] ?? []) as $detailBoard) {
+                        if (($detailBoard['Code'] ?? null) === $selectedRoom['board_code']) {
+                            $board = $detailBoard;
+                            break 2;
+                        }
+                    }
+                }
 
                 if (!$board) {
                     return redirect()->back()
