@@ -289,7 +289,7 @@
                                                                 </span>
                                                             </div>
                                                             <span class="room-card__price-text">
-                                                                {{ formatPrice($amountWithCommission) }}
+                                                                {{ $finalPriceFormatted }}
                                                             </span>
                                                         </div>
                                                     @endif

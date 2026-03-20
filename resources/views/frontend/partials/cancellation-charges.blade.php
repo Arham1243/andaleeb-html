@@ -5,6 +5,9 @@
         $policy = $response['CancellationPolicyStatic'][0] ?? null;
         $today = now()->toDateString();
         $actionShown = false;
+        $roomPrice = $booking->selected_rooms[0]['price']
+            ?? $booking->total_amount
+            ?? 0;
     @endphp
 
     @if ($policy)
@@ -28,7 +31,7 @@
                     @endphp
 
                     <tr @if ($isCurrent) class="table-warning fw-bold" @endif>
-                        <td>{{ $charge['Charge']['Currency'] }} {{ number_format($charge['Charge']['Amount'], 2) }}</td>
+                        <td>{{ $charge['Charge']['Currency'] }} {{ number_format($roomPrice, 2) }}</td>
                         <td>{{ \Carbon\Carbon::parse($expiry)->format('d M Y') }}</td>
                         <td>
                             @if ($isCurrent)
